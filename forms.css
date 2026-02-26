@@ -278,9 +278,9 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
     text-shadow: none !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    filter: grayscale(100%);
+    /* - filter: grayscale(100%); - */
   }
-  html, body { font-size: 12px; background: white; padding: 0; }
+  html, body { font-size: 14px; background: white; padding: 0; }
   .form-wrapper { box-shadow: none; max-width: 100%; }
   .no-print, .save-btn-row { display: none !important; }
   .instructions { display: none !important; }
