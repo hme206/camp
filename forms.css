@@ -1,9 +1,3 @@
-/* ══════════════════════════════════════════════════════════
-   forms.css — Paul D. Camp Community College
-   All form-specific styles: layout, table, office section,
-   print rules. Requires styles.css to be loaded first.
-   ══════════════════════════════════════════════════════════ */
-
 /* ── Form Wrapper ── */
 .form-wrapper {
   max-width: 900px;
@@ -14,10 +8,60 @@
   overflow: hidden;
 }
 
+/* ── Header ── */
+.form-header {
+  background: var(--navy);
+  color: #000000;
+  padding: 1.5rem 2.5rem;
+  border-bottom: 5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.form-header-text { flex: 1; }
+.form-header .college {
+  font-family: var(--font-ui);
+  font-size: .85rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #000000;
+  margin-bottom: .4rem;
+}
+.form-header h1 {
+  font-size: 1.75rem;
+  font-weight: normal;
+  letter-spacing: .02em;
+}
+.form-header .revised {
+  font-family: var(--font-ui);
+  font-size: .75rem;
+  color: rgba(0,0,0,.6);
+  margin-top: .5rem;
+}
+
+/* ── Reset Button ── */
+.btn-reset {
+  background: rgba(0,0,0,0.18);
+  color: #000;
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .55rem 1.2rem;
+  border: 2px solid rgba(0,0,0,0.35);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-reset:hover { background: rgba(0,0,0,0.30); border-color: rgba(0,0,0,0.5); }
+.btn-reset:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
 /* ── Form Body ── */
 .form-body { padding: 2rem 2.5rem; }
-
-/* ── Instructions Banner (hidden on print) ── */
 .instructions {
   background: var(--light);
   border-left: 4px solid var(--navy);
@@ -29,16 +73,7 @@
   border-radius: 0 4px 4px 0;
 }
 
-/* ── Required Indicators ── */
-.req { color: #c0392b; margin-left: .15rem; }
-.req-note {
-  font-family: var(--font-ui);
-  font-size: .78rem;
-  color: var(--muted);
-  margin-top: .5rem;
-}
-
-/* ── Fieldsets & Legends ── */
+/* ── Fieldsets & Labels ── */
 fieldset {
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -54,14 +89,11 @@ legend {
   color: #000000;
   padding: 0 .5rem;
 }
-
-/* ── Field Grid ── */
 .field-row { display: grid; gap: .75rem 1.5rem; margin-top: 1rem; }
-.field-row.cols-1 { grid-template-columns: 1fr; }
 .field-row.cols-2 { grid-template-columns: 1fr 1fr; }
 .field-row.cols-3 { grid-template-columns: 2fr 1fr 1fr; }
+.field-row.cols-1 { grid-template-columns: 1fr; }
 
-/* ── Labels ── */
 label {
   display: block;
   font-family: var(--font-ui);
@@ -74,9 +106,7 @@ label {
 }
 
 /* ── Inputs & Textareas ── */
-input[type="text"],
-input[type="date"],
-textarea {
+input[type="text"], input[type="date"], textarea {
   width: 100%;
   padding: .5rem .75rem;
   border: 1.5px solid var(--border);
@@ -87,18 +117,15 @@ textarea {
   background: var(--white);
   transition: border-color .15s;
 }
-input[type="text"]:focus,
-input[type="date"]:focus,
-textarea:focus {
+input[type="text"]:focus, input[type="date"]:focus, textarea:focus {
   border-color: var(--mid);
   outline: 3px solid var(--focus);
   outline-offset: 1px;
 }
 textarea { resize: vertical; min-height: 80px; }
 
-/* ── Substitution / Move Table ── */
+/* ── Substitution Table ── */
 .sub-table-wrap { overflow-x: auto; margin-bottom: 1.5rem; }
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -106,6 +133,12 @@ table {
   font-size: .85rem;
   table-layout: fixed;
 }
+col.col-num     { width: 24px; }
+col.col-course  { width: 90px; }
+col.col-title   { width: auto; }
+col.col-arrow   { width: 22px; }
+col.col-credits { width: 50px; }
+col.col-ln      { width: 70px; }
 caption {
   font-family: var(--font-ui);
   font-size: .8rem;
@@ -116,15 +149,6 @@ caption {
   text-align: left;
   padding: .75rem 0 .5rem;
 }
-
-/* Shared column width helpers */
-col.col-num     { width: 28px; }
-col.col-course  { width: 90px; }
-col.col-title   { width: auto; }
-col.col-arrow   { width: 22px; }
-col.col-credits { width: 50px; }
-col.col-ln      { width: 80px; }
-
 thead tr:first-child th {
   background: var(--navy);
   color: #000000;
@@ -142,16 +166,6 @@ thead tr:last-child th {
   font-weight: 600;
   border: 1px solid var(--mid);
 }
-/* Single-header tables (like Course Move) */
-thead tr:only-child th {
-  background: var(--navy);
-  color: #000000;
-  padding: .6rem .5rem;
-  text-align: center;
-  font-weight: 700;
-  border: 1px solid var(--navy);
-}
-
 tbody tr:nth-child(odd)  { background: var(--white); }
 tbody tr:nth-child(even) { background: var(--row-alt); }
 tbody td {
@@ -166,8 +180,6 @@ tbody td:first-child {
   font-size: .8rem;
   white-space: nowrap;
 }
-
-/* Inputs inside table cells */
 .tbl-input {
   width: 100%;
   border: 1px solid #b0bed0;
@@ -186,7 +198,7 @@ tbody td:first-child {
   background: var(--white);
 }
 
-/* ── Office / Registrar Section ── */
+/* ── Office Use ── */
 .office-section {
   background: #f5f0e8;
   border: 1px solid #d4c9a8;
@@ -195,54 +207,34 @@ tbody td:first-child {
   margin-bottom: 1.5rem;
 }
 .office-section legend { color: #000000; }
-
-/* Decision options (checkbox style) */
-.decision-options-table {
-  display: flex;
-  gap: 2rem;
-  margin-top: .75rem;
-  font-family: var(--font-ui);
-  font-size: .95rem;
-}
-
-/* Radio group (used in substitution form) */
 .radio-group { display: flex; gap: 2rem; margin-top: .75rem; flex-wrap: wrap; }
 .radio-group label {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: .95rem;
-  font-weight: 400;
-  cursor: pointer;
-  color: var(--text);
+  display: flex; align-items: center; gap: .5rem;
+  text-transform: none; letter-spacing: normal;
+  font-size: .95rem; font-weight: 400; cursor: pointer; color: var(--text);
 }
-input[type="radio"] {
-  width: 1.1rem;
-  height: 1.1rem;
-  accent-color: var(--navy);
-  cursor: pointer;
-}
+input[type="radio"] { width: 1.1rem; height: 1.1rem; accent-color: var(--navy); cursor: pointer; }
 input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-/* Signature / date row */
-.sig-date-row {
+/* ── Decision / Signature Rows ── */
+.decision-row {
   display: flex;
-  gap: 1.5rem;
   align-items: center;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-bottom: .75rem;
 }
-.sig-date-row label {
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 0;
-  white-space: nowrap;
+.decision-label { font-weight: 700; text-transform: uppercase; min-width: 65px; }
+.decision-space {
+  flex: 1;
+  border-bottom: 1px solid #000;
+  height: 1.2em;
+  display: inline-block;
 }
+.sig-date-row { display: flex; gap: 1.5rem; align-items: center; }
+.sig-date-row label { font-weight: 700; text-transform: uppercase; margin: 0; }
 .sig-date-row input[type="text"],
 .sig-date-row input[type="date"] {
-  width: 180px;
+  width: 150px;
   padding: .25rem .4rem;
   font-size: .9rem;
 }
@@ -269,21 +261,15 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
 }
 .btn-print:hover { background: var(--mid); }
 .btn-print:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-.btn-hint {
-  font-family: var(--font-ui);
-  font-size: .78rem;
-  color: var(--muted);
-  margin-top: .4rem;
-}
+.btn-hint { font-family: var(--font-ui); font-size: .78rem; color: var(--muted); margin-top: .4rem; }
 
-/* ══════════════════════════════════════════════════════════
-   PRINT STYLES
-   Single consolidated block — no overrides below this point
-   ══════════════════════════════════════════════════════════ */
+/* ── Required Indicators ── */
+.req { color: #c0392b; margin-left: .15rem; }
+.req-note { font-family: var(--font-ui); font-size: .78rem; color: var(--muted); margin-bottom: 1.25rem; }
+
+/* ── Print Styles ── */
 @media print {
   @page { size: letter portrait; margin: .45in .5in .45in .5in; }
-
-  /* Flatten to black & white */
   * {
     color: #000 !important;
     background: #fff !important;
@@ -294,93 +280,36 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
     print-color-adjust: exact;
     filter: grayscale(100%);
   }
-
-  /* Keep body font at screen size so rem units don't collapse */
-  html, body {
-    font-size: 16px;
-    background: white;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* Hide non-print elements */
-  .no-print,
-  .save-btn-row,
-  .instructions,
-  nav { display: none !important; }
-
-  /* Form wrapper — full width, no shadow, no rounded corners */
-  .form-wrapper {
-    box-shadow: none;
-    border-radius: 0;
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  /* Header — compact */
-  header {
-    padding: .35rem .6rem !important;
-    border-bottom-width: 2px !important;
-  }
-  header h1,
-  header h2 { font-size: 1rem !important; }
-  header img { max-height: 36px !important; }
-
-  /* Form body — tighter padding */
-  .form-body { padding: .5rem .75rem; }
-
-  /* Fieldsets */
-  fieldset { padding: .4rem .75rem; margin-bottom: .5rem; }
-  legend { font-size: .75rem; }
-
-  /* Labels */
-  label { font-size: .72rem; margin-bottom: .1rem; }
-
-  /* Field rows */
-  .field-row { gap: .25rem .75rem; margin-top: .3rem; }
-
-  /* Hide all placeholder text */
-  input::placeholder,
-  textarea::placeholder { color: transparent !important; }
-
-  /* Inputs */
-  input[type="text"],
-  input[type="date"],
-  textarea {
-    padding: .2rem .35rem;
-    font-size: .8rem;
-    border: 1px solid #999 !important;
-    background: transparent !important;
-  }
-  textarea { min-height: 40px; }
-
-  /* Required note */
-  .req-note { font-size: .7rem; margin-bottom: .4rem; }
-
-  /* Table */
-  table { font-size: .8rem; }
-  caption { font-size: .72rem; padding: .25rem 0 .2rem; }
-  thead tr:first-child th,
-  thead tr:last-child th,
-  thead tr:only-child th { padding: .3rem .4rem; font-size: .75rem; }
-  tbody td { padding: .2rem .35rem; }
-  .tbl-input { padding: .2rem .35rem; font-size: .8rem; }
-
-  /* Office section */
-  .office-section { padding: .4rem .75rem; }
-  .office-section legend { font-size: .75rem !important; }
-  .radio-group,
-  .decision-options-table { gap: 1.5rem; margin-top: .4rem; }
-  .sig-date-row { gap: 1rem; margin-top: .5rem; }
-  .sig-date-row input[type="text"],
-  .sig-date-row input[type="date"] { width: 160px; }
+  html, body { font-size: 9px; background: white; padding: 0; }
+  .form-wrapper { box-shadow: none; max-width: 100%; }
+  .no-print, .save-btn-row { display: none !important; }
+  .instructions { display: none !important; }
+  .form-header { padding: .4rem .6rem .35rem; border-bottom-width: 3px; }
+  .form-header h1 { font-size: 1.2rem; }
+  .form-header .college { font-size: .7rem; }
+  .form-body { padding: .4rem .6rem; }
+  fieldset { padding: .4rem .6rem; margin-bottom: .45rem; }
+  legend { font-size: .68rem; }
+  label { font-size: .68rem; margin-bottom: .1rem; }
+  .field-row { gap: .3rem .6rem; margin-top: .35rem; }
+  input::placeholder, textarea::placeholder { color: transparent !important; }
+  input[type="text"], input[type="date"], textarea { padding: .2rem .35rem; font-size: .85rem; border-width: 1px; border: 1px solid #999 !important; background: transparent !important; }
+  textarea { min-height: 36px; }
+  .req-note { font-size: .68rem; margin-bottom: .4rem; }
+  table { font-size: .75rem; }
+  caption { font-size: .68rem; padding: .3rem 0 .2rem; }
+  thead tr:first-child th, thead tr:last-child th { padding: .25rem .3rem; font-size: .7rem; }
+  tbody td { padding: .15rem .25rem; }
+  .tbl-input { padding: .15rem .25rem; }
+  .office-section { padding: .4rem .6rem; }
+  .radio-group { gap: 1rem; margin-top: .3rem; }
+  .office-section legend { font-size: .68rem !important; }
 }
 
 /* ── Mobile ── */
 @media (max-width: 600px) {
   .form-body { padding: 1.25rem 1rem; }
-  .field-row.cols-2,
-  .field-row.cols-3 { grid-template-columns: 1fr; }
+  .field-row.cols-2, .field-row.cols-3 { grid-template-columns: 1fr; }
   .save-btn-row { padding: 1rem; }
+  .form-header { flex-direction: column; align-items: flex-start; }
 }
