@@ -271,3 +271,47 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
   .no-print, .save-btn-row { display: none !important; }
   .instructions { display: none !important; }
 }
+
+/* ── Print Overrides for Course Substitution Form ── */
+@media print {
+  /* Hide everything except the logo and h2 inside form wrapper */
+  body * { visibility: hidden; } /* hide all */
+  .form-wrapper, 
+  .form-wrapper * { visibility: visible; } /* show form content */
+  
+  /* Shrink header to just logo and h2 */
+  .form-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 1rem;
+    padding: .5rem 1rem !important;
+    border-bottom: 1px solid var(--gold) !important;
+    font-size: .85rem !important;
+  }
+
+  .form-header h1 { 
+    display: none; /* hide college name */
+  }
+
+  .form-header img {
+    max-height: 50px; /* shrink logo */
+  }
+
+  /* Optional: Shrink h2 title of form */
+  h2 {
+    font-size: 1rem; 
+    margin-bottom: .5rem;
+  }
+
+  /* Remove site nav, buttons, other extras */
+  nav, .btn, .no-print { display: none !important; }
+
+  /* Fit content to page width */
+  .form-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+}
