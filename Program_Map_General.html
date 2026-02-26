@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AS General Studies – Interactive Degree Planner | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="maps.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Program Maps</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="map-main">
+
+    <!-- Page title -->
+    <div class="planner-title">
+      <h2>Associates of Science – General Studies <span class="program-code">(880-03)</span></h2>
+      <p class="subtitle">Interactive Degree Planner</p>
+    </div>
+
+    <!-- Program info collapsible -->
+    <details>
+      <summary>Program Information</summary>
+      <div class="program-info">
+        <p><strong>Purpose:</strong> The Associate of Science (A.S.) degree in General Studies provides students with a broad-based curriculum designed for transfer to a four-year institution.</p>
+        <p>Students must complete all required courses with a minimum grade of C to meet program requirements.</p>
+      </div>
+    </details>
+
+    <!-- Degree Planner Table -->
+    <table class="planner-table" role="table" aria-label="General Studies Degree Planner">
+      <tbody>
+
+        <!-- ═══ FIRST YEAR ═══ -->
+        <tr class="section-header">
+          <th colspan="5" scope="rowgroup">First Year</th>
+        </tr>
+
+        <!-- Fall Term -->
+        <tr class="term-header">
+          <th colspan="5" scope="rowgroup">Fall Term</th>
+        </tr>
+        <tr class="col-header">
+          <th scope="col">Course Code</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">Credits</th>
+          <th scope="col">Semester</th>
+          <th scope="col">Grade</th>
+        </tr>
+        <tr>
+          <th scope="row">ENG 111</th>
+          <td>College Composition I</td>
+          <td>3</td>
+          <td>
+            <label for="semester-eng111" class="sr-only">Semester for ENG 111</label>
+            <input type="text" id="semester-eng111" class="semester-input" placeholder="Fall 2026">
+          </td>
+          <td>
+            <label for="grade-eng111" class="sr-only">Grade for ENG 111</label>
+            <input type="text" id="grade-eng111" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Mathematics</th>
+          <td>
+            Any UCGS Approved Mathematics Course
+            <input type="text" id="elective-math-1" class="elective-input" placeholder="e.g. MTH 161">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-math-1" class="sr-only">Semester for Mathematics</label>
+            <input type="text" id="semester-math-1" class="semester-input" placeholder="Fall 2026">
+          </td>
+          <td>
+            <label for="grade-math-1" class="sr-only">Grade for Mathematics</label>
+            <input type="text" id="grade-math-1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">ITE 152</th>
+          <td>Introduction to Digital and Informational Literacy</td>
+          <td>3</td>
+          <td>
+            <label for="semester-ite152-f1" class="sr-only">Semester for ITE 152</label>
+            <input type="text" id="semester-ite152-f1" class="semester-input" placeholder="Fall 2026">
+          </td>
+          <td>
+            <label for="grade-ite152-f1" class="sr-only">Grade for ITE 152</label>
+            <input type="text" id="grade-ite152-f1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">SDV 100</th>
+          <td>Student Development</td>
+          <td>1</td>
+          <td>
+            <label for="semester-sdv100" class="sr-only">Semester for SDV 100</label>
+            <input type="text" id="semester-sdv100" class="semester-input" placeholder="Fall 2026">
+          </td>
+          <td>
+            <label for="grade-sdv100" class="sr-only">Grade for SDV 100</label>
+            <input type="text" id="grade-sdv100" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Humanities</th>
+          <td>
+            Any UCGS Approved Humanities Elective <sup>1</sup>
+            <input type="text" id="elective-humanities-f1" class="elective-input" placeholder="e.g. HUM 201">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-humanities-f1" class="sr-only">Semester for Humanities</label>
+            <input type="text" id="semester-humanities-f1" class="semester-input" placeholder="Fall 2026">
+          </td>
+          <td>
+            <label for="grade-humanities-f1" class="sr-only">Grade for Humanities</label>
+            <input type="text" id="grade-humanities-f1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Social Science</th>
+          <td>
+            Any UCGS Approved Social Science Elective <sup>3</sup>
+            <input type="text" id="elective-social-f1" class="elective-input" placeholder="e.g. PSY 200">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-social-f1" class="sr-only">Semester for Social Science</label>
+            <input type="text" id="semester-social-f1" class="semester-input" placeholder="Fall 2026">
+          </td>
+          <td>
+            <label for="grade-social-f1" class="sr-only">Grade for Social Science</label>
+            <input type="text" id="grade-social-f1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr class="total-row">
+          <th scope="row" colspan="2">Total Semester Credits</th>
+          <td>16</td>
+          <td colspan="2"></td>
+        </tr>
+
+        <!-- Spring Term -->
+        <tr class="term-header">
+          <th colspan="5" scope="rowgroup">Spring Term</th>
+        </tr>
+        <tr class="col-header">
+          <th scope="col">Course Code</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">Credits</th>
+          <th scope="col">Semester</th>
+          <th scope="col">Grade</th>
+        </tr>
+        <tr>
+          <th scope="row">ENG 112/113</th>
+          <td>College Composition II or Technical-Professional Writing</td>
+          <td>3</td>
+          <td>
+            <label for="semester-eng112" class="sr-only">Semester for ENG 112/113</label>
+            <input type="text" id="semester-eng112" class="semester-input" placeholder="Spring 2027">
+          </td>
+          <td>
+            <label for="grade-eng112" class="sr-only">Grade for ENG 112/113</label>
+            <input type="text" id="grade-eng112" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">History</th>
+          <td>
+            Any UCGS Approved History Elective <sup>4</sup>
+            <input type="text" id="elective-history-s1" class="elective-input" placeholder="e.g. HIS 101">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-history-s1" class="sr-only">Semester for History</label>
+            <input type="text" id="semester-history-s1" class="semester-input" placeholder="Spring 2027">
+          </td>
+          <td>
+            <label for="grade-history-s1" class="sr-only">Grade for History</label>
+            <input type="text" id="grade-history-s1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Science</th>
+          <td>
+            Any UCGS Approved Science Elective <sup>2</sup>
+            <input type="text" id="elective-science-s1" class="elective-input" placeholder="e.g. BIO 141">
+          </td>
+          <td>4</td>
+          <td>
+            <label for="semester-science-s1" class="sr-only">Semester for Science</label>
+            <input type="text" id="semester-science-s1" class="semester-input" placeholder="Spring 2027">
+          </td>
+          <td>
+            <label for="grade-science-s1" class="sr-only">Grade for Science</label>
+            <input type="text" id="grade-science-s1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Humanities</th>
+          <td>
+            Any UCGS Approved Humanities Elective <sup>1</sup>
+            <input type="text" id="elective-humanities-s1" class="elective-input" placeholder="e.g. ENG 250">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-humanities-s1" class="sr-only">Semester for Humanities</label>
+            <input type="text" id="semester-humanities-s1" class="semester-input" placeholder="Spring 2027">
+          </td>
+          <td>
+            <label for="grade-humanities-s1" class="sr-only">Grade for Humanities</label>
+            <input type="text" id="grade-humanities-s1" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">CST 100</th>
+          <td>Principles of Public Speaking</td>
+          <td>3</td>
+          <td>
+            <label for="semester-cst100" class="sr-only">Semester for CST 100</label>
+            <input type="text" id="semester-cst100" class="semester-input" placeholder="Spring 2027">
+          </td>
+          <td>
+            <label for="grade-cst100" class="sr-only">Grade for CST 100</label>
+            <input type="text" id="grade-cst100" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr class="total-row">
+          <th scope="row" colspan="2">Total Semester Credits</th>
+          <td>16</td>
+          <td colspan="2"></td>
+        </tr>
+
+        <!-- ═══ SECOND YEAR ═══ -->
+        <tr class="section-header">
+          <th colspan="5" scope="rowgroup">Second Year</th>
+        </tr>
+
+        <!-- Fall Term -->
+        <tr class="term-header">
+          <th colspan="5" scope="rowgroup">Fall Term</th>
+        </tr>
+        <tr class="col-header">
+          <th scope="col">Course Code</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">Credits</th>
+          <th scope="col">Semester</th>
+          <th scope="col">Grade</th>
+        </tr>
+        <tr>
+          <th scope="row">Science</th>
+          <td>
+            Any TransferVA Approved Science Elective <sup>2</sup>
+            <input type="text" id="elective-science-f2" class="elective-input" placeholder="e.g. BIO 141">
+          </td>
+          <td>4</td>
+          <td>
+            <label for="semester-science-f2" class="sr-only">Semester for Science</label>
+            <input type="text" id="semester-science-f2" class="semester-input" placeholder="Fall 2027">
+          </td>
+          <td>
+            <label for="grade-science-f2" class="sr-only">Grade for Science</label>
+            <input type="text" id="grade-science-f2" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Science Elective</th>
+          <td>
+            Any Approved Science Elective <sup>2</sup>
+            <input type="text" id="elective-science-f2b" class="elective-input" placeholder="e.g. CHM 111">
+          </td>
+          <td>4</td>
+          <td>
+            <label for="semester-science-f2b" class="sr-only">Semester for Science Elective</label>
+            <input type="text" id="semester-science-f2b" class="semester-input" placeholder="Fall 2027">
+          </td>
+          <td>
+            <label for="grade-science-f2b" class="sr-only">Grade for Science Elective</label>
+            <input type="text" id="grade-science-f2b" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Social Science</th>
+          <td>
+            Any UCGS Approved Social Science Elective <sup>3</sup>
+            <input type="text" id="elective-social-f2" class="elective-input" placeholder="e.g. ECO 201">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-social-f2" class="sr-only">Semester for Social Science</label>
+            <input type="text" id="semester-social-f2" class="semester-input" placeholder="Fall 2027">
+          </td>
+          <td>
+            <label for="grade-social-f2" class="sr-only">Grade for Social Science</label>
+            <input type="text" id="grade-social-f2" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">History</th>
+          <td>
+            Any UCGS Approved History Elective <sup>4</sup>
+            <input type="text" id="elective-history-f2" class="elective-input" placeholder="e.g. HIS 111">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-history-f2" class="sr-only">Semester for History</label>
+            <input type="text" id="semester-history-f2" class="semester-input" placeholder="Fall 2027">
+          </td>
+          <td>
+            <label for="grade-history-f2" class="sr-only">Grade for History</label>
+            <input type="text" id="grade-history-f2" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Mathematics</th>
+          <td>
+            Any UCGS Approved Mathematics Course
+            <input type="text" id="elective-math-f2" class="elective-input" placeholder="e.g. MTH 162">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-math-f2" class="sr-only">Semester for Mathematics</label>
+            <input type="text" id="semester-math-f2" class="semester-input" placeholder="Fall 2027">
+          </td>
+          <td>
+            <label for="grade-math-f2" class="sr-only">Grade for Mathematics</label>
+            <input type="text" id="grade-math-f2" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr class="total-row">
+          <th scope="row" colspan="2">Total Semester Credits</th>
+          <td>17</td>
+          <td colspan="2"></td>
+        </tr>
+
+        <!-- Spring Term -->
+        <tr class="term-header">
+          <th colspan="5" scope="rowgroup">Spring Term</th>
+        </tr>
+        <tr class="col-header">
+          <th scope="col">Course Code</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">Credits</th>
+          <th scope="col">Semester</th>
+          <th scope="col">Grade</th>
+        </tr>
+        <tr>
+          <th scope="row">MTH 245</th>
+          <td>Statistics I</td>
+          <td>3</td>
+          <td>
+            <label for="semester-mth245" class="sr-only">Semester for MTH 245</label>
+            <input type="text" id="semester-mth245" class="semester-input" placeholder="Spring 2028">
+          </td>
+          <td>
+            <label for="grade-mth245" class="sr-only">Grade for MTH 245</label>
+            <input type="text" id="grade-mth245" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Humanities</th>
+          <td>
+            Any UCGS Approved Humanities Elective <sup>1</sup>
+            <input type="text" id="elective-humanities-s2" class="elective-input" placeholder="e.g. PHI 100">
+          </td>
+          <td>3</td>
+          <td>
+            <label for="semester-humanities-s2" class="sr-only">Semester for Humanities</label>
+            <input type="text" id="semester-humanities-s2" class="semester-input" placeholder="Spring 2028">
+          </td>
+          <td>
+            <label for="grade-humanities-s2" class="sr-only">Grade for Humanities</label>
+            <input type="text" id="grade-humanities-s2" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Science Elective II</th>
+          <td>
+            BIO 205, BIO 206, or BIO 256
+            <input type="text" id="elective-science-s2b" class="elective-input" placeholder="e.g. BIO 205">
+          </td>
+          <td>4</td>
+          <td>
+            <label for="semester-science-s2b" class="sr-only">Semester for Science Elective II</label>
+            <input type="text" id="semester-science-s2b" class="semester-input" placeholder="Spring 2028">
+          </td>
+          <td>
+            <label for="grade-science-s2b" class="sr-only">Grade for Science Elective II</label>
+            <input type="text" id="grade-science-s2b" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Science Elective III</th>
+          <td>
+            BIO 110, BIO 120, BIO 270, or CHM 241/245
+            <input type="text" id="elective-science-s2c" class="elective-input" placeholder="e.g. BIO 110">
+          </td>
+          <td>4</td>
+          <td>
+            <label for="semester-science-s2c" class="sr-only">Semester for Science Elective III</label>
+            <input type="text" id="semester-science-s2c" class="semester-input" placeholder="Spring 2028">
+          </td>
+          <td>
+            <label for="grade-science-s2c" class="sr-only">Grade for Science Elective III</label>
+            <input type="text" id="grade-science-s2c" class="grade-input" placeholder="A">
+          </td>
+        </tr>
+        <tr class="total-row">
+          <th scope="row" colspan="2">Total Semester Credits</th>
+          <td>14</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr class="total-row">
+          <th scope="row" colspan="2">Total Program Credits</th>
+          <td>63</td>
+          <td colspan="2"></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <!-- Footnotes -->
+    <aside class="footnotes" role="complementary" aria-label="Course selection notes">
+      <div class="footnote">
+        <span class="footnote-number">1.</span>
+        Students cannot select two humanities courses from the same subgroup.
+        <strong>Humanities Subgroup:</strong> HUM 201, HUM 202, HUM 210, HUM 216, HUM 220, HUM 256, HUM 259, PHI 100, PHI 111, PHI 220, REL 100, REL 230, REL 237, REL 240.
+        <strong>Literature Subgroup:</strong> ENG 225, ENG 245, ENG 246, ENG 250, ENG 255, ENG 258, ENG 275.
+        <strong>Arts Subgroup:</strong> ART 100, ART 101, ART 102, CST 130, CST 151, MUS 121, MUS 221, MUS 222, MUS 226.
+      </div>
+      <div class="footnote">
+        <span class="footnote-number">2.</span>
+        Select from BIO 141, BIO 142, BIO 220, BIO 285, CHM 260/261, CHM 242/246, CSC 221, GOL 105, GOL 106, MTH 245, PHY 201/202, PHY 241/242.
+      </div>
+      <div class="footnote">
+        <span class="footnote-number">3.</span>
+        Approved UCGS Social Science Electives: ECO 150, ECO 201, ECO 202, GEO 210, GEO 220, PLS 135, PLS 140, PLS 241, PSY 200, SOC 200, SOC 211, SOC 268.
+      </div>
+      <div class="footnote">
+        <span class="footnote-number">4.</span>
+        Approved UCGS History Electives: HIS 101, HIS 102, HIS 111, HIS 112, HIS 121, HIS 122.
+      </div>
+    </aside>
+
+    <!-- Print button -->
+    <div class="print-btn-row no-print">
+      <button class="btn-print" type="button" onclick="window.print()">Print Planner</button>
+      <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
