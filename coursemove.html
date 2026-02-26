@@ -1,76 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paul D. Camp Community College – Home</title>
+  <title>Paul D. Camp Community College – Course Move Form</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="forms.css">
-
-.move-row {
-  display: flex !important;        /* force flex */
-  flex-wrap: wrap;                 /* wrap on small screens */
-  align-items: center;
-  gap: 0.5rem;                     /* spacing between elements */
-  margin-bottom: 1rem;
-}
-
-.move-row label {
-  display: inline-block !important; /* override global block labels */
-  margin-right: 0.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.move-row input[type="text"] {
-  flex: 1;           /* grow to fill row */
-  min-width: 100px;  /* ensure minimum usability */
-  width: auto;
-}
-
-.move-text {
-  margin: 0 0.25rem;
-}
-
-/* Screen reader labels remain hidden but accessible */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-  </head>
+</head>
 <body>
 <div class="form-wrapper" role="main">
-    <!-- Header with camp logo -->
-    <header>
-      <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
-      <h2>Course Substitution Form</h2>
-      <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h2>Course Move Form</h2>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
       ↺ Reset Form
     </button>
-    </header>
+  </header>
 
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="forms.html">Forms</a></li>
-        <li><a href="maps.html">Program Maps</a></li>
-      </ul>
-    </nav>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
   <main class="form-body" id="main-form">
-    
+
     <!-- Instructions (hidden on print) -->
     <div class="instructions" role="note" aria-label="Form instructions">
-    Complete the form below to move a course to the correct LN number on a students adiving transcript. Once you've completed the form, hit the Print to PDF button below, save it to your computer, and email it to the registrars office. 
-     <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+      Complete the form below to move a course to the correct LN number on a student's advising transcript. Once you've completed the form, hit the <strong>Print to PDF</strong> button below, save it to your computer, and email it to the Registrar's Office.
+      <p class="req-note" style="margin-top:.5rem;"><abbr title="Required">*</abbr> Indicates a required field.</p>
     </div>
 
     <!-- Student Information -->
@@ -113,118 +76,94 @@
       </div>
     </fieldset>
 
-    <!-- Move Field -->
- <section class="move-courses">
-  <fieldset>
-    <legend>Course Moves</legend>
-
-    <!-- Row 1 -->
-    <div class="move-row">
-      <label for="move_course_1">Move:</label>
-      <input id="move_course_1" type="text" name="move_course_1" placeholder="Course Name">
-
-      <span class="move-text">from</span>
-      <label class="sr-only" for="move_from_1">From LIN Number</label>
-      <input id="move_from_1" type="text" name="move_from_1" placeholder="LIN###">
-
-      <span class="move-text">to</span>
-      <label class="sr-only" for="move_to_1">To LIN Number</label>
-      <input id="move_to_1" type="text" name="move_to_1" placeholder="LIN###">
+    <!-- Course Moves Table -->
+    <div class="sub-table-wrap">
+      <table aria-label="Course moves — 6 rows">
+        <colgroup>
+          <col style="width:28px;">
+          <col style="width:auto;">   <!-- Course Name — widest -->
+          <col style="width:80px;">   <!-- From LN -->
+          <col style="width:22px;">   <!-- arrow -->
+          <col style="width:80px;">   <!-- To LN -->
+        </colgroup>
+        <caption>Course Moves</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Course</th>
+            <th scope="col">From LN #</th>
+            <th scope="col"></th>
+            <th scope="col">To LN #</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><input class="tbl-input shrink-input" type="text" aria-label="Move 1 course name" name="move_course_1"></td>
+            <td><input class="tbl-input" type="text" aria-label="Move 1 from LN" name="move_from_1"></td>
+            <td style="text-align:center;color:#999;font-size:.75rem;">→</td>
+            <td><input class="tbl-input" type="text" aria-label="Move 1 to LN" name="move_to_1"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input class="tbl-input shrink-input" type="text" aria-label="Move 2 course name" name="move_course_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Move 2 from LN" name="move_from_2"></td>
+            <td style="text-align:center;color:#999;font-size:.75rem;">→</td>
+            <td><input class="tbl-input" type="text" aria-label="Move 2 to LN" name="move_to_2"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><input class="tbl-input shrink-input" type="text" aria-label="Move 3 course name" name="move_course_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Move 3 from LN" name="move_from_3"></td>
+            <td style="text-align:center;color:#999;font-size:.75rem;">→</td>
+            <td><input class="tbl-input" type="text" aria-label="Move 3 to LN" name="move_to_3"></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><input class="tbl-input shrink-input" type="text" aria-label="Move 4 course name" name="move_course_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Move 4 from LN" name="move_from_4"></td>
+            <td style="text-align:center;color:#999;font-size:.75rem;">→</td>
+            <td><input class="tbl-input" type="text" aria-label="Move 4 to LN" name="move_to_4"></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><input class="tbl-input shrink-input" type="text" aria-label="Move 5 course name" name="move_course_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Move 5 from LN" name="move_from_5"></td>
+            <td style="text-align:center;color:#999;font-size:.75rem;">→</td>
+            <td><input class="tbl-input" type="text" aria-label="Move 5 to LN" name="move_to_5"></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><input class="tbl-input shrink-input" type="text" aria-label="Move 6 course name" name="move_course_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Move 6 from LN" name="move_from_6"></td>
+            <td style="text-align:center;color:#999;font-size:.75rem;">→</td>
+            <td><input class="tbl-input" type="text" aria-label="Move 6 to LN" name="move_to_6"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <!-- Row 2 -->
-    <div class="move-row">
-      <label for="move_course_2">Move:</label>
-      <input id="move_course_2" type="text" name="move_course_2" placeholder="Course Name">
-
-      <span class="move-text">from</span>
-      <label class="sr-only" for="move_from_2">From LIN Number</label>
-      <input id="move_from_2" type="text" name="move_from_2" placeholder="LIN###">
-
-      <span class="move-text">to</span>
-      <label class="sr-only" for="move_to_2">To LIN Number</label>
-      <input id="move_to_2" type="text" name="move_to_2" placeholder="LIN###">
-    </div>
-
-    <!-- Row 3 -->
-    <div class="move-row">
-      <label for="move_course_3">Move:</label>
-      <input id="move_course_3" type="text" name="move_course_3" placeholder="Course Name">
-
-      <span class="move-text">from</span>
-      <label class="sr-only" for="move_from_3">From LIN Number</label>
-      <input id="move_from_3" type="text" name="move_from_3" placeholder="LIN###">
-
-      <span class="move-text">to</span>
-      <label class="sr-only" for="move_to_3">To LIN Number</label>
-      <input id="move_to_3" type="text" name="move_to_3" placeholder="LIN###">
-    </div>
-
-    <!-- Row 4 -->
-    <div class="move-row">
-      <label for="move_course_4">Move:</label>
-      <input id="move_course_4" type="text" name="move_course_4" placeholder="Course Name">
-
-      <span class="move-text">from</span>
-      <label class="sr-only" for="move_from_4">From LIN Number</label>
-      <input id="move_from_4" type="text" name="move_from_4" placeholder="LIN###">
-
-      <span class="move-text">to</span>
-      <label class="sr-only" for="move_to_4">To LIN Number</label>
-      <input id="move_to_4" type="text" name="move_to_4" placeholder="LIN###">
-    </div>
-
-    <!-- Row 5 -->
-    <div class="move-row">
-      <label for="move_course_5">Move:</label>
-      <input id="move_course_5" type="text" name="move_course_5" placeholder="Course Name">
-
-      <span class="move-text">from</span>
-      <label class="sr-only" for="move_from_5">From LIN Number</label>
-      <input id="move_from_5" type="text" name="move_from_5" placeholder="LIN###">
-
-      <span class="move-text">to</span>
-      <label class="sr-only" for="move_to_5">To LIN Number</label>
-      <input id="move_to_5" type="text" name="move_to_5" placeholder="LIN###">
-    </div>
-
-    <!-- Row 6 -->
-    <div class="move-row">
-      <label for="move_course_6">Move:</label>
-      <input id="move_course_6" type="text" name="move_course_6" placeholder="Course Name">
-
-      <span class="move-text">from</span>
-      <label class="sr-only" for="move_from_6">From LIN Number</label>
-      <input id="move_from_6" type="text" name="move_from_6" placeholder="LIN###">
-
-      <span class="move-text">to</span>
-      <label class="sr-only" for="move_to_6">To LIN Number</label>
-      <input id="move_to_6" type="text" name="move_to_6" placeholder="LIN###">
-    </div>
-
-  </fieldset>
-</section>
-    
-
-
-<!-- Office Use Only -->
-<fieldset class="office-section">
-  <legend>Registrar's Use Only</legend>
-
-  <!-- Decision Options -->
-  <div class="decision-options-table">
-    <span>Approved ☐</span>
-    <span>Disapproved ☐</span>
-  </div>
-
-  <!-- Optional: Signature -->
-  <div class="sig-date-row">
-    <label for="reg-sig">Registrar's Signature:</label>
-    <input type="text" id="reg-sig" name="registrar_signature" placeholder="Sign here">
-      <label for="reg-date">Date:</label>
-    <input type="text" id="reg-date" name="registrar_date" placeholder="Date">
-  </div>
-</fieldset>
+    <!-- Registrar's Use Only -->
+    <fieldset class="office-section">
+      <legend>Registrar's Use Only</legend>
+      <fieldset style="border:none;padding:0;margin:0;">
+        <legend style="font-family:var(--font-ui);font-size:.85rem;color:#000000;font-weight:600;">Decision</legend>
+        <div class="radio-group" role="group">
+          <label><input type="radio" name="decision" value="approved"> Approved</label>
+          <label><input type="radio" name="decision" value="disapproved"> Disapproved</label>
+        </div>
+      </fieldset>
+      <div class="field-row cols-2" style="margin-top:1rem;">
+        <div>
+          <label for="reg-sig">Registrar's Signature</label>
+          <input type="text" id="reg-sig" name="registrar_signature">
+        </div>
+        <div>
+          <label for="reg-date">Date</label>
+          <input type="date" id="reg-date" name="registrar_date">
+        </div>
+      </div>
+    </fieldset>
 
   </main>
 
@@ -239,10 +178,8 @@
 </div>
 
 <script>
-  // ── Shrink-to-fit for title inputs ──────────────────────────────────────
-  // Reduces font size as text grows so it never scrolls out of view.
-  const BASE_FONT = 13.6; // px  (~0.85rem at 16px root)
-  const MIN_FONT  = 8;    // px  smallest readable size
+  const BASE_FONT = 13.6;
+  const MIN_FONT  = 8;
 
   function fitText(input) {
     input.style.fontSize = BASE_FONT + 'px';
@@ -256,11 +193,9 @@
   document.querySelectorAll('.shrink-input').forEach(input => {
     input.addEventListener('input',  () => fitText(input));
     input.addEventListener('focus',  () => fitText(input));
-    // Re-check on window resize (column widths may change)
     window.addEventListener('resize', () => fitText(input));
   });
 
-  // ── Reset form ──────────────────────────────────────────────────────────
   function resetForm() {
     if (!confirm('Clear all fields and start over?')) return;
     document.querySelectorAll('input[type="text"], input[type="date"], textarea')
