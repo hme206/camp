@@ -1,0 +1,366 @@
+/* ══════════════════════════════════════════════════════════
+   maps.css — Paul D. Camp Community College
+   Styles for program map / degree planner pages.
+   Requires styles.css to be loaded first.
+   Do NOT load forms.css alongside this file.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper (maps use page-wrapper not form-wrapper) ── */
+.page-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 24px rgba(26,45,79,.18);
+  overflow: hidden;
+  padding-bottom: 2rem;
+}
+
+/* ── Main content padding ── */
+.map-main { padding: 0 2rem 2rem; }
+
+/* ── Planner title block ── */
+.planner-title {
+  margin: 1.5rem 0 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--navy);
+}
+.planner-title h2 {
+  font-family: var(--font-ui);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: .25rem;
+}
+.planner-title .program-code {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 400;
+}
+.planner-title .subtitle {
+  font-style: italic;
+  font-size: .95rem;
+  color: #555;
+  margin-top: .25rem;
+}
+
+/* ── Program info collapsible ── */
+details { margin: 1rem 0 1.5rem; }
+summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  font-size: .9rem;
+  padding: .4rem .75rem;
+  background: var(--light);
+  border-left: 4px solid var(--navy);
+  border-radius: 0 3px 3px 0;
+  list-style: none;
+  user-select: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: '▶  '; font-size: .7rem; }
+details[open] summary::before { content: '▼  '; }
+.program-info {
+  padding: .75rem 1rem;
+  background: var(--row-alt);
+  border-left: 4px solid var(--border);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+.program-info p + p { margin-top: .5rem; }
+
+/* ══════════════════════════════════════════════════════════
+   PLANNER TABLE
+   Uses .planner-table class to avoid conflicts with any
+   generic table styles from other stylesheets.
+   ══════════════════════════════════════════════════════════ */
+.planner-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  border: 2px solid #000;
+  font-family: var(--font-ui);
+  font-size: .95rem;
+  table-layout: auto;  /* auto so course name column can breathe */
+}
+
+/* All cells base */
+.planner-table th,
+.planner-table td {
+  padding: .6rem 1rem;
+  border: 1px solid #000;
+  font-size: .9rem;
+  vertical-align: middle;
+}
+
+/* Row header cells (course code column) */
+.planner-table tbody th[scope="row"] {
+  font-weight: 600;
+  text-align: left;
+  background-color: #fff;
+  white-space: nowrap;
+}
+
+/* Center credits, semester, grade columns */
+.planner-table td:nth-child(3),
+.planner-table td:nth-child(4),
+.planner-table td:nth-child(5) { text-align: center; }
+
+/* ── Year section header (dark green) ── */
+.planner-table .section-header th {
+  background-color: var(--navy);
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+  padding: .65rem 1rem;
+  border-color: var(--navy);
+}
+
+/* ── Term header (light green) ── */
+.planner-table .term-header th {
+  background-color: var(--mid);
+  color: #000;
+  font-weight: 600;
+  font-size: .9rem;
+  text-align: left;
+  padding: .5rem 1rem;
+  border-color: var(--mid);
+}
+
+/* ── Column label row (very light) ── */
+.planner-table .col-header th {
+  background-color: var(--light);
+  color: #000;
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: .35rem 1rem;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.planner-table .col-header th:nth-child(2) { text-align: left; }
+
+/* ── Total rows ── */
+.planner-table .total-row th,
+.planner-table .total-row td {
+  background-color: var(--row-alt);
+  font-weight: 700;
+  border-top: 2px solid #999;
+}
+
+/* ── Alternating row shading (skip header-type rows) ── */
+.planner-table tbody tr:nth-child(odd):not(.section-header):not(.term-header):not(.col-header):not(.total-row) {
+  background-color: #fff;
+}
+.planner-table tbody tr:nth-child(even):not(.section-header):not(.term-header):not(.col-header):not(.total-row) {
+  background-color: var(--row-alt);
+}
+
+/* ── Hover ── */
+.planner-table tbody tr:hover:not(.section-header):not(.term-header):not(.col-header):not(.total-row) {
+  background-color: rgba(51,171,43,.06);
+  transition: background-color .15s;
+}
+
+/* ── Semester input (wide — shows "Fall 2026" etc) ── */
+.semester-input {
+  width: 100%;
+  max-width: 110px;
+  padding: 3px 6px;
+  font-size: .85rem;
+  font-family: var(--font-body);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: #fff;
+  text-align: center;
+}
+.semester-input:focus {
+  outline: 3px solid var(--focus);
+  border-color: var(--mid);
+}
+
+/* ── Grade input (narrow — single letter) ── */
+.grade-input {
+  width: 48px;
+  padding: 3px 6px;
+  font-size: .85rem;
+  font-family: var(--font-body);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: #fff;
+  text-align: center;
+}
+.grade-input:focus {
+  outline: 3px solid var(--focus);
+  border-color: var(--mid);
+}
+
+/* ── Elective picker input (inside course name cell) ── */
+.elective-input {
+  display: block;
+  margin-top: .3rem;
+  width: 100%;
+  max-width: 200px;
+  padding: 3px 6px;
+  font-size: .82rem;
+  font-family: var(--font-body);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: #fff;
+  color: #444;
+}
+.elective-input:focus {
+  outline: 3px solid var(--focus);
+  border-color: var(--mid);
+}
+
+/* ── Footnotes ── */
+.footnotes {
+  font-size: .82rem;
+  line-height: 1.55;
+  border-left: 3px solid var(--border);
+  padding: .75rem 1rem;
+  background: var(--row-alt);
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 1.5rem;
+}
+.footnote + .footnote { margin-top: .6rem; }
+.footnote-number {
+  font-weight: 700;
+  margin-right: .3rem;
+}
+
+/* ── Print button row ── */
+.print-btn-row {
+  text-align: right;
+  padding: 1rem 0 .5rem;
+}
+.btn-print {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-ui);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .7rem 2rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-print:hover { background: var(--mid); }
+.btn-print:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.btn-hint {
+  font-family: var(--font-ui);
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: .4rem;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .map-main { padding: 0 1rem 1.5rem; }
+  .planner-table th,
+  .planner-table td { padding: .4rem .5rem; font-size: .8rem; }
+  .semester-input { max-width: 80px; font-size: .75rem; }
+  .grade-input { width: 36px; font-size: .75rem; }
+  .elective-input { max-width: 100%; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PRINT STYLES
+   Tuned for dense degree planner tables — keeps full
+   page width and readable font size.
+   ══════════════════════════════════════════════════════════ */
+@media print {
+  @page { size: letter portrait; margin: .4in .45in .4in .45in; }
+
+  /* Flatten to black & white */
+  * {
+    color: #000 !important;
+    background: #fff !important;
+    border-color: #999 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    filter: grayscale(100%);
+  }
+
+  html, body { font-size: 16px; background: white; padding: 0; margin: 0; }
+
+  /* Hide non-print elements */
+  .no-print,
+  .print-btn-row,
+  nav,
+  details,
+  summary { display: none !important; }
+
+  /* Page wrapper — full width */
+  .page-wrapper {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-bottom: 0;
+  }
+
+  /* Header — compact */
+  header {
+    padding: .3rem .5rem !important;
+    border-bottom-width: 2px !important;
+  }
+  header h1, header h2 { font-size: .95rem !important; }
+  header img { max-height: 32px !important; }
+
+  /* Main padding */
+  .map-main { padding: .3rem .5rem .5rem; }
+
+  /* Planner title */
+  .planner-title { margin: .3rem 0 .5rem; padding-bottom: .3rem; }
+  .planner-title h2 { font-size: .95rem; }
+  .planner-title .subtitle { font-size: .8rem; }
+
+  /* Table — compact but legible */
+  .planner-table {
+    font-size: .78rem;
+    border-width: 1px;
+    margin-bottom: .5rem;
+  }
+  .planner-table th,
+  .planner-table td { padding: .18rem .4rem; font-size: .75rem; }
+  .planner-table .section-header th { padding: .25rem .4rem; font-size: .8rem; }
+  .planner-table .term-header th { padding: .2rem .4rem; font-size: .75rem; }
+  .planner-table .col-header th { padding: .15rem .4rem; font-size: .68rem; }
+  .planner-table .total-row th,
+  .planner-table .total-row td { padding: .18rem .4rem; }
+
+  /* Hide placeholder text */
+  input::placeholder { color: transparent !important; }
+
+  /* Inputs — borderless for clean print */
+  .semester-input,
+  .grade-input,
+  .elective-input {
+    border: none !important;
+    background: transparent !important;
+    font-size: .72rem;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Footnotes */
+  .footnotes {
+    font-size: .65rem;
+    padding: .3rem .5rem;
+    margin-bottom: .3rem;
+    border-left-width: 2px;
+  }
+  .footnote + .footnote { margin-top: .3rem; }
+}
