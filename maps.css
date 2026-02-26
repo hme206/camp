@@ -273,11 +273,11 @@ details[open] summary::before { content: '▼  '; }
 
 /* ══════════════════════════════════════════════════════════
    PRINT STYLES
-   Tuned for dense degree planner tables — keeps full
-   page width and readable font size.
+   Tuned for dense degree planner tables — fits full
+   program on one letter page.
    ══════════════════════════════════════════════════════════ */
 @media print {
-  @page { size: letter portrait; margin: .4in .45in .4in .45in; }
+  @page { size: letter portrait; margin: .3in .35in .3in .35in; }
 
   /* Flatten to black & white */
   * {
@@ -291,7 +291,13 @@ details[open] summary::before { content: '▼  '; }
     filter: grayscale(100%);
   }
 
-  html, body { font-size: 16px; background: white; padding: 0; margin: 0; }
+  html, body {
+    font-size: 16px;
+    background: white;
+    padding: 0;
+    margin: 0;
+    line-height: 1.2;
+  }
 
   /* Hide non-print elements */
   .no-print,
@@ -310,35 +316,56 @@ details[open] summary::before { content: '▼  '; }
     padding-bottom: 0;
   }
 
-  /* Header — compact */
+  /* Header — very compact */
   header {
-    padding: .3rem .5rem !important;
-    border-bottom-width: 2px !important;
+    padding: .2rem .4rem !important;
+    border-bottom-width: 1px !important;
   }
-  header h1, header h2 { font-size: .95rem !important; }
-  header img { max-height: 32px !important; }
+  header h1, header h2 { font-size: .85rem !important; }
+  header img { max-height: 26px !important; }
 
-  /* Main padding */
-  .map-main { padding: .3rem .5rem .5rem; }
+  /* Main padding — minimal */
+  .map-main { padding: .2rem .4rem .3rem; }
 
   /* Planner title */
-  .planner-title { margin: .3rem 0 .5rem; padding-bottom: .3rem; }
-  .planner-title h2 { font-size: .95rem; }
-  .planner-title .subtitle { font-size: .8rem; }
+  .planner-title {
+    margin: .2rem 0 .3rem;
+    padding-bottom: .2rem;
+    border-bottom-width: 1px;
+  }
+  .planner-title h2 { font-size: .85rem; margin-bottom: 0; }
+  .planner-title .subtitle { font-size: .72rem; margin-top: .1rem; }
 
-  /* Table — compact but legible */
+  /* Table — as compact as readable */
   .planner-table {
-    font-size: .78rem;
+    font-size: .7rem;
     border-width: 1px;
-    margin-bottom: .5rem;
+    margin-bottom: .3rem;
+    line-height: 1.15;
   }
   .planner-table th,
-  .planner-table td { padding: .18rem .4rem; font-size: .75rem; }
-  .planner-table .section-header th { padding: .25rem .4rem; font-size: .8rem; }
-  .planner-table .term-header th { padding: .2rem .4rem; font-size: .75rem; }
-  .planner-table .col-header th { padding: .15rem .4rem; font-size: .68rem; }
+  .planner-table td {
+    padding: .1rem .35rem;
+    font-size: .68rem;
+    line-height: 1.15;
+  }
+  .planner-table .section-header th {
+    padding: .18rem .35rem;
+    font-size: .72rem;
+  }
+  .planner-table .term-header th {
+    padding: .12rem .35rem;
+    font-size: .68rem;
+  }
+  .planner-table .col-header th {
+    padding: .1rem .35rem;
+    font-size: .62rem;
+  }
   .planner-table .total-row th,
-  .planner-table .total-row td { padding: .18rem .4rem; }
+  .planner-table .total-row td {
+    padding: .1rem .35rem;
+    font-size: .68rem;
+  }
 
   /* Hide placeholder text */
   input::placeholder { color: transparent !important; }
@@ -349,18 +376,23 @@ details[open] summary::before { content: '▼  '; }
   .elective-input {
     border: none !important;
     background: transparent !important;
-    font-size: .72rem;
+    font-size: .65rem;
+    line-height: 1.1;
     padding: 0;
     max-width: 100%;
     width: 100%;
   }
 
-  /* Footnotes */
+  /* Elective input — no extra top margin on print */
+  .elective-input { margin-top: .1rem; }
+
+  /* Footnotes — very compact */
   .footnotes {
-    font-size: .65rem;
-    padding: .3rem .5rem;
-    margin-bottom: .3rem;
-    border-left-width: 2px;
+    font-size: .58rem;
+    line-height: 1.3;
+    padding: .2rem .4rem;
+    margin-bottom: .2rem;
+    border-left-width: 1px;
   }
-  .footnote + .footnote { margin-top: .3rem; }
+  .footnote + .footnote { margin-top: .2rem; }
 }
