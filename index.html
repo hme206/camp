@@ -1,39 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website Home</title>
-    <!-- Link to your CSS file if you have one -->
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paul D. Camp Community College – Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Basic reset and variables from your form page */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #33ab2b;
+      --gold:   #b8922a;
+      --mid:    #5dc956;
+      --light:  #eaf7ea;
+      --border: #8fce8b;
+      --text:   #000000;
+      --muted:  #000000;
+      --white:  #ffffff;
+      --focus:  #ff6b00;
+      --row-alt: #f2fbf2;
+      --font-body: 'Segoe UI', 'Arial', sans-serif;
+      --font-ui:   'Segoe UI', 'Arial', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      background: #d6dde8;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    /* ── Wrapper for content ── */
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(26,45,79,.18);
+      overflow: hidden;
+      padding-bottom: 2rem;
+    }
+
+    /* ── Header with logo ── */
+    header {
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    header img {
+      max-height: 80px;
+      border-radius: 4px;
+    }
+
+    header h1 {
+      font-family: var(--font-ui);
+      font-size: 1.75rem;
+      color: #000;
+      letter-spacing: .02em;
+    }
+
+    /* ── Navigation ── */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 1rem 0 2rem 0;
+      padding-left: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-family: var(--font-ui);
+      font-weight: 700;
+      color: var(--text);
+      padding: .3rem .5rem;
+      border-radius: 3px;
+      transition: background .15s;
+    }
+    nav a:hover { background: var(--mid); color: #000; }
+
+    /* ── Main content ── */
+    main {
+      padding: 0 2rem;
+      font-family: var(--font-body);
+    }
+
+    section {
+      margin-bottom: 2rem;
+      background: var(--row-alt);
+      padding: 1rem 1.25rem;
+      border-radius: 4px;
+    }
+
+    section h2 {
+      margin-bottom: .75rem;
+      font-family: var(--font-ui);
+      color: var(--navy);
+    }
+
+    section p {
+      font-size: 1rem;
+    }
+
+    /* ── Button styling for links ── */
+    .btn {
+      display: inline-block;
+      padding: .7rem 1.5rem;
+      background: var(--navy);
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-ui);
+      font-weight: 700;
+      border-radius: 3px;
+      transition: background .15s;
+    }
+    .btn:hover { background: var(--mid); color: #000; }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: .9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--light);
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      nav ul { flex-direction: column; gap: 1rem; padding-left: 0; }
+      header { flex-direction: column; align-items: flex-start; gap: .5rem; }
+    }
+  </style>
 </head>
 <body>
+
+  <div class="page-wrapper">
+
+    <!-- Header with camp logo -->
     <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <ul>
-            
-                <li><a href="coursesub.html">Course Substitution Form</a></li>
-                <li><a href="Program_Map_Biology.html">AS in Science - Biology Program Map</a></li>
-                <!-- Add more links to other pages as needed -->
-            </ul>
-        </nav>
+      <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+      <h1>Paul D. Camp Community College</h1>
     </header>
 
-    <main>
-        <section>
-            <h2>Introduction</h2>
-            <p>This is the homepage of my website. Here you can navigate to other sections of the site.</p>
-        </section>
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="coursesub.html">Course Substitution Form</a></li>
+          <li><a href="Program_Map_Biology.html">Program Map - Biology</a></li>
+      </ul>
+    </nav>
 
-        <section>
-            <h2>Latest Updates</h2>
-            <p>Use this area to share news, updates, or highlights.</p>
-        </section>
+    <!-- Main content -->
+    <main>
+      <section>
+        <h2>Welcome</h2>
+        <p>Welcome to the Paul D. Camp Community College website. Navigate to the pages above to learn more or submit a course using our Course Submission Form.</p>
+      </section>
+
+      <section>
+        <h2>Quick Link</h2>
+        <p>
+          <a href="coursesub.html" class="btn">Go to Course Submission Form</a>
+        </p>
+      </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 My Website. All rights reserved.</p>
+      &copy; 2026 Paul D. Camp Community College. All rights reserved.
     </footer>
+
+  </div>
+
 </body>
 </html>
