@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Plan Change | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+
+<div class="form-wrapper">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Program Plan Change</h1>
+    <button class="btn-reset no-print" type="button"
+      onclick="if(confirm('Reset all fields?')){document.querySelectorAll('input[type=text]').forEach(i=>i.value='');document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>i.checked=false);}">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-body">
+
+    <!-- Legend -->
+    <div class="ppc-legend instructions" role="note" aria-label="Form legend">
+      <p><strong>++</strong> Indicated plans are not eligible for Financial Aid</p>
+      <p><strong>**</strong> Indicates the Program starts Spring 2020</p>
+      <p><strong>##</strong> Indicates you have to apply &amp; be accepted into the Program before adding it</p>
+    </div>
+
+    <!-- ── Student Information ── -->
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="student-name">Student Name <span class="req">*</span></label>
+          <input type="text" id="student-name" placeholder="Last, First Middle">
+        </div>
+        <div>
+          <label for="student-id">Student ID (Empl ID) <span class="req">*</span></label>
+          <input type="text" id="student-id" placeholder="900XXXXXX">
+        </div>
+      </div>
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+        <div>
+          <label for="current-program">Current Program of Study <span class="req">*</span></label>
+          <input type="text" id="current-program" placeholder="">
+        </div>
+        <div>
+          <label for="academic-year">Academic Year <span class="req">*</span></label>
+          <input type="text" id="academic-year" placeholder="e.g. 2025–2026">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Plan Action ── -->
+    <fieldset>
+      <legend>Choose One</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="plan-action" value="add"> Add Plan</label>
+        <label><input type="radio" name="plan-action" value="change"> Change Plan</label>
+        <label><input type="radio" name="plan-action" value="delete"> Delete Plan</label>
+      </div>
+    </fieldset>
+
+
+
+    <!-- ══════════════════════════════════════
+         PROGRAM LIST
+         ══════════════════════════════════════ -->
+    <fieldset>
+      <legend>Select New Program / Plan</legend>
+      <p style="font-size:.82rem;color:#555;margin-bottom:.75rem;">Check the program you wish to add, change to, or delete.</p>
+
+      <!-- College and University Transfer -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">College and University Transfer</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="699" aria-label="AS General Studies (699)">
+          <span>AS General Studies (699)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="695" aria-label="CERT Uniform Certificate of General Studies (695) - not eligible for Financial Aid">
+          <span><abbr title="Not eligible for Financial Aid">++</abbr>CERT Uniform Certificate of General Studies (695)</span>
+        </label>
+      </div>
+
+      <!-- Science -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Science</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="880" aria-label="AA&S Science (880)">
+          <span>AS Science (880)</span>
+        </label>
+      </div>
+
+      <!-- Healthcare -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Healthcare</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="156" aria-label="AAS Nursing (156) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> AAS Nursing (156) <span class="ppc-accepted">Have you been accepted?</span></span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="146" aria-label="AAS EMS Paramedic (146) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> AAS EMS – Paramedic (146) <span class="ppc-accepted">Have you been accepted?</span></span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="157" aria-label="CERT Practical Nursing Program (157) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> CERT Practical Nursing Program (157) <span class="ppc-accepted">Have you been accepted?</span></span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-156-02" aria-label="CSC Pre-Nursing (221-156-02)">
+          <span>CSC Pre-Nursing (221-156-02)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-157-04" aria-label="CSC Nurse Aide (221-157-04) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> CSC Nurse Aide (221-157-04) <span class="ppc-accepted">Have you been accepted?</span></span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-151-02" aria-label="CSC Phlebotomy (221-151-02) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> CSC Phlebotomy (221-151-02) <span class="ppc-accepted">Have you been accepted?</span></span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-146-01" aria-label="CSC Emergency Medical Technician (221-146-01)">
+          <span>CSC Emergency Medical Technician (221-146-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-146-08" aria-label="CSC Advanced Emergency Medical Technician (221-146-08) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> CSC Advanced Emergency Medical Technician (221-146-08) <span class="ppc-accepted">Have you been accepted?</span></span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-285-89" aria-label="CSC Medical Office Administrative Assistant (221-285-89)">
+          <span>CSC Medical Office Administrative Assistant (221-285-89)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-285-90" aria-label="CSC Medical Office Coder/Reimbursement Specialist (221-285-90)">
+          <span>CSC Medical Office Coder/Reimbursement Specialist (221-285-90)</span>
+        </label>
+      </div>
+
+      <!-- Education -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Education</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="625" aria-label="AS Education (625)">
+          <span>AS Education (625)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="636" aria-label="AAS Early Childhood Development (636)">
+          <span>AAS Early Childhood Development (636)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="632" aria-label="CERT Early Childhood Development (632)">
+          <span>CERT Early Childhood Development (632)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-636-03" aria-label="CSC Advanced Early Childhood (221-636-03) - not eligible for Financial Aid">
+          <span><abbr title="Not eligible for Financial Aid">++</abbr>CSC Advanced Early Childhood (221-636-03)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-363-01" aria-label="CSC Early Childhood (221-363-01)">
+          <span>CSC Early Childhood (221-363-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-636-05" aria-label="CSC Infant Toddler (221-636-05)">
+          <span>CSC Infant Toddler (221-636-05)</span>
+        </label>
+      </div>
+
+      <!-- Business -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Business</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="213" aria-label="AS Business Administration (213)">
+          <span>AS Business Administration (213)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="212-01" aria-label="AAS General Business Management (212-01)">
+          <span>AAS General Business Management (212-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="212-04" aria-label="AAS Marketing Management (212-04)">
+          <span>AAS Marketing Management (212-04)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="212-18" aria-label="AAS Management Hardware and Software Support (212-18)">
+          <span>AAS Management – Hardware and Software Support (212-18)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="212-21" aria-label="AAS Management Computer Support Specialist (212-21)">
+          <span>AAS Management – Computer Support Specialist (212-21)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-212-10" aria-label="CSC Entrepreneurship in Small Business Management (221-212-10)">
+          <span>CSC Entrepreneurship in Small Business Management (221-212-10)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-212-12" aria-label="CSC Entrepreneurship in Small Business Management Advanced (221-212-12)">
+          <span>CSC Entrepreneurship in Small Business Management – Advanced (221-212-12)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-208-14" aria-label="CSC General Business (221-208-14)">
+          <span>CSC General Business (221-208-14)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-212-45" aria-label="CSC Sports Management (221-212-45)">
+          <span>CSC Sports Management (221-212-45)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="298" aria-label="AAS Administrative Support Technology (298)">
+          <span>AAS Administrative Support Technology (298)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="298-01" aria-label="AAS Administrative Support Technology Word Information Support (298-01)">
+          <span>AAS Administrative Support Technology – Word Information Support (298-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="298-03" aria-label="AAS Administrative Support Technology Medical Office Administrative Assistant (298-03)">
+          <span>AAS Administrative Support Technology – Medical Office Administrative Asst. (298-03)</span>
+        </label>
+      </div>
+
+      <!-- Advanced Manufacturing and Skilled Trades -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Advanced Manufacturing and Skilled Trades</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="883" aria-label="AAS Industrial Technology (883)">
+          <span>AAS Industrial Technology (883)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="883-02" aria-label="AAS Industrial Technology Electronic-Electrical (883-02)">
+          <span>AAS Industrial Technology – Electronic-Electrical (883-02)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="883-03" aria-label="AAS Industrial Technology Electronic Controls (883-03)">
+          <span>AAS Industrial Technology – Electronic Controls (883-03)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="736" aria-label="AAS Mechatronics (736)">
+          <span>AAS Mechatronics (736)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="942" aria-label="CERT Electricity (942)">
+          <span>CERT Electricity (942)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-990-00" aria-label="CSC Industrial Maintenance (221-990-00)">
+          <span>CSC Industrial Maintenance (221-990-00)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-883-65" aria-label="CSC Industrial/Residential Wiring (221-883-65)">
+          <span>CSC Industrial/Residential Wiring (221-883-65)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-942-01" aria-label="CSC Practical Electrician (221-942-01)">
+          <span>CSC Practical Electrician (221-942-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-942-02" aria-label="CSC Practical Electrical Technician (221-942-02)">
+          <span>CSC Practical Electrical Technician (221-942-02)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-820-07" aria-label="CSC Energy Technology (221-820-07)">
+          <span>CSC Energy Technology (221-820-07)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-981-15" aria-label="CSC Electrical Technology Keurig-Green Mountain (221-981-15) - not eligible for Financial Aid">
+          <span><abbr title="Not eligible for Financial Aid">++</abbr>CSC Electrical Technology Keurig-Green Mountain (221-981-15)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-733-03" aria-label="CSC Industrial Automation and Robotics (221-733-03)">
+          <span>CSC Industrial Automation and Robotics (221-733-03)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-733-02" aria-label="CSC Principles of Robotics (221-733-02)">
+          <span>CSC Principles of Robotics (221-733-02)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-938-21" aria-label="CSC Instrumentation (221-938-21)">
+          <span>CSC Instrumentation (221-938-21)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-903-11" aria-label="CSC Building Maintenance (221-903-11)">
+          <span>CSC Building Maintenance (221-903-11)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-903-10" aria-label="CSC Heating Ventilation and Air Conditioning HVAC (221-903-10)">
+          <span>CSC Heating, Ventilation, and Air Conditioning (HVAC) (221-903-10)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-995-01" aria-label="CSC General Welding (221-995-01)">
+          <span>CSC General Welding (221-995-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-995-79" aria-label="CSC Professional Welder-Pipe (221-995-79)">
+          <span>CSC Professional Welder-Pipe (221-995-79)</span>
+        </label>
+      </div>
+
+      <!-- Computer and Information Technology -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Computer and Information Technology</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="246" aria-label="AS Computer Science (246)">
+          <span>AS Computer Science (246)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-299-09" aria-label="CSC Computer Support Specialist (221-299-09)">
+          <span>CSC Computer Support Specialist (221-299-09)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-299-21" aria-label="CSC Hardware and Software Support (221-299-21)">
+          <span>CSC Hardware and Software Support (221-299-21)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-732-09" aria-label="CSC Cybersecurity (221-732-09)">
+          <span>CSC Cybersecurity (221-732-09)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-732-08" aria-label="CSC Cybersecurity and Networking Foundations (221-732-08)">
+          <span>CSC Cybersecurity and Networking Foundations (221-732-08)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-719-71" aria-label="CSC Geographic Information Systems Technician (221-719-71) - not eligible for Financial Aid">
+          <span><abbr title="Not eligible for Financial Aid">++</abbr>CSC Geographic Information Systems Technician (221-719-71)</span>
+        </label>
+      </div>
+
+      <!-- Public Service and Safety -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Public Service and Safety</div>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="400-01" aria-label="AAS Administration of Justice Corrections Science (400-01)">
+          <span>AAS Administration of Justice – Corrections Science (400-01)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="400-02" aria-label="AAS Administration of Justice Police Science (400-02)">
+          <span>AAS Administration of Justice – Police Science (400-02)</span>
+        </label>
+        <label class="ppc-row check-label">
+          <input type="checkbox" name="program" value="221-400-45" aria-label="CSC Foundations of Criminal Justice (221-400-45)">
+          <span>CSC Foundations of Criminal Justice (221-400-45)</span>
+        </label>
+      </div>
+
+      <!-- Unclassified Programs -->
+      <div class="ppc-section">
+        <div class="ppc-section-header" role="rowheader">Unclassified Programs — Not Eligible for Financial Aid</div>
+        <div class="ppc-unclassified" role="group" aria-label="Unclassified program options">
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="021" aria-label="021 Upgrading Skills"><span>021 Upgrading Skills</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="022" aria-label="022 Developing Job Skills"><span>022 Dev. Job Skills</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="023" aria-label="023 Career Exploration"><span>023 Career Exploration</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="024" aria-label="024 Personal Satisfaction"><span>024 Personal Satisfaction</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="025" aria-label="025 Transient Student"><span>025 Transient Student</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="026" aria-label="026 Non-Degree Transfer"><span>026 Non-Degree Transfer</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="041" aria-label="041 HS Student HS and College Credit"><span>041 HS Stdnt-HS &amp; College Crd</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="042" aria-label="042 HS Homeschool No HS Credit"><span>042 HS/Homeschool-No HS Crd</span></label>
+          <label class="ppc-row check-label"><input type="checkbox" name="program" value="043" aria-label="043 HS Both HS Credit and No HS Credit"><span>043 HS Both HS Crd &amp; No HS Crd</span></label>
+        </div>
+      </div>
+
+    </fieldset>
+        <!-- ── Student Signature ── -->
+    <fieldset>
+      <legend>Student Signature</legend>
+      <div class="sig-date-row">
+        <label for="student-sig">Signature</label>
+        <input type="text" id="student-sig" placeholder="">
+        <label for="student-sig-date">Date</label>
+        <input type="text" id="student-sig-date" placeholder="">
+      </div>
+    </fieldset>
+
+    <!-- ── Office Use Only ── -->
+    <fieldset class="office-section">
+      <legend>Office Use Only</legend>
+      <div class="sig-date-row">
+        <label for="processed-by">Processed By</label>
+        <input type="text" id="processed-by" placeholder="">
+        <label for="processed-date">Date</label>
+        <input type="text" id="processed-date" placeholder="">
+      </div>
+      <div style="margin-top:.75rem;">
+        <p style="font-family:var(--font-ui);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.4rem;">Advisor Assigned</p>
+        <div class="radio-group">
+          <label><input type="radio" name="advisor-assigned" value="yes"> Yes</label>
+          <label><input type="radio" name="advisor-assigned" value="no"> No</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <p class="req-note"><span class="req">*</span> Required fields &nbsp;|&nbsp; Revised 12/19/2025 Dinae Jones | EEOC</p>
+
+  </div><!-- /.form-body -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination. This form prints across two pages.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<style>
+  /* ── Program Plan Change specific styles ── */
+
+  /* Legend/key box */
+  .ppc-legend p { margin-bottom: .25rem; font-size: .88rem; }
+  .ppc-legend p:last-child { margin-bottom: 0; }
+
+  /* Section group */
+  .ppc-section {
+    margin-bottom: .25rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  /* Section header bar */
+  .ppc-section-header {
+    background: var(--navy);
+    color: #000;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: .88rem;
+    padding: .45rem 1rem;
+    letter-spacing: .02em;
+  }
+
+  /* Each program row */
+  .ppc-row {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .3rem 1rem;
+    border-bottom: 1px solid #e8ede8;
+    font-size: .9rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    cursor: pointer;
+    line-height: 1.4;
+    margin-bottom: 0;
+  }
+  .ppc-row:last-child { border-bottom: none; }
+  .ppc-row:hover { background: var(--row-alt); }
+  .ppc-row input[type="checkbox"] {
+    width: .95rem;
+    height: .95rem;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .ppc-row input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* "Have you been accepted?" tag */
+  .ppc-accepted {
+    color: #c0392b;
+    font-weight: 600;
+    font-size: .82rem;
+    margin-left: .35rem;
+  }
+
+  /* Abbreviation tooltips */
+  abbr {
+    font-weight: 700;
+    text-decoration: none;
+    cursor: help;
+    margin-right: .15rem;
+  }
+
+  /* Unclassified grid */
+  .ppc-unclassified {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: .25rem 0;
+  }
+  .ppc-unclassified .ppc-row { border-bottom: 1px solid #e8ede8; }
+
+  /* check-label base (shared with other forms) */
+  .check-label {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: .9rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .check-label input[type="checkbox"] {
+    width: .95rem;
+    height: .95rem;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+
+  /* ── Print ── */
+  @media print {
+    html, body { font-size: 12px !important; }
+
+    .ppc-section { margin-bottom: .15rem; }
+    .ppc-section-header { padding: .25rem .75rem; font-size: .72rem; }
+    .ppc-row { padding: .15rem .75rem; font-size: .72rem; }
+    .ppc-accepted { font-size: .68rem; }
+    .ppc-legend p { font-size: .72rem; }
+    .ppc-unclassified { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* Keep section headers colored on print */
+    .ppc-section-header {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+
+</body>
+</html>
