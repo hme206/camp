@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graduation Audit Form | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+
+<div class="form-wrapper">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Graduation Audit Form</h1>
+    <button class="btn-reset no-print" type="button"
+      onclick="if(confirm('Reset all fields?')){this.closest('form')?.reset();document.querySelectorAll('input[type=text],input[type=date]').forEach(i=>i.value='');document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>i.checked=false);}">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-body">
+
+    <p class="instructions">
+      Complete all sections of this form and submit to the Office of the Registrar. Please attach any required forms. All approval signatures must be obtained before submission.
+    </p>
+
+    <!-- ── Term Selection ── -->
+    <fieldset>
+      <legend>Term</legend>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="term" value="spring"> Spring
+          <input type="text" id="term-spring-year" class="term-year-input" placeholder="Year" aria-label="Spring year">
+        </label>
+        <label>
+          <input type="radio" name="term" value="summer"> Summer
+          <input type="text" id="term-summer-year" class="term-year-input" placeholder="Year" aria-label="Summer year">
+        </label>
+        <label>
+          <input type="radio" name="term" value="fall"> Fall
+          <input type="text" id="term-fall-year" class="term-year-input" placeholder="Year" aria-label="Fall year">
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- ── Student Information ── -->
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-3">
+        <div>
+          <label for="student-name">Student Name <span class="req">*</span></label>
+          <input type="text" id="student-name" placeholder="Last, First Middle">
+        </div>
+        <div>
+          <label for="student-id">Student ID <span class="req">*</span></label>
+          <input type="text" id="student-id" placeholder="900XXXXXX">
+        </div>
+        <div>
+          <label for="plan-number">Plan Number</label>
+          <input type="text" id="plan-number" placeholder="">
+        </div>
+      </div>
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+        <div>
+          <label for="program-plan">Program / Plan Description <span class="req">*</span></label>
+          <input type="text" id="program-plan" placeholder="e.g. AS – Biology">
+        </div>
+        <div>
+          <label for="program-type">Type</label>
+          <select id="program-type" style="width:100%;padding:.5rem .75rem;border:1.5px solid var(--border);border-radius:3px;font-family:var(--font-body);font-size:1rem;background:var(--white);">
+            <option value="">Select…</option>
+            <option value="certification">Certification</option>
+            <option value="associate">Associate Degree</option>
+            <option value="diploma">Diploma</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Graduation Requirements ── -->
+    <fieldset>
+      <legend>Graduation Requirements</legend>
+      <p style="font-size:.85rem;color:#555;margin-bottom:.75rem;">Please select all that apply:</p>
+
+      <div class="check-row">
+        <label class="check-label">
+          <input type="checkbox" id="req-25pct">
+          25% or more of credits earned at Paul D. Camp Community College (minimum 16 credits)
+        </label>
+      </div>
+
+      <div class="check-row" style="margin-top:.6rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">
+        <label class="check-label" style="display:flex;align-items:center;gap:.5rem;">
+          <input type="checkbox" id="req-gpa">
+          Student has a Cumulative GPA of 2.0 (2.5 for Nursing students):
+        </label>
+        <input type="text" id="cumulative-gpa" style="width:90px;padding:.3rem .5rem;border:1.5px solid var(--border);border-radius:3px;font-size:.9rem;" placeholder="e.g. 3.25">
+      </div>
+
+      <div class="check-row" style="margin-top:.6rem;">
+        <label class="check-label">
+          <input type="checkbox" id="req-remaining">
+          Student has courses left to successfully complete in the remaining semester, courses listed below:
+        </label>
+      </div>
+
+      <!-- Remaining courses table -->
+     <div class="sub-table-wrap" style="margin-top:.75rem; max-width: 50%;">
+        <table aria-label="Remaining courses">
+          <colgroup>
+            <col style="width:auto;">
+            <col style="width:80px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Course Subject – Number</th>
+              <th>Credits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" class="tbl-input" placeholder="e.g. BIO 141"></td>
+              <td><input type="text" class="tbl-input" placeholder="3"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+
+    <!-- ── Forms Required ── -->
+    <fieldset>
+      <legend>Forms Required</legend>
+      <p style="font-size:.85rem;color:#555;margin-bottom:.75rem;">If the student needs any of the following forms, please select all that apply. Please attach all forms:</p>
+      <div class="radio-group">
+        <label class="check-label" style="display:flex;align-items:center;gap:.5rem;text-transform:none;letter-spacing:normal;font-size:.95rem;font-weight:400;">
+          <input type="checkbox" id="form-sub"> Course Substitution Form
+        </label>
+        <label class="check-label" style="display:flex;align-items:center;gap:.5rem;text-transform:none;letter-spacing:normal;font-size:.95rem;font-weight:400;">
+          <input type="checkbox" id="form-move"> Course Move Form
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- ── Credit Requirements ── -->
+    <fieldset>
+      <legend>Credit Requirements</legend>
+      <div class="field-row cols-3">
+        <div>
+          <label for="credits-required">Credits Required</label>
+          <input type="text" id="credits-required" placeholder="">
+        </div>
+        <div>
+          <label for="credits-taken">Credits Taken</label>
+          <input type="text" id="credits-taken" placeholder="">
+        </div>
+        <div>
+          <label for="credits-missing">Credits Missing</label>
+          <input type="text" id="credits-missing" placeholder="">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Faculty Approval ── -->
+    <fieldset class="office-section">
+      <legend>Faculty Approval</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="faculty-decision" value="approved"> Approved</label>
+        <label><input type="radio" name="faculty-decision" value="disapproved"> Disapproved</label>
+      </div>
+      <div class="field-row cols-1" style="margin-top:.6rem;">
+        <div>
+          <label for="faculty-reason">Reason</label>
+          <input type="text" id="faculty-reason" placeholder="">
+        </div>
+      </div>
+      <div class="sig-date-row" style="margin-top:.75rem;">
+        <label for="faculty-advisor">Faculty Advisor</label>
+        <input type="text" id="faculty-advisor" placeholder="">
+        <label for="faculty-date">Date</label>
+        <input type="date" id="faculty-date">
+      </div>
+    </fieldset>
+
+    <!-- ── Dean Approval ── -->
+    <fieldset class="office-section">
+      <legend>Dean Approval</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="dean-decision" value="approved"> Approved</label>
+        <label><input type="radio" name="dean-decision" value="disapproved"> Disapproved</label>
+      </div>
+      <div class="field-row cols-1" style="margin-top:.6rem;">
+        <div>
+          <label for="dean-reason">Reason</label>
+          <input type="text" id="dean-reason" placeholder="">
+        </div>
+      </div>
+      <div class="sig-date-row" style="margin-top:.75rem;">
+        <label for="faculty-dean">Faculty Dean</label>
+        <input type="text" id="faculty-dean" placeholder="">
+        <label for="dean-date">Date</label>
+        <input type="text" id="dean-date" placeholder="">
+      </div>
+    </fieldset>
+
+    <!-- ── Office Use Only ── -->
+    <fieldset class="office-section">
+      <legend>Office Use Only</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="office-decision" value="met"> Met All Requirements</label>
+        <label><input type="radio" name="office-decision" value="pending"> Pending Enrollment</label>
+        <label><input type="radio" name="office-decision" value="missing"> Missing Requirements</label>
+      </div>
+      <div class="sig-date-row" style="margin-top:.75rem;">
+        <label for="registrar">Registrar</label>
+        <input type="text" id="registrar" placeholder="">
+        <label for="registrar-date">Date</label>
+        <input type="text" id="registrar-date" placeholder="">
+      </div>
+    </fieldset>
+
+    <p class="req-note"><span class="req">*</span> Required fields</p>
+
+  </div><!-- /.form-body -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<style>
+  /* ── Graduation Audit form-specific overrides ── */
+  .check-label {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    font-size: .95rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    cursor: pointer;
+    line-height: 1.5;
+  }
+  .check-label input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    margin-top: .2rem;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .term-year-input {
+    width: 70px;
+    padding: .25rem .4rem;
+    font-size: .85rem;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--font-body);
+    margin-left: .25rem;
+  }
+  .term-year-input:focus {
+    outline: 3px solid var(--focus);
+    border-color: var(--mid);
+  }
+
+@media print {
+  html, body { font-size: 10px !important; }
+  .term-year-input {
+    border: none;
+    background: transparent;
+    font-size: .8rem;
+    padding: 0;
+  }
+  select {
+    border: none !important;
+    background: transparent !important;
+    font-size: .8rem;
+    padding: 0;
+  }
+  .check-label { font-size: .75rem; }
+}
+  
+</style>
+
+</body>
+</html>
