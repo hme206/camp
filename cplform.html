@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application for Course Credit | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+
+<div class="form-wrapper">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Application for Course Credit</h1>
+    <button class="btn-reset no-print" type="button"
+      onclick="if(confirm('Reset all fields?')){document.querySelectorAll('input[type=text],input[type=date]').forEach(i=>i.value='');document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>i.checked=false);}">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-body">
+
+    <p class="instructions">
+      Please complete all sections, print, and obtain needed signatures before submitting to the Office of the Registrar. In the table below, list all courses for which you are requesting credit. Attach supporting documentation (e.g. exam scores, military transcripts, etc.) to this form.
+    </p>
+
+    <!-- ── Student Information ── -->
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="student-name">Student Name <span class="req">*</span></label>
+          <input type="text" id="student-name" placeholder="Last, First Middle">
+        </div>
+        <div>
+          <label for="emplid">EMPLID <span class="req">*</span></label>
+          <input type="text" id="emplid" placeholder="900XXXXXX">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Course Credit for Prior Learning ── -->
+    <fieldset>
+      <legend>Course Credit for Prior Learning</legend>
+      <div class="sub-table-wrap">
+        <table aria-label="Course credit for prior learning">
+          <colgroup>
+            <col style="width:110px;">
+            <col style="width:90px;">
+            <col style="width:70px;">
+            <col style="width:auto;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Number</th>
+              <th>Credit</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" class="tbl-input" placeholder="e.g. BIO"></td>
+              <td><input type="text" class="tbl-input" placeholder="e.g. 141"></td>
+              <td><input type="text" class="tbl-input" placeholder="3"></td>
+              <td><input type="text" class="tbl-input" placeholder="Course title"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+              <td><input type="text" class="tbl-input"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+
+    <!-- ── Credits Based On ── -->
+    <fieldset>
+      <legend>Credits Based On</legend>
+      <p style="font-size:.85rem;color:#555;margin-bottom:.75rem;">Check one box, plus attach supporting documents:</p>
+
+      <div class="credit-basis-list">
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="ap">
+          Advance Placement (AP)
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="clep">
+          CLEP
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="cps">
+          CPS Exam
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="lpn">
+          License Practical Nursing (LPN)
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="local-exam">
+          Locally Developed Examination
+        </label>
+        <p class="credit-basis-note">
+          Student must score "B" or better on exam in order to receive credit. Only date, course and credit hours awarded will be recorded on permanent record.
+        </p>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="military">
+          Military Learning Experiences (indicate which one)
+        </label>
+        <div class="military-sub">
+          <label class="check-label">
+            <input type="checkbox" name="military-type" value="dd214">
+            DD-214
+          </label>
+          <label class="check-label">
+            <input type="checkbox" name="military-type" value="dd295">
+            DD-295
+          </label>
+          <label class="check-label">
+            <input type="checkbox" name="military-type" value="ace">
+            ACE Evaluation Attached
+          </label>
+        </div>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="portfolio">
+          Non-College Learning (Portfolio)
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="police">
+          Police Academy
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="transfer">
+          Transfer Credit (from school not accredited by approved accrediting agency)
+        </label>
+
+        <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="dce">
+          VA Department Correctional Education (DCE)
+        </label>
+
+      </div>
+    </fieldset>
+
+    <!-- ── Advisor Recommendation ── -->
+    <fieldset class="office-section">
+      <legend>Recommendation for Credit — Advisor</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="advisor-decision" value="approve"> Approve</label>
+        <label><input type="radio" name="advisor-decision" value="disapprove"> Disapprove</label>
+      </div>
+      <div class="sig-date-row" style="margin-top:.75rem;">
+        <label for="advisor-sig">Advisor Signature</label>
+        <input type="text" id="advisor-sig" placeholder="">
+        <label for="advisor-date">Date</label>
+        <input type="text" id="advisor-date" placeholder="">
+      </div>
+    </fieldset>
+
+    <!-- ── Dean Recommendation ── -->
+    <fieldset class="office-section">
+      <legend>Recommendation for Credit — Dean</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="dean-decision" value="approve"> Approve</label>
+        <label><input type="radio" name="dean-decision" value="disapprove"> Disapprove</label>
+      </div>
+      <div class="sig-date-row" style="margin-top:.75rem;">
+        <label for="dean-sig">Dean Signature</label>
+        <input type="text" id="dean-sig" placeholder="">
+        <label for="dean-date">Date</label>
+        <input type="text" id="dean-date" placeholder="">
+      </div>
+    </fieldset>
+
+    <p class="req-note"><span class="req">*</span> Required fields &nbsp;|&nbsp; Revised 10/15</p>
+
+  </div><!-- /.form-body -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<style>
+  /* ── Course Credit form-specific styles ── */
+  .check-label {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    font-size: .95rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    cursor: pointer;
+    line-height: 1.5;
+    margin-bottom: .1rem;
+  }
+  .check-label input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    margin-top: .25rem;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+
+  /* List of credit basis options with borders like the PDF */
+  .credit-basis-list {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .credit-basis-list > .check-label {
+    padding: .5rem .75rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .credit-basis-list > .check-label:last-child { border-bottom: none; }
+
+  /* Note under Locally Developed Examination */
+  .credit-basis-note {
+    font-size: .8rem;
+    font-style: italic;
+    color: #555;
+    padding: .1rem .75rem .5rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Military sub-options indented */
+  .military-sub {
+    display: flex;
+    gap: 1.5rem;
+    padding: .35rem .75rem .5rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .military-sub .check-label { margin-bottom: 0; }
+
+  @media print {
+    html, body { font-size: 12px !important; }
+    .check-label { font-size: .75rem; }
+    .credit-basis-note { font-size: .68rem; }
+    .military-sub { padding: .2rem .5rem .3rem 2rem; gap: 1rem; }
+  }
+</style>
+
+</body>
+</html>
