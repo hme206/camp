@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repeat Course Permission Form | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+<div class="form-wrapper">
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Repeat Course Permission Form</h1>
+    <button class="btn-reset no-print" type="button"
+      onclick="if(confirm('Reset all fields?')){document.querySelectorAll('input[type=text],textarea').forEach(i=>i.value='');document.querySelectorAll('input[type=radio]').forEach(i=>i.checked=false);}">
+      ↺ Reset Form
+    </button>
+  </header>
+  <nav class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+  <div class="form-body">
+    <div class="instructions" role="note" aria-label="Policy notice">
+      <p>In accordance with VCCS and PDCCC Policy, enrollment in a VCCS course is normally limited to two completion enrollments.</p>
+      <p style="margin-top:.5rem;">Under mitigating circumstances, students may be approved for additional course registrations with a Dean's approval. The following student/course registration for the
+    term has exceeded the normal two completion limit. Please indicate your approval/disapproval for the current registration and provide a summary of the mitigating circumstances for courses that are approved.
+      </p>
+    </div>
+
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="first-name">First Name <span class="req">*</span></label>
+          <input type="text" id="first-name" autocomplete="given-name">
+        </div>
+        <div>
+          <label for="last-name">Last Name <span class="req">*</span></label>
+          <input type="text" id="last-name" autocomplete="family-name">
+        </div>
+      </div>
+      <div class="field-row cols-1" style="margin-top:.75rem;">
+        <div>
+          <label for="student-id">Student ID (Empl ID) <span class="req">*</span></label>
+          <input type="text" id="student-id" placeholder="XXXXXXXXX" aria-describedby="student-id-hint">
+          <span id="student-id-hint" class="field-hint">Enter your 9-digit student ID number</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Course Information</legend>
+      <div class="field-row cols-5">
+        <div>
+          <label for="class-number">Class Number <span class="req">*</span></label>
+          <input type="text" id="class-number"placeholder="e.g. 23546" aria-describedby="Course five digit number">
+        </div>
+        <div>
+          <label for="subject">Subject <span class="req">*</span></label>
+          <input type="text" id="subject" placeholder="e.g. BIO">
+        </div>
+        <div>
+          <label for="course-number">Number <span class="req">*</span></label>
+          <input type="text" id="course-number" placeholder="e.g. 141">
+        </div>
+        <div>
+          <label for="section">Section</label>
+          <input type="text" id="section"placeholder="e.g. 71">
+        </div>
+        <div>
+          <label for="campus">Campus</label>
+          <input type="text" id="campus"placeholder="e.g. A">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Previously Taken with Grades</legend>
+      <p class="req-note" style="margin-bottom:.75rem;">List all previous attempts at this course.</p>
+      <div class="prev-grades" role="group" aria-label="Previous course attempts">
+        <div class="prev-grade-row">
+          <div><label for="grade-1">Grade — Attempt 1</label><input type="text" id="grade-1" class="short-input" placeholder="e.g. D"></div>
+          <div><label for="sem-year-1">Semester / Year</label><input type="text" id="sem-year-1" class="med-input" placeholder="e.g. Fall 2023"></div>
+        </div>
+        <div class="prev-grade-row">
+          <div><label for="grade-2">Grade — Attempt 2</label><input type="text" id="grade-2" class="short-input" placeholder="e.g. W"></div>
+          <div><label for="sem-year-2">Semester / Year</label><input type="text" id="sem-year-2" class="med-input" placeholder="e.g. Spring 2024"></div>
+        </div>
+        <div class="prev-grade-row">
+          <div><label for="grade-3">Grade — Attempt 3</label><input type="text" id="grade-3" class="short-input" placeholder="e.g. F"></div>
+          <div><label for="sem-year-3">Semester / Year</label><input type="text" id="sem-year-3" class="med-input" placeholder="e.g. Fall 2024"></div>
+        </div>
+      </div>
+    </fieldset>
+
+  <fieldset>
+  <legend>Mitigating Circumstances</legend>
+  <label for="mitigating-circumstances" class="sr-only">Mitigating circumstances description</label>
+  <textarea id="mitigating-circumstances" rows="5"
+    placeholder="Describe mitigating circumstances here..."
+    aria-describedby="mitigating-hint"
+    style="resize:none; overflow:hidden;"
+    oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+  <span id="mitigating-hint" class="field-hint">Provide a detailed explanation of any circumstances that affected your course performance.</span>
+</fieldset>
+
+  <fieldset>
+  <legend>Student Success Plan</legend>
+  <label for="success-plan" class="sr-only">Student success plan</label>
+  <textarea id="success-plan" rows="5"
+    placeholder="Describe your plan for success..."
+    aria-describedby="success-plan-hint"
+    style="resize:none; overflow:hidden;"
+    oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+  <span id="success-plan-hint" class="field-hint">Outline the specific steps you will take to successfully complete the course.</span>
+</fieldset>
+
+    <fieldset class="office-section">
+      <legend>Dean Approval</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="dean-decision" value="approved"> Approved</label>
+        <label><input type="radio" name="dean-decision" value="disapproved"> Disapproved</label>
+      </div>
+      <div class="sig-date-row" style="margin-top:1rem;">
+        <label for="dean-sig-1">Dean Signature</label>
+        <input type="text" id="dean-sig-1">
+        <label for="dean-date-1">Date</label>
+        <input type="text" id="dean-date-1">
+      </div>
+      <div class="sig-date-row" style="margin-top:.75rem;">
+        <label for="dean-sig-2">Dean Signature</label>
+        <input type="text" id="dean-sig-2">
+        <label for="dean-date-2">Date</label>
+        <input type="text" id="dean-date-2">
+      </div>
+    </fieldset>
+
+    <fieldset class="office-section">
+      <legend>For the Office of Admissions Use Only</legend>
+      <div class="sig-date-row">
+        <label for="processed-by">Processed By</label>
+        <input type="text" id="processed-by">
+        <label for="processed-date">Date</label>
+        <input type="text" id="processed-date">
+      </div>
+    </fieldset>
+
+    <p class="req-note"><span class="req">*</span> Required fields</p>
+  </div>
+
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+</div>
+
+<style>
+  .inline-input {
+    width: 90px; padding: .15rem .35rem;
+    border: none; border-bottom: 1.5px solid var(--border);
+    font-size: .9rem; font-family: var(--font-body);
+    background: transparent; border-radius: 0;
+    display: inline-block; vertical-align: baseline; margin: 0 .25rem;
+  }
+  .inline-input:focus { outline: 3px solid var(--focus); outline-offset: 2px; border-bottom-color: var(--mid); }
+  .field-row.cols-5 { grid-template-columns: 1.2fr 1fr 1fr 0.8fr 1fr; }
+  .prev-grades { display: flex; flex-direction: column; gap: .6rem; }
+  .prev-grade-row { display: flex; align-items: flex-end; gap: 1.5rem; }
+  .short-input { width: 80px; }
+  .med-input { width: 180px; }
+  .field-hint { display: block; font-size: .72rem; color: var(--muted); margin-top: .2rem; font-family: var(--font-ui); }
+  @media print {
+    html, body { font-size: 14px !important; }
+    .inline-input { border: none; border-bottom: 1px solid #999; background: transparent; }
+    .field-hint { display: none; }
+    .prev-grade-row { gap: 1rem; }
+    .short-input { width: 60px; }
+    .med-input { width: 140px; }
+    textarea { min-height: 70px; }
+  }
+  @media (max-width: 600px) {
+    .field-row.cols-5 { grid-template-columns: 1fr 1fr; }
+    .prev-grade-row { flex-direction: column; gap: .4rem; }
+    .short-input, .med-input { width: 100%; }
+  }
+</style>
+</body>
+</html>
