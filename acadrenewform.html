@@ -308,33 +308,25 @@
 
   /* ── Print Styles ── */
 
-  @media print {
+@page { size: letter portrait; margin: .35in .45in; }
 
-    html, body { background: white !important; padding: 0 !important; }
-
-    .no-print { display: none !important; }
-
-    .instructions { display: none !important; }
-
-    .save-btn-row { display: none !important; }
-
-    nav { display: none !important; }
-
- 
-
-    .policy-box { background: white !important; }
-
-    .student-id-row input { border: 1px solid #999 !important; }
-
-    .eligibility-check-row label { font-size: .85rem; }
-
- 
-
-    fieldset { page-break-inside: avoid; }
-
-    .policy-box { page-break-inside: avoid; }
-
+@media print {
+  html, body {
+    background: white !important;
+    padding: 0 !important;
+    font-size: 11px;
   }
+  .no-print { display: none !important; }
+  .instructions { display: none !important; }
+  .save-btn-row { display: none !important; }
+  nav { display: none !important; }
+  header { display: none !important; }
+  .policy-box { background: white !important; }
+  .student-id-row input { border: 1px solid #999 !important; }
+  .eligibility-check-row label { font-size: .85rem; }
+  fieldset { page-break-inside: avoid; }
+  .policy-box { page-break-inside: avoid; }
+}
 
 </style>
 
