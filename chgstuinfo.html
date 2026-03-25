@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Change of Student Information</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+  /* ── Change-of-Info specific overrides ── */
+
+  /* Checkbox item rows */
+  .change-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .65rem;
+    margin-bottom: .9rem;
+  }
+  .change-item input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: .2rem;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .change-item input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .change-item-body {
+    flex: 1;
+  }
+  .change-item-body label.item-label {
+    display: inline;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+  .change-item-body .item-note {
+    display: block;
+    font-style: italic;
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: .1rem;
+  }
+
+  /* Inline text inputs inside change items */
+  .inline-input {
+    display: inline-block;
+    border: none;
+    border-bottom: 1.5px solid var(--text);
+    border-radius: 0;
+    padding: .1rem .25rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: transparent;
+    width: auto;
+    min-width: 180px;
+    vertical-align: baseline;
+  }
+  .inline-input:focus {
+    border-bottom-color: var(--mid);
+    outline: none;
+    box-shadow: 0 2px 0 var(--focus);
+  }
+  .inline-input.ssn { min-width: 160px; font-family: monospace; letter-spacing: .12em; }
+  .inline-input.narrow { min-width: 120px; }
+  .inline-input.wide   { min-width: 260px; }
+
+  /* Address block under address change item */
+  .address-lines {
+    margin-top: .4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+  }
+  .address-lines input[type="text"] {
+    max-width: 420px;
+  }
+
+  /* Phone number group */
+  .phone-group {
+    margin-top: .4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+  }
+  .phone-row {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-wrap: wrap;
+  }
+  .phone-row label.phone-label {
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0;
+    min-width: 45px;
+  }
+  .phone-part {
+    border: none;
+    border-bottom: 1.5px solid var(--text);
+    border-radius: 0;
+    padding: .1rem .2rem;
+    font-family: monospace;
+    font-size: 1rem;
+    background: transparent;
+    text-align: center;
+  }
+  .phone-part:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+    box-shadow: 0 2px 0 var(--focus);
+  }
+  .phone-part.area  { width: 42px; }
+  .phone-part.pre   { width: 42px; }
+  .phone-part.line  { width: 52px; }
+
+  /* HS diploma sub-fields */
+  .hs-sub {
+    margin-top: .35rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+  }
+  .hs-sub-row {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-wrap: wrap;
+  }
+  .hs-sub-row label.hs-label {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+
+  /* Signature section */
+  .sig-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .sig-row {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .sig-field {
+    flex: 2;
+  }
+  .sig-field.date-field {
+    flex: 1;
+    min-width: 160px;
+  }
+  .sig-field label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin-bottom: .3rem;
+  }
+  .sig-field input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid var(--text);
+    border-radius: 0;
+    padding: .25rem .2rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: transparent;
+  }
+  .sig-field input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+    box-shadow: 0 2px 0 var(--focus);
+  }
+
+  /* Student ID digit boxes */
+  .emplid-row {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+  }
+  .emplid-label {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text);
+    margin-right: .4rem;
+  }
+  .emplid-box {
+    width: 2rem;
+    height: 2rem;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.1rem;
+    background: var(--white);
+    padding: 0;
+  }
+  .emplid-box:focus {
+    border-color: var(--mid);
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+  }
+
+  /* Office use section */
+  .office-use-box {
+    background: #f5f0e8;
+    border: 1px solid #d4c9a8;
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .office-use-box .office-title {
+    font-family: var(--font-ui);
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: .75rem;
+  }
+
+  /* ── Print overrides specific to this form ── */
+  @media print {
+    .change-item { margin-bottom: .45rem; }
+    .change-item-body label.item-label { font-size: .85rem; }
+    .change-item-body .item-note { font-size: .72rem; }
+    .inline-input { font-size: .85rem; min-width: 140px; border-bottom-width: 1px; }
+    .inline-input.wide { min-width: 200px; }
+    .phone-part { font-size: .85rem; }
+    .phone-part.area { width: 34px; }
+    .phone-part.pre  { width: 34px; }
+    .phone-part.line { width: 44px; }
+    .emplid-box { width: 1.5rem; height: 1.5rem; font-size: .85rem; }
+    .emplid-label { font-size: .85rem; }
+    .sig-section { margin-top: .75rem; padding-top: .5rem; }
+    .office-use-box { padding: .5rem .75rem; margin-top: .75rem; }
+    .office-use-box .office-title { font-size: .68rem; margin-bottom: .4rem; }
+    .address-lines input[type="text"] { font-size: .85rem; }
+    .hs-sub-row label.hs-label { font-size: .85rem; }
+    .sig-field label { font-size: .68rem; }
+    .sig-field input[type="text"] { font-size: .85rem; }
+    .sig-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <div style="flex:1;">
+      <div class="college" style="font-family:var(--font-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#000;margin-bottom:.25rem;">Paul D. Camp Community College</div>
+      <h2 style="color:#000;font-size:1.5rem;">Change of Student Information</h2>
+      <div style="font-family:var(--font-ui);font-size:.72rem;color:rgba(0,0,0,.6);margin-top:.2rem;">Revised 08/2019</div>
+    </div>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Nav -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note">
+      Fill out your name and Student ID (Emplid). In the <strong>Student New Information</strong> section, check any item you wish to change and fill in the new information. Sign at the bottom of the page and return to the Admissions Office.
+      <p class="req-note" style="margin-top:.5rem;margin-bottom:0;"><abbr title="Required">*</abbr> Indicates a required field.</p>
+    </div>
+
+    <!-- Student Information -->
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+        </div>
+        <div>
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+        </div>
+      </div>
+      <div class="emplid-row" style="margin-top:.9rem;">
+        <span class="emplid-label">Student ID (Emplid)</span>
+        <input class="emplid-box" type="text" maxlength="1" aria-label="Student ID digit 1" name="emplid_1" inputmode="numeric" pattern="[0-9]">
+      </div>
+    </fieldset>
+
+    <!-- Student New Information -->
+    <fieldset>
+      <legend>Student New Information</legend>
+
+      <!-- Name Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-name" name="chk_name" aria-describedby="name-note">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-name">Change my name to:</label>
+          <input class="inline-input wide" type="text" id="new-name" name="new_name" aria-label="New name" placeholder="New full name">
+          <span class="item-note" id="name-note">Name change will require driver's license, military ID, permanent resident card, or passport.</span>
+        </div>
+      </div>
+
+      <!-- SSN Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-ssn" name="chk_ssn">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-ssn">Change my Social Security Number to:</label>
+          <input class="inline-input ssn" type="text" id="new-ssn" name="new_ssn" maxlength="11" placeholder="___-__-____" aria-label="New Social Security Number">
+          <span class="item-note">(Must present the original Social Security card)</span>
+        </div>
+      </div>
+
+      <!-- Address Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-address" name="chk_address">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-address">Change my address to:</label>
+          <div class="address-lines">
+            <input type="text" id="new-address-1" name="new_address_1" aria-label="New address line 1" placeholder="Street address">
+            <input type="text" id="new-address-2" name="new_address_2" aria-label="New address line 2" placeholder="City, State, ZIP">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-phone" name="chk_phone">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-phone">Change my phone number to:</label>
+          <div class="phone-group">
+            <div class="phone-row">
+              <label class="phone-label" for="home-area">Home:</label>
+              <span>(</span>
+              <input class="phone-part area" type="text" id="home-area" name="home_area" maxlength="3" inputmode="numeric" aria-label="Home area code">
+              <span>)</span>
+              <input class="phone-part pre" type="text" name="home_pre" maxlength="3" inputmode="numeric" aria-label="Home prefix">
+              <span>–</span>
+              <input class="phone-part line" type="text" name="home_line" maxlength="4" inputmode="numeric" aria-label="Home line number">
+            </div>
+            <div class="phone-row">
+              <label class="phone-label" for="work-area">Work:</label>
+              <span>(</span>
+              <input class="phone-part area" type="text" id="work-area" name="work_area" maxlength="3" inputmode="numeric" aria-label="Work area code">
+              <span>)</span>
+              <input class="phone-part pre" type="text" name="work_pre" maxlength="3" inputmode="numeric" aria-label="Work prefix">
+              <span>–</span>
+              <input class="phone-part line" type="text" name="work_line" maxlength="4" inputmode="numeric" aria-label="Work line number">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Veterans Benefits -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-veterans" name="chk_veterans">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-veterans">Change my Veterans Educational Benefits eligibility to <strong>NO</strong>.</label>
+        </div>
+      </div>
+
+      <!-- High School Diploma / GED -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-hs" name="chk_hs">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-hs">I received a High School Diploma or GED from:</label>
+          <input class="inline-input wide" type="text" id="hs-from" name="hs_from" aria-label="High school or GED institution name">
+          <div class="hs-sub">
+            <div class="hs-sub-row">
+              <label class="hs-label" for="hs-date">Date received:</label>
+              <input class="inline-input narrow" type="text" id="hs-date" name="hs_date" aria-label="Date diploma or GED received" placeholder="MM/DD/YYYY">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advisor Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-advisor" name="chk_advisor">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-advisor">Change my advisor to:</label>
+          <input class="inline-input wide" type="text" id="new-advisor" name="new_advisor" aria-label="New advisor name">
+        </div>
+      </div>
+
+      <!-- Domicile Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-domicile" name="chk_domicile">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-domicile">Change my domicile to <strong>in-state</strong> (appropriate documents must be attached).</label>
+        </div>
+      </div>
+
+      <!-- Other Change -->
+      <div class="change-item">
+        <input type="checkbox" id="chk-other" name="chk_other">
+        <div class="change-item-body">
+          <label class="item-label" for="chk-other">Other change:</label>
+          <input class="inline-input wide" type="text" id="other-change" name="other_change" aria-label="Describe other change">
+        </div>
+      </div>
+
+    </fieldset>
+
+    <!-- Signature -->
+    <div class="sig-section">
+      <div class="sig-row">
+        <div class="sig-field">
+          <label for="student-sig">Signature <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-sig" name="student_signature" aria-required="true" aria-label="Student signature">
+        </div>
+        <div class="sig-field date-field">
+          <label for="sig-date">Date <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="sig-date" name="sig_date" placeholder="MM/DD/YYYY" aria-required="true">
+        </div>
+      </div>
+    </div>
+
+    <!-- Office of Admissions Use Only -->
+    <div class="office-use-box">
+      <div class="office-title">For the Office of Admissions Use Only</div>
+      <div class="sig-row">
+        <div class="sig-field">
+          <label for="processed-by">Processed by</label>
+          <input type="text" id="processed-by" name="processed_by" aria-label="Processed by">
+        </div>
+        <div class="sig-field date-field">
+          <label for="processed-date">Date</label>
+          <input type="text" id="processed-date" name="processed_date" placeholder="MM/DD/YYYY">
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  // ── Auto-advance digit inputs for Emplid ──────────────────────────
+  const emplids = document.querySelectorAll('.emplid-box');
+  emplids.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/\D/g, '').slice(0, 1);
+      if (box.value && i < emplids.length - 1) emplids[i + 1].focus();
+    });
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && i > 0) emplids[i - 1].focus();
+    });
+  });
+
+  // ── Auto-advance phone parts ──────────────────────────────────────
+  document.querySelectorAll('.phone-part').forEach((part, i, arr) => {
+    part.addEventListener('input', () => {
+      const max = parseInt(part.getAttribute('maxlength'));
+      if (part.value.length >= max && i < arr.length - 1) arr[i + 1].focus();
+    });
+  });
+
+  // ── Reset form ────────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="checkbox"]')
+      .forEach(el => { el.checked = false; });
+  }
+</script>
+
+</body>
+</html>
