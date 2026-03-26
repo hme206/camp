@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Domicile Determination Form</title>
+
+<style>
+/* ══════════════════════════════════════════════════════════
+   styles.css — Paul D. Camp Community College
+   ══════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #33ab2b;
+  --gold:      #b8922a;
+  --mid:       #5dc956;
+  --light:     #eaf7ea;
+  --border:    #8fce8b;
+  --text:      #000000;
+  --muted:     #555555;
+  --white:     #ffffff;
+  --focus:     #ff6b00;
+  --row-alt:   #f2fbf2;
+  --font-body: 'Arial', sans-serif;
+  --font-ui:   'Arial', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: #d6dde8;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ══════════════════════════════════════════════════════════
+   forms.css
+   ══════════════════════════════════════════════════════════ */
+
+.form-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 4px;
+  box-shadow: 0 4px 24px rgba(26,45,79,.18);
+  overflow: hidden;
+}
+
+.form-header {
+  background: var(--navy);
+  color: #000000;
+  padding: 1.5rem 2.5rem;
+  border-bottom: 5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.form-header-text { flex: 1; }
+.form-header .college {
+  font-family: var(--font-ui);
+  font-size: .85rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #000000;
+  margin-bottom: .4rem;
+}
+.form-header h1 {
+  font-size: 1.75rem;
+  font-weight: normal;
+  letter-spacing: .02em;
+}
+.form-header .revised {
+  font-family: var(--font-ui);
+  font-size: .75rem;
+  color: rgba(0,0,0,.6);
+  margin-top: .5rem;
+}
+
+.btn-reset {
+  background: rgba(0,0,0,0.18);
+  color: #000;
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .55rem 1.2rem;
+  border: 2px solid rgba(0,0,0,0.35);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-reset:hover { background: rgba(0,0,0,0.30); border-color: rgba(0,0,0,0.5); }
+.btn-reset:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0 2rem 0;
+  padding-left: 2rem;
+}
+nav a {
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--text);
+  padding: .3rem .5rem;
+  border-radius: 3px;
+  transition: background .15s;
+}
+nav a:hover { background: var(--mid); color: #000; }
+nav a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.form-body { padding: 2rem 2.5rem; }
+
+.instructions {
+  background: var(--light);
+  border-left: 4px solid var(--navy);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  font-size: .9rem;
+  color: #000000;
+  font-family: var(--font-ui);
+  border-radius: 0 4px 4px 0;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+legend {
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #000000;
+  padding: 0 .5rem;
+}
+.field-row { display: grid; gap: .75rem 1.5rem; margin-top: 1rem; }
+.field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+.field-row.cols-3 { grid-template-columns: 2fr 1fr 1fr; }
+.field-row.cols-1 { grid-template-columns: 1fr; }
+
+label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .3rem;
+}
+
+input[type="text"], input[type="date"], textarea {
+  width: 100%;
+  padding: .5rem .75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color .15s;
+}
+input[type="text"]:focus, input[type="date"]:focus, textarea:focus {
+  border-color: var(--mid);
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+textarea { resize: vertical; min-height: 80px; }
+
+.radio-group { display: flex; gap: 2rem; margin-top: .75rem; flex-wrap: wrap; }
+.radio-group label {
+  display: flex; align-items: center; gap: .5rem;
+  text-transform: none; letter-spacing: normal;
+  font-size: .95rem; font-weight: 400; cursor: pointer; color: var(--text);
+}
+input[type="radio"] { width: 1.1rem; height: 1.1rem; accent-color: var(--navy); cursor: pointer; }
+input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.req { color: #c0392b; margin-left: .15rem; }
+.req-note { font-family: var(--font-ui); font-size: .78rem; color: var(--muted); margin-bottom: 1.25rem; }
+
+.save-btn-row {
+  text-align: right;
+  padding: 1.25rem 2.5rem 2rem;
+  border-top: 1px solid var(--light);
+}
+.btn-print {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-ui);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .7rem 2rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-print:hover { background: var(--mid); }
+.btn-print:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.btn-hint { font-family: var(--font-ui); font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+
+/* ══════════════════════════════════════════════════════════
+   Page-specific styles
+   ══════════════════════════════════════════════════════════ */
+
+/* Two-column section layout */
+.two-col-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.section-col {
+  padding: 1rem 1.25rem;
+}
+.section-col:first-child {
+  border-right: 1px solid var(--border);
+}
+.section-col-header {
+  background: var(--navy);
+  color: #000;
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: .5rem 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.section-col-header span:last-child {
+  border-left: 1px solid rgba(0,0,0,.2);
+  padding-left: 1.25rem;
+}
+
+/* ── Domicile category selection ── */
+/* Fixed: grid-template-columns changed from 1fr 1fr to 1fr auto 1fr
+   so the vertical divider sits as a proper middle column */
+.domicile-categories {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-item {
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+  margin-bottom: .6rem;
+  font-size: .88rem;
+  line-height: 1.45;
+}
+.category-item input[type="radio"] {
+  margin-top: .18rem;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--navy);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.category-item label {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: .88rem;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+  margin: 0;
+}
+.category-item strong { font-weight: 700; }
+
+/* Sub-checkboxes (under category 2) */
+.sub-checks { margin: .35rem 0 .35rem 1.2rem; }
+.sub-check-item {
+  display: flex;
+  gap: .45rem;
+  align-items: flex-start;
+  margin-bottom: .3rem;
+  font-size: .83rem;
+  line-height: 1.4;
+}
+.sub-check-item input[type="checkbox"] {
+  margin-top: .15rem;
+  width: .95rem;
+  height: .95rem;
+  accent-color: var(--navy);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.sub-check-item input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.sub-check-item label {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: .83rem;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Vertical divider between domicile columns */
+.domicile-divider {
+  width: 1px;
+  background-color: var(--border);
+  align-self: stretch;
+}
+
+.note-box {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: .6rem .85rem;
+  font-size: .82rem;
+  font-style: italic;
+  margin-top: .5rem;
+  line-height: 1.45;
+}
+
+/* Section routing note */
+.routing-note {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  font-size: .88rem;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: .75rem 1.25rem;
+}
+.routing-note p { line-height: 1.45; }
+
+/* Yes/No inline */
+.yn-group {
+  display: inline-flex;
+  gap: .6rem;
+  align-items: center;
+  margin-left: .25rem;
+}
+.yn-group label {
+  display: flex; align-items: center; gap: .25rem;
+  text-transform: none; letter-spacing: normal;
+  font-size: .85rem; font-weight: 400; cursor: pointer; color: var(--text);
+  margin: 0;
+}
+.yn-group input[type="radio"] {
+  width: .95rem; height: .95rem;
+  accent-color: var(--navy); cursor: pointer;
+}
+
+/* Question blocks inside two-col */
+.q-block { margin-bottom: .85rem; font-size: .85rem; line-height: 1.5; }
+.q-block p { margin-bottom: .25rem; }
+.q-label { font-weight: 700; margin-bottom: .3rem; display: block; font-size: .85rem; }
+
+.inline-input {
+  display: inline-block;
+  border: none;
+  border-bottom: 1.5px solid #000;
+  padding: .1rem .25rem;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  background: transparent;
+  min-width: 100px;
+  vertical-align: bottom;
+}
+.inline-input:focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+  background: rgba(255,255,255,.8);
+}
+.inline-input.wide { min-width: 160px; }
+.inline-input.short { min-width: 70px; }
+
+/* Name row */
+.name-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .5rem; margin-top: .35rem; }
+.name-row > div > label { font-size: .72rem; color: var(--muted); margin-bottom: .15rem; }
+
+.dob-row { display: flex; gap: .5rem; align-items: center; margin-top: .35rem; }
+.dob-row label { font-size: .75rem; color: var(--muted); margin: 0; white-space: nowrap; }
+.dob-row input { width: 52px; text-align: center; padding: .3rem .25rem; font-size: .9rem; }
+
+/* Address sub-blocks */
+.addr-block { margin-top: .35rem; }
+.addr-block .date-range { display: flex; gap: .4rem; align-items: center; margin-bottom: .25rem; flex-wrap: wrap; }
+.addr-block .date-range label { font-size: .75rem; color: var(--muted); white-space: nowrap; margin: 0; }
+.addr-block .date-range input { width: 90px; }
+.addr-block .addr-line label { font-size: .75rem; color: var(--muted); margin-bottom: .15rem; }
+
+/* Tax checkboxes */
+.tax-checks { margin-top: .3rem; }
+.tax-check-item {
+  display: flex; gap: .4rem; align-items: flex-start;
+  margin-bottom: .3rem; font-size: .83rem; line-height: 1.4;
+}
+.tax-check-item input[type="checkbox"] {
+  margin-top: .15rem; width: .95rem; height: .95rem;
+  accent-color: var(--navy); flex-shrink: 0; cursor: pointer;
+}
+.tax-check-item input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.tax-check-item label {
+  text-transform: none; letter-spacing: normal;
+  font-size: .83rem; font-weight: 400; color: var(--text);
+  cursor: pointer; margin: 0;
+}
+
+/* Certification box */
+.cert-box {
+  background: #f5f0e8;
+  border: 1px solid #d4c9a8;
+  border-radius: 4px;
+  padding: .85rem 1.25rem;
+  font-size: .83rem;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+/* Signature area */
+.sig-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: .75rem;
+}
+.sig-item label { font-size: .75rem; color: var(--muted); margin-bottom: .25rem; }
+
+/* ── Print ── */
+@media print {
+  @page { size: letter portrait; margin: .45in .5in .45in .5in; }
+  * {
+    color: #000 !important;
+    background: #fff !important;
+    border-color: #999 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  html, body { font-size: 14px; background: white; padding: 0; }
+  .form-wrapper { box-shadow: none; max-width: 100%; }
+  .no-print, .save-btn-row, nav, .instructions { display: none !important; }
+  .form-header { padding: .4rem .6rem .35rem; border-bottom-width: 3px; }
+  .form-header h1 { font-size: 1.2rem; }
+  .form-body { padding: .4rem .6rem; }
+  fieldset { padding: .4rem .6rem; margin-bottom: .45rem; page-break-inside: avoid; }
+  legend { font-size: .68rem; }
+  label { font-size: .68rem; margin-bottom: .1rem; }
+  .field-row { gap: .3rem .6rem; margin-top: .35rem; }
+  input::placeholder, textarea::placeholder { color: transparent !important; }
+  input[type="text"], input[type="date"], textarea { padding: .2rem .35rem; font-size: .85rem; border-width: 1px; border: 1px solid #999 !important; background: transparent !important; }
+  textarea { min-height: 36px; }
+  .req-note { font-size: .68rem; margin-bottom: .4rem; }
+  .two-col-sections { page-break-inside: avoid; border-color: #aaa !important; }
+  .section-col-header { background: #ccc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .note-box, .cert-box, .routing-note { background: #f9f9f9 !important; }
+  .domicile-divider { background-color: #aaa !important; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 680px) {
+  .form-body { padding: 1.25rem 1rem; }
+  .field-row.cols-2, .field-row.cols-3 { grid-template-columns: 1fr; }
+  .save-btn-row { padding: 1rem; }
+  .form-header { flex-direction: column; align-items: flex-start; }
+
+  /* Stack domicile categories and hide divider on small screens */
+  .domicile-categories {
+    grid-template-columns: 1fr;
+  }
+  .domicile-divider {
+    display: none;
+  }
+
+  .two-col-sections { grid-template-columns: 1fr; }
+  .section-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .section-col-header { grid-template-columns: 1fr; }
+  .section-col-header span:last-child { border-left: none; padding-left: 0; border-top: 1px solid rgba(0,0,0,.2); padding-top: .3rem; margin-top: .3rem; }
+  .routing-note { grid-template-columns: 1fr; }
+  .sig-row { grid-template-columns: 1fr; }
+  .name-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="form-wrapper">
+
+  <!-- Skip navigation link for keyboard/screen reader users (WCAG 2.4.1) -->
+  <a href="#main-form" class="sr-only" style="position:absolute;top:0;left:0;padding:.5rem 1rem;background:var(--focus);color:#fff;font-weight:700;z-index:9999;border-radius:0 0 4px 0;">
+    Skip to main content
+  </a>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="form-header">
+      <div class="form-header-text">
+        <p class="college">Paul D. Camp Community College</p>
+        <h1>Domicile Determination Form</h1>
+      </div>
+      <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields to blank">
+        ↺ Reset Form
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav aria-label="Site navigation" class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+      Complete this form to determine eligibility for in-state tuition pursuant to Section 23-7.4, Code of Virginia.
+      Mark <strong>one</strong> domicile category (1–6), then complete either Section A or Section B as directed.
+      Click <strong>Print to PDF</strong> at the bottom and email or submit the completed form to the Admissions Office.
+      <p class="req-note">Please contact the college admissions office if you have any questions.</p>
+    </div>
+
+    <form id="domicile-form" novalidate>
+
+      <!-- Step 1: Category Selection -->
+      <fieldset>
+        <legend>Step 1 — Select Your Domicile Category <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></legend>
+        <p style="font-size:.88rem; margin:.5rem 0 .85rem; line-height:1.5;">
+          Mark the domicile category that applies to you below from choices 1–6. <strong>Choose only one category.</strong>
+        </p>
+
+        <!-- FIXED: grid-template-columns is now 1fr auto 1fr to accommodate
+             the divider as a proper middle column instead of 1fr 1fr which
+             caused the right column to wrap onto a new row. -->
+        <div class="domicile-categories" role="radiogroup" aria-label="Domicile category selection — choose one">
+
+          <!-- Left column: 1, 2 -->
+          <div>
+
+            <!-- Category 1 -->
+            <div class="category-item">
+              <input type="radio" id="cat1" name="domicile_category" value="1" aria-describedby="cat1-desc">
+              <label for="cat1"><span id="cat1-desc"><strong>1. Self:</strong> I am age 24 or older and want to claim eligibility based on my own domicile.</span></label>
+            </div>
+
+            <!-- Category 2 -->
+            <div class="category-item" style="align-items:flex-start;">
+              <input type="radio" id="cat2" name="domicile_category" value="2" style="margin-top:.18rem;" aria-describedby="cat2-desc">
+              <div>
+                <label for="cat2" id="cat2-desc"><strong>2. Self:</strong> I am under the age of 24 and want to claim eligibility based on my own domicile for the following reason(s):</label>
+                <div class="sub-checks" role="group" aria-label="Reasons for category 2 — check all that apply">
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-military" name="reason_military">
+                    <label for="r-military">I am a veteran or active duty member of the U.S. Armed Forces.</label>
+                  </div>
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-parents" name="reason_parents">
+                    <label for="r-parents">Both of my parents are deceased and I have no adoptive or legal guardian.</label>
+                  </div>
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-dependents" name="reason_dependents">
+                    <label for="r-dependents">I have legal dependents other than my spouse.</label>
+                  </div>
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-self-suf" name="reason_self_sufficient">
+                    <label for="r-self-suf">I am financially self-sufficient.</label>
+                  </div>
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-ward" name="reason_ward">
+                    <label for="r-ward">I am a ward of the court or was a ward of the court until age 18.</label>
+                  </div>
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-bachelor" name="reason_bachelor">
+                    <label for="r-bachelor">I have a bachelor's degree and I am working on a graduate degree.</label>
+                  </div>
+                  <div class="sub-check-item">
+                    <input type="checkbox" id="r-married" name="reason_married">
+                    <label for="r-married">I am married.</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vertical Divider: purely decorative, hidden from assistive technology -->
+          <div class="domicile-divider" aria-hidden="true" role="presentation"></div>
+
+          <!-- Right column: 3, 4, 5, 6 -->
+          <div>
+            <div class="category-item">
+              <input type="radio" id="cat3" name="domicile_category" value="3" aria-describedby="cat3-desc">
+              <label for="cat3"><span id="cat3-desc"><strong>3. Spouse:</strong> I am age 24 or older and want to claim eligibility for in-state tuition based on my spouse's domicile.</span></label>
+            </div>
+            <div class="category-item">
+              <input type="radio" id="cat4" name="domicile_category" value="4" aria-describedby="cat4-desc">
+              <label for="cat4"><span id="cat4-desc"><strong>4. Spouse:</strong> I am under age 24 and I want to claim eligibility for in-state tuition based on my spouse's domicile.</span></label>
+            </div>
+            <div class="category-item">
+              <input type="radio" id="cat5" name="domicile_category" value="5" aria-describedby="cat5-desc">
+              <label for="cat5"><span id="cat5-desc"><strong>5. Parent:</strong> I am under age 24 and my parents provide more than half of my financial support and/or claim me as a dependent for tax purposes.</span></label>
+            </div>
+            <div class="category-item">
+              <input type="radio" id="cat6" name="domicile_category" value="6" aria-describedby="cat6-desc">
+              <label for="cat6"><span id="cat6-desc"><strong>6. Legal Guardian:</strong> I am under age 24 and my court-appointed legal guardian provides more than half of my financial support and/or claims me as a dependent for tax purposes.</span></label>
+            </div>
+
+            <div class="note-box" role="note">
+              *You may be required to supply "clear and convincing evidence" of your status.
+            </div>
+          </div>
+
+        </div><!-- .domicile-categories -->
+
+        <div class="routing-note" role="note" aria-label="Section routing instructions">
+          <p><strong>If you marked box 1 or 2,</strong> please complete <strong>Section A</strong> below.</p>
+          <p><strong>If you marked box 3, 4, 5, or 6,</strong> please complete <strong>Section B</strong> below.</p>
+        </div>
+      </fieldset>
+
+      <!-- Sections A & B header -->
+      <div class="section-col-header" role="heading" aria-level="3">
+        <span>A. &nbsp;Applicant's Information</span>
+        <span>B. &nbsp;Parent, Legal Guardian, or Spouse's Information</span>
+      </div>
+
+      <!-- Questions 1 & 2 -->
+      <div class="two-col-sections">
+        <div class="section-col">
+
+          <!-- A-1 -->
+          <div class="q-block">
+            <span class="q-label" id="a1-label">1. Applicant's Name</span>
+            <div class="name-row" role="group" aria-labelledby="a1-label">
+              <div><label for="a-first">First</label><input type="text" id="a-first" name="a_first" autocomplete="given-name"></div>
+              <div><label for="a-middle">Middle</label><input type="text" id="a-middle" name="a_middle" autocomplete="additional-name"></div>
+              <div><label for="a-last">Last</label><input type="text" id="a-last" name="a_last" autocomplete="family-name"></div>
+            </div>
+            <div class="dob-row" style="margin-top:.6rem;" role="group" aria-label="Applicant date of birth">
+              <label>Date of Birth:</label>
+              <input type="text" id="a-dob-mm" name="a_dob_mm" maxlength="2" placeholder="MM" aria-label="Birth month (MM)" style="width:52px;">
+              <span aria-hidden="true">/</span>
+              <input type="text" id="a-dob-dd" name="a_dob_dd" maxlength="2" placeholder="DD" aria-label="Birth day (DD)" style="width:52px;">
+              <span aria-hidden="true">/</span>
+              <input type="text" id="a-dob-yy" name="a_dob_yy" maxlength="4" placeholder="YYYY" aria-label="Birth year (YYYY)" style="width:60px;">
+            </div>
+          </div>
+
+          <!-- A-2 -->
+          <div class="q-block">
+            <span class="q-label" id="a2-label">2. Are you a U.S. Citizen?</span>
+            <span class="yn-group" role="radiogroup" aria-labelledby="a2-label">
+              <label><input type="radio" name="a_citizen" value="yes"> Yes</label>
+              <label><input type="radio" name="a_citizen" value="no"> No</label>
+            </span>
+            <p style="margin-top:.3rem; font-size:.82rem;">If Yes, skip to #3.</p>
+            <p>If No, are you a permanent resident?
+              <span class="yn-group" role="radiogroup" aria-label="Applicant permanent resident">
+                <label><input type="radio" name="a_perm_res" value="yes"> Yes</label>
+                <label><input type="radio" name="a_perm_res" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem;">If Yes, what is your "A" number?
+              <input class="inline-input short" type="text" name="a_a_number" aria-label="Applicant A number">
+            </p>
+            <p style="margin-top:.25rem;">If No – What is your immigration status?
+              <input class="inline-input wide" type="text" name="a_imm_status" aria-label="Applicant immigration status">
+            </p>
+          </div>
+
+        </div><!-- /section-col A -->
+
+        <div class="section-col">
+
+          <!-- B-1 -->
+          <div class="q-block">
+            <span class="q-label" id="b1-label">1. Provide the name of the person upon whom you are basing your domicile.</span>
+            <div class="name-row" role="group" aria-labelledby="b1-label">
+              <div><label for="b-first">First</label><input type="text" id="b-first" name="b_first" autocomplete="off"></div>
+              <div><label for="b-middle">Middle (Full)</label><input type="text" id="b-middle" name="b_middle" autocomplete="off"></div>
+              <div><label for="b-last">Last</label><input type="text" id="b-last" name="b_last" autocomplete="off"></div>
+            </div>
+          </div>
+
+          <!-- B-2 -->
+          <div class="q-block">
+            <span class="q-label">2. Using the above person's information, answer the questions below.</span>
+            <p>Is the above person a U.S. citizen?
+              <span class="yn-group" role="radiogroup" aria-label="Person U.S. citizen">
+                <label><input type="radio" name="b_citizen" value="yes"> Yes</label>
+                <label><input type="radio" name="b_citizen" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.82rem;">If Yes, skip to #3.</p>
+            <p style="margin-top:.25rem;">If No, is he/she a permanent resident?
+              <span class="yn-group" role="radiogroup" aria-label="Person permanent resident">
+                <label><input type="radio" name="b_perm_res" value="yes"> Yes</label>
+                <label><input type="radio" name="b_perm_res" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem;">If Yes – What is his/her "A" number?
+              <input class="inline-input short" type="text" name="b_a_number" aria-label="Person A number">
+            </p>
+            <p style="margin-top:.25rem;">If No – What is his/her immigration status?
+              <input class="inline-input wide" type="text" name="b_imm_status" aria-label="Person immigration status">
+            </p>
+          </div>
+
+        </div><!-- /section-col B -->
+      </div><!-- questions 1-2 -->
+
+      <!-- Question 3 -->
+      <div class="two-col-sections">
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label" id="a3-label">3. Have you lived in Virginia for the last 12 months?</span>
+            <span class="yn-group" role="radiogroup" aria-labelledby="a3-label">
+              <label><input type="radio" name="a_va_12mo" value="yes"> Yes</label>
+              <label><input type="radio" name="a_va_12mo" value="no"> No</label>
+            </span>
+            <p style="margin-top:.35rem; font-size:.82rem;">If No, list address(es) for the last 24 months:</p>
+            <div class="addr-block" role="group" aria-label="Applicant addresses for last 24 months">
+              <div class="date-range">
+                <label for="a_from1">From Date</label><input type="text" id="a_from1" name="a_from1" placeholder="MM/YYYY" style="width:90px;">
+                <label for="a_to1">To Date</label><input type="text" id="a_to1" name="a_to1" placeholder="MM/YYYY" style="width:90px;">
+              </div>
+              <div class="addr-line"><label for="a_addr1">Address</label><input type="text" id="a_addr1" name="a_addr1" style="width:100%;"></div>
+              <div class="date-range" style="margin-top:.4rem;">
+                <label for="a_from2">From Date</label><input type="text" id="a_from2" name="a_from2" placeholder="MM/YYYY" style="width:90px;">
+                <label for="a_to2">To Date</label><input type="text" id="a_to2" name="a_to2" placeholder="MM/YYYY" style="width:90px;">
+              </div>
+              <div class="addr-line"><label for="a_addr2">Address</label><input type="text" id="a_addr2" name="a_addr2" style="width:100%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label" id="b3-label">3. Has the above person lived in Virginia for the last 12 months?</span>
+            <span class="yn-group" role="radiogroup" aria-labelledby="b3-label">
+              <label><input type="radio" name="b_va_12mo" value="yes"> Yes</label>
+              <label><input type="radio" name="b_va_12mo" value="no"> No</label>
+            </span>
+            <p style="margin-top:.35rem; font-size:.82rem;">If No, list address(es) for the last 24 months:</p>
+            <div class="addr-block" role="group" aria-label="Person addresses for last 24 months">
+              <div class="date-range">
+                <label for="b_from1">From Date</label><input type="text" id="b_from1" name="b_from1" placeholder="MM/YYYY" style="width:90px;">
+                <label for="b_to1">To Date</label><input type="text" id="b_to1" name="b_to1" placeholder="MM/YYYY" style="width:90px;">
+              </div>
+              <div class="addr-line"><label for="b_addr1">Address</label><input type="text" id="b_addr1" name="b_addr1" style="width:100%;"></div>
+              <div class="date-range" style="margin-top:.4rem;">
+                <label for="b_from2">From Date</label><input type="text" id="b_from2" name="b_from2" placeholder="MM/YYYY" style="width:90px;">
+                <label for="b_to2">To Date</label><input type="text" id="b_to2" name="b_to2" placeholder="MM/YYYY" style="width:90px;">
+              </div>
+              <div class="addr-line"><label for="b_addr2">Address</label><input type="text" id="b_addr2" name="b_addr2" style="width:100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="two-col-sections">
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label" id="a4-label">4. For the last 12 months, which of the following applies to you:</span>
+            <div class="tax-checks" role="group" aria-labelledby="a4-label">
+              <div class="tax-check-item"><input type="checkbox" id="a-t1" name="a_tax_va_all"><label for="a-t1">Paid Virginia income taxes on all earned income</label></div>
+              <div class="tax-check-item"><input type="checkbox" id="a-t2" name="a_tax_other_state"><label for="a-t2">Filed as a resident in another state (List) <input class="inline-input short" type="text" name="a_tax_other_state_list" aria-label="Other state for applicant tax filing"></label></div>
+              <div class="tax-check-item"><input type="checkbox" id="a-t3" name="a_tax_va_nr"><label for="a-t3">Filed as a resident in Virginia and as a non-resident in another state (List) <input class="inline-input short" type="text" name="a_tax_va_nr_list" aria-label="Other state non-resident for applicant"></label></div>
+              <div class="tax-check-item"><input type="checkbox" id="a-t4" name="a_tax_no_income_tax_state"><label for="a-t4">Was a resident in a state without income tax (List) <input class="inline-input short" type="text" name="a_no_tax_state_list" aria-label="No income tax state for applicant"></label></div>
+              <div class="tax-check-item"><input type="checkbox" id="a-t5" name="a_tax_none"><label for="a-t5">Had no taxable income</label></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label" id="b4-label">4. For the last 12 months, which of the following applies to the above person:</span>
+            <div class="tax-checks" role="group" aria-labelledby="b4-label">
+              <div class="tax-check-item"><input type="checkbox" id="b-t1" name="b_tax_va_all"><label for="b-t1">Paid Virginia income taxes on all earned income</label></div>
+              <div class="tax-check-item"><input type="checkbox" id="b-t2" name="b_tax_other_state"><label for="b-t2">Filed as a resident in another state (List) <input class="inline-input short" type="text" name="b_tax_other_state_list" aria-label="Other state for person tax filing"></label></div>
+              <div class="tax-check-item"><input type="checkbox" id="b-t3" name="b_tax_va_nr"><label for="b-t3">Filed as a resident in Virginia and as a non-resident in another state (List) <input class="inline-input short" type="text" name="b_tax_va_nr_list" aria-label="Other state non-resident for person"></label></div>
+              <div class="tax-check-item"><input type="checkbox" id="b-t4" name="b_tax_no_income_tax_state"><label for="b-t4">Was a resident in a state without income tax (List) <input class="inline-input short" type="text" name="b_no_tax_state_list" aria-label="No income tax state for person"></label></div>
+              <div class="tax-check-item"><input type="checkbox" id="b-t5" name="b_tax_none"><label for="b-t5">Had no taxable income</label></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="two-col-sections">
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label" id="a5-label">5. For the past twelve months, have you lived out-of-state, worked in Virginia, and paid Virginia income taxes on at least $14,500 of earned income?</span>
+            <span class="yn-group" role="radiogroup" aria-labelledby="a5-label">
+              <label><input type="radio" name="a_oos_worker" value="yes"> Yes</label>
+              <label><input type="radio" name="a_oos_worker" value="no"> No</label>
+            </span>
+            <p style="margin-top:.3rem;">If Yes, list state: <input class="inline-input" type="text" name="a_oos_state" aria-label="Out-of-state applicant state"></p>
+          </div>
+        </div>
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label" id="b5-label">5. For the past twelve months, has the above person lived out-of-state, worked in Virginia, and paid Virginia income taxes on at least $14,500 of earned income?</span>
+            <span class="yn-group" role="radiogroup" aria-labelledby="b5-label">
+              <label><input type="radio" name="b_oos_worker" value="yes"> Yes</label>
+              <label><input type="radio" name="b_oos_worker" value="no"> No</label>
+            </span>
+            <p style="margin-top:.3rem;">If Yes, list state: <input class="inline-input" type="text" name="b_oos_state" aria-label="Out-of-state person state"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="two-col-sections">
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label">6. For the past 12 months, have you:</span>
+
+            <p><strong>Held a Virginia Driver's License or Virginia DMV ID?</strong>
+              <span class="yn-group" role="radiogroup" aria-label="Applicant held Virginia driver's license or DMV ID">
+                <label><input type="radio" name="a_va_dl" value="yes"> Yes</label>
+                <label><input type="radio" name="a_va_dl" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.83rem;">If No, has the applicant held a driver's license or DMV ID for any other state?</p>
+            <p>
+              <span class="yn-group" role="radiogroup" aria-label="Applicant held other state license">
+                <label><input type="radio" name="a_other_dl" value="yes"> Yes (List)</label>
+              </span>
+              <input class="inline-input" type="text" name="a_other_dl_state" aria-label="Other state license — applicant">
+              <span class="yn-group"><label><input type="radio" name="a_other_dl" value="no"> No</label></span>
+            </p>
+
+            <p style="margin-top:.5rem;"><strong>Owned or operated a motor vehicle registered in Virginia?</strong>
+              <span class="yn-group" role="radiogroup" aria-label="Applicant owned Virginia registered vehicle">
+                <label><input type="radio" name="a_va_vehicle" value="yes"> Yes</label>
+                <label><input type="radio" name="a_va_vehicle" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.83rem;">If No, has the applicant owned or operated a motor vehicle registered in any other state?</p>
+            <p>
+              <span class="yn-group" role="radiogroup" aria-label="Applicant other state vehicle">
+                <label><input type="radio" name="a_other_vehicle" value="yes"> Yes (List)</label>
+              </span>
+              <input class="inline-input" type="text" name="a_other_vehicle_state" aria-label="Other state vehicle — applicant">
+              <span class="yn-group"><label><input type="radio" name="a_other_vehicle" value="no"> No</label></span>
+            </p>
+
+            <p style="margin-top:.5rem;"><strong>Been registered to vote in Virginia?</strong>
+              <span class="yn-group" role="radiogroup" aria-label="Applicant registered to vote in Virginia">
+                <label><input type="radio" name="a_va_voter" value="yes"> Yes</label>
+                <label><input type="radio" name="a_va_voter" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.83rem;">If No, has the applicant been registered to vote in another state?</p>
+            <p>
+              <span class="yn-group" role="radiogroup" aria-label="Applicant registered to vote in other state">
+                <label><input type="radio" name="a_other_voter" value="yes"> Yes (List)</label>
+              </span>
+              <input class="inline-input" type="text" name="a_other_voter_state" aria-label="Other state voter — applicant">
+              <span class="yn-group"><label><input type="radio" name="a_other_voter" value="no"> No</label></span>
+            </p>
+          </div>
+        </div>
+
+        <div class="section-col">
+          <div class="q-block">
+            <span class="q-label">6. For the past 12 months, has the above person:</span>
+
+            <p><strong>Held a Virginia Driver's License or Virginia DMV ID?</strong>
+              <span class="yn-group" role="radiogroup" aria-label="Person held Virginia driver's license or DMV ID">
+                <label><input type="radio" name="b_va_dl" value="yes"> Yes</label>
+                <label><input type="radio" name="b_va_dl" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.83rem;">If No, has the above person held a driver's license or DMV ID for any other state?</p>
+            <p>
+              <span class="yn-group" role="radiogroup" aria-label="Person held other state license">
+                <label><input type="radio" name="b_other_dl" value="yes"> Yes (List)</label>
+              </span>
+              <input class="inline-input" type="text" name="b_other_dl_state" aria-label="Other state license — person">
+              <span class="yn-group"><label><input type="radio" name="b_other_dl" value="no"> No</label></span>
+            </p>
+
+            <p style="margin-top:.5rem;"><strong>Owned or operated a motor vehicle registered in Virginia?</strong>
+              <span class="yn-group" role="radiogroup" aria-label="Person owned Virginia registered vehicle">
+                <label><input type="radio" name="b_va_vehicle" value="yes"> Yes</label>
+                <label><input type="radio" name="b_va_vehicle" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.83rem;">If No, has the above person owned or operated a motor vehicle registered in any other state?</p>
+            <p>
+              <span class="yn-group" role="radiogroup" aria-label="Person other state vehicle">
+                <label><input type="radio" name="b_other_vehicle" value="yes"> Yes (List)</label>
+              </span>
+              <input class="inline-input" type="text" name="b_other_vehicle_state" aria-label="Other state vehicle — person">
+              <span class="yn-group"><label><input type="radio" name="b_other_vehicle" value="no"> No</label></span>
+            </p>
+
+            <p style="margin-top:.5rem;"><strong>Been registered to vote in Virginia?</strong>
+              <span class="yn-group" role="radiogroup" aria-label="Person registered to vote in Virginia">
+                <label><input type="radio" name="b_va_voter" value="yes"> Yes</label>
+                <label><input type="radio" name="b_va_voter" value="no"> No</label>
+              </span>
+            </p>
+            <p style="margin-top:.25rem; font-size:.83rem;">If No, has the above person been registered to vote in another state?</p>
+            <p>
+              <span class="yn-group" role="radiogroup" aria-label="Person registered to vote in other state">
+                <label><input type="radio" name="b_other_voter" value="yes"> Yes (List)</label>
+              </span>
+              <input class="inline-input" type="text" name="b_other_voter_state" aria-label="Other state voter — person">
+              <span class="yn-group"><label><input type="radio" name="b_other_voter" value="no"> No</label></span>
+            </p>
+          </div>
+        </div>
+      </div><!-- question 6 -->
+
+      <!-- Certification -->
+      <div class="cert-box" role="note" aria-label="Certification statement">
+        If you knowingly provide erroneous information to evade payment of out-of-state tuition and fees, you will be charged
+        out-of-state tuition and fees for each term attended and may be subject to dismissal. Random audits of this information
+        will be performed. <strong>I certify under penalty of disciplinary action that all of the information is complete and accurate.</strong>
+        I agree to supply the college with supporting documentation related to my application if I am requested to do so.
+      </div>
+
+      <!-- Signatures -->
+      <fieldset>
+        <legend>Signatures</legend>
+        <div class="sig-row">
+          <div>
+            <label for="sig-applicant">Signature of Applicant</label>
+            <input type="text" id="sig-applicant" name="sig_applicant" placeholder="Sign here" autocomplete="off">
+            <label for="sig-applicant-date" style="margin-top:.4rem;">Date</label>
+            <input type="date" id="sig-applicant-date" name="sig_applicant_date">
+          </div>
+          <div>
+            <label for="sig-guardian">Signature of Parent, Legal Guardian, or Spouse</label>
+            <input type="text" id="sig-guardian" name="sig_guardian" placeholder="Sign here" autocomplete="off">
+            <label for="sig-guardian-date" style="margin-top:.4rem;">Date</label>
+            <input type="date" id="sig-guardian-date" name="sig_guardian_date">
+          </div>
+        </div>
+        <p style="margin-top:.6rem; font-family:var(--font-ui); font-size:.75rem; color:var(--muted); font-style:italic;">Revised 5/20/21</p>
+      </fieldset>
+
+    </form>
+  </main>
+
+  <!-- Save / Print -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- .form-wrapper -->
+
+<script>
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"]')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+      .forEach(el => { el.checked = false; });
+  }
+</script>
+
+</body>
+</html>
