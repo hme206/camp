@@ -506,39 +506,95 @@
   /* ── Print ── */
 
   @media print {
-
-    .semester-row label { font-size: .85rem; }
-
-    .notice-box { font-size: .72rem; padding: .3rem .5rem; margin-bottom: .5rem; }
-
-    .course-table-section thead th { font-size: .68rem; padding: .25rem .3rem; }
-
-    .course-table-section tbody td { padding: .15rem .25rem; height: 1.4rem; }
-
-    .course-table-section .total-row td { font-size: .68rem; padding: .2rem .35rem; }
-
-    .ct-input { font-size: .72rem; }
-
-    .sig-line-row { margin-bottom: .4rem; }
-
-    .sig-line-row label.sig-label,
-    .reason-row label.sig-label { font-size: .72rem !important; }
-
-    .approved-row .approved-label,
-
-    .approved-row label { font-size: .72rem; }
-
-    .approved-sigs input { font-size: .75rem; }
-
-    .revised-note { font-size: .65rem; }
-
-    .semester-row { margin: .35rem 0 .6rem; gap: 1.5rem; }
-
-    fieldset { padding: .35rem .5rem; margin-bottom: .4rem; }
-
-    .course-table-section { margin-bottom: .5rem; }
-
+    @page {
+    size: letter;
+    margin: 0.3in; /* shrink this if needed (0.4in or 0.3in) */
   }
+
+  /* Hide ONLY navigation (not header) */
+  nav,
+  .no-print {
+    display: none !important;
+    visibility: hidden;
+  }
+
+  /* Remove default browser margins */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Prevent layout gaps from hidden/sticky elements */
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+      
+  }
+
+  /* Typography scaling */
+  .semester-heading { font-size: 1.3rem; }
+  .semester-option span { font-size: 1.1rem; }
+
+  /* Layout tightening */
+  .semester-row { gap: 1.5rem; margin-bottom: .75rem; }
+  .student-header-grid { gap: .35rem 1.5rem; margin-bottom: .6rem; }
+
+  /* Form elements */
+  .sh-field input[type="text"] { 
+    font-size: .85rem;
+    border: none;
+  }
+
+  .sh-field label { font-size: .75rem; }
+
+  .emplid-box { 
+    width: 1.4rem; 
+    height: 1.4rem; 
+    font-size: .82rem; 
+  }
+
+  .emplid-row label { font-size: .75rem; }
+
+  /* Notes */
+  .advisor-note { font-size: .8rem; margin-bottom: .75rem; }
+
+  /* Tables */
+  .class-table { 
+    font-size: .75rem; 
+    border-collapse: collapse;
+  }
+
+  .class-table thead th { 
+    padding: .25rem .2rem; 
+    font-size: .7rem; 
+  }
+
+  .class-table tbody td { 
+    height: 1.5rem; 
+  }
+
+  .class-table tbody td input { 
+    font-size: .75rem; 
+    padding: .1rem .2rem; 
+    border: none;
+  }
+
+  /* Example section */
+  .example-title { font-size: .85rem; }
+  .example-table { font-size: .72rem; }
+  .example-block { margin-bottom: .75rem; }
+
+  /* Footer notes */
+  .footer-note { font-size: .75rem; }
+  .revised-note { font-size: .68rem; }
+
+  /* Avoid awkward page breaks */
+  .example-block,
+  .class-table,
+  .student-header-grid {
+    page-break-inside: avoid;
+  }
+}
 
 </style>
 
