@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enrollment Verification Request – Paul D. Camp Community College</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+  /* ══════════════════════════════════════════════════
+     Enrollment Verification — page-specific styles
+     All shared tokens/base rules live in styles.css
+     and forms.css. Only what is unique to this form
+     is declared here.
+  ══════════════════════════════════════════════════ */
+
+  /* ── Skip Link ── */
+  .skip-link {
+    position: absolute;
+    top: -999px;
+    left: -999px;
+    z-index: 9999;
+    padding: .6rem 1.2rem;
+    background: var(--navy);
+    color: #000;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: .9rem;
+    border-radius: 0 0 4px 0;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .skip-link:focus {
+    top: 0;
+    left: 0;
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* ── Intro / Legal text ── */
+  .legal-text {
+    font-size: .92rem;
+    text-align: flex-start;
+    margin-bottom: 1.1rem;
+    line-height: 1.6;
+  }
+  .note-text {
+    font-size: .92rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+  .note-text strong { font-weight: 700; }
+
+  /* ── Address row (3-col + narrow State/Zip) ── */
+  .addr-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 70px 90px;
+    gap: .75rem 1rem;
+    margin-top: .6rem;
+  }
+
+  /* ── Checkbox option rows ── */
+  .check-option {
+    display: flex;
+    align-items: flex-start;
+    gap: .55rem;
+    margin-bottom: .5rem;
+  }
+  .check-option:last-child { margin-bottom: 0; }
+  .check-option input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    margin-top: .18rem;
+    flex-shrink: 0;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .check-option input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .check-option label {
+    font-family: var(--font-ui);
+    font-size: .92rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  /* ── Alternate mailing address ── */
+  .alt-address {
+    margin-top: .5rem;
+    margin-left: 1.55rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+  }
+  .alt-address input[type="text"] {
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    padding: .1rem .2rem;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    background: transparent;
+    width: 100%;
+    max-width: 380px;
+  }
+  .alt-address input[type="text"]:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-bottom-color: var(--focus);
+  }
+
+  /* ── Staff pick-up inputs (inside staff-use-bar) ── */
+  .staff-input {
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .82rem;
+    padding: .05rem .2rem;
+  }
+  .staff-input:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* ── Enrollment information – additional checkboxes ── */
+  .addl-info-note {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 700;
+    margin-bottom: .6rem;
+    line-height: 1.5;
+  }
+  .inline-checks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: .75rem;
+  }
+  .inline-check {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+  }
+  .inline-check input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .inline-check input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .inline-check label {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  /* ── Reason inline field ── */
+  .inline-field-row {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+  }
+  .inline-label {
+    font-family: var(--font-ui);
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .inline-input {
+    flex: 1;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    padding: .1rem .25rem;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    background: transparent;
+    min-width: 80px;
+  }
+  .inline-input:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-bottom-color: var(--focus);
+  }
+
+  /* ── Semester checkboxes ── */
+  .semester-checks {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-top: .4rem;
+  }
+  .semester-check {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .semester-check input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .semester-check input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .semester-check label {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  .past-specify {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Authorization / Signature ── */
+  .auth-text {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 700;
+    margin-bottom: .65rem;
+  }
+  .sig-row {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .sig-field { flex: 2; }
+  .sig-field.date-field { flex: 1; min-width: 150px; }
+  .sig-field label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: .82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin-bottom: .3rem;
+  }
+  .sig-field input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    padding: .2rem .2rem;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    background: transparent;
+  }
+  .sig-field input[type="text"]:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-bottom-color: var(--focus);
+  }
+
+  /* ── Staff Use Only bar ── */
+  .staff-use-bar {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: .6rem 1rem;
+    background: #f5f0e8;
+    border: 1px solid #d4c9a8;
+    border-radius: 4px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .staff-use-bar .staff-bar-label {
+    font-family: var(--font-ui);
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .staff-use-bar .staff-group {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+  }
+  .staff-use-bar .staff-group label {
+    font-family: var(--font-ui);
+    font-size: .82rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+  .staff-use-bar .staff-group input[type="text"] {
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    padding: .1rem .25rem;
+    font-family: var(--font-body);
+    font-size: .88rem;
+    background: transparent;
+    min-width: 120px;
+  }
+  .staff-use-bar .staff-group input[type="text"]:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-bottom-color: var(--focus);
+  }
+
+  /* ── Form footer tag ── */
+  .es-footer {
+    text-align: right;
+    font-family: var(--font-ui);
+    font-size: .75rem;
+    color: var(--muted);
+    margin-top: .5rem;
+  }
+
+  /* ── Required field note ── */
+  .req-note {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .req { color: #c0392b; margin-left: .15rem; }
+
+  /* ── Print overrides (page-specific adjustments only) ── */
+  @media print {
+    body {zoom: 95%}
+    .legal-text  { font-size: .78rem; margin-bottom: .6rem; }
+    .note-text   { font-size: .78rem; margin-bottom: .7rem; }
+    .addl-info-note { font-size: .75rem; margin-bottom: .35rem; }
+    .auth-text   { font-size: .75rem; margin-bottom: .4rem; }
+    .addr-row    { grid-template-columns: 2fr 1.5fr 60px 80px; gap: .3rem .6rem; }
+    .inline-label { font-size: .78rem; }
+    .inline-input { font-size: .8rem; }
+    .check-option { margin-bottom: .3rem; }
+    .check-option label { font-size: .78rem; }
+    .inline-checks  { gap: 1rem; }
+    .inline-check label { font-size: .75rem; }
+    .semester-checks { gap: .9rem; }
+    .semester-check label { font-size: .75rem; }
+    .sig-field label { font-size: .68rem; }
+    .sig-field input[type="text"] { font-size: .8rem; }
+    .staff-use-bar  { padding: .35rem .6rem; margin-top: .6rem; }
+    .staff-use-bar .staff-bar-label,
+    .staff-use-bar .staff-group label { font-size: .72rem; }
+    .staff-use-bar .staff-group input[type="text"] { font-size: .78rem; }
+    .staff-input { font-size: .72rem; }
+    .alt-address input[type="text"] { font-size: .78rem; }
+    .es-footer  { font-size: .68rem; }
+    .skip-link  { display: none !important; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .addr-row         { grid-template-columns: 1fr 1fr; }
+    .inline-checks    { flex-direction: column; gap: .75rem; }
+    .semester-checks  { flex-direction: column; gap: .6rem; }
+    .sig-row          { flex-direction: column; gap: 1rem; }
+    .sig-field,
+    .sig-field.date-field { flex: none; width: 100%; }
+    .staff-use-bar    { flex-direction: column; gap: .6rem; }
+    .past-specify     { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Skip navigation link (WCAG 2.4.1) -->
+  <a class="skip-link" href="#main-form">Skip to form</a>
+
+  <div class="form-wrapper">
+
+    <!-- Page header (div, not <header> landmark, to avoid duplicate landmark conflict
+         since <main> below is the primary landmark) -->
+    <div class="form-header" role="banner">
+      <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College">
+      <div class="form-header-text">
+        <div class="college">Paul D. Camp Community College</div>
+        <h1>Enrollment Verification Request</h1>
+        
+      </div>
+      <button class="btn-reset no-print" type="button" onclick="resetForm()"
+              aria-label="Reset all form fields">
+        ↺ Reset Form
+      </button>
+    </div>
+
+    <!-- Site navigation -->
+    <nav aria-label="Site navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="forms.html">Forms</a></li>
+        <li><a href="maps.html">Program Maps</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-form">
+
+      <!-- Screen-only instructions -->
+      <div class="form-body">
+
+        <div class="instructions no-print" role="note">
+          Complete all sections of this form. Select your delivery preference, indicate what
+          information you need, and sign at the bottom. Click <strong>Print to PDF</strong>
+          when finished and submit the PDF to the Enrollment Services office.
+        </div>
+
+        <!-- Legal notice -->
+        <p class="legal-text">
+          In accordance with the "Family Education Rights and Privacy Act of 1974" Public Law
+          93-380 (Education Amendment of 1974), enrollment verifications cannot be released
+          without a written request and signature from the student, except to certain authorized
+          college officials.
+        </p>
+
+        <!-- Processing note -->
+        <p class="note-text">
+          <strong>NOTE:</strong> Please allow <strong>3 – 5 business days</strong> for your
+          request to be processed. Please fill in each section completely. Third party requests
+          can be fulfilled through the National Student Clearinghouse.
+        </p>
+
+        <!-- Required field legend -->
+        <p class="req-note" id="req-note">
+          Fields marked <span class="req" aria-hidden="true">*</span>
+          <span class="sr-only">with an asterisk</span> are required.
+        </p>
+
+        <form id="enrollment-form" novalidate aria-describedby="req-note">
+
+          <!-- ── Student Details ─────────────────────────── -->
+          <fieldset>
+            <legend>Student Details</legend>
+
+            <div class="field-row cols-2">
+              <div>
+                <label for="student-name">
+                  Name <span class="req" aria-hidden="true">*</span>
+                  <span class="sr-only">(required)</span>
+                </label>
+                <input type="text" id="student-name" name="student_name"
+                       autocomplete="name" aria-required="true">
+              </div>
+              <div>
+                <label for="sis-id">
+                  Emplid <span class="req" aria-hidden="true">*</span>
+                  <span class="sr-only">(required)</span>
+                </label>
+                <input type="text" id="sis-id" name="sis_id"
+                       autocomplete="off" aria-required="true"
+                       placeholder="1234561">
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="addr-row">
+              <div>
+                <label for="s-address">Address</label>
+                <input type="text" id="s-address" name="student_address"
+                       autocomplete="street-address">
+              </div>
+              <div>
+                <label for="s-city">City</label>
+                <input type="text" id="s-city" name="student_city"
+                       autocomplete="address-level2">
+              </div>
+              <div>
+                <label for="s-state">State</label>
+                <input type="text" id="s-state" name="student_state"
+                       maxlength="2" autocomplete="address-level1">
+              </div>
+              <div>
+                <label for="s-zip">Zip</label>
+                <input type="text" id="s-zip" name="student_zip"
+                       maxlength="10" autocomplete="postal-code">
+              </div>
+            </div>
+
+            <!-- Phone / Email -->
+            <div class="field-row cols-2" style="margin-top:.5rem;">
+              <div>
+                <label for="phone">
+                  Phone <span class="req" aria-hidden="true">*</span>
+                  <span class="sr-only">(required)</span>
+                </label>
+                <input type="text" id="phone" name="phone"
+                       autocomplete="tel" aria-required="true">
+              </div>
+              <div>
+                <label for="vccs-email">
+                  VCCS Email <span class="req" aria-hidden="true">*</span>
+                  <span class="sr-only">(required)</span>
+                </label>
+                <input type="text" id="vccs-email" name="vccs_email"
+                       autocomplete="email" aria-required="true"
+                       placeholder="aqs12345@email.vccs.edu">
+              </div>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Enrollment Verification Details ───────────── -->
+          <fieldset>
+            <legend>Enrollment Verification Details</legend>
+
+              <!-- Delivery options — grouped as a radio-equivalent set -->
+              <fieldset style="border:none;padding:0;margin:0;">
+                <legend class="sr-only">Select delivery method (choose one)</legend>
+
+                <div class="check-option">
+                  <input type="radio" id="pickup" name="delivery" value="pickup">
+                  <label for="pickup">I will pick up my enrollment verification.</label>
+                </div>
+                <div class="check-option">
+                  <input type="radio" id="mail-self" name="delivery" value="mail-self">
+                  <label for="mail-self">
+                    Please mail my enrollment verification to me at the address above.
+                  </label>
+                </div>
+                <div class="check-option">
+                  <input type="radio" id="mail-other" name="delivery" value="mail-other"
+                         aria-controls="alt-address-group">
+                  <label for="mail-other">
+                    Please mail my enrollment verification to the following address:
+                  </label>
+                </div>
+
+                <!-- Alternate address (visually indented) -->
+                <div class="alt-address" id="alt-address-group"
+                     aria-label="Alternate mailing address">
+                  <input type="text" name="alt_addr_1"
+                         aria-label="Alternate address: name or organization"
+                         placeholder="Name / Org">
+                  <input type="text" name="alt_addr_2"
+                         aria-label="Alternate address: street address"
+                         placeholder="Street address">
+                  <input type="text" name="alt_addr_3"
+                         aria-label="Alternate address: city, state, and ZIP"
+                         placeholder="City, State, ZIP">
+                  <input type="text" name="alt_addr_4"
+                         aria-label="Alternate address: country (if international)"
+                         placeholder="Country (if international)">
+                </div>
+
+              </fieldset><!-- /delivery-options -->
+          </fieldset>
+
+          <!-- ── Enrollment Information ─────────────────── -->
+          <fieldset>
+            <legend>Enrollment Information</legend>
+
+            <p class="addl-info-note" id="addl-info-desc">
+              Enrollment verifications include full/part-time status, dates of attendance,
+              and credit hours. If you require additional information, please check all
+              that apply:
+            </p>
+
+            <div class="inline-checks" role="group" aria-describedby="addl-info-desc">
+              <div class="inline-check">
+                <input type="checkbox" id="addl-gpa" name="addl_gpa">
+                <label for="addl-gpa">GPA</label>
+              </div>
+              <div class="inline-check">
+                <input type="checkbox" id="addl-program" name="addl_program">
+                <label for="addl-program">Program of Study</label>
+              </div>
+              <div class="inline-check">
+                <input type="checkbox" id="addl-grad" name="addl_grad">
+                <label for="addl-grad">
+                  Anticipated Graduation Date
+                  <em style="font-weight:400;"> (You must have a declared major)</em>
+                </label>
+              </div>
+            </div>
+
+            <div class="inline-field-row">
+              <label class="inline-label" for="reason">
+                Reason for requesting enrollment verification:
+              </label>
+              <input class="inline-input" type="text" id="reason" name="reason">
+            </div>
+
+          </fieldset>
+
+          <!-- ── Semester Information ───────────────────── -->
+          <fieldset>
+            <legend>Semester Information</legend>
+
+            <p class="addl-info-note" id="sem-desc" style="margin-bottom:.4rem;">
+              I am requesting an enrollment verification for:
+            </p>
+
+            <div class="semester-checks" role="group" aria-describedby="sem-desc">
+              <div class="semester-check">
+                <input type="checkbox" id="sem-current" name="sem_current">
+                <label for="sem-current">Current Semester</label>
+              </div>
+              <div class="semester-check">
+                <input type="checkbox" id="sem-next" name="sem_next">
+                <label for="sem-next">Next Semester</label>
+              </div>
+              <div class="past-specify">
+                <div class="semester-check">
+                  <input type="checkbox" id="sem-past" name="sem_past"
+                         aria-controls="past-terms">
+                  <label for="sem-past">Past Semester, specify term(s) and year(s):</label>
+                </div>
+                <input class="inline-input" type="text" id="past-terms" name="past_terms"
+                       style="min-width:150px;flex:0 1 180px;"
+                       aria-label="Past semester: specify terms and years">
+              </div>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Authorization ──────────────────────────── -->
+          <fieldset>
+            <legend>Authorization</legend>
+
+            <p class="auth-text" id="auth-desc">
+              I hereby authorize Paul D. Camp Community College to release my student
+              information as indicated above.
+            </p>
+
+            <div class="sig-row" aria-describedby="auth-desc">
+              <div class="sig-field">
+                <label for="student-sig">
+                  Student Signature
+                  <span class="req" aria-hidden="true">*</span>
+                  <span class="sr-only">(required)</span>
+                </label>
+                <input type="text" id="student-sig" name="student_signature"
+                       aria-required="true"
+                       aria-label="Student signature (type full name)">
+              </div>
+              <div class="sig-field date-field">
+                <label for="sig-date">
+                  Date
+                  <span class="req" aria-hidden="true">*</span>
+                  <span class="sr-only">(required)</span>
+                </label>
+                <input type="text" id="sig-date" name="sig_date"
+                       placeholder="MM/DD/YYYY" aria-required="true">
+              </div>
+            </div>
+
+          </fieldset>
+
+          <!-- ── Staff Use Only ──────────────────────────── -->
+          <div class="staff-use-bar" role="region" aria-label="Staff use only">
+            <span class="staff-bar-label" aria-hidden="true">Staff Use Only:</span>
+            <div class="staff-group">
+              <label for="staff-processed-by">Processed by:</label>
+              <input type="text" id="staff-processed-by" name="staff_processed_by">
+            </div>
+            <div class="staff-group">
+              <label for="staff-date">Date:</label>
+              <input type="text" id="staff-date" name="staff_date"
+                     style="min-width:90px;" placeholder="MM/DD/YYYY">
+            </div>
+            <div class="staff-group" aria-label="Ready for pick-up">
+              <span class="staff-bar-label">Ready for Pick-Up —</span>
+              <label for="pickup_date_display">Date:</label>
+              <input class="staff-input" type="text" id="pickup_date_display"
+                     name="pickup_mm" maxlength="2"
+                     aria-label="Pick-up month (MM)" placeholder="MM"
+                     style="min-width:0;width:32px;">
+              <span aria-hidden="true">/</span>
+              <input class="staff-input" type="text" name="pickup_dd"
+                     maxlength="2" aria-label="Pick-up day (DD)" placeholder="DD"
+                     style="min-width:0;width:32px;">
+              <span aria-hidden="true">/</span>
+              <input class="staff-input" type="text" name="pickup_yyyy"
+                     maxlength="4" aria-label="Pick-up year (YYYY)" placeholder="YYYY"
+                     style="min-width:0;width:48px;">
+              <label for="pickup_time_display" style="margin-left:.5rem;">Time:</label>
+              <input class="staff-input time-input" type="text" id="pickup_time_display"
+                     name="pickup_time" aria-label="Pick-up time" placeholder="2:00 PM"
+                     style="min-width:0;width:80px;">
+            </div>
+          </div>
+
+          <p class="es-footer">Enrollment Services 2022</p>
+
+        </form><!-- /#enrollment-form -->
+
+      </div><!-- /.form-body -->
+    </main>
+
+    <!-- Print / Save button -->
+    <div class="save-btn-row no-print">
+      <button class="btn-print" type="button" onclick="window.print()"
+              aria-label="Print or save this form as a PDF">
+        Print to PDF
+      </button>
+      <p class="btn-hint">
+        When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.
+      </p>
+    </div>
+
+  </div><!-- /.form-wrapper -->
+
+<script>
+  /* ── Delivery radio buttons: native radio behavior,
+       no JS needed for mutual exclusion. ── */
+
+  /* ── Toggle alternate-address fields when radio changes ── */
+  const mailOther = document.getElementById('mail-other');
+  const altGroup  = document.getElementById('alt-address-group');
+  const allRadios = document.querySelectorAll('[name="delivery"]');
+
+  function updateAltAddress() {
+    const show = mailOther.checked;
+    altGroup.querySelectorAll('input').forEach(el => {
+      el.disabled = !show;
+      if (!show) el.value = '';
+    });
+    altGroup.setAttribute('aria-hidden', String(!show));
+  }
+
+  allRadios.forEach(r => r.addEventListener('change', updateAltAddress));
+  updateAltAddress(); // initial state
+
+  /* ── Reset form ── */
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.getElementById('enrollment-form').reset();
+    updateAltAddress();
+  }
+</script>
+
+</body>
+</html>
