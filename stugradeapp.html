@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Student Grade Appeal</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+<style>
+
+  /* ── Appeal reasons checklist ── */
+
+  .appeal-list {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0 0 1rem 0;
+
+  }
+
+  .appeal-list li {
+
+    display: flex;
+
+    gap: .85rem;
+
+    align-items: flex-start;
+
+    margin-bottom: .85rem;
+
+  }
+
+  .appeal-list li input[type="checkbox"] {
+
+    margin-top: .2rem;
+
+    width: 1.05rem;
+
+    height: 1.05rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+  }
+
+  .appeal-list .item-text {
+
+    font-family: var(--font-body);
+
+    font-size: .92rem;
+
+    color: var(--text);
+
+    line-height: 1.55;
+
+  }
+
+ 
+
+  /* ── Signature line utility ── */
+
+  .sig-line-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .6rem;
+
+    margin-bottom: .65rem;
+
+  }
+
+  .sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+    min-width: 175px;
+
+  }
+
+  .sig-line {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+    min-width: 0;
+
+  }
+
+  .sig-line:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  .sig-date-pair {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .4rem;
+
+    flex-shrink: 0;
+
+  }
+
+  .sig-date-pair .sig-label {
+
+    min-width: auto;
+
+  }
+
+  .sig-date-pair input[type="date"] {
+
+    width: 140px;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .sig-date-pair input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── Office use divider ── */
+
+  
+
+ 
+
+  /* ── Print ── */
+
+  @media print {
+
+    .appeal-list .item-text { font-size: .8rem; }
+
+    .sig-label { font-size: .72rem !important; min-width: 155px; }
+
+    .sig-line { font-size: .8rem; }
+
+    .sig-date-pair input { width: 115px; font-size: .76rem; }
+
+    fieldset { padding: .35rem .5rem; margin-bottom: .4rem; }
+
+    .field-row { gap: .3rem .6rem; margin-top: .35rem; }
+
+    .appeal-list li { margin-bottom: .55rem; }
+
+    .office-divider { margin: .15rem 0 .6rem; }
+
+    textarea { min-height: 44px !important; font-size: .8rem; }
+   
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h2>Student Grade Appeal</h2>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <!-- Navigation -->
+
+  <nav>
+
+    <ul>
+
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="forms.html">Forms</a></li>
+
+      <li><a href="maps.html">Program Maps</a></li>
+
+    </ul>
+
+  </nav>
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions -->
+
+    <div class="instructions no-print" role="note">
+
+      This form is to be completed by students submitting an appeal of a final course grade under the
+
+      Formal Procedure explained in the College Catalog and Student Handbook. Please complete all
+
+      sections of the form and attach the requested documents and any additional documentation you
+
+      would like the committee to consider as part of your appeal. Submit this form and documentation
+
+      to the appropriate Academic Dean.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Also show the description on print -->
+
+    <p class="print-only" style="font-family:var(--font-body);font-size:.88rem;color:var(--text);line-height:1.55;margin-bottom:1rem;display:none;">
+
+      This form is to be completed by students submitting an appeal of a final course grade under the
+
+      Formal Procedure explained in the College Catalog and Student Handbook. Please complete all
+
+      sections of the form and attach the requested documents and any additional documentation you
+
+      would like the committee to consider as part of your appeal. Submit this form and documentation
+
+      to the appropriate Academic Dean.
+
+    </p>
+
+ 
+
+    <!-- Student Information -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-name">Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="student-id">7-digit Student ID Number <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-id" name="student_id" maxlength="7" autocomplete="off" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-email">Student E-mail <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-email" name="student_email" autocomplete="email" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="phone">Phone Number <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="phone" name="phone" autocomplete="tel" aria-required="true">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Course Information -->
+
+    <fieldset>
+
+      <legend>Course Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="course">Course <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="course" name="course" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="course-section">Course Section <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="course-section" name="course_section" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="instructor">Instructor <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="instructor" name="instructor" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="grade-appealed">Grade Being Appealed <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="grade-appealed" name="grade_appealed" maxlength="4" aria-required="true">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Reason for Appeal -->
+
+    <fieldset>
+
+      <legend>Reason for Appeal <span class="req" aria-hidden="true">*</span></legend>
+
+ 
+
+      <ul class="appeal-list" aria-label="Reason for appeal — check all that apply">
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="reason-syllabus" name="reason_syllabus">
+
+          <label class="item-text" for="reason-syllabus">
+
+            My grade was assigned in a manner other than that listed in the course syllabus, or as
+
+            listed in an amended syllabus provided by the instructor. Please attach a typewritten
+
+            explanation and a copy of the syllabus for the course.
+
+          </label>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="reason-other-students" name="reason_other_students">
+
+          <label class="item-text" for="reason-other-students">
+
+            My grade was assigned in a manner other than that used for other students in my class.
+
+            Please attach a typewritten explanation and a copy of the syllabus for the course.
+
+          </label>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="reason-other" name="reason_other">
+
+          <label class="item-text" for="reason-other">
+
+            Other. Please briefly describe below, and attach a typewritten explanation and a copy
+
+            of the syllabus for the course:
+
+          </label>
+
+        </li>
+
+ 
+
+      </ul>
+
+ 
+
+      <!-- "Other" description textarea -->
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="other-description" class="sr-only">Brief description of other reason</label>
+
+          <textarea id="other-description" name="other_description" rows="3"
+
+            aria-label="Brief description of other appeal reason"
+
+            placeholder="Describe your reason here…"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Student Signature -->
+
+      <div class="sig-line-row" style="margin-top:1rem;">
+
+        <span class="sig-label">Student Signature:</span>
+
+        <input class="sig-line" type="text" id="student-sig" name="student_signature"
+
+          aria-label="Student signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="student-date" name="student_date" aria-label="Student signature date">
+
+        </div>
+
+      </div>
+
+ 
+
+    </fieldset>
+
+ 
+
+    <!-- Office Use Only -->
+
+    <fieldset class="office-section">
+
+      <legend>For Office Use Only</legend>
+
+      <div class="office-divider"></div>
+
+ 
+
+      <div class="sig-line-row">
+
+        <span class="sig-label">Dean's Signature:</span>
+
+        <input class="sig-line" type="text" id="dean-sig" name="dean_signature"
+
+          aria-label="Dean's signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="dean-date" name="dean_date" aria-label="Dean's date">
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="sig-line-row">
+
+        <span class="sig-label">VP A&amp;SD Signature:</span>
+
+        <input class="sig-line" type="text" id="vp-sig" name="vp_signature"
+
+          aria-label="VP A&SD signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="vp-date" name="vp_date" aria-label="VP A&SD date">
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="sig-line-row">
+
+        <span class="sig-label">Forwarded by VP to Committee:</span>
+
+        <div class="sig-date-pair" style="flex:1;justify-content:flex-start;">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="forwarded-date" name="forwarded_date" aria-label="Date forwarded to committee">
+
+        </div>
+
+      </div>
+
+ 
+
+    </fieldset>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Print Button -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div>
+
+ 
+
+<style>
+
+  @media print {
+
+    .print-only { display: block !important; }
+
+  }
+
+</style>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+  document.addEventListener("input", function (e) {
+    if (e.target.tagName.toLowerCase() === "textarea") {
+      e.target.style.height = "auto";
+      e.target.style.height = e.target.scrollHeight + "px";
+    }
+  });
+
+
+</script>
+
+</body>
+
+</html>
