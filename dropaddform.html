@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Drop/Add Form</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+<style>
+
+  /* ── Drop/Add specific overrides ── */
+
+  .semester-row {
+
+    display: flex;
+
+    gap: 2.5rem;
+
+    margin: .6rem 0 .9rem;
+
+    align-items: center;
+
+  }
+
+  .semester-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    font-family: var(--font-ui);
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+  }
+
+  .semester-row input[type="checkbox"] {
+
+    width: 1.1rem;
+
+    height: 1.1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Course tables ── */
+
+  .course-table-section { margin-bottom: .75rem; }
+
+  .course-table-section table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    table-layout: fixed;
+
+  }
+
+  /* WCAG fix: white text on --navy background for sufficient contrast */
+
+  .course-table-section thead th {
+
+    background: var(--navy);
+
+    color: #ffffff;
+
+    padding: .45rem .4rem;
+
+    text-align: center;
+
+    font-weight: 700;
+
+    font-size: .78rem;
+
+    border: 1px solid var(--navy);
+
+  }
+
+  .course-table-section tbody td {
+
+    padding: .3rem .35rem;
+
+    border: 1px solid #c8d4e2;
+
+    vertical-align: middle;
+
+    height: 1.7rem;
+
+  }
+
+  .course-table-section .total-row td {
+
+    background: var(--light);
+
+    text-align: right;
+
+    font-weight: 700;
+
+    font-size: .78rem;
+
+    padding: .3rem .5rem;
+
+    border: 1px solid #c8d4e2;
+
+  }
+
+  .course-table-section .total-row td:last-child {
+
+    border-left: 2px solid var(--navy);
+
+    min-width: 60px;
+
+  }
+
+  .ct-input {
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .82rem;
+
+    color: var(--text);
+
+    padding: .1rem .2rem;
+
+  }
+
+  .ct-input:focus {
+
+    background: var(--white);
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px;
+
+  }
+
+ 
+
+  /* Col widths */
+
+  .col-code    { width: 60px; }
+
+  .col-dept    { width: 50px; }
+
+  .col-cno     { width: 58px; }
+
+  .col-sect    { width: 48px; }
+
+  .col-campus  { width: 52px; }
+
+  .col-lab     { width: 38px; }
+
+  .col-audit   { width: 44px; }
+
+  .col-daytime { width: 120px; }
+
+  .col-credits { width: 52px; }
+
+ 
+
+  .lab-audit-cell { text-align: center; }
+
+  .lab-audit-cell input[type="checkbox"] {
+
+    width: 1rem; height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Signature/approval section ── */
+
+  .sig-section { margin-top: .75rem; }
+
+  .sig-line-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .5rem;
+
+    margin-bottom: .6rem;
+
+  }
+
+  /* WCAG fix: sig-label is now a <label> element; keep same visual style */
+
+  .sig-line-row label.sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+    /* override forms.css label uppercasing for these inline labels */
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    margin-bottom: 0;
+
+  }
+
+  .sig-line {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .sig-line:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* Reason line */
+
+  .reason-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .5rem;
+
+    margin-bottom: .6rem;
+
+    margin-top: .1rem;
+
+  }
+
+  .reason-row label.sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    margin-bottom: 0;
+
+  }
+
+ 
+
+  /* Approved by checkboxes */
+
+  .approved-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+
+  }
+
+  .approved-row .approved-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    white-space: nowrap;
+
+  }
+
+  .approved-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .approved-row input[type="checkbox"] {
+
+    width: 1rem; height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* Signature lines under approved-by */
+
+  .approved-sigs {
+
+    display: flex;
+
+    gap: 1rem;
+
+    margin-top: .5rem;
+
+  }
+
+  .approved-sigs input {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .approved-sigs input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── DROP watermark label on thead ── */
+
+  .table-label-drop thead { position: relative; }
+
+ 
+
+  /* ── Revised note ── */
+
+  .revised-note {
+
+    font-family: var(--font-ui);
+
+    font-size: .72rem;
+
+    color: var(--muted);
+
+    text-align: right;
+
+    margin-top: .5rem;
+
+  }
+
+ 
+
+  /* ── Notice box ── */
+
+  .notice-box {
+
+    border: 1.5px solid var(--navy);
+
+    border-radius: 3px;
+
+    padding: .55rem .85rem;
+
+    margin-bottom: .85rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    color: var(--text);
+
+  }
+
+  .notice-box .notice-title {
+
+    font-weight: 700;
+
+    text-decoration: underline;
+
+    display: block;
+
+    text-align: center;
+
+    margin-bottom: .25rem;
+
+    font-size: .85rem;
+
+  }
+
+  /* WCAG fix: ensure btn-print has sufficient contrast (white on navy may fail;
+     adding a dark border as enhancement and overriding color to dark if needed) */
+
+  .btn-print {
+
+    color: #ffffff;
+
+  }
+
+  /* WCAG fix: btn-reset on green header — use dark text with stronger border */
+
+  .btn-reset {
+
+    color: #000000;
+
+    border: 2px solid #000000;
+
+  }
+
+ 
+
+  /* ── Print ── */
+
+  @media print {
+
+    .semester-row label { font-size: .85rem; }
+
+    .notice-box { font-size: .72rem; padding: .3rem .5rem; margin-bottom: .5rem; }
+
+    .course-table-section thead th { font-size: .68rem; padding: .25rem .3rem; }
+
+    .course-table-section tbody td { padding: .15rem .25rem; height: 1.4rem; }
+
+    .course-table-section .total-row td { font-size: .68rem; padding: .2rem .35rem; }
+
+    .ct-input { font-size: .72rem; }
+
+    .sig-line-row { margin-bottom: .4rem; }
+
+    .sig-line-row label.sig-label,
+    .reason-row label.sig-label { font-size: .72rem !important; }
+
+    .approved-row .approved-label,
+
+    .approved-row label { font-size: .72rem; }
+
+    .approved-sigs input { font-size: .75rem; }
+
+    .revised-note { font-size: .65rem; }
+
+    .semester-row { margin: .35rem 0 .6rem; gap: 1.5rem; }
+
+    fieldset { padding: .35rem .5rem; margin-bottom: .4rem; }
+
+    .course-table-section { margin-bottom: .5rem; }
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- WCAG fix: removed role="main" from outer div; <main> inside already provides that landmark -->
+<div class="form-wrapper">
+
+ 
+
+  <!-- Header -->
+  <!-- WCAG fix: changed <h2> to <h1> — page must have a top-level heading -->
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1>Drop / Add Form</h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <!-- Navigation -->
+  <!-- WCAG fix: added aria-label to distinguish this nav from any others on the page -->
+  <nav aria-label="Site navigation">
+
+    <ul>
+
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="forms.html">Forms</a></li>
+
+      <li><a href="maps.html">Program Maps</a></li>
+
+    </ul>
+
+  </nav>
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions -->
+    <!-- WCAG fix: role="note" is valid but region needs an accessible name; used aria-label -->
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+
+      Select your semester, fill in your student information, then enter courses to drop and/or add in the tables below.
+
+      Include Lab (L) or Audit (X) marks where applicable. When complete, click <strong>Print to PDF</strong> and save the file,
+
+      then submit to the appropriate office.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Semester selection -->
+    <!-- WCAG fix: semester checkboxes use checkboxes (not radios) so multiple can be selected.
+         The fieldset/legend already groups them correctly.
+         Added aria-required="true" to the fieldset via a note in the legend. -->
+    <fieldset>
+
+      <legend>Semester <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></legend>
+
+      <div class="semester-row" role="group" aria-label="Select semester">
+
+        <label><input type="checkbox" name="semester" value="fall" id="sem-fall"> Fall</label>
+
+        <label><input type="checkbox" name="semester" value="spring" id="sem-spring"> Spring</label>
+
+        <label><input type="checkbox" name="semester" value="summer" id="sem-summer"> Summer</label>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Student Information -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-3">
+
+        <div>
+
+          <!-- WCAG fix: added aria-describedby to explain the 7-character format -->
+          <label for="empl-id">Empl. I.D. <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="empl-id" name="empl_id" maxlength="7" autocomplete="off" aria-required="true"
+                 placeholder="1234567" aria-describedby="empl-id-hint">
+
+          <span id="empl-id-hint" class="sr-only">Enter your 7-digit employee ID number</span>
+
+        </div>
+
+        <div>
+
+          <label for="curriculum-plan">Curriculum Plan</label>
+
+          <input type="text" id="curriculum-plan" name="curriculum_plan" placeholder="AS-Science">
+
+        </div>
+
+        <div>
+
+          <label for="drop-date">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="date" id="drop-date" name="drop_date" aria-required="true">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Notice -->
+    <!-- WCAG fix: decorative asterisks in notice title removed; conveyed meaning via text alone -->
+    <div class="notice-box" role="note" aria-label="Important notice">
+
+      <span class="notice-title">The Drop/Add period dates are posted in the College Catalog.</span>
+
+      Consult a counselor or your academic advisor before adding or dropping to prevent possible problems
+
+      with your permanent college records, your financial aid status, or your veteran's benefits.
+
+    </div>
+
+ 
+
+    <!-- DROP Table -->
+
+    <div class="course-table-section">
+
+      <table class="table-label-drop">
+
+        <colgroup>
+
+          <col class="col-code">
+
+          <col class="col-dept">
+
+          <col class="col-cno">
+
+          <col class="col-sect">
+
+          <col class="col-campus">
+
+          <col class="col-lab">
+
+          <col class="col-audit">
+
+          <col class="col-daytime">
+
+          <col class="col-credits">
+
+        </colgroup>
+
+        <!-- WCAG fix: caption replaces aria-label as the accessible name for the table -->
+        <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+
+          Courses to Drop
+
+        </caption>
+
+        <thead>
+
+          <tr>
+
+            <th scope="col">Course Code</th>
+
+            <th scope="col">Dept.</th>
+
+            <th scope="col">Course No.</th>
+
+            <th scope="col">Section</th>
+
+            <th scope="col">Campus</th>
+
+            <th scope="col">Lab (L)</th>
+
+            <th scope="col">Audit (X)</th>
+
+            <th scope="col">Day / Time</th>
+
+            <th scope="col">Credits</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 course code" name="d_code_1" placeholder="35624"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 department" name="d_dept_1" placeholder="ENG"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 course number" name="d_cno_1" placeholder="101"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 section" name="d_sect_1" placeholder="01"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 campus" name="d_campus_1" placeholder="A"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 1 lab" name="d_lab_1"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 1 audit" name="d_audit_1"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 day and time" name="d_daytime_1" placeholder="MWF 10:00-11:00"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 credits" name="d_credits_1" placeholder="3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 course code" name="d_code_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 department" name="d_dept_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 course number" name="d_cno_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 section" name="d_sect_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 campus" name="d_campus_2"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 2 lab" name="d_lab_2"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 2 audit" name="d_audit_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 day and time" name="d_daytime_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 credits" name="d_credits_2"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 course code" name="d_code_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 department" name="d_dept_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 course number" name="d_cno_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 section" name="d_sect_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 campus" name="d_campus_3"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 3 lab" name="d_lab_3"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 3 audit" name="d_audit_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 day and time" name="d_daytime_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 credits" name="d_credits_3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 course code" name="d_code_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 department" name="d_dept_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 course number" name="d_cno_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 section" name="d_sect_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 campus" name="d_campus_4"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 4 lab" name="d_lab_4"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 4 audit" name="d_audit_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 day and time" name="d_daytime_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 credits" name="d_credits_4"></td>
+
+          </tr>
+
+          <tr class="total-row">
+
+            <td colspan="8" style="text-align:right;font-weight:700;font-size:.78rem;padding:.3rem .5rem;border:1px solid #c8d4e2;">Total Credits Dropped</td>
+
+            <td><input class="ct-input" type="text" id="total-dropped" aria-label="Total credits dropped" name="total_dropped" style="font-weight:700;"></td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+ 
+
+    <!-- ADD Table -->
+
+    <div class="course-table-section">
+
+      <table>
+
+        <colgroup>
+
+          <col class="col-code">
+
+          <col class="col-dept">
+
+          <col class="col-cno">
+
+          <col class="col-sect">
+
+          <col class="col-campus">
+
+          <col class="col-lab">
+
+          <col class="col-audit">
+
+          <col class="col-daytime">
+
+          <col class="col-credits">
+
+        </colgroup>
+
+        <!-- WCAG fix: caption replaces aria-label as the accessible name for the table -->
+        <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+
+          Courses to Add
+
+        </caption>
+
+        <thead>
+
+          <tr>
+
+            <th scope="col">Course Code</th>
+
+            <th scope="col">Dept.</th>
+
+            <th scope="col">Course No.</th>
+
+            <th scope="col">Section</th>
+
+            <th scope="col">Campus</th>
+
+            <th scope="col">Lab (L)</th>
+
+            <th scope="col">Audit (X)</th>
+
+            <th scope="col">Day / Time</th>
+
+            <th scope="col">Credits</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 course code" name="a_code_1" placeholder="35624"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 department" name="a_dept_1" placeholder="ENG"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 course number" name="a_cno_1" placeholder="101"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 section" name="a_sect_1" placeholder="01"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 campus" name="a_campus_1" placeholder="A"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 1 lab" name="a_lab_1" ></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 1 audit" name="a_audit_1"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 day and time" name="a_daytime_1" placeholder="MW 9:00-9:50"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 credits" name="a_credits_1" placeholder="3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 course code" name="a_code_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 department" name="a_dept_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 course number" name="a_cno_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 section" name="a_sect_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 campus" name="a_campus_2"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 2 lab" name="a_lab_2"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 2 audit" name="a_audit_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 day and time" name="a_daytime_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 credits" name="a_credits_2"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 course code" name="a_code_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 department" name="a_dept_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 course number" name="a_cno_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 section" name="a_sect_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 campus" name="a_campus_3"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 3 lab" name="a_lab_3"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 3 audit" name="a_audit_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 day and time" name="a_daytime_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 credits" name="a_credits_3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 course code" name="a_code_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 department" name="a_dept_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 course number" name="a_cno_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 section" name="a_sect_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 campus" name="a_campus_4"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 4 lab" name="a_lab_4"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Add row 4 audit" name="a_audit_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 day and time" name="a_daytime_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 credits" name="a_credits_4"></td>
+
+          </tr>
+
+          <tr class="total-row">
+
+            <td colspan="8" style="text-align:right;font-weight:700;font-size:.78rem;padding:.3rem .5rem;border:1px solid #c8d4e2;">Total Credits Added</td>
+
+            <td><input class="ct-input" type="text" id="total-added" aria-label="Total credits added" name="total_added" style="font-weight:700;"></td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+ 
+
+    <!-- Signature / Approval section -->
+
+    <fieldset>
+
+      <legend>Student Signature &amp; Approval</legend>
+
+ 
+
+      <div class="sig-section">
+
+        <!-- WCAG fix: <span class="sig-label"> replaced with <label for="..."> so the
+             visible text is programmatically associated with its input (SC 1.3.1, 2.4.6) -->
+        <div class="sig-line-row">
+
+          <label class="sig-label" for="student-sig">Student's Signature:</label>
+
+          <input class="sig-line" type="text" id="student-sig" name="student_signature" placeholder="Sign here">
+
+        </div>
+
+ 
+
+        <div class="reason-row">
+
+          <label class="sig-label" for="drop-reason">Reason for dropping course(s):</label>
+
+          <input class="sig-line" type="text" id="drop-reason" name="drop_reason">
+
+        </div>
+
+ 
+
+        <!-- WCAG fix: "Approved by:" is a static label for a group; wrapped in a nested
+             fieldset+legend so the group relationship is communicated to assistive tech (SC 1.3.1) -->
+        <fieldset style="border:none;padding:0;margin:.5rem 0 0;">
+
+          <legend class="approved-label" style="float:left;padding:0;font-size:.82rem;">Approved by:</legend>
+
+          <div class="approved-row" style="margin-top:.5rem;">
+
+            <label><input type="checkbox" name="appr_dean"> Campus Dean</label>
+
+            <label><input type="checkbox" name="appr_counselor"> Counselor</label>
+
+            <label><input type="checkbox" name="appr_finaid"> Financial Aid</label>
+
+            <label><input type="checkbox" name="appr_instructor"> Instructor</label>
+
+          </div>
+
+        </fieldset>
+
+ 
+
+        <!-- WCAG fix: approval signature inputs already have aria-label; keeping as-is.
+             Placeholders kept for visual hint but are not the sole label (aria-label covers it). -->
+        <div class="approved-sigs">
+
+          <input type="text" aria-label="Campus Dean signature" name="sig_dean" placeholder="Dean">
+
+          <input type="text" aria-label="Counselor signature" name="sig_counselor" placeholder="Counselor">
+
+          <input type="text" aria-label="Financial Aid signature" name="sig_finaid" placeholder="Financial Aid">
+
+          <input type="text" aria-label="Instructor signature" name="sig_instructor" placeholder="Instructor">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <p class="revised-note">Revised 08/2019</p>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Print Button -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"]')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+</script>
+
+</body>
+
+</html>
