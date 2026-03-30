@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Financial Self-Sufficiency Form</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+<style>
+
+  /* ── Form-specific overrides ── */
+
+ 
+
+  /* Semester checkboxes inline */
+
+  .semester-inline {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+
+  }
+
+  .semester-inline label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .95rem;
+
+    font-weight: 700;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+  }
+
+  .semester-inline input[type="checkbox"] {
+
+    width: 1.05rem;
+
+    height: 1.05rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* Eligibility narrative text */
+
+  .narrative {
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    color: var(--text);
+
+    line-height: 1.55;
+
+    margin-bottom: .75rem;
+
+  }
+
+  .narrative strong { font-weight: 700; }
+
+  .narrative u { text-decoration: underline; }
+
+ 
+
+  /* Eligibility checklist */
+
+  .eligibility-list {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0 0 .75rem 0;
+
+  }
+
+  .eligibility-list li {
+
+    display: flex;
+
+    gap: .75rem;
+
+    align-items: flex-start;
+
+    margin-bottom: .6rem;
+
+  }
+
+  .eligibility-list li input[type="checkbox"] {
+
+    margin-top: .15rem;
+
+    width: 1.05rem;
+
+    height: 1.05rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+  }
+
+  .eligibility-list .item-content {
+
+    flex: 1;
+
+  }
+
+  .eligibility-list .item-title {
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    font-weight: 700;
+
+    text-decoration: underline;
+
+    color: var(--text);
+
+    display: block;
+
+    margin-bottom: .2rem;
+
+  }
+
+  .eligibility-list .item-docs {
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    color: var(--muted);
+
+    line-height: 1.5;
+
+    padding-left: .5rem;
+
+    border-left: 2px solid var(--border);
+
+    margin-top: .2rem;
+
+  }
+
+  .eligibility-list .item-docs li {
+
+    display: list-item;
+
+    margin-bottom: 0;
+
+    list-style: disc;
+
+    margin-left: 1rem;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+  }
+
+ 
+
+  /* Signature line utility */
+
+  .sig-line-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .6rem;
+
+    margin-bottom: .6rem;
+
+  }
+
+  .sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+  }
+
+  .sig-line {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+    min-width: 0;
+
+  }
+
+  .sig-line:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  .sig-date-pair {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .4rem;
+
+  }
+
+  .sig-date-pair .sig-label { white-space: nowrap; }
+
+  .sig-date-pair input[type="date"],
+
+  .sig-date-pair input[type="text"] {
+
+    width: 130px;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .sig-date-pair input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* Office use section */
+
+  .office-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    margin-bottom: .5rem;
+
+  }
+
+  .office-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+  }
+
+  .office-row input[type="checkbox"] {
+
+   width: 1.05rem;
+
+    height: 1.05rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* Comments textarea in office section */
+
+  .comments-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    display: block;
+
+    margin-bottom: .3rem;
+
+  }
+
+ 
+
+  /* Revised note */
+
+  .revised-note {
+
+    font-family: var(--font-ui);
+
+    font-size: .72rem;
+
+    color: var(--muted);
+
+    text-align: right;
+
+    margin-top: .5rem;
+
+  }
+
+ 
+
+  /* ── Print ── */
+
+  @media print {
+     html, body { font-size: 13px; background: white; padding: 0; }
+
+    .narrative { font-size: .8rem; margin-bottom: .5rem; }
+
+    .eligibility-list li { margin-bottom: .4rem; }
+
+    .eligibility-list .item-title { font-size: .8rem; }
+
+    .eligibility-list .item-docs { font-size: .76rem; }
+
+    .sig-label { font-size: .72rem !important; }
+
+    .sig-line { font-size: .8rem; }
+
+    .office-row label { font-size: .78rem; }
+
+    .sig-date-pair input { width: 110px; font-size: .76rem; }
+
+    fieldset { padding: .35rem .5rem; margin-bottom: .4rem; }
+
+    .field-row { gap: .3rem .6rem; margin-top: .35rem; }
+
+    .semester-inline label { font-size: .82rem; }
+
+    .revised-note { font-size: .65rem; }
+
+    .comments-label { font-size: .72rem; }
+
+    textarea { min-height: 48px !important; font-size: .8rem; }
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h2>Financial Self-Sufficiency Form</h2>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <!-- Navigation -->
+
+  <nav>
+
+    <ul>
+
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="forms.html">Forms</a></li>
+
+      <li><a href="maps.html">Program Maps</a></li>
+
+    </ul>
+
+  </nav>
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions (hidden on print) -->
+
+    <div class="instructions no-print" role="note">
+
+      This form is <strong>not</strong> for determining domicile status. Check all eligibility reasons that apply to you
+
+      and gather the required supporting documents listed under each. Complete all fields, sign, and click
+
+      <strong>Print to PDF</strong> to save and submit to the appropriate office.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Student Information -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="empl-id">Emplid # <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="empl-id" name="empl_id" autocomplete="off" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+
+        <div>
+
+          <label for="form-date">Date <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="form-date" name="form_date" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label>Term <span class="req" aria-hidden="true">*</span></label>
+
+          <div class="semester-inline" style="margin-top:.4rem;">
+
+            <label><input type="checkbox" name="term" value="fall"> Fall</label>
+
+            <label><input type="checkbox" name="term" value="spring"> Spring</label>
+
+            <label><input type="checkbox" name="term" value="summer"> Summer</label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Definition & Eligibility -->
+
+    <fieldset>
+
+      <legend>Eligibility — Check All That Apply</legend>
+
+ 
+
+      <p class="narrative">
+
+        Financial Self-Sufficiency means that you are independent of Parents or Guardian. No one else claims you as a
+
+        dependent when filing taxes. The below are the reasons why you may qualify for Financial Self-Sufficiency.
+
+      </p>
+
+      <p class="narrative">
+
+        <strong>Self:</strong> I am <u>under age 24</u> and want to claim eligibility based on my own supporting
+
+        documentation for the following reason(s):
+
+      </p>
+
+ 
+
+      <ul class="eligibility-list" aria-label="Eligibility reasons">
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-veteran" name="elig_veteran" aria-describedby="docs-veteran">
+
+          <div class="item-content">
+
+            <span class="item-title">I am a Veteran or active duty member of the U.S. Armed Forces</span>
+
+            <div class="item-docs" id="docs-veteran">
+
+              Documents needed: DD214 or copy of current orders and ID card
+
+            </div>
+
+          </div>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-parents" name="elig_parents" aria-describedby="docs-parents">
+
+          <div class="item-content">
+
+            <span class="item-title">Both of my parents are deceased and I have no adoptive or legal guardian</span>
+
+            <div class="item-docs" id="docs-parents">
+
+              Death certificate(s)
+
+            </div>
+
+          </div>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-dependents" name="elig_dependents" aria-describedby="docs-dependents">
+
+          <div class="item-content">
+
+            <span class="item-title">I have legal dependents other than my spouse</span>
+
+            <div class="item-docs" id="docs-dependents">
+
+              Birth certificates with you listed as parent or paperwork showing you as legal guardian
+
+            </div>
+
+          </div>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-selfsuff" name="elig_selfsuff" aria-describedby="docs-selfsuff">
+
+          <div class="item-content">
+
+            <span class="item-title">I am financially self-sufficient</span>
+
+            <ul class="item-docs" id="docs-selfsuff">
+
+              <li>Lease/Mortgage agreement in your name. Federal taxes for prior year with income of at least $14,500.</li>
+
+             <li>Copy of most recent Federal taxes filed</li>
+
+              <li>Copy of most recent State taxes filed</li>
+
+              <li>Copy of Va. Driver's license or state issued photo ID</li>
+
+              <li>Copy of Voter registration</li>
+
+              <li>Copy of Motor Vehicle registration</li>
+
+            </ul>
+
+          </div>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-ward" name="elig_ward" aria-describedby="docs-ward">
+
+          <div class="item-content">
+
+            <span class="item-title">I am a ward of the court or was a ward of the court until age 18</span>
+
+            <div class="item-docs" id="docs-ward">
+
+              Copy of court papers showing you are/were a ward of the court until age 18
+
+            </div>
+
+          </div>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-bachelor" name="elig_bachelor" aria-describedby="docs-bachelor">
+
+          <div class="item-content">
+
+            <span class="item-title">I have a Bachelor's degree and am working on a graduate degree</span>
+
+            <div class="item-docs" id="docs-bachelor">
+
+              Copy of transcripts showing Bachelor degree earned
+
+            </div>
+
+          </div>
+
+        </li>
+
+ 
+
+        <li>
+
+          <input type="checkbox" id="elig-married" name="elig_married" aria-describedby="docs-married">
+
+          <div class="item-content">
+
+            <span class="item-title">I am married</span>
+
+            <div class="item-docs" id="docs-married">
+
+              Copy of Marriage Certificate
+
+            </div>
+
+          </div>
+
+        </li>
+
+ 
+
+      </ul>
+
+ 
+
+      <!-- Student Signature -->
+
+      <div class="sig-line-row" style="margin-top:.75rem;">
+
+        <span class="sig-label">Student Signature:</span>
+
+        <input class="sig-line" type="text" id="student-sig" name="student_signature" aria-label="Student signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="student-sig-date" name="student_sig_date" aria-label="Student signature date">
+
+        </div>
+
+      </div>
+
+ 
+
+    </fieldset>
+
+ 
+
+    <!-- Office Use Only -->
+
+    <fieldset class="office-section">
+
+      <legend>For Office Use Only</legend>
+
+ 
+
+      <!-- Domicile Officer -->
+
+      <div class="office-row" style="margin-top:.5rem;">
+
+        <label><input type="checkbox" name="domicile_approved"> Approved</label>
+
+        <label><input type="checkbox" name="domicile_disapproved"> Disapproved</label>
+
+      </div>
+
+      <div class="sig-line-row">
+
+        <span class="sig-label">Domicile Officer Signature:</span>
+
+        <input class="sig-line" type="text" id="domicile-sig" name="domicile_signature" aria-label="Domicile officer signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="domicile-date" name="domicile_date" aria-label="Domicile officer date">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Dean of Student Services -->
+
+      <div class="office-row" style="margin-top:.25rem;">
+
+        <label><input type="checkbox" name="dean_approved"> Approved</label>
+
+        <label><input type="checkbox" name="dean_disapproved"> Disapproved</label>
+
+      </div>
+
+      <div class="sig-line-row">
+
+        <span class="sig-label">Dean of Student Services Signature:</span>
+
+        <input class="sig-line" type="text" id="dean-sig" name="dean_signature" aria-label="Dean of Student Services signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="dean-date" name="dean_date" aria-label="Dean date">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Comments -->
+
+      <div style="margin-top:.5rem;">
+
+        <label class="comments-label" for="office-comments">Comments:</label>
+
+        <textarea id="office-comments" name="office_comments" rows="3" style="min-height:56px;"></textarea>
+
+      </div>
+
+ 
+
+    </fieldset>
+
+ 
+
+    <p class="revised-note">FINANCIAL SELF-SUFFICIENCY | K.Worth 1/22/2024</p>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Print Button -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+</script>
+
+</body>
+
+</html>
