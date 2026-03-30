@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Impairment and Disability Assessment</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+<style>
+
+  /* ── Campus address bar ── */
+
+  .campus-bar {
+
+    background: var(--white);
+
+    border-bottom: 1px solid var(--border);
+
+    padding: .45rem 2.5rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .78rem;
+
+    color: var(--text);
+
+  }
+
+  .campus-bar .address-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: .25rem;
+
+    margin-bottom: .25rem;
+
+  }
+
+  .campus-bar .phone-row {
+
+    display: flex;
+
+    gap: 2rem;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+  }
+
+  .campus-bar .phone-row a {
+
+    color: var(--navy);
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+  }
+
+ 
+
+  /* ── Intro notice boxes ── */
+
+  .notice-student {
+
+    font-family: var(--font-body);
+
+    font-size: .88rem;
+
+    color: var(--text);
+
+    line-height: 1.55;
+
+    margin-bottom: .6rem;
+
+  }
+
+  .notice-student strong { font-weight: 700; }
+
+  .notice-student em { font-style: italic; }
+
+  .notice-student u { text-decoration: underline; }
+
+ 
+
+  /* ── Yes/No radio rows ── */
+
+  .yn-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin: .5rem 0;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    color: var(--text);
+
+    flex-wrap: wrap;
+
+  }
+
+  .yn-row .yn-question {
+
+    flex: 1;
+
+    min-width: 0;
+
+    line-height: 1.45;
+
+  }
+
+  .yn-row .yn-question em { font-style: italic; }
+
+  .yn-row .yn-question u { text-decoration: underline; }
+
+  .yn-options {
+
+    display: flex;
+
+    gap: 1.25rem;
+
+    flex-shrink: 0;
+
+  }
+
+  .yn-options label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .yn-options input[type="radio"] {
+
+    width: 1rem;
+
+    height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Certification box ── */
+
+  .cert-box {
+
+    border: 1.5px solid var(--text);
+
+    border-radius: 3px;
+
+    padding: 1rem 1.25rem;
+
+    margin-bottom: 1rem;
+
+  }
+
+  .cert-box .cert-title {
+
+    font-family: var(--font-ui);
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    margin-bottom: .85rem;
+
+  }
+
+  .cert-sig-row {
+
+    display: flex;
+
+    gap: 1.5rem;
+
+    align-items: flex-end;
+
+    margin-bottom: .75rem;
+
+    flex-wrap: wrap;
+
+  }
+
+  .cert-sig-col {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .2rem;
+
+  }
+
+  .cert-sig-col.grow { flex: 2; min-width: 160px; }
+
+  .cert-sig-col.fixed { flex: 1; min-width: 110px; }
+
+  .cert-sig-col label {
+
+    font-family: var(--font-ui);
+
+    font-size: .7rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .06em;
+
+    color: var(--muted);
+
+    margin-bottom: 0;
+
+  }
+
+  .cert-sig-col input[type="text"],
+
+  .cert-sig-col input[type="date"] {
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    padding: .1rem .2rem;
+
+    width: 100%;
+
+    color: var(--text);
+
+  }
+
+  .cert-sig-col input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  .cert-detail-row {
+
+    display: flex;
+
+    gap: 1.5rem;
+
+    align-items: flex-end;
+
+    margin-bottom: .5rem;
+
+    flex-wrap: wrap;
+
+  }
+
+ 
+
+  /* ── Page 2: Major Life Activities ── */
+
+  .activity-grid {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: .5rem 2rem;
+
+    margin: .5rem 0 .75rem;
+
+  }
+
+  .activity-grid label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+  }
+
+  .activity-grid input[type="checkbox"] {
+
+    width: 1rem;
+
+    height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Accommodation checklists ── */
+
+  .accom-section { margin-bottom: .75rem; }
+
+  .accom-section h4 {
+
+    font-family: var(--font-ui);
+
+    font-size: .8rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .08em;
+
+    color: var(--navy);
+
+    margin-bottom: .5rem;
+
+    border-bottom: 1px solid var(--border);
+
+    padding-bottom: .25rem;
+
+  }
+
+  .accom-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: .4rem .75rem;
+
+  }
+
+  .accom-grid.single { grid-template-columns: 1fr; }
+
+  .accom-grid label {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: .4rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .85rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    line-height: 1.4;
+
+  }
+
+  .accom-grid input[type="checkbox"] {
+
+    margin-top: .15rem;
+
+    width: 1rem;
+
+    height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+  }
+
+  .accom-inline-input {
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    color: var(--text);
+
+    width: 160px;
+
+    padding: .05rem .2rem;
+
+    display: inline-block;
+
+    vertical-align: bottom;
+
+  }
+
+  .accom-inline-input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  .accom-pct-input {
+
+    width: 60px;
+
+  }
+
+ 
+
+  /* ── Page break ── */
+
+  .page-break {
+
+    border: none;
+
+    border-top: 2px dashed var(--border);
+
+    margin: 1.5rem 0;
+
+  }
+
+ 
+
+  /* ── Revised note ── */
+
+  .revised-note {
+
+    font-family: var(--font-ui);
+
+    font-size: .72rem;
+
+    color: var(--muted);
+
+    text-align: right;
+
+    margin-top: .5rem;
+
+  }
+
+ 
+
+  /* ── Print ── */
+
+  @media print {
+
+    .campus-bar { padding: .25rem .6rem; font-size: .68rem; }
+
+    .campus-bar .phone-row { gap: 1rem; }
+
+    .notice-student { font-size: .78rem; margin-bottom: .4rem; }
+
+    fieldset { padding: .35rem .5rem; margin-bottom: .4rem; }
+
+    .field-row { gap: .25rem .5rem; margin-top: .25rem; }
+
+    textarea { min-height: 44px !important; font-size: .78rem; }
+
+    label { font-size: .68rem; }
+
+    .yn-row { font-size: .78rem; margin: .3rem 0; }
+
+    .yn-options label { font-size: .78rem; }
+
+    .cert-box { padding: .5rem .75rem; margin-bottom: .5rem; }
+
+    .cert-title { font-size: .75rem; margin-bottom: .5rem; }
+
+    .cert-sig-col label { font-size: .62rem; }
+
+    .cert-sig-col input { font-size: .78rem; }
+
+    .page-break { margin: .75rem 0; border-top-style: solid; border-color: #999; }
+
+    .activity-grid { gap: .35rem 1.5rem; }
+
+    .activity-grid label { font-size: .78rem; }
+
+    .accom-section h4 { font-size: .7rem; margin-bottom: .3rem; }
+
+    .accom-grid label { font-size: .78rem; }
+
+    .accom-inline-input { font-size: .76rem; width: 120px; }
+
+    .revised-note { font-size: .65rem; }
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h2>Impairment and Disability Assessment</h2>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <!-- Navigation -->
+
+  <nav>
+
+    <ul>
+
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="forms.html">Forms</a></li>
+
+      <li><a href="maps.html">Program Maps</a></li>
+
+    </ul>
+
+  </nav>
+
+
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions (screen only) -->
+
+    <div class="instructions no-print" role="note">
+
+      This form must be completed by the physician or other appropriate licensed professional qualified to evaluate
+
+      the specific disability. Complete all fields across both pages, then click <strong>Print to PDF</strong> to save
+
+      and submit to the appropriate office.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Notices (visible on print) -->
+
+    <div style="margin-bottom:.75rem;">
+
+      <p class="notice-student">
+
+        <strong>STUDENT:</strong> <em>This form must be completed by the physician or other appropriate licensed
+
+        professional <u>qualified to evaluate the specific disability.</u></em>
+
+      </p>
+
+      <p class="notice-student">
+
+        <strong>TO THE LICENSED PROFESSIONAL:</strong> <em>To ensure the provision of reasonable and appropriate
+
+        services and/or accommodations for students with medical disabilities, current and comprehensive
+
+        documentation must be provided.</em>
+
+      </p>
+
+    </div>
+
+ 
+
+    <!-- ── PAGE 1 ── -->
+
+ 
+
+    <!-- Student Info -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="eval-date">Date of Most Recent Evaluation <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="eval-date" name="eval_date" aria-required="true">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Clinical Information -->
+
+    <fieldset>
+
+      <legend>Clinical Information</legend>
+
+ 
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="diagnosis">Diagnosis and Relevant DSM or ICD Code (if applicable)</label>
+
+          <textarea id="diagnosis" name="diagnosis" rows="3"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="diagnostic-method">Description of the Diagnostic Method and Criteria</label>
+
+          <textarea id="diagnostic-method" name="diagnostic_method" rows="3"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="symptoms">Description of Presenting Symptoms</label>
+
+          <textarea id="symptoms" name="symptoms" rows="3"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="academic-impact">Description of the Potential Impact of the Disability on the Student's Academic Performance</label>
+
+          <textarea id="academic-impact" name="academic_impact" rows="3"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="progression">Description of Expected Progression or Stability of the Disability and How It May Impact the Student During Their Enrollment</label>
+
+          <textarea id="progression" name="progression" rows="3"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Medication Yes/No -->
+
+      <div class="yn-row" style="margin-top:.25rem;">
+
+        <span class="yn-question">Is the student currently taking medication for this disorder?</span>
+
+        <div class="yn-options">
+
+          <label><input type="radio" name="medication" value="yes"> Yes</label>
+
+          <label><input type="radio" name="medication" value="no"> No</label>
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="yn-row">
+
+        <span class="yn-question">
+
+          <em><u>If YES,</u></em> does this medication have the potential to impair cognitive functioning or ability to perform safe patient care?
+
+        </span>
+
+        <div class="yn-options">
+
+          <label><input type="radio" name="med_impair" value="yes"> Yes</label>
+
+          <label><input type="radio" name="med_impair" value="no"> No</label>
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="field-row cols-1" style="margin-top:.5rem;">
+
+        <div>
+
+          <label for="accommodations-rec">Recommended Academic Adjustments, Auxiliary Aids, and/or Accommodations Based on the Diagnosed Disability</label>
+
+          <textarea id="accommodations-rec" name="accommodations_rec" rows="3"></textarea>
+
+        </div>
+
+      </div>
+
+ 
+
+    </fieldset>
+
+ 
+
+    <!-- Certification Box -->
+
+    <div class="cert-box">
+
+      <p class="cert-title">I certify the above to be true and correct</p>
+
+      <div class="cert-sig-row">
+
+        <div class="cert-sig-col grow">
+
+          <label for="prof-sig">Signature of Professional Completing This Form</label>
+
+          <input type="text" id="prof-sig" name="prof_signature" aria-label="Professional signature" placeholder="Sign here">
+
+        </div>
+
+        <div class="cert-sig-col fixed">
+
+          <label for="license-num">License Number</label>
+
+          <input type="text" id="license-num" name="license_number">
+
+        </div>
+
+        <div class="cert-sig-col fixed">
+
+          <label for="cert-date">Date</label>
+
+          <input type="date" id="cert-date" name="cert_date">
+
+        </div>
+
+      </div>
+
+      <div class="cert-detail-row">
+
+        <div class="cert-sig-col grow">
+
+          <label for="printed-name">Printed Name / Credentials</label>
+
+          <input type="text" id="printed-name" name="printed_name">
+
+        </div>
+
+        <div class="cert-sig-col fixed">
+
+          <label for="prof-phone">Phone</label>
+
+          <input type="text" id="prof-phone" name="prof_phone" autocomplete="tel">
+
+        </div>
+
+      </div>
+
+      <div class="cert-sig-col" style="width:100%;">
+
+        <label for="biz-address">Business Address</label>
+
+        <input type="text" id="biz-address" name="biz_address" style="width:100%;">
+
+      </div>
+
+    </div>
+
+ 
+
+    <!-- ── PAGE 2 ── -->
+
+    <hr class="page-break" aria-hidden="true">
+
+ 
+
+    <!-- Major Life Activities -->
+
+    <fieldset>
+
+      <legend>Major Life Activity with Which This Condition Interferes</legend>
+
+      <div class="activity-grid">
+
+        <label><input type="checkbox" name="act_manual"> Manual Task</label>
+
+        <label><input type="checkbox" name="act_walking"> Walking</label>
+
+        <label><input type="checkbox" name="act_seeing"> Seeing</label>
+
+        <label><input type="checkbox" name="act_hearing"> Hearing</label>
+
+        <label><input type="checkbox" name="act_breathing"> Breathing</label>
+
+        <label><input type="checkbox" name="act_learning"> Learning</label>
+
+        <label><input type="checkbox" name="act_speaking"> Speaking</label>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="act-others">Others</label>
+
+          <textarea id="act-others" name="act_others" rows="2"></textarea>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Accommodations -->
+
+    <fieldset>
+
+      <legend>Recommended Accommodations</legend>
+
+      <p style="font-family:var(--font-body);font-size:.88rem;color:var(--text);margin-bottom:.85rem;line-height:1.5;">
+
+        Please check any accommodations recommended to help the student compensate for the aforementioned
+
+        disability within the context of the college environment.
+
+      </p>
+
+ 
+
+      <!-- Modify Presentation -->
+
+      <div class="accom-section">
+
+        <h4>Modify Presentation of the Material</h4>
+
+        <p style="font-family:var(--font-ui);font-size:.8rem;color:var(--muted);margin-bottom:.4rem;">Allow student to obtain information utilizing:</p>
+
+        <div class="accom-grid">
+
+          <label><input type="checkbox" name="acc_cassette"> Cassette Tape Recorders</label>
+
+          <label><input type="checkbox" name="acc_oral"> Administer test orally</label>
+
+          <label><input type="checkbox" name="acc_computer"> Computer / iPads (for writing)</label>
+
+          <label><input type="checkbox" name="acc_largeprint"> Duplicate materials in large print</label>
+
+          <label><input type="checkbox" name="acc_notetaker"> Note Taker</label>
+
+          <label>
+
+            <input type="checkbox" name="acc_pres_other">
+
+            Other: <input class="accom-inline-input" type="text" name="acc_pres_other_text" aria-label="Other presentation accommodation">
+
+          </label>
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Modify Environment -->
+
+      <div class="accom-section">
+
+        <h4>Modify the Environment</h4>
+
+        <div class="accom-grid single">
+
+          <label><input type="checkbox" name="acc_movement"> Provide Opportunities for movement</label>
+
+          <label><input type="checkbox" name="acc_front"> Allow student to sit in the front and/or center of classroom</label>
+
+          <label><input type="checkbox" name="acc_special_seat"> Permit student to sit at specially designed tables or chairs</label>
+
+          <label><input type="checkbox" name="acc_proctor"> Instructor may arrange for a test to be proctored by the Test Administrator to decrease distractions.</label>
+
+          <label>
+
+            <input type="checkbox" name="acc_env_other">
+
+            Other: <input class="accom-inline-input" type="text" name="acc_env_other_text" aria-label="Other environment accommodation" style="width:220px;">
+
+          </label>
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Modify Time Demands -->
+
+      <div class="accom-section">
+
+        <h4>Modify Time Demands</h4>
+
+        <div class="accom-grid single">
+
+          <label>
+
+            <input type="checkbox" name="acc_time_pct">
+
+            Increase amount of time by
+
+            <input class="accom-inline-input accom-pct-input" type="text" name="acc_time_pct_value" aria-label="Percent increase"> percent to complete assignments/tests
+
+          </label>
+
+          <label><input type="checkbox" name="acc_specific_task"> Give student a specific task to perform with specific time limits. (Not to exceed grading period or semester)</label>
+
+          <label>
+
+            <input type="checkbox" name="acc_time_other">
+
+            Other: <input class="accom-inline-input" type="text" name="acc_time_other_text" aria-label="Other time accommodation" style="width:220px;">
+
+          </label>
+
+        </div>
+
+        <div class="field-row cols-1" style="margin-top:.5rem;">
+
+          <div>
+
+            <label for="time-other-detail">Additional details (if needed)</label>
+
+            <textarea id="time-other-detail" name="time_other_detail" rows="2"></textarea>
+
+          </div>
+
+        </div>
+
+      </div>
+
+ 
+
+    </fieldset>
+
+ 
+
+    <p class="revised-note">IMPAIRMENT AND DISABILITY ASSESSMENT | K. Worth 4/2024</p>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Print Button -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"], input[type="radio"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+  function autoResize(textarea) {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  }
+
+  document.addEventListener("input", function (e) {
+    if (e.target.tagName.toLowerCase() === "textarea") {
+      autoResize(e.target);
+    }
+  });
+
+  // Run on page load (important for pre-filled content)
+  document.querySelectorAll("textarea").forEach(textarea => {
+    autoResize(textarea);
+  });
+
+</script>
+
+</body>
+
+</html>
