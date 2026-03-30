@@ -7,270 +7,501 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="forms.css">
 <style>
-  /* ── Class Selection specific styles ── */
 
-  /* Semester selector */
+  /* ── Drop/Add specific overrides ── */
+
   .semester-row {
+
     display: flex;
-    align-items: center;
+
     gap: 2.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.25rem;
-  }
-  .semester-heading {
-    font-family: var(--font-ui);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: .01em;
-    margin-right: .5rem;
-  }
-  .semester-option {
-    display: flex;
+
+    margin: .6rem 0 .9rem;
+
     align-items: center;
-    gap: .45rem;
-    cursor: pointer;
-  }
-  .semester-option input[type="radio"] {
-    width: 1.15rem;
-    height: 1.15rem;
-    accent-color: var(--navy);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-  .semester-option span {
-    font-family: var(--font-ui);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text);
+
   }
 
-  /* Student header fields */
-  .student-header-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: .6rem 2rem;
-    margin-bottom: 1rem;
-  }
-  .sh-field label {
-    font-family: var(--font-ui);
-    font-size: .85rem;
-    font-weight: 700;
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: normal;
-    color: var(--text);
-    display: inline;
-    margin-bottom: 0;
-  }
-  .sh-field {
+  .semester-row label {
+
     display: flex;
-    align-items: baseline;
+
+    align-items: center;
+
     gap: .4rem;
-    border-bottom: 1.5px solid var(--text);
-    padding-bottom: .2rem;
-  }
-  .sh-field input[type="text"] {
-    flex: 1;
-    border: none;
-    border-radius: 0;
-    padding: .1rem .2rem;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    background: transparent;
-    width: auto;
-  }
-  .sh-field input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 2px 0 var(--focus);
-  }
 
-  /* Emplid digit boxes */
-  .emplid-row {
-    display: flex;
-    align-items: center;
-    gap: .25rem;
-    border-bottom: 1.5px solid var(--text);
-    padding-bottom: .2rem;
-    flex-wrap: wrap;
-  }
-  .emplid-row label {
     font-family: var(--font-ui);
-    font-size: .85rem;
+
+    font-size: 1rem;
+
     font-weight: 700;
-    font-style: italic;
+
     text-transform: none;
+
     letter-spacing: normal;
+
     color: var(--text);
-    margin-bottom: 0;
-    margin-right: .3rem;
-    white-space: nowrap;
-  }
-  .emplid-box {
-    width: 1.8rem;
-    height: 1.8rem;
-    border: none;
-    border-bottom: 1.5px solid #999;
-    border-radius: 0;
-    text-align: center;
-    font-family: monospace;
-    font-size: 1rem;
-    background: transparent;
-    padding: 0;
-  }
-  .emplid-box:focus {
-    outline: none;
-    border-bottom-color: var(--focus);
-    box-shadow: 0 2px 0 var(--focus);
+
+    cursor: pointer;
+
   }
 
-  /* Advisor note */
-  .advisor-note {
-    font-family: var(--font-ui);
-    font-size: .95rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 1.25rem;
-    line-height: 1.5;
+  .semester-row input[type="checkbox"] {
+
+    width: 1.1rem;
+
+    height: 1.1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
   }
 
-  /* Class selection table */
-  .class-table-wrap {
-    margin-bottom: 1rem;
-    overflow-x: auto;
-  }
-  .class-table {
+ 
+
+  /* ── Course tables ── */
+
+  .course-table-section { margin-bottom: .75rem; }
+
+  .course-table-section table {
+
     width: 100%;
-    border-collapse: collapse;
-    font-family: var(--font-ui);
-    font-size: .88rem;
-    table-layout: fixed;
-  }
-  .class-table colgroup col.col-classno  { width: 72px; }
-  .class-table colgroup col.col-subject  { width: 60px; }
-  .class-table colgroup col.col-catalog  { width: 66px; }
-  .class-table colgroup col.col-section  { width: 54px; }
-  .class-table colgroup col.col-campus   { width: 60px; }
-  .class-table colgroup col.col-lab      { width: 50px; }
-  .class-table colgroup col.col-audit    { width: 56px; }
-  .class-table colgroup col.col-daytime  { width: auto; }
-  .class-table colgroup col.col-credits  { width: 60px; }
 
-  .class-table thead th {
-    background: var(--white);
-    color: var(--text);
-    border: 1.5px solid #000;
-    padding: .45rem .4rem;
-    text-align: center;
-    font-weight: 700;
+    border-collapse: collapse;
+
+    font-family: var(--font-ui);
+
     font-size: .82rem;
-  }
-  .class-table tbody td {
-    border: 1.5px solid #000;
-    padding: 0;
-    height: 1.9rem;
-    vertical-align: middle;
-  }
-  .class-table tbody td input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 0;
-    padding: .2rem .35rem;
-    font-family: var(--font-body);
-    font-size: .88rem;
-    background: transparent;
-    text-align: center;
-  }
-  .class-table tbody td input:focus {
-    outline: none;
-    background: #fffde7;
-    box-shadow: inset 0 0 0 2px var(--focus);
-  }
-  .class-table tbody td.td-daytime input {
-    text-align: left;
-  }
 
-  /* Total credits row */
-  .class-table tfoot tr td {
-    border: 1.5px solid #000;
-    padding: .4rem .5rem;
-    font-weight: 700;
-    font-size: .88rem;
-  }
-  .class-table tfoot .total-label {
-    text-align: right;
-    font-weight: 700;
-  }
-  .class-table tfoot .total-value {
-    border-left: 1.5px solid #000;
-    text-align: center;
-  }
-  .class-table tfoot td input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-weight: 700;
-    font-size: .88rem;
-    text-align: center;
-    padding: 0;
-  }
-  .class-table tfoot td input:focus {
-    outline: none;
-    background: #fffde7;
-  }
-
-  /* Example / campus codes block */
-  .example-block {
-    border: 1.5px solid #000;
-    margin-top: 0;
-    margin-bottom: 1.25rem;
-  }
-  .example-title {
-    text-align: center;
-    font-family: var(--font-ui);
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: .4rem;
-    border-bottom: 1.5px solid #000;
-  }
-  .example-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--font-ui);
-    font-size: .85rem;
     table-layout: fixed;
-  }
-  .example-table td {
-    border: 1px solid #ccc;
-    padding: .3rem .4rem;
-    text-align: center;
-    vertical-align: middle;
-  }
-  .example-table td.campus-codes {
-    text-align: left;
-    vertical-align: top;
-    line-height: 1.7;
-    border-left: 1.5px solid #000;
-  }
-  .example-table tr:last-child td { border-bottom: none; }
 
-  /* Footer note */
-  .footer-note {
-    font-family: var(--font-ui);
-    font-size: .88rem;
+  }
+
+  /* WCAG fix: white text on --navy background for sufficient contrast */
+
+  .course-table-section thead th {
+
+    background: var(--navy);
+
+    color: #ffffff;
+
+    padding: .45rem .4rem;
+
+    text-align: center;
+
     font-weight: 700;
-    color: var(--text);
-    margin-bottom: .5rem;
-  }
-  .revised-note {
-    font-family: var(--font-ui);
+
     font-size: .78rem;
-    color: var(--muted);
-    text-align: right;
+
+    border: 1px solid var(--navy);
+
   }
+
+  .course-table-section tbody td {
+
+    padding: .3rem .35rem;
+
+    border: 1px solid #c8d4e2;
+
+    vertical-align: middle;
+
+    height: 1.7rem;
+
+  }
+
+  .course-table-section .total-row td {
+
+    background: var(--light);
+
+    text-align: right;
+
+    font-weight: 700;
+
+    font-size: .78rem;
+
+    padding: .3rem .5rem;
+
+    border: 1px solid #c8d4e2;
+
+  }
+
+  .course-table-section .total-row td:last-child {
+
+    border-left: 2px solid var(--navy);
+
+    min-width: 60px;
+
+  }
+
+  .ct-input {
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .82rem;
+
+    color: var(--text);
+
+    padding: .1rem .2rem;
+
+  }
+
+  .ct-input:focus {
+
+    background: var(--white);
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px;
+
+  }
+
+ 
+
+  /* Col widths */
+
+  .col-code    { width: 60px; }
+
+  .col-dept    { width: 50px; }
+
+  .col-cno     { width: 58px; }
+
+  .col-sect    { width: 48px; }
+
+  .col-campus  { width: 52px; }
+
+  .col-lab     { width: 38px; }
+
+  .col-audit   { width: 44px; }
+
+  .col-daytime { width: 120px; }
+
+  .col-credits { width: 52px; }
+
+ 
+
+  .lab-audit-cell { text-align: center; }
+
+  .lab-audit-cell input[type="checkbox"] {
+
+    width: 1rem; height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Signature/approval section ── */
+
+  .sig-section { margin-top: .75rem; }
+
+  .sig-line-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .5rem;
+
+    margin-bottom: .6rem;
+
+  }
+
+  /* WCAG fix: sig-label is now a <label> element; keep same visual style */
+
+  .sig-line-row label.sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+    /* override forms.css label uppercasing for these inline labels */
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    margin-bottom: 0;
+
+  }
+
+  .sig-line {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .sig-line:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* Reason line */
+
+  .reason-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .5rem;
+
+    margin-bottom: .6rem;
+
+    margin-top: .1rem;
+
+  }
+
+  .reason-row label.sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    margin-bottom: 0;
+
+  }
+
+ 
+
+  /* Approved by checkboxes */
+
+  .approved-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+
+  }
+
+  .approved-row .approved-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    white-space: nowrap;
+
+  }
+
+  .approved-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .approved-row input[type="checkbox"] {
+
+    width: 1rem; height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* Signature lines under approved-by */
+
+  .approved-sigs {
+
+    display: flex;
+
+    gap: 1rem;
+
+    margin-top: .5rem;
+
+  }
+
+  .approved-sigs input {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .approved-sigs input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── DROP watermark label on thead ── */
+
+  .table-label-drop thead { position: relative; }
+
+ 
+
+  /* ── Revised note ── */
+
+  .revised-note {
+
+    font-family: var(--font-ui);
+
+    font-size: .72rem;
+
+    color: var(--muted);
+
+    text-align: right;
+
+    margin-top: .5rem;
+
+  }
+
+ 
+
+  /* ── Notice box ── */
+
+  .notice-box {
+
+    border: 1.5px solid var(--navy);
+
+    border-radius: 3px;
+
+    padding: .55rem .85rem;
+
+    margin-bottom: .85rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    color: var(--text);
+
+  }
+
+  .notice-box .notice-title {
+
+    font-weight: 700;
+
+    text-decoration: underline;
+
+    display: block;
+
+    text-align: center;
+
+    margin-bottom: .25rem;
+
+    font-size: .85rem;
+
+  }
+
+  /* WCAG fix: ensure btn-print has sufficient contrast (white on navy may fail;
+     adding a dark border as enhancement and overriding color to dark if needed) */
+
+  .btn-print {
+
+    color: #ffffff;
+
+  }
+
+  /* WCAG fix: btn-reset on green header — use dark text with stronger border */
+
+  .btn-reset {
+
+    color: #000000;
+
+    border: 2px solid #000000;
+
+  }
+
+ 
+
+  /* ── Print ── */
 
   @media print {
+    @page {
+    size: letter;
+    margin: 0.3in; /* shrink this if needed (0.4in or 0.3in) */
+  }
 
   /* Hide ONLY navigation (not header) */
   nav,
@@ -289,6 +520,7 @@
   html, body {
     height: auto !important;
     overflow: visible !important;
+      
   }
 
   /* Typography scaling */
