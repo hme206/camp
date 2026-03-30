@@ -281,6 +281,11 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
     /* - filter: grayscale(100%); - */
   }
   html, body { font-size: 14px; background: white; padding: 0; }
+   nav,
+  .no-print {
+    display: none !important;
+    visibility: hidden;
+  }
   .form-wrapper { box-shadow: none; max-width: 100%; }
   .no-print, .save-btn-row { display: none !important; }
   .instructions { display: none !important; }
