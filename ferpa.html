@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – FERPA Consent to Release Educational Records</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+  /* ── FERPA-specific styles ── */
+
+  /* Intro legal text */
+  .ferpa-legal {
+    font-family: var(--font-body);
+    
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Underline field rows */
+  .uline-row {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .uline-label {
+    font-family: var(--font-body);
+  
+    color: var(--text);
+    white-space: nowrap;
+  }
+ .uline-input {
+    flex: 2;
+    border: none;
+    border: 1.5px solid #000;
+    border-radius: 0;
+    padding: .1rem .25rem;
+    font-family: var(--font-body);
+    
+    background: transparent;
+
+    resize: none;        /* prevents manual resizing */
+    overflow: hidden;    /* required for auto-grow */
+    min-height: 1.5rem;  /* gives it a starting line height */
+}n-width: 100px;
+  
+  .uline-input:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+    box-shadow: 0 2px 0 var(--focus);
+  }
+  .uline-input.narrow { flex: 0 0 160px; min-width: 120px; }
+  .uline-input.full   { width: 100%; flex: none; }
+
+  /* Split row (Student ID + DOB) */
+  .split-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .split-row .split-group {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    flex: 1;
+  }
+  .split-row .split-group.dob { flex: 0 0 auto; }
+
+  /* Authorized persons block */
+  .auth-persons-note {
+    font-family: var(--font-body);
+    font-size: 10pt;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: .75rem;
+    line-height: 1.5;
+  }
+
+  /* Password row */
+  .password-row {
+    margin-bottom: .25rem;
+  }
+  .password-note {
+    font-family: var(--font-body);
+    font-size: 10pt;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  /* Records checkboxes */
+  .records-intro {
+    font-family: var(--font-body);
+    font-size: 12pt;
+    color: var(--text);
+    margin-bottom: .65rem;
+    line-height: 1.5;
+  }
+  .records-checks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .4rem;
+    margin-bottom: 1rem;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start!important;
+    gap: .55rem;
+    width: 220px;
+  }
+  .check-item input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .check-item input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .check-item label {
+    font-family: var(--font-body);
+    font-size: 12pt;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  /* Duration section */
+  .duration-intro {
+    font-family: var(--font-body);
+    font-size: 12pt;
+    color: var(--text);
+    margin-bottom: .75rem;
+    line-height: 1.6;
+  }
+  .duration-intro em { font-style: italic; }
+
+  .duration-options {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+  }
+  .duration-option {
+    display: flex;
+    align-items: baseline;
+    gap: .55rem;
+    flex-wrap: wrap;
+  }
+  .duration-option input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+    cursor: pointer;
+    margin-top: .1rem;
+  }
+  .duration-option input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .duration-option label {
+    font-family: var(--font-body);
+    font-size: 12pt;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  /* End date inline inputs */
+  .end-date-part {
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    background: transparent;
+    font-family: monospace;
+    font-size: 12pt;
+    text-align: center;
+    padding: .05rem .15rem;
+  }
+  .end-date-part.mm   { width: 54px; }
+  .end-date-part.dd   { width: 54px; }
+  .end-date-part.yyyy { width: 74px; }
+  .end-date-part:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+    box-shadow: 0 2px 0 var(--focus);
+  }
+
+  /* Access limit notice */
+  .access-limit-note {
+    font-family: var(--font-body);
+    font-size: 10pt;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+  .access-limit-note em { font-style: italic; }
+
+   .sig-line-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .6rem;
+
+    margin-bottom: .65rem;
+
+  }
+
+  .sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: 10pt;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+    min-width: 175px;
+
+  }
+
+  .sig-line {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: 12pt;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+    min-width: 0;
+
+  }
+
+  .sig-line:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  .sig-date-pair {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .4rem;
+
+    flex-shrink: 0;
+
+  }
+
+  .sig-date-pair .sig-label {
+
+    min-width: auto;
+
+  }
+
+  .sig-date-pair input[type="date"] {
+
+    width: 140px;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: 10pt;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .sig-date-pair input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  /* Notary row */
+  .notary-section {
+    margin-bottom: 1rem;
+  }
+  .notary-toggle {
+    font-family: var(--font-body);
+    font-size: 10pt;
+    color: var(--text);
+    margin-bottom: .5rem;
+  }
+  .notary-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .notary-group {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    flex: 1;
+  }
+  .notary-group label {
+    font-family: var(--font-body);
+    font-size: 12pt;
+    color: var(--text);
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+  .notary-group input[type="text"] {
+    flex: 1;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    padding: .1rem .25rem;
+    font-family: var(--font-body);
+    font-size: 12pt;
+    background: transparent;
+    min-width: 100px;
+  }
+  .notary-group input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+    box-shadow: 0 2px 0 var(--focus);
+  }
+
+  /* Return address box */
+  .return-box {
+    background: var(--light);
+    border-left: 4px solid var(--navy);
+    border-radius: 0 4px 4px 0;
+    padding: .65rem 1rem;
+    font-family: var(--font-ui);
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  /* Office use bar */
+  .office-use-bar {
+    background: #f5f0e8;
+    border: 1px solid #d4c9a8;
+    border-radius: 4px;
+    padding: .65rem 1rem;
+    font-family: var(--font-ui);
+    font-size: 10pt;
+    color: var(--text);
+  }
+  .office-use-top {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: .5rem;
+  }
+  .office-use-top .ou-group {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    flex: 1;
+  }
+  .office-use-top .ou-group label {
+    font-family: var(--font-ui);
+    font-size: 10pt;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+  .office-use-top .ou-group input[type="text"] {
+    flex: 1;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    padding: .1rem .2rem;
+    font-family: var(--font-body);
+    font-size: 10pt;
+    background: transparent;
+    min-width: 80px;
+  }
+  .office-use-top .ou-group input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+  }
+  .routed-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .routed-label {
+    font-weight: 700;
+    font-size: 10pt;
+    white-space: nowrap;
+  }
+  .route-check {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .route-check input[type="checkbox"] {
+    width: .95rem;
+    height: .95rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .route-check label {
+    font-family: var(--font-ui);
+    font-size: 10pt;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  .ferpa-footer {
+    text-align: right;
+    font-family: var(--font-ui);
+    font-size: 10pt;
+    color: var(--muted);
+    margin-top: .5rem;
+  }
+
+  /* ── Print overrides ── */
+  @media print {
+    body{zoom: 90%}
+    .ferpa-legal { font-size: 10pt; margin-bottom: .9rem; }
+    .uline-label, .uline-input { font-size: 10pt; }
+    .uline-row { margin-bottom: .6rem; }
+    .auth-persons-note { font-size: .72rem; margin-bottom: .4rem; }
+    .password-note { font-size: .7rem; }
+    .records-intro, .duration-intro, .access-limit-note { font-size: .78rem; }
+    .check-item label, .duration-option label { font-size: .78rem; }
+    .records-checks { gap: .25rem; margin-bottom: .6rem; }
+    .duration-options { gap: .35rem; margin-bottom: .6rem; }
+    .end-date-part { font-size: .78rem; }
+    .sig-field input[type="text"] { font-size: .82rem; }
+    .sig-field label { font-size: .68rem; }
+    .sig-note { font-size: .7rem; }
+    .notary-toggle { font-size: .75rem; }
+    .notary-group label, .notary-group input[type="text"] { font-size: .78rem; }
+    .return-box { font-size: .72rem; padding: .4rem .6rem; }
+    .office-use-bar { padding: .4rem .6rem; }
+    .office-use-top .ou-group label,
+    .office-use-top .ou-group input[type="text"],
+    .routed-label, .route-check label { font-size: .72rem; }
+    .ferpa-footer { font-size: .65rem; }
+    .sig-block { padding-top: .6rem; margin-bottom: .3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <div style="flex:1;">
+      <h2 style="color:#000;font-size:1.4rem;">FERPA Consent to Release Educational Records</h2>
+      <div style="font-family:var(--font-ui);font-size:.72rem;color:rgba(0,0,0,.6);margin-top:.2rem;">FERPA</div>
+    </div>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Nav -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Screen instructions -->
+    <div class="instructions no-print" role="note">
+      Complete all sections of this form in full. Choose which records to authorize, set your access duration, and sign at the bottom. This form must be submitted in person with a picture ID, or with a Notary signature. Click <strong>Print to PDF</strong> when finished.
+    </div>
+
+    <!-- Legal intro -->
+    <p class="ferpa-legal">
+      The Family Education Rights and Privacy Act of 1974 (FERPA) states that a student must authorize in writing the release of her or his educational records to a third party. Please print legibly in ink when completing this form.
+    </p>
+
+<fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-3">
+
+        <div>
+
+          <!-- WCAG fix: added aria-describedby to explain the 7-character format -->
+          <label for="empl-id">Empl. I.D. <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="empl-id" name="empl_id" maxlength="7" autocomplete="off" aria-required="true"
+                 placeholder="1234567" aria-describedby="empl-id-hint">
+
+          <span id="empl-id-hint" class="sr-only">Enter your 7-digit employee ID number</span>
+
+        </div>
+
+       
+
+        <div>
+
+          <label for="drop-date">Date of Birth <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="date" id="drop-date" name="drop_date" aria-required="true">
+
+        </div>
+
+      </div>
+    <!-- Authorized persons -->
+  <div class="uline-row">
+  <span class="uline-label">
+    Person(s) to whom you authorize the release of your records:
+  </span>
+
+  <textarea
+    class="uline-input full"
+    id="auth-persons"
+    name="auth_persons"
+    aria-label="Authorized persons"
+    rows="3"
+  ></textarea>
+</div>
+
+    <p class="auth-persons-note">You can list multiple people. You must provide each authorized person listed with the password you choose below. <em>If they are unable to provide the password, your records cannot be released.</em></p>
+
+    </fieldset>
+
+
+
+<fieldset>
+    <legend>Password</legend>
+    <!-- Password -->
+    <div class="uline-row password-row">
+      <span class="uline-label" style="font-weight:700;"><strong>Password:</strong></span>
+      <input class="uline-input" type="text" id="ferpa-password" name="ferpa_password" autocomplete="off" aria-label="FERPA release password" aria-describedby="password-note">
+    </div>
+    <p class="password-note" id="password-note">You are responsible for the security of this password. Protect it from unauthorized parties.</p>    
+
+
+
+    <!-- Records checkboxes -->
+    <p class="records-intro">I authorize the release of educational records in the following areas (check all that apply):</p>
+    <div class="records-checks" role="group" aria-label="Record types to authorize">
+      <div class="check-item">
+        <input type="checkbox" id="rec-academic" name="rec_academic">
+        <label for="rec-academic">Academic Records</label>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" id="rec-financial" name="rec_financial">
+        <label for="rec-financial">Financial Aid</label>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" id="rec-student" name="rec_student">
+        <label for="rec-student">Student Records</label>
+      </div>
+    </div>
+</fieldset>
+
+    <!-- Duration -->
+    <p class="duration-intro">Select the duration for which you authorize the release of your educational records. <em>Granting access to the parties listed does not preclude you from revoking access to any of the parties or record types above, if done so in writing.</em></p>
+    <div class="duration-options" role="group" aria-label="Access duration">
+      <div class="duration-option">
+        <input type="checkbox" id="dur-continuous" name="duration" value="continuous">
+        <label for="dur-continuous">Grant continuous access for the duration of my academic career</label>
+      </div>
+      <div class="duration-option" style="align-items:center;">
+        <input type="checkbox" id="dur-limited" name="duration" value="limited">
+        <label for="dur-limited">I do not wish to grant continuous access. Access should end on</label>
+        <input class="end-date-part mm" type="text" maxlength="2" inputmode="numeric" aria-label="End date month" name="end_mm" placeholder="MM">
+        <span>/</span>
+        <input class="end-date-part dd" type="text" maxlength="2" inputmode="numeric" aria-label="End date day" name="end_dd" placeholder="DD">
+        <span>/</span>
+        <input class="end-date-part yyyy" type="text" maxlength="4" inputmode="numeric" aria-label="End date year" name="end_yyyy" placeholder="YYYY">
+        <span>.</span>
+      </div>
+    </div>
+
+    <fieldset>
+        <legend>Signature</legend>
+    <!-- Access limit notice -->
+    <p class="access-limit-note">I realize that if I choose to limit access no information will be shared with the people listed above after the date I select. Access can only be reinstated by completing a subsequent <em>FERPA</em> Consent to Release Educational Records form.</p>
+
+    <!-- Signature -->
+    <div class="sig-block">
+      <div class="sig-row">
+        <div class="sig-field">
+          <label for="student-sig">Student Signature <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-sig" name="student_signature" aria-required="true" aria-label="Student signature">
+        </div>
+        <div class="sig-field date-field">
+          <label for="sig-date">Date <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="sig-date" name="sig_date" placeholder="MM/DD/YYYY" aria-required="true">
+        </div>
+      </div>
+      <p class="sig-note">Form must be submitted in person at the office below, along with a picture ID. Otherwise a Notary signature is required.</p>
+
+      <!-- Notary -->
+      <div class="notary-section">
+        <p class="notary-toggle">I am not submitting my form in person. My notary verification is below.</p>
+        <div class="notary-row">
+          <div class="notary-group">
+            <label for="notary-name">Notary:</label>
+            <input type="text" id="notary-name" name="notary_name" aria-label="Notary name">
+          </div>
+          <div class="notary-group">
+            <label for="commission-exp">Commission Exp:</label>
+            <input type="text" id="commission-exp" name="commission_exp" placeholder="MM/DD/YYYY" aria-label="Notary commission expiration">
+          </div>
+        </div>
+      </div>
+    </div>
+</fieldset>
+   
+
+
+    
+    <!-- Office Use Only -->
+    <div class="office-use-bar">
+      <div class="office-use-top">
+        <span style="font-weight:700;white-space:nowrap;">Office Use Only</span>
+        <div class="ou-group">
+          <label for="sis-person">Person who entered authorization into SIS:</label>
+          <input type="text" id="sis-person" name="sis_person" aria-label="Person who entered authorization into SIS">
+        </div>
+        <div class="ou-group" style="flex:0 0 auto;">
+          <label for="date-entered">Date entered:</label>
+          <input type="text" id="date-entered" name="date_entered" style="min-width:80px;" placeholder="MM/DD/YYYY" aria-label="Date entered">
+        </div>
+      </div>
+      <div class="routed-row">
+        <span class="routed-label">Routed to:</span>
+        <div class="route-check">
+          <input type="checkbox" id="route-admissions" name="route_admissions">
+          <label for="route-admissions">Admissions</label>
+        </div>
+        <div class="route-check">
+          <input type="checkbox" id="route-financial" name="route_financial">
+          <label for="route-financial">Financial Aid</label>
+        </div>
+        <div class="route-check">
+          <input type="checkbox" id="route-business" name="route_business">
+          <label for="route-business">Business Office</label>
+        </div>
+      </div>
+    </div>
+
+    <p class="ferpa-footer">FERPA UPDATED 8/13/2019</p>
+
+  </main>
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  // ── Enforce single-select for duration checkboxes ───────────────
+  const durBoxes = document.querySelectorAll('[name="duration"]');
+  durBoxes.forEach(box => {
+    box.addEventListener('change', () => {
+      if (box.checked) durBoxes.forEach(o => { if (o !== box) o.checked = false; });
+    });
+  });
+
+  // ── Auto-advance end-date parts ─────────────────────────────────
+  const dateParts = document.querySelectorAll('.end-date-part');
+  dateParts.forEach((part, i) => {
+    part.addEventListener('input', () => {
+      const max = parseInt(part.getAttribute('maxlength'));
+      if (part.value.length >= max && i < dateParts.length - 1) dateParts[i + 1].focus();
+    });
+  });
+
+  // ── Reset form ───────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="checkbox"]')
+      .forEach(el => { el.checked = false; });
+  }
+  const textarea = document.getElementById('auth-persons');
+
+textarea.addEventListener('input', function () {
+  this.style.height = 'auto';
+  this.style.height = this.scrollHeight + 'px';
+});
+</script>
+
+</body>
+</html>
