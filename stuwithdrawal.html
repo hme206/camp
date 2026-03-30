@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Student Withdrawal Form</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+  /* ── Withdrawal-specific overrides ── */
+  .withdrawal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    margin-bottom: 1rem;
+  }
+  .withdrawal-table th,
+  .withdrawal-table td {
+    border: 1px solid var(--border);
+    padding: .45rem .5rem;
+    text-align: center;
+  }
+  .withdrawal-table thead th {
+    background: var(--navy);
+    color: #000;
+    font-weight: 700;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .withdrawal-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .withdrawal-table tbody tr:nth-child(even) { background: var(--row-alt); }
+  .withdrawal-table td:first-child { font-weight: 700; font-size: .8rem; color: #000; }
+  .withdrawal-table .tbl-input {
+    width: 100%;
+    border: 1px solid #b0bed0;
+    border-radius: 2px;
+    padding: .25rem .35rem;
+    font-family: var(--font-body);
+    font-size: .82rem;
+    background: transparent;
+  }
+  .withdrawal-table .tbl-input:focus {
+    border-color: var(--mid);
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+    background: var(--white);
+  }
+  .total-row td {
+    background: var(--light) !important;
+    font-weight: 700;
+    text-align: right;
+    padding-right: .75rem;
+  }
+  .total-row td:last-child {
+    text-align: center;
+    border-left: 2px solid var(--navy);
+  }
+
+  /* Office use section */
+  .office-box {
+    border: 2px solid var(--navy);
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .office-box-title {
+    font-family: var(--font-ui);
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #000;
+    text-align: center;
+    margin-bottom: .75rem;
+    background: var(--navy);
+    padding: .35rem;
+    border-radius: 2px;
+    margin: -.5rem -1rem .75rem;
+  }
+  .office-checkboxes {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    margin-bottom: .75rem;
+    flex-wrap: wrap;
+  }
+  .office-check-item {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-family: var(--font-ui);
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .office-check-item input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .office-sig-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: .5rem;
+  }
+  .office-sig-row label {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    white-space: nowrap;
+    margin: 0;
+    color: var(--muted);
+  }
+  .office-sig-row .sig-line {
+    flex: 1;
+    border-bottom: 1.5px solid #000;
+    height: 1.4em;
+    display: inline-block;
+  }
+  .office-sig-row .date-field {
+    width: 120px;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    padding: .1rem .25rem;
+    background: transparent;
+  }
+  .office-sig-row .date-field:focus {
+    border-bottom-color: var(--mid);
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+  }
+
+  /* Sig / reason section */
+  .sig-reason-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-top: .75rem;
+  }
+  .sig-block {
+    flex: 0 0 100%;
+  }
+  .sig-block label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin-bottom: .3rem;
+  }
+  .sig-underline {
+    border: none;
+    border-bottom: 1.5px solid #000;
+    border-radius: 0;
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: .2rem .25rem;
+    background: transparent;
+  }
+  .sig-underline:focus {
+    border-bottom-color: var(--mid);
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+  }
+  .reason-block {
+    flex: 2;
+  }
+  .reason-block label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin-bottom: .3rem;
+  }
+  .reason-block textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    color: var(--text);
+    background: var(--white);
+    resize: none;
+    padding: .35rem .5rem;
+    min-height: 56px;
+  }
+  .reason-block textarea:focus {
+    border-color: var(--mid);
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+  }
+
+  /* ── Print styles (withdrawal-specific) ── */
+  @media print {
+    @page { size: letter portrait; margin: .4in .45in .4in .45in; }
+    * {
+      color: #000 !important;
+      background: #fff !important;
+      border-color: #aaa !important;
+      box-shadow: none !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    html, body { font-size: 13px; background: white; padding: 0; }
+    .form-wrapper { box-shadow: none; max-width: 100%; }
+    .no-print, .save-btn-row { display: none !important; }
+    .instructions { display: none !important; }
+    header { padding: .35rem .6rem .3rem; border-bottom-width: 3px; }
+    header h2 { font-size: 1.1rem; }
+    header img { max-height: 52px; }
+    nav { display: none !important; }
+    .form-body { padding: .35rem .6rem; }
+    fieldset { padding: .35rem .6rem; margin-bottom: .4rem; }
+    legend { font-size: .67rem; }
+    label { font-size: .67rem; margin-bottom: .1rem; }
+    .field-row { gap: .25rem .5rem; margin-top: .3rem; }
+    input[type="text"], input[type="date"] { padding: .15rem .3rem; font-size: .82rem; border-width: 1px; }
+    input::placeholder, textarea::placeholder { color: transparent !important; }
+    .withdrawal-table { font-size: .72rem; }
+    .withdrawal-table th, .withdrawal-table td { padding: .2rem .3rem; }
+    .withdrawal-table .tbl-input { font-size: .72rem; padding: .1rem .2rem; }
+    .office-box { padding: .5rem .75rem; border-width: 1.5px; }
+    .office-box-title { font-size: .7rem; padding: .25rem; margin: -.35rem -.65rem .5rem; }
+    .office-checkboxes { gap: 1.5rem; margin-bottom: .4rem; }
+    .office-check-item { font-size: .82rem; }
+    .office-sig-row .date-field { font-size: .82rem; }
+    .sig-underline { font-size: .9rem; }
+    .reason-block textarea { min-height: 42px; font-size: .82rem; }
+    .sig-reason-row { margin-top: .5rem; }
+    .total-row td { padding-right: .5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h2>Student Withdrawal Form</h2>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+      Complete all fields below. List each course you wish to withdraw from in the table, including the class number, subject, catalog number, section, campus, and credits. Check Lab (L) or Audit (X) if applicable. Sign and provide your reason for withdrawal. Click <strong>Print to PDF</strong>, choose <strong>Save as PDF</strong>, and email the completed form to the Office of Admissions.
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+    </div>
+
+    <!-- Student Information -->
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true" placeholder="Full legal name">
+        </div>
+        <div>
+          <label for="emplid">Emplid ID <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="emplid" name="emplid" autocomplete="off" aria-required="true" placeholder="e.g. 000123456">
+        </div>
+      </div>
+      <div class="field-row cols-2">
+        <div>
+          <label for="wd-date">Date <span class="req" aria-hidden="true">*</span></label>
+          <input type="date" id="wd-date" name="date" aria-required="true">
+        </div>
+        <div>
+          <label for="semester">Semester <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="semester" name="semester" placeholder="e.g. Fall 2025" aria-required="true">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Course Table -->
+    <div class="sub-table-wrap">
+      <table class="withdrawal-table" aria-label="Courses to withdraw from">
+        <thead>
+          <tr>
+            <th scope="col">Class Number</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Catalog No.</th>
+            <th scope="col">Section</th>
+            <th scope="col">Campus</th>
+            <th scope="col">Lab (L)</th>
+            <th scope="col">Audit (X)</th>
+            <th scope="col">Day and Time</th>
+            <th scope="col">Credits</th>
+          </tr>
+        </thead>
+        <tbody>
+       
+          <!-- Editable rows -->
+          <tr>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 class number" name="class_num_1" placeholder="12345"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 subject" name="subject_1" placeholder="e.g., Bio"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 catalog number" name="catalog_1" placeholder="e.g., 141"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 section" name="section_1" placeholder="e.g., 71"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 campus" name="campus_1" placeholder="e.g., A"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 1 lab" name="d_lab_1"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 1 audit" name="d_audit_1"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 day and time" name="daytime_1" placeholder="e.g., Mon–Wed 8:00–9:10am"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 1 credits" name="credits_1" placeholder="e.g., 4"></td>
+          </tr>
+          <tr>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 class number" name="class_num_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 subject" name="subject_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 catalog number" name="catalog_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 section" name="section_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 campus" name="campus_2"></td>
+           <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 2 lab" name="d_lab_2"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 2 audit" name="d_audit_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 day and time" name="daytime_2"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 2 credits" name="credits_2"></td>
+          </tr>
+          <tr>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 class number" name="class_num_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 subject" name="subject_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 catalog number" name="catalog_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 section" name="section_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 campus" name="campus_3"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 3 lab" name="d_lab_3"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 3 audit" name="d_audit_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 day and time" name="daytime_3"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 3 credits" name="credits_3"></td>
+          </tr>
+          <tr>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 class number" name="class_num_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 subject" name="subject_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 catalog number" name="catalog_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 section" name="section_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 campus" name="campus_4"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 4 lab" name="d_lab_4"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 4 audit" name="d_audit_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 day and time" name="daytime_4"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 4 credits" name="credits_4"></td>
+          </tr>
+          <tr>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 class number" name="class_num_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 subject" name="subject_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 catalog number" name="catalog_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 section" name="section_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 campus" name="campus_5"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 5 lab" name="d_lab_5"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 5 audit" name="d_audit_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 day and time" name="daytime_5"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 5 credits" name="credits_5"></td>
+          </tr>
+          <tr>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 class number" name="class_num_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 subject" name="subject_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 catalog number" name="catalog_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 section" name="section_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 campus" name="campus_6"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 6 lab" name="d_lab_6"></td>
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 6 audit" name="d_audit_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 day and time" name="daytime_6"></td>
+            <td><input class="tbl-input" type="text" aria-label="Row 6 credits" name="credits_6"></td>
+          </tr>
+          <tr class="total-row">
+
+            <td colspan="8" style="text-align:right;font-weight:700;font-size:.78rem;padding:.3rem .5rem;border:1px solid #c8d4e2;">Total Credits Dropped</td>
+
+            <td><input class="ct-input" type="text" id="total-dropped" aria-label="Total credits dropped" name="total_dropped" style="font-weight:700;"></td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Student Signature & Reason -->
+    <fieldset>
+      <legend>Student Declaration</legend>
+      <div class="sig-reason-row">
+        <div class="sig-block">
+          <label for="student-sig">Student Signature <span class="req" aria-hidden="true">*</span></label>
+          <input class="sig-underline" type="text" id="student-sig" name="student_signature" aria-required="true" placeholder="Sign here">
+        </div>
+        <div class="reason-block">
+          <label for="reason">Reason for Withdrawal from Course(s) <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="reason" name="reason" rows="2" aria-required="true" placeholder="Briefly describe your reason for withdrawal"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Office of Admissions Use Only -->
+    <div class="office-box">
+      <div class="office-box-title">For Office of Admissions Use Only</div>
+      <div class="office-checkboxes">
+        <label class="office-check-item">
+          <input type="checkbox" name="approval_dean" aria-label="Dean approval">
+          Dean
+        </label>
+        <label class="office-check-item">
+          <input type="checkbox" name="approval_financial_aid" aria-label="Financial Aid approval">
+          Financial Aid
+        </label>
+        <label class="office-check-item">
+          <input type="checkbox" name="approval_advisor" aria-label="Advisor/Counselor approval">
+          Advisor / Counselor
+        </label>
+        <label class="office-check-item">
+          <input type="checkbox" name="approval_instructor" aria-label="Instructor approval">
+          Instructor
+        </label>
+      </div>
+      <div class="office-sig-row">
+        <label for="office-sig">Signature:</label>
+        <span class="sig-line" role="presentation"></span>
+        <label for="office-date">Date:</label>
+        <input class="date-field" type="text" id="office-date" name="office_date" placeholder="MM/DD/YYYY">
+      </div>
+    </div>
+
+    <!-- Form footer note -->
+    <p style="font-family:var(--font-ui);font-size:.72rem;color:var(--muted);text-align:right;margin-top:.25rem;">
+      STUDENT WITHDRAWAL FORM | 1/2020
+    </p>
+
+  </main>
+
+  <!-- Save / Print -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div>
+
+<script>
+  // Auto-sum credits
+  function sumCredits() {
+    let total = 0;
+    for (let i = 1; i <= 6; i++) {
+      const val = parseFloat(document.querySelector(`[name="credits_${i}"]`)?.value) || 0;
+      total += val;
+    }
+    const el = document.getElementById('total-credits');
+    if (el) el.value = total > 0 ? total : '';
+  }
+
+  for (let i = 1; i <= 6; i++) {
+    const el = document.querySelector(`[name="credits_${i}"]`);
+    if (el) el.addEventListener('input', sumCredits);
+  }
+
+  // Reset form
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="checkbox"]')
+      .forEach(el => { el.checked = false; });
+  }
+  const textarea = document.getElementById('reason');
+
+textarea.addEventListener('input', function () {
+  this.style.height = 'auto';
+  this.style.height = this.scrollHeight + 'px';
+});
+</script>
+
+</body>
+</html>
