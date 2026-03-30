@@ -270,13 +270,10 @@
     text-align: right;
   }
 
-  /* ── Print overrides ── */
   @media print {
 
-  /* Hide non-print elements */
+  /* Hide ONLY navigation (not header) */
   nav,
-  header,
-  footer,
   .no-print {
     display: none !important;
     visibility: hidden;
@@ -289,7 +286,7 @@
   }
 
   /* Prevent layout gaps from hidden/sticky elements */
-  body, html {
+  html, body {
     height: auto !important;
     overflow: visible !important;
   }
@@ -358,6 +355,7 @@
     page-break-inside: avoid;
   }
 }
+
 </style>
 </head>
 <body>
