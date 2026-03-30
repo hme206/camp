@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Class Selection Form</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+  /* ── Class Selection specific styles ── */
+
+  /* Semester selector */
+  .semester-row {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .semester-heading {
+    font-family: var(--font-ui);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: .01em;
+    margin-right: .5rem;
+  }
+  .semester-option {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    cursor: pointer;
+  }
+  .semester-option input[type="radio"] {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .semester-option span {
+    font-family: var(--font-ui);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* Student header fields */
+  .student-header-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem 2rem;
+    margin-bottom: 1rem;
+  }
+  .sh-field label {
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    font-weight: 700;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    display: inline;
+    margin-bottom: 0;
+  }
+  .sh-field {
+    display: flex;
+    align-items: baseline;
+    gap: .4rem;
+    border-bottom: 1.5px solid var(--text);
+    padding-bottom: .2rem;
+  }
+  .sh-field input[type="text"] {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    padding: .1rem .2rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: transparent;
+    width: auto;
+  }
+  .sh-field input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 2px 0 var(--focus);
+  }
+
+  /* Emplid digit boxes */
+  .emplid-row {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    border-bottom: 1.5px solid var(--text);
+    padding-bottom: .2rem;
+    flex-wrap: wrap;
+  }
+  .emplid-row label {
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    font-weight: 700;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-bottom: 0;
+    margin-right: .3rem;
+    white-space: nowrap;
+  }
+  .emplid-box {
+    width: 1.8rem;
+    height: 1.8rem;
+    border: none;
+    border-bottom: 1.5px solid #999;
+    border-radius: 0;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1rem;
+    background: transparent;
+    padding: 0;
+  }
+  .emplid-box:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+    box-shadow: 0 2px 0 var(--focus);
+  }
+
+  /* Advisor note */
+  .advisor-note {
+    font-family: var(--font-ui);
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  /* Class selection table */
+  .class-table-wrap {
+    margin-bottom: 1rem;
+    overflow-x: auto;
+  }
+  .class-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    table-layout: fixed;
+  }
+  .class-table colgroup col.col-classno  { width: 72px; }
+  .class-table colgroup col.col-subject  { width: 60px; }
+  .class-table colgroup col.col-catalog  { width: 66px; }
+  .class-table colgroup col.col-section  { width: 54px; }
+  .class-table colgroup col.col-campus   { width: 60px; }
+  .class-table colgroup col.col-lab      { width: 50px; }
+  .class-table colgroup col.col-audit    { width: 56px; }
+  .class-table colgroup col.col-daytime  { width: auto; }
+  .class-table colgroup col.col-credits  { width: 60px; }
+
+  .class-table thead th {
+    background: var(--white);
+    color: var(--text);
+    border: 1.5px solid #000;
+    padding: .45rem .4rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: .82rem;
+  }
+  .class-table tbody td {
+    border: 1.5px solid #000;
+    padding: 0;
+    height: 1.9rem;
+    vertical-align: middle;
+  }
+  .class-table tbody td input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    padding: .2rem .35rem;
+    font-family: var(--font-body);
+    font-size: .88rem;
+    background: transparent;
+    text-align: center;
+  }
+  .class-table tbody td input:focus {
+    outline: none;
+    background: #fffde7;
+    box-shadow: inset 0 0 0 2px var(--focus);
+  }
+  .class-table tbody td.td-daytime input {
+    text-align: left;
+  }
+
+  /* Total credits row */
+  .class-table tfoot tr td {
+    border: 1.5px solid #000;
+    padding: .4rem .5rem;
+    font-weight: 700;
+    font-size: .88rem;
+  }
+  .class-table tfoot .total-label {
+    text-align: right;
+    font-weight: 700;
+  }
+  .class-table tfoot .total-value {
+    border-left: 1.5px solid #000;
+    text-align: center;
+  }
+  .class-table tfoot td input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    font-size: .88rem;
+    text-align: center;
+    padding: 0;
+  }
+  .class-table tfoot td input:focus {
+    outline: none;
+    background: #fffde7;
+  }
+
+  /* Example / campus codes block */
+  .example-block {
+    border: 1.5px solid #000;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+  }
+  .example-title {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: .4rem;
+    border-bottom: 1.5px solid #000;
+  }
+  .example-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    table-layout: fixed;
+  }
+  .example-table td {
+    border: 1px solid #ccc;
+    padding: .3rem .4rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .example-table td.campus-codes {
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.7;
+    border-left: 1.5px solid #000;
+  }
+  .example-table tr:last-child td { border-bottom: none; }
+
+  /* Footer note */
+  .footer-note {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: .5rem;
+  }
+  .revised-note {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── Print overrides ── */
+  @media print {
+
+  /* Hide non-print elements */
+  nav,
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+    visibility: hidden;
+  }
+
+  /* Remove default browser margins */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Prevent layout gaps from hidden/sticky elements */
+  body, html {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Typography scaling */
+  .semester-heading { font-size: 1.3rem; }
+  .semester-option span { font-size: 1.1rem; }
+
+  /* Layout tightening */
+  .semester-row { gap: 1.5rem; margin-bottom: .75rem; }
+  .student-header-grid { gap: .35rem 1.5rem; margin-bottom: .6rem; }
+
+  /* Form elements */
+  .sh-field input[type="text"] { 
+    font-size: .85rem;
+    border: none;
+  }
+
+  .sh-field label { font-size: .75rem; }
+
+  .emplid-box { 
+    width: 1.4rem; 
+    height: 1.4rem; 
+    font-size: .82rem; 
+  }
+
+  .emplid-row label { font-size: .75rem; }
+
+  /* Notes */
+  .advisor-note { font-size: .8rem; margin-bottom: .75rem; }
+
+  /* Tables */
+  .class-table { 
+    font-size: .75rem; 
+    border-collapse: collapse;
+  }
+
+  .class-table thead th { 
+    padding: .25rem .2rem; 
+    font-size: .7rem; 
+  }
+
+  .class-table tbody td { 
+    height: 1.5rem; 
+  }
+
+  .class-table tbody td input { 
+    font-size: .75rem; 
+    padding: .1rem .2rem; 
+    border: none;
+  }
+
+  /* Example section */
+  .example-title { font-size: .85rem; }
+  .example-table { font-size: .72rem; }
+  .example-block { margin-bottom: .75rem; }
+
+  /* Footer notes */
+  .footer-note { font-size: .75rem; }
+  .revised-note { font-size: .68rem; }
+
+  /* Avoid awkward page breaks */
+  .example-block,
+  .class-table,
+  .student-header-grid {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <div style="flex:1;">
+      <h2 style="color:#000;font-size:1.5rem;">Class Selection Form</h2>
+      <div style="font-family:var(--font-ui);font-size:.72rem;color:rgba(0,0,0,.6);margin-top:.2rem;">Revised 08/2019</div>
+    </div>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Nav -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note">
+      Select your semester, fill in your student information, then enter each class you wish to register for in the table below. Consult a counselor or faculty advisor before registering. When complete, click <strong>Print to PDF</strong> at the bottom and save as a PDF to email or submit.
+    </div>
+
+     <!-- Semester selection -->
+    <!-- WCAG fix: semester checkboxes use checkboxes (not radios) so multiple can be selected.
+         The fieldset/legend already groups them correctly.
+         Added aria-required="true" to the fieldset via a note in the legend. -->
+    <fieldset>
+
+      <legend>Semester <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></legend>
+
+      <div class="semester-row" role="group" aria-label="Select semester">
+
+        <label><input type="checkbox" name="semester" value="fall" id="sem-fall"> Fall</label>
+
+        <label><input type="checkbox" name="semester" value="spring" id="sem-spring"> Spring</label>
+
+        <label><input type="checkbox" name="semester" value="summer" id="sem-summer"> Summer</label>
+
+      </div>
+
+    </fieldset>
+
+  <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-3">
+
+        <div>
+
+          <!-- WCAG fix: added aria-describedby to explain the 7-character format -->
+          <label for="empl-id">Empl. I.D. <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="text" id="empl-id" name="empl_id" maxlength="7" autocomplete="off" aria-required="true"
+                 placeholder="1234567" aria-describedby="empl-id-hint">
+
+          <span id="empl-id-hint" class="sr-only">Enter your 7-digit employee ID number</span>
+
+        </div>
+
+        <div>
+
+          <label for="curriculum-plan">Curriculum Plan</label>
+
+          <input type="text" id="curriculum-plan" name="curriculum_plan" placeholder="AS-Science">
+
+        </div>
+
+        <div>
+
+          <label for="drop-date">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+
+          <input type="date" id="drop-date" name="drop_date" aria-required="true">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+    <!-- Advisor note -->
+    <p class="advisor-note">You are strongly encouraged to consult a counselor or your faculty advisor before registering for classes.</p>
+
+    <!-- Class Selection Table -->
+    <div class="class-table-wrap">
+      <table class="class-table" aria-label="Class selection — 8 rows">
+        <colgroup>
+          <col class="col-classno">
+          <col class="col-subject">
+          <col class="col-catalog">
+          <col class="col-section">
+          <col class="col-campus">
+          <col class="col-lab">
+          <col class="col-audit">
+          <col class="col-daytime">
+          <col class="col-credits">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Class No.</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Catalog No.</th>
+            <th scope="col">Section</th>
+            <th scope="col">Campus</th>
+            <th scope="col">Lab (L)</th>
+            <th scope="col">Audit (X)</th>
+            <th scope="col">Day and Time</th>
+            <th scope="col">Credits</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 course code" name="d_code_1" placeholder="35624"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 department" name="d_dept_1" placeholder="ENG"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 course number" name="d_cno_1" placeholder="101"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 section" name="d_sect_1" placeholder="01"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 campus" name="d_campus_1" placeholder="A"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 1 lab" name="d_lab_1"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 1 audit" name="d_audit_1"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 day and time" name="d_daytime_1" placeholder="MWF 10:00-11:00 am"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 1 credits" name="d_credits_1" placeholder="3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 course code" name="d_code_2" placeholder="12345"</td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 department" name="d_dept_2" placeholder="HUM"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 course number" name="d_cno_2" placeholder="101"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 section" name="d_sect_2" placeholder="74"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 campus" name="d_campus_2" placeholder="AZ"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 2 lab" name="d_lab_2"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 2 audit" name="d_audit_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 day and time" name="d_daytime_2" placeholder="TTH 4:00-5:00 pm"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 2 credits" name="d_credits_2" placeholder="3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 course code" name="d_code_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 department" name="d_dept_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 course number" name="d_cno_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 section" name="d_sect_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 campus" name="d_campus_3"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 3 lab" name="d_lab_3"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 3 audit" name="d_audit_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 day and time" name="d_daytime_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 3 credits" name="d_credits_3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 course code" name="d_code_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 department" name="d_dept_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 course number" name="d_cno_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 section" name="d_sect_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 campus" name="d_campus_4"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 4 lab" name="d_lab_4"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 4 audit" name="d_audit_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 day and time" name="d_daytime_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 4 credits" name="d_credits_4"></td>
+
+          </tr>
+
+            <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 course code" name="d_code_5"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 department" name="d_dept_5"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 course number" name="d_cno_5 "></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 section" name="d_sect_5"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 campus" name="d_campus_5"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 5 lab" name="d_lab_5"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 5 audit" name="d_audit_5"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 day and time" name="d_daytime_5"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 5 credits" name="d_credits_5"></td>
+
+          </tr>
+
+            <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 course code" name="d_code_6"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 department" name="d_dept_6"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 course number" name="d_cno_6"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 section" name="d_sect_6"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 campus" name="d_campus_6"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 6 lab" name="d_lab_6"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 6 audit" name="d_audit_6"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 day and time" name="d_daytime_6"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 6 credits" name="d_credits_6"></td>
+
+          </tr>
+             <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 course code" name="d_code_7"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 department" name="d_dept_7"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 course number" name="d_cno_7"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 section" name="d_sect_7"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 campus" name="d_campus_7"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 7 lab" name="d_lab_7"></td>
+
+            <td class="lab-audit-cell"><input type="checkbox" aria-label="Drop row 7 audit" name="d_audit_7"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 day and time" name="d_daytime_7"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Drop row 7 credits" name="d_credits_7"></td>
+
+          </tr>
+
+          <tr class="total-row">
+
+            <td colspan="8" style="text-align:right;font-weight:700;font-size:.78rem;padding:.3rem .5rem;border:1px solid #c8d4e2;">Total Credits</td>
+
+            <td><input class="ct-input" type="text" id="total-dropped" aria-label="Total credits dropped" name="total_dropped" style="font-weight:700;"></td>
+
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8" class="total-label">Total Credits</td>
+            <td class="total-value"><input type="text" id="total-credits" name="total_credits" aria-label="Total credits" readonly tabindex="-1"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Campus Codes Box -->
+<div class="campus-codes-box">
+  <strong>Campus Codes:</strong><br>
+  A – Franklin Campus<br>
+  B – Suffolk Campus<br>
+  9 – Smithfield Center<br>
+  Z - Synchronous Online <br>
+  
+</div>
+
+    <!-- Footer note -->
+    <p class="footer-note">Beginning one week before classes start, unpaid registrations will be backed out daily.</p>
+    <p class="revised-note">Revised 08/2019</p>
+
+  </main>
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  // ── Auto-advance Emplid digit boxes ──────────────────────────────
+  const emplids = document.querySelectorAll('.emplid-box');
+  emplids.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/\D/g, '').slice(0, 1);
+      if (box.value && i < emplids.length - 1) emplids[i + 1].focus();
+    });
+    box.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !box.value && i > 0) emplids[i - 1].focus();
+    });
+  });
+
+  // ── Auto-calculate Total Credits ────────────────────────────────
+  function calcTotal() {
+    let total = 0;
+    for (let i = 1; i <= 8; i++) {
+      const val = parseFloat(document.querySelector(`[name="credits_${i}"]`)?.value) || 0;
+      total += val;
+    }
+    const totalField = document.getElementById('total-credits');
+    totalField.value = total > 0 ? total : '';
+  }
+  for (let i = 1; i <= 8; i++) {
+    document.querySelector(`[name="credits_${i}"]`)?.addEventListener('input', calcTotal);
+  }
+
+  // ── Reset form ───────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"]')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="radio"]')
+      .forEach(el => { el.checked = false; });
+  }
+</script>
+
+</body>
+</html>
