@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Domicile Exception Application</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+<style>
+
+  /* ── Form title bar (black banner matching original) ── */
+
+  .form-title-bar {
+
+    background: #111;
+
+    color: #fff;
+
+    padding: .6rem 1.5rem .5rem;
+
+    margin-bottom: 0;
+
+  }
+
+  .form-title-bar h3 {
+
+    font-family: var(--font-ui);
+
+    font-size: 1.3rem;
+
+    font-weight: 900;
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+
+    color: #fff;
+
+    margin: 0 0 .1rem;
+
+  }
+
+  .form-title-bar .subtitle {
+
+    font-family: var(--font-ui);
+
+    font-size: .78rem;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    color: #ccc;
+
+  }
+
+ 
+
+  /* ── Intro text ── */
+
+  .intro-text {
+
+    font-family: var(--font-body);
+
+    font-size: .88rem;
+
+    color: var(--text);
+
+    line-height: 1.6;
+
+    margin-bottom: .85rem;
+
+  }
+
+ 
+
+  /* ── Section headings inside form body ── */
+
+  .section-heading {
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: .06em;
+
+    color: var(--text);
+
+    border-bottom: 2px solid var(--text);
+
+    padding-bottom: .2rem;
+
+    margin: 1rem 0 .65rem;
+
+  }
+
+ 
+
+  /* ── Inline address row (Address / City / State / Zip) ── */
+
+  .addr-row {
+
+    display: grid;
+
+    grid-template-columns: 2fr 1.2fr 60px 70px;
+
+    gap: .5rem 1rem;
+
+    margin-bottom: .5rem;
+
+  }
+
+  .addr-row label {
+
+    font-family: var(--font-ui);
+
+    font-size: .75rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+
+    color: var(--muted);
+
+    margin-bottom: .2rem;
+
+    display: block;
+
+  }
+
+  .addr-row input {
+
+    width: 100%;
+
+    padding: .4rem .6rem;
+
+    border: 1.5px solid var(--border);
+
+    border-radius: 3px;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    color: var(--text);
+
+    background: var(--white);
+
+  }
+
+  .addr-row input:focus {
+
+    border-color: var(--mid);
+
+    outline: 3px solid var(--focus);
+
+    outline-offset: 1px;
+
+  }
+
+ 
+
+  /* ── Semester radio row ── */
+
+  .semester-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.25rem;
+
+    flex-wrap: wrap;
+
+    margin: .4rem 0;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    font-weight: 700;
+
+  }
+
+  .semester-row .sem-label-text {
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+  }
+
+  .semester-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .9rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .semester-row input[type="radio"] {
+
+    width: 1.05rem;
+
+    height: 1.05rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Legal text block ── */
+
+  .legal-text {
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    color: var(--text);
+
+    line-height: 1.6;
+
+    margin-bottom: .6rem;
+
+  }
+
+  .legal-text strong { font-weight: 700; }
+
+  .legal-text u { text-decoration: underline; }
+
+  .legal-list {
+
+    padding-left: 1.5rem;
+
+    margin: .5rem 0 .75rem;
+
+  }
+
+  .legal-list li {
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    color: var(--text);
+
+    line-height: 1.6;
+
+    margin-bottom: .4rem;
+
+    list-style: decimal;
+
+  }
+
+ 
+
+  /* ── Relationship radio row ── */
+
+  .rel-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.25rem;
+
+    flex-wrap: wrap;
+
+    margin: .3rem 0 .5rem;
+
+  }
+
+  .rel-row .rel-label-text {
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    white-space: nowrap;
+
+  }
+
+  .rel-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .9rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .rel-row input[type="radio"] {
+
+    width: 1.05rem;
+
+    height: 1.05rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+ 
+
+  /* ── Unaccompanied orders row ── */
+
+  .unacc-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .75rem;
+
+    flex-wrap: wrap;
+
+    margin: .4rem 0;
+
+    font-family: var(--font-body);
+
+    font-size: .88rem;
+
+  }
+
+  .unacc-row .unacc-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    white-space: nowrap;
+
+  }
+
+  .unacc-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .3rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .unacc-row input[type="radio"] {
+
+    width: 1rem;
+
+    height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+  .unacc-row .unacc-place {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    flex: 1;
+
+    min-width: 140px;
+
+  }
+
+  .unacc-row .unacc-place span {
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+  }
+
+  .unacc-row .unacc-place input {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .88rem;
+
+    padding: .1rem .2rem;
+
+  }
+
+  .unacc-row .unacc-place input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── Document checklist ── */
+
+  .doc-list {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: .4rem 0 .6rem;
+
+  }
+
+  .doc-list li {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: .6rem;
+
+    margin-bottom: .45rem;
+
+    font-family: var(--font-body);
+
+    font-size: .86rem;
+
+    color: var(--text);
+
+    line-height: 1.5;
+
+  }
+
+  .doc-list li input[type="checkbox"] {
+
+    margin-top: .15rem;
+
+    width: 1rem;
+
+    height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+  }
+
+  .doc-list li label {
+
+    display: inline;
+
+    font-family: var(--font-body);
+
+    font-size: .86rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+    line-height: 1.5;
+
+  }
+
+  .doc-list li label strong { font-weight: 700; }
+
+  .doc-list li label em { font-style: italic; }
+
+ 
+
+  /* Inline expire/verified fields */
+
+  .doc-inline {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .5rem;
+
+    flex-wrap: wrap;
+
+    margin-top: .2rem;
+
+  }
+
+  .doc-inline span {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+  }
+
+  .doc-inline input {
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    width: 130px;
+
+    color: var(--text);
+
+  }
+
+  .doc-inline input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── Sig line utility ── */
+
+  .sig-line-row {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .6rem;
+
+    margin-bottom: .6rem;
+
+  }
+
+  .sig-label {
+
+    font-family: var(--font-ui);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    color: var(--text);
+
+  }
+
+  .sig-line {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+    min-width: 0;
+
+  }
+
+  .sig-line:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+  .sig-date-pair {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: .35rem;
+
+    flex-shrink: 0;
+
+  }
+
+  .sig-date-pair input[type="date"],
+
+  .sig-date-pair input[type="text"] {
+
+    width: 135px;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .sig-date-pair input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── Office use section ── */
+
+  .office-radio-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+
+    margin-bottom: .6rem;
+
+  }
+
+  .office-radio-row label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .35rem;
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 400;
+
+    text-transform: none;
+
+    letter-spacing: normal;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+  }
+
+  .office-radio-row input[type="radio"] {
+
+    width: 1rem;
+
+    height: 1rem;
+
+    accent-color: var(--navy);
+
+    cursor: pointer;
+
+  }
+
+  .office-pending {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .4rem;
+
+    flex: 1;
+
+    min-width: 140px;
+
+  }
+
+  .office-pending span {
+
+    font-family: var(--font-ui);
+
+    font-size: .88rem;
+
+    font-weight: 400;
+
+    color: var(--text);
+
+    white-space: nowrap;
+
+  }
+
+  .office-pending input {
+
+    flex: 1;
+
+    border: none;
+
+    border-bottom: 1.5px solid #000;
+
+    background: transparent;
+
+    font-family: var(--font-body);
+
+    font-size: .85rem;
+
+    padding: .1rem .2rem;
+
+    color: var(--text);
+
+  }
+
+  .office-pending input:focus {
+
+    outline: 2px solid var(--focus);
+
+    border-radius: 2px 2px 0 0;
+
+  }
+
+ 
+
+  /* ── Page break ── */
+
+  .page-break {
+
+    border: none;
+
+    border-top: 2px dashed var(--border);
+
+    margin: 1.25rem 0;
+
+  }
+
+ 
+
+  /* ── Revised note ── */
+
+  .revised-note {
+
+    font-family: var(--font-ui);
+
+    font-size: .72rem;
+
+    color: var(--muted);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: .5rem;
+
+  }
+
+ 
+
+  /* ── VCCS email suffix ── */
+
+  .vccs-email-wrap {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0;
+
+  }
+
+  .vccs-email-wrap input {
+
+    flex: 1;
+
+    border-radius: 3px 0 0 3px !important;
+
+  }
+
+  .vccs-email-wrap .vccs-suffix {
+
+    background: var(--light);
+
+    border: 1.5px solid var(--border);
+
+    border-left: none;
+
+    border-radius: 0 3px 3px 0;
+
+    padding: .4rem .6rem;
+
+    font-family: var(--font-body);
+
+    font-size: .9rem;
+
+    color: var(--muted);
+
+    white-space: nowrap;
+
+  }
+
+ 
+
+  /* ── Print ── */
+
+  @media print {
+
+    .form-title-bar { padding: .35rem .75rem; }
+
+    .form-title-bar h3 { font-size: 1rem; }
+
+    .form-title-bar .subtitle { font-size: .68rem; }
+
+    .intro-text { font-size: .78rem; margin-bottom: .5rem; }
+
+    .section-heading { font-size: .78rem; margin: .6rem 0 .4rem; }
+
+    .legal-text { font-size: .76rem; }
+
+    .legal-list li { font-size: .76rem; }
+
+    fieldset { padding: .3rem .5rem; margin-bottom: .35rem; }
+
+    .field-row { gap: .25rem .5rem; margin-top: .25rem; }
+
+    .addr-row { gap: .25rem .5rem; }
+
+    .addr-row label { font-size: .65rem; }
+
+    .addr-row input { font-size: .8rem; padding: .25rem .35rem; }
+
+    .semester-row label, .rel-row label, .unacc-row label { font-size: .78rem; }
+
+    .semester-row .sem-label-text, .rel-row .rel-label-text, .unacc-row .unacc-label { font-size: .78rem; }
+
+    .doc-list li { font-size: .76rem; margin-bottom: .3rem; }
+
+    .doc-inline input { width: 100px; font-size: .76rem; }
+
+    .doc-inline span { font-size: .72rem; }
+
+    .sig-label { font-size: .72rem !important; }
+
+    .sig-line { font-size: .8rem; }
+
+    .sig-date-pair input { width: 110px; font-size: .76rem; }
+
+    .office-radio-row label { font-size: .78rem; }
+
+    .revised-note { font-size: .65rem; }
+
+    .page-break { margin: .6rem 0; border-top-style: solid; border-color: #999; }
+
+    .vccs-suffix { font-size: .78rem; padding: .25rem .35rem; }
+
+    .unacc-row .unacc-place input { font-size: .78rem; }
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h2>Domicile Exception Application</h2>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <!-- Navigation -->
+
+  <nav>
+
+    <ul>
+
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="forms.html">Forms</a></li>
+
+      <li><a href="maps.html">Program Maps</a></li>
+
+    </ul>
+
+  </nav>
+
+ 
+
+
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions (screen only) -->
+
+    <div class="instructions no-print" role="note">
+
+      Complete all applicable sections across both pages of this form. Gather required supporting documents for your
+
+      category (Dependent, Active Duty, or Veteran), sign the certification on page 2, and submit to the Financial Aid
+
+      or Admissions Office on any campus.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Intro paragraph (visible on print) -->
+
+    <p class="intro-text">
+
+      This form is for active duty military members and their spouse/dependents, veterans and their
+
+      spouse/dependents who may not qualify as being domiciled in Virginia for the purposes of in-state tuition.
+
+      While this exception may result in a student being eligible for educational benefits reserved for those
+
+      domiciled in Virginia, it is not a determination of domicile status.
+
+    </p>
+
+ 
+
+    <!-- ══════════════ PAGE 1 ══════════════ -->
+
+ 
+
+    <div class="section-heading">Student Information</div>
+
+ 
+
+    <!-- Name / SIS ID -->
+
+    <fieldset>
+
+      <legend>Student Details</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-name">Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="sis-id">SIS ID <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="sis-id" name="sis_id" autocomplete="off" aria-required="true">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Address -->
+
+      <div style="margin-top:.6rem;">
+
+        <div class="addr-row">
+
+          <div>
+
+            <label for="s-address">Address</label>
+
+            <input type="text" id="s-address" name="student_address" autocomplete="street-address">
+
+          </div>
+
+          <div>
+
+            <label for="s-city">City</label>
+
+            <input type="text" id="s-city" name="student_city" autocomplete="address-level2">
+
+          </div>
+
+          <div>
+
+            <label for="s-state">State</label>
+
+            <input type="text" id="s-state" name="student_state" maxlength="2" autocomplete="address-level1">
+
+          </div>
+
+          <div>
+
+            <label for="s-zip">Zip</label>
+
+            <input type="text" id="s-zip" name="student_zip" maxlength="10" autocomplete="postal-code">
+
+          </div>
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Phone / Email -->
+
+      <div class="field-row cols-2" style="margin-top:.5rem;">
+
+        <div>
+
+          <label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="phone" name="phone" autocomplete="tel" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="vccs-email">VCCS Email <span class="req" aria-hidden="true">*</span></label>
+
+          <div class="vccs-email-wrap">
+
+            <input type="text" id="vccs-email" name="vccs_email" autocomplete="email"
+
+              aria-required="true" placeholder="aqs12345" style="border-radius:3px 0 0 3px;">
+
+            <span class="vccs-suffix">@email.vccs.edu</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Semester -->
+
+      <div style="margin-top:.6rem;">
+
+        <div class="semester-row">
+
+          <span class="sem-label-text">Semester for which you are seeking in-state tuition rate:</span>
+
+          <label><input type="radio" name="semester" value="fall"> Fall</label>
+
+          <label><input type="radio" name="semester" value="spring"> Spring</label>
+
+          <label><input type="radio" name="semester" value="summer"> Summer</label>
+
+          <span style="display:flex;align-items:center;gap:.4rem;font-family:var(--font-ui);font-weight:700;font-size:.88rem;">
+
+            Year:
+
+            <input type="text" name="semester_year" placeholder="YYYY" maxlength="4" style="width:60px;border:none;border-bottom:1.5px solid #000;background:transparent;font-size:.88rem;padding:.1rem .2rem;" aria-label="Year">
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Legal intro text -->
+
+    <p class="legal-text">
+
+      The <u>Code of Virginia</u> provides the following exceptions for active duty military personnel, their dependents,
+
+      and veterans of U.S. military service.
+
+    </p>
+
+ 
+
+    <!-- DEPENDENTS section -->
+
+    <fieldset>
+
+      <legend>Dependents — Code of Virginia §23.1-505</legend>
+
+ 
+
+      <p class="legal-text">
+
+        Spouse/Dependents of active duty military personnel (or activated/mobilized reservists or guard members)
+
+        shall be considered domiciled in Virginia and afforded in-state tuition privileges if the military sponsor is:
+
+      </p>
+
+      <ol class="legal-list">
+
+        <li>Assigned to a permanent duty station or workplace in Virginia, or a contiguous state or the District of
+
+          Columbia, and resides in Virginia;</li>
+
+        <li>Assigned unaccompanied orders and immediately prior to receiving such orders was assigned to a
+
+          permanent duty station or workplace in Virginia, or a contiguous state or the District of Columbia, and
+
+          resided in Virginia; or</li>
+
+        <li>Assigned unaccompanied orders with Virginia listed as the designated place to which to move.</li>
+
+      </ol>
+
+      <p class="legal-text">
+
+        The one-year residency condition normally required to establish Virginia domicile is not required for military
+
+        dependents. The qualifying conditions must be in place at the time of acceptance to the college for dependents
+
+        currently residing in Virginia or by the final add/drop date for dependents of service members newly
+
+        transferred to Virginia.
+
+      </p>
+
+ 
+
+      <!-- Sponsor Name -->
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="sponsor-name">Sponsor / Active Duty Member Name</label>
+
+          <input type="text" id="sponsor-name" name="sponsor_name">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Relationship -->
+
+      <div class="rel-row" style="margin-top:.5rem;">
+
+        <span class="rel-label-text">Relationship to student:</span>
+
+        <label><input type="radio" name="relationship" value="parent"> Parent</label>
+
+        <label><input type="radio" name="relationship" value="spouse"> Spouse</label>
+
+        <label><input type="radio" name="relationship" value="guardian"> Legal Guardian</label>
+
+      </div>
+
+ 
+
+      <!-- Sponsor Address -->
+
+      <div style="margin:.4rem 0 .2rem;">
+
+        <span style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--text);">
+
+          Address of Residence <em style="font-weight:400;">(if same as student, indicate "same")</em>:
+
+        </span>
+
+      </div>
+
+      <div class="addr-row">
+
+        <div>
+
+          <label for="sp-address">Address</label>
+
+          <input type="text" id="sp-address" name="sponsor_address">
+
+        </div>
+
+        <div>
+
+          <label for="sp-city">City</label>
+
+          <input type="text" id="sp-city" name="sponsor_city">
+
+        </div>
+
+        <div>
+
+          <label for="sp-state">State</label>
+
+          <input type="text" id="sp-state" name="sponsor_state" maxlength="2">
+
+        </div>
+
+        <div>
+
+          <label for="sp-zip">Zip</label>
+
+          <input type="text" id="sp-zip" name="sponsor_zip" maxlength="10">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- PDS -->
+
+      <div class="field-row cols-1" style="margin-top:.4rem;">
+
+        <div>
+
+          <label for="pds">Permanent Duty Station <em style="font-weight:400;">(or location of immediately previous PDS)</em></label>
+
+          <input type="text" id="pds" name="pds">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Unaccompanied orders -->
+
+      <div class="unacc-row" style="margin-top:.5rem;">
+
+        <span class="unacc-label">Unaccompanied orders:</span>
+
+        <label><input type="radio" name="unacc" value="no"> No</label>
+
+        <label><input type="radio" name="unacc" value="yes"> Yes</label>
+
+        <div class="unacc-place">
+
+          <span>– Designated place to move:</span>
+
+          <input type="text" name="unacc_place" aria-label="Designated place to move">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Document checklist -->
+
+      <p style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--text);margin:.6rem 0 .3rem;">
+
+        Provide the following documents:
+
+      </p>
+
+      <ul class="doc-list">
+
+        <li>
+
+          <input type="checkbox" id="doc-orders" name="doc_orders">
+
+          <label for="doc-orders"><strong>Current Military Orders</strong> (or previous military orders if currently unaccompanied)</label>
+
+        </li>
+
+        <li>
+
+          <input type="checkbox" id="doc-va-proof" name="doc_va_proof">
+
+          <label for="doc-va-proof"><strong>Proof of living in Virginia</strong> (examples: utility bill, lease, deed, settlement statement, letter from landlord showing current Virginia Address, housing agreement from military housing office).</label>
+
+        </li>
+
+        <li>
+
+          <input type="checkbox" id="doc-dod" name="doc_dod">
+
+          <label for="doc-dod">
+
+            <strong>Student's DOD ID</strong>
+
+            <div class="doc-inline">
+
+              <span>Expire Date:</span>
+
+              <input type="text" name="dod_expire" aria-label="DOD ID expire date" placeholder="MM/DD/YYYY">
+
+              <span>Verified by:</span>
+
+              <input type="text" name="dod_verified" aria-label="Verified by">
+
+            </div>
+
+          </label>
+
+        </li>
+
+      </ul>
+
+ 
+
+    </fieldset>
+
+ 
+
+    <!-- ══════════════ PAGE 2 ══════════════ -->
+
+    <hr class="page-break" aria-hidden="true">
+
+ 
+
+    <!-- ACTIVE DUTY section -->
+
+    <fieldset>
+
+      <legend>Active Duty Military — Code of Virginia §23.1-505</legend>
+
+ 
+
+      <p class="legal-text">
+
+        Active duty military personnel (or activated/mobilized reservists or guard members) who reside in Virginia
+
+        shall pay no more than the in-state tuition rate. <strong>Active duty member must provide the following documents:</strong>
+
+      </p>
+
+      <ul class="doc-list">
+
+        <li>
+
+          <input type="checkbox" id="ad-mil-id" name="ad_mil_id">
+
+          <label for="ad-mil-id">
+
+            <strong>Military ID Card</strong>
+
+            <div class="doc-inline">
+
+              <span>Expire Date:</span>
+
+              <input type="text" name="ad_milid_expire" aria-label="Military ID expire date" placeholder="MM/DD/YYYY">
+
+              <span>Verified by:</span>
+
+              <input type="text" name="ad_milid_verified" aria-label="Verified by">
+
+            </div>
+
+          </label>
+
+        </li>
+
+        <li>
+
+          <input type="checkbox" id="ad-va-proof" name="ad_va_proof">
+
+          <label for="ad-va-proof"><strong>Proof of living in Virginia</strong> (examples: utility bill, lease, deed, settlement statement, letter from landlord showing current Virginia Address, housing agreement from military housing office).</label>
+
+        </li>
+
+        <li>
+
+          <input type="checkbox" id="ad-orders" name="ad_orders">
+
+          <label for="ad-orders"><strong>Current Military Orders</strong> (to include activated or temporarily mobilized guard or reservist members).</label>
+
+        </li>
+
+      </ul>
+
+    </fieldset>
+
+ 
+
+    <!-- VETERANS section -->
+
+    <fieldset>
+
+      <legend>Veterans of U.S. Military Service — Code of Virginia §23.1-505</legend>
+
+ 
+
+      <p class="legal-text">
+
+        Veterans discharged or released from military service under conditions other than dishonorable who reside in
+
+        Virginia shall pay no more than the in-state tuition rate. <strong>Veteran must provide the following documents:</strong>
+
+      </p>
+
+      <ul class="doc-list">
+
+        <li>
+
+          <input type="checkbox" id="vet-dd214" name="vet_dd214">
+
+          <label for="vet-dd214"><strong>DD Form 214 (Member Copy #4)</strong>, PHS Form 1867, or NOAA Form 56-16</label>
+
+        </li>
+
+        <li>
+
+          <input type="checkbox" id="vet-va-proof" name="vet_va_proof">
+
+          <label for="vet-va-proof"><strong>Proof of Living in Virginia</strong> (examples: utility bill, lease, deed, settlement statement, letter from landlord showing current Virginia Address, housing agreement from military housing office).</label>
+
+        </li>
+
+      </ul>
+
+ 
+
+      <!-- Spouses/Dependents using GI Bill -->
+
+      <p class="legal-text" style="margin-top:.5rem;">
+
+        <strong>Spouses and Dependents</strong> who live in Virginia (regardless of his or her formal state of residence),
+
+        who are enrolled at the college and use educational benefits under <strong>Chapter 30, 33, or 35</strong> of
+
+        Title 38, United States Code.
+
+      </p>
+
+      <p style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--text);margin:.4rem 0 .3rem;">
+
+        Student must provide the following documents:
+
+      </p>
+
+      <ul class="doc-list">
+
+        <li>
+
+          <input type="checkbox" id="dep-chapter" name="dep_chapter">
+
+          <label for="dep-chapter"><strong>Proof of using Chapter 30, Chapter 33, or Chapter 35 each term</strong></label>
+
+        </li>
+
+        <li>
+
+          <input type="checkbox" id="dep-va-proof" name="dep_va_proof">
+
+          <label for="dep-va-proof"><strong>Proof of living in Virginia (student)</strong> (examples: utility bill, lease, deed, settlement statement, letter from landlord showing current Virginia Address, housing agreement from military housing office).</label>
+
+        </li>
+
+      </ul>
+
+    </fieldset>
+
+ 
+
+    <!-- STUDENT CERTIFICATION -->
+
+    <fieldset>
+
+      <legend>Student Certification</legend>
+
+      <p class="legal-text">
+
+        I hereby certify that the information given is true, complete, and accurate. I understand that if I knowingly
+
+        provide erroneous information in an attempt to evade payment of out-of-state tuition and fees, I may be charged
+
+        out-of-state tuition for each term attended and I may be subject to dismissal from the College.
+
+      </p>
+
+      <div class="sig-line-row" style="margin-top:.5rem;">
+
+        <span class="sig-label">Student Signature:</span>
+
+        <input class="sig-line" type="text" id="student-sig" name="student_signature"
+
+          aria-label="Student signature" placeholder="Sign here">
+
+        <div class="sig-date-pair">
+
+          <span class="sig-label">Date:</span>
+
+          <input type="date" id="student-date" name="student_date" aria-label="Student signature date">
+
+        </div>
+
+      </div>
+
+      <p style="font-family:var(--font-body);font-size:.82rem;color:var(--muted);margin-top:.25rem;">
+
+        Submit completed form to the Financial Aid or Admissions Office on any campus.
+
+      </p>
+
+    </fieldset>
+
+ 
+
+    <!-- OFFICE USE ONLY -->
+
+    <fieldset class="office-section">
+
+      <legend>For Office Use Only</legend>
+
+ 
+
+      <div class="office-radio-row" style="margin-top:.5rem;">
+
+        <label><input type="radio" name="office_decision" value="instate"> In-State Exception Granted</label>
+
+        <label><input type="radio" name="office_decision" value="outofstate"> Out-of-State</label>
+
+        <label><input type="radio" name="office_decision" value="pending"> Remains Pending</label>
+
+        <div class="office-pending">
+
+          <span>Reason:</span>
+
+          <input type="text" name="pending_reason" aria-label="Reason remains pending">
+
+        </div>
+
+      </div>
+
+ 
+
+      <div class="field-row cols-2" style="margin-top:.5rem;">
+
+        <div>
+
+          <label for="sis-date">Date Entered into SIS</label>
+
+          <input type="date" id="sis-date" name="sis_date">
+
+        </div>
+
+        <div>
+
+          <label for="staff-initials">Domicile Officer / CMVE Staff Initials</label>
+
+          <input type="text" id="staff-initials" name="staff_initials" maxlength="10">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <div class="revised-note">
+
+      <span>Content Approved by the Dean of Student Services — 2 Pages</span>
+
+      <span>Revised August 2022</span>
+
+    </div>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Print Button -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"], input[type="radio"]')
+
+   .forEach(el => { el.checked = false; });
+
+}
+
+</script>
+
+</body>
+
+</html>
