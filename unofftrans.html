@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paul D. Camp Community College – Unofficial Transcript Request</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+  <style>
+    /* ── Page-specific tweaks ── */
+    .two-col-delivery {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: .5rem .75rem;
+      align-items: center;
+      margin-top: .75rem;
+    }
+    .two-col-delivery label {
+      text-transform: none;
+      font-weight: 400;
+      font-size: .95rem;
+      letter-spacing: normal;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .two-col-delivery input[type="radio"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: var(--navy);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .two-col-delivery input[type="text"] {
+      padding: .35rem .6rem;
+      font-size: .9rem;
+    }
+
+    .processing-notice {
+      background: var(--light);
+      border-left: 4px solid var(--navy);
+      padding: .75rem 1rem;
+      margin-bottom: 1.25rem;
+      font-size: .88rem;
+      font-family: var(--font-ui);
+      border-radius: 0 4px 4px 0;
+      color: #000;
+    }
+    .processing-notice strong { font-weight: 700; }
+
+    .enrollment-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: .75rem;
+      flex-wrap: wrap;
+    }
+    .enrollment-group label {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      text-transform: none;
+      letter-spacing: normal;
+      font-size: .95rem;
+      font-weight: 400;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .enrollment-group input[type="radio"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: var(--navy);
+      cursor: pointer;
+    }
+
+    .sig-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .5rem;
+      margin-top: .75rem;
+    }
+    .sig-line-wrap {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .sig-line-label {
+      font-family: var(--font-ui);
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .sig-line {
+      flex: 1;
+      border: none;
+      border-bottom: 1.5px solid #000;
+      background: transparent;
+      padding: .25rem .25rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text);
+      outline: none;
+    }
+    .sig-line:focus {
+      outline: 3px solid var(--focus);
+      outline-offset: 1px;
+      border-bottom-color: var(--mid);
+    }
+
+    /* Office use only bottom strip */
+    .office-strip {
+      background: #f5f0e8;
+      border: 1px solid #d4c9a8;
+      border-radius: 4px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .office-strip legend {
+      font-family: var(--font-ui);
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 0 .5rem;
+    }
+    .office-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: .6rem 1.5rem;
+      margin-top: .75rem;
+    }
+    .office-grid .field-group label {
+      font-family: var(--font-ui);
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: .2rem;
+      display: block;
+    }
+    .office-grid .field-group input {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #999;
+      background: transparent;
+      padding: .2rem .25rem;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      color: var(--text);
+    }
+    .office-grid .field-group input:focus {
+      outline: 3px solid var(--focus);
+      outline-offset: 1px;
+    }
+
+    /* ── Print overrides for one-page fit ── */
+    @media print {
+      .processing-notice { display: block !important; }
+      .two-col-delivery input[type="text"] {
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+        font-size: .8rem;
+        padding: .1rem .2rem;
+      }
+      .sig-line {
+        border-bottom: 1px solid #000 !important;
+        font-size: .85rem;
+      }
+      .office-strip { padding: .35rem .6rem; margin-bottom: .4rem; }
+      .office-grid { gap: .3rem 1rem; margin-top: .4rem; }
+      .office-grid .field-group input { font-size: .8rem; padding: .1rem .2rem; }
+      .enrollment-group { gap: .75rem; margin-top: .35rem; }
+      .processing-notice { padding: .4rem .75rem; margin-bottom: .75rem; font-size: .78rem; }
+      .two-col-delivery { gap: .3rem .5rem; margin-top: .4rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1><center>Unofficial Transcript Request Form</center></h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions / Processing Notice -->
+    <div class="processing-notice" role="note" aria-label="Processing time information">
+      <strong>Processing Time:</strong> Same day if received by 4PM. Submissions after 4PM will be delivered the next business day. Processing time will be extended to 24 hours during the office's peak hours.
+    </div>
+
+    <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    <!-- Delivery Method -->
+    <fieldset>
+      <legend>Delivery Method <span class="req" aria-hidden="true">*</span></legend>
+      <p style="font-family:var(--font-ui);font-size:.82rem;color:var(--muted);margin:.5rem 0 .25rem;">Choose one delivery option and provide the corresponding address or contact.</p>
+      <div class="two-col-delivery" role="group" aria-label="Delivery options">
+        <label>
+          <input type="radio" name="delivery_method" value="mail" aria-required="true"> Mail
+        </label>
+        <input type="text" id="mail-address" name="mail_address" aria-label="Mailing address" placeholder="Mailing address">
+
+        <label>
+          <input type="radio" name="delivery_method" value="email"> E-Mail
+        </label>
+        <input type="text" id="email-delivery" name="email_delivery" aria-label="Email address for delivery" placeholder="Email address">
+      </div>
+    </fieldset>
+
+    <!-- Student Information -->
+    <fieldset>
+      <legend>Student Information</legend>
+      <div class="field-row cols-3">
+        <div>
+          <label for="request-date">Date of Request <span class="req" aria-hidden="true">*</span></label>
+          <input type="date" id="request-date" name="request_date" aria-required="true">
+        </div>
+        <div style="grid-column: span 2;">
+          <label for="student-id">Student ID or Last 4 of Social Security <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-id" name="student_id" autocomplete="off" aria-required="true" inputmode="numeric" maxlength="9">
+        </div>
+      </div>
+      <div class="field-row cols-2">
+        <div>
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+        </div>
+        <div>
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+        </div>
+      </div>
+      <div class="field-row cols-1">
+        <div>
+          <label for="enrolled-name">Name Enrolled Under <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(only if different from above)</span></label>
+          <input type="text" id="enrolled-name" name="enrolled_name" autocomplete="name">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Contact & Attendance -->
+    <fieldset>
+      <legend>Contact &amp; Attendance Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="attend-from">Dates of Attendance — From (Month/Year) <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="attend-from" name="attendance_from" placeholder="MM/YYYY" aria-required="true" aria-describedby="attend-hint">
+        </div>
+        <div>
+          <label for="attend-to">Dates of Attendance — To (Month/Year) <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="attend-to" name="attendance_to" placeholder="MM/YYYY" aria-required="true">
+        </div>
+        <span id="attend-hint" class="sr-only">Enter month and year in MM/YYYY format</span>
+      </div>
+      <div class="field-row cols-1">
+        <div>
+          <label for="address-line1">Current Address — Street <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="address-line1" name="address_line1" autocomplete="street-address" aria-required="true">
+        </div>
+      </div>
+      <div class="field-row cols-2">
+        <div>
+          <label for="address-city">City, State</label>
+          <input type="text" id="address-city" name="address_city" autocomplete="address-level2">
+        </div>
+        <div>
+          <label for="address-zip">ZIP Code</label>
+          <input type="text" id="address-zip" name="address_zip" autocomplete="postal-code" inputmode="numeric" maxlength="10">
+        </div>
+      </div>
+      <div class="field-row cols-3">
+        <div>
+          <label for="phone">Contact Phone <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="phone" name="phone" autocomplete="tel" aria-required="true" inputmode="tel" placeholder="(___) ___-____">
+        </div>
+        <div>
+          <label for="dob">Date of Birth <span class="req" aria-hidden="true">*</span></label>
+          <input type="date" id="dob" name="date_of_birth" autocomplete="bday" aria-required="true">
+        </div>
+        <div>
+          <label for="email-address">Email Address <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="email-address" name="email_address" autocomplete="email" aria-required="true" inputmode="email">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Enrollment Status -->
+    <fieldset>
+      <legend>Current Enrollment Status <span class="req" aria-hidden="true">*</span></legend>
+      <div class="enrollment-group" role="group" aria-label="Are you currently enrolled at CAMP?" aria-required="true">
+        <label>
+          <input type="radio" name="enrollment_status" value="yes" aria-required="true"> Yes
+        </label>
+        <label>
+          <input type="radio" name="enrollment_status" value="no"> No
+        </label>
+        <label>
+          <input type="radio" name="enrollment_status" value="withdrawn"> No (Withdrawn)
+        </label>
+        <label>
+          <input type="radio" name="enrollment_status" value="graduated"> Graduated
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- Signature -->
+    <fieldset>
+      <legend>Student Signature <span class="req" aria-hidden="true">*</span></legend>
+      <p style="font-family:var(--font-ui);font-size:.82rem;color:var(--muted);margin:.4rem 0 .6rem;">By signing below, I authorize the release of my academic record as specified above.</p>
+      <div class="sig-row">
+        <div class="sig-line-wrap">
+          <span class="sig-line-label" id="sig-label">Signature</span>
+          <input
+            class="sig-line"
+            type="text"
+            id="student-sig"
+            name="student_signature"
+            aria-labelledby="sig-label"
+            aria-required="true"
+            autocomplete="off">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Office Use Only -->
+    <fieldset class="office-strip">
+      <legend>Office Use Only</legend>
+      <div class="office-grid">
+        <div class="field-group">
+          <label for="office-request-date">Date of Request</label>
+          <input type="text" id="office-request-date" name="office_request_date" aria-label="Office use: date of request" tabindex="-1">
+        </div>
+        <div class="field-group">
+          <label for="office-received-by">Received By</label>
+          <input type="text" id="office-received-by" name="office_received_by" aria-label="Office use: received by" tabindex="-1">
+        </div>
+        <div class="field-group">
+          <label for="office-processed-date">Date Processed</label>
+          <input type="text" id="office-processed-date" name="office_processed_date" aria-label="Office use: date processed" tabindex="-1">
+        </div>
+      </div>
+    </fieldset>
+
+  </main>
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="radio"]')
+      .forEach(el => { el.checked = false; });
+  }
+
+  // Link delivery radio to its text input: focus the field when radio selected
+  document.querySelectorAll('.two-col-delivery input[type="radio"]').forEach((radio, i) => {
+    radio.addEventListener('change', () => {
+      const inputs = document.querySelectorAll('.two-col-delivery input[type="text"]');
+      if (inputs[i]) inputs[i].focus();
+    });
+  });
+</script>
+
+</body>
+</html>
