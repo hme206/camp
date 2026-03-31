@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Request for Replacement Diploma</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+<header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h2>Request for Replacement Diploma</h2>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <div class="form-body">
+
+ 
+
+    <!-- Instructions -->
+
+    <div class="instructions" role="note" aria-label="Form instructions">
+
+      <strong>Replacements:</strong> Diplomas which have been lost, damaged, destroyed, or never received may be
+
+      approved for replacement. Requests for extra diplomas are not approved. Replacement diplomas will bear the
+
+      signatures of the current officials of Camp Community College and the Virginia Community College System.
+
+      Approved replacement diplomas are sent free of charge.
+        <br>
+
+      Complete all required fields, sign the form, and submit to the Office of the College Registrar.
+
+      Normal processing time is 2 to 3 weeks.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Student Information -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true" placeholder="Full legal name">
+
+        </div>
+
+        <div>
+
+          <label for="ccc-id">CCC ID # <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="ccc-id" name="ccc_id" autocomplete="off" aria-required="true" placeholder="College ID number">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="diploma-name">Diploma Name <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(if different from name above)</span></label>
+
+          <input type="text" id="diploma-name" name="diploma_name" autocomplete="off" placeholder="Name as it should appear on diploma, if different">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-3">
+
+        <div>
+
+          <label for="dob">Date of Birth <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="dob" name="date_of_birth" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="phone">Daytime Phone <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="phone" name="daytime_phone" autocomplete="tel" aria-required="true" placeholder="(555) 555-5555">
+
+        </div>
+
+        <div>
+
+          <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="email" name="email" autocomplete="email" aria-required="true" placeholder="your@email.edu">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Degree Information -->
+
+    <fieldset>
+
+      <legend>Degree Information</legend>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="degrees">Degree(s) Received <span class="req" aria-hidden="true">*</span></label>
+
+          <textarea id="degrees" name="degrees_received" rows="2" aria-required="true" placeholder="List all degrees received (e.g., Associate of Applied Science in Business Administration)"></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="award-date">Month, Date, and Year Degree was Awarded <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="award-date" name="award_date" aria-required="true" placeholder="e.g., May 15, 2021">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="reason">Reason for Request <span class="req" aria-hidden="true">*</span></label>
+
+          <textarea id="reason" name="reason" rows="2" aria-required="true" placeholder="Briefly describe why you are requesting a replacement diploma (e.g., lost, damaged, destroyed, never received)"></textarea>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Signature -->
+
+    <fieldset>
+
+      <legend>Certification &amp; Signature</legend>
+
+      <div class="sig-date-row" style="margin-top:.75rem;">
+
+        <label for="student-sig">Student Signature <span class="req" aria-hidden="true">*</span> (Required):</label>
+
+        <input type="text" id="student-sig" name="student_signature" aria-required="true" placeholder="Type full name as signature" style="flex:1;min-width:0;">
+
+        <label for="sig-date">Date <span class="req" aria-hidden="true">*</span>:</label>
+
+        <input type="date" id="sig-date" name="signature_date" aria-required="true">
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Submission Info -->
+
+    <div class="instructions no-print" role="note" aria-label="Submission instructions" style="margin-top:0;">
+
+      <strong>Submit completed form to the Office of the College Registrar.</strong>
+
+      Normal processing time is <strong>2–3 weeks</strong>.
+
+      <br><br>
+
+      <strong>By mail:</strong><br>
+
+      Camp Community College<br>
+
+      Office of the College Registrar<br>
+
+      100 North College Drive, Franklin VA 23851
+
+      <br><br>
+
+      <strong>By email</strong> (signed &amp; scanned copy):
+
+      <a href="mailto:transcripts@pdc.edu">transcripts@pdc.edu</a>
+
+      <br><br>
+
+      <strong>Questions?</strong>
+
+      <a href="mailto:Askregistrar@pdc.edu">Askregistrar@pdc.edu</a> or 757-569-6722
+
+    </div>
+
+ 
+
+    <!-- Print-only submission block -->
+
+    <div class="print-only-submission" aria-hidden="true" style="display:none;">
+
+      <p style="font-size:.8rem;border-top:1px solid #999;padding-top:.5rem;margin-top:.5rem;">
+
+        Submit completed form to the Office of the College Registrar. Normal processing time is 2–3 weeks.<br>
+
+        <strong>By mail:</strong> Camp Community College, Office of the College Registrar, 100 North College Drive, Franklin VA 23851 &nbsp;|&nbsp;
+
+        <strong>By email:</strong> transcripts@pdc.edu &nbsp;|&nbsp;
+
+        <strong>Questions?</strong> Askregistrar@pdc.edu or 757-569-6722
+
+      </p>
+
+    </div>
+
+ 
+
+  </div><!-- /.form-body -->
+
+ 
+
+  <!-- Save / Print -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div><!-- /.form-wrapper -->
+
+ 
+
+<style>
+
+  /* Show print-only block only when printing */
+
+  @media print {
+
+    .print-only-submission { display: block !important; }
+
+    /* Ensure everything fits on one page */
+
+    .form-body { padding: .4rem .6rem; }
+
+    fieldset { margin-bottom: .35rem; padding: .35rem .5rem; }
+
+    .field-row { margin-top: .25rem; gap: .2rem .5rem; }
+
+    textarea { min-height: 28px !important; }
+
+    .instructions { display: none !important; }
+
+    .print-only-submission { display: block !important; }
+
+    /* Keep sig row on one line */
+
+    .sig-date-row { flex-wrap: nowrap; gap: .5rem; }
+
+  }
+
+</style>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+
+    .forEach(el => { el.value = ''; });
+
+}
+
+</script>
+
+ 
+
+</body>
+
+</html>
