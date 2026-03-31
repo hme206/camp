@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Paul D. Camp Community College – Transcript Evaluation Form</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+<style>
+
+/* ── Page-specific styles ──────────────────────────────────────────── */
+
+ 
+
+.policy-notice {
+
+  font-size: .88rem;
+
+  color: var(--text);
+
+  line-height: 1.55;
+
+  margin-bottom: 1.25rem;
+
+  padding-bottom: .75rem;
+
+  border-bottom: 1px solid var(--border);
+
+}
+
+.policy-notice p + p { margin-top: .4rem; }
+
+ 
+
+.eligibility-note {
+
+  font-family: var(--font-ui);
+
+  font-size: .82rem;
+
+  color: var(--muted);
+
+  margin-bottom: .75rem;
+
+  line-height: 1.5;
+
+}
+
+ 
+
+.section-subhead {
+
+  font-family: var(--font-ui);
+
+  font-size: .8rem;
+
+  color: var(--muted);
+
+  margin-bottom: .75rem;
+
+}
+
+ 
+
+/* Test scores block */
+
+.test-scores-section {
+
+  margin-top: 1rem;
+
+  padding-top: .75rem;
+
+  border-top: 1px solid var(--border);
+
+}
+
+.test-legend {
+
+  font-family: var(--font-ui);
+
+  font-size: .78rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: .05em;
+
+  color: var(--muted);
+
+  margin-bottom: .6rem;
+
+}
+
+.checkbox-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: .45rem;
+
+}
+
+.checkbox-group label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: .55rem;
+
+  text-transform: none;
+
+  letter-spacing: normal;
+
+  font-size: .95rem;
+
+  font-weight: 400;
+
+  cursor: pointer;
+
+  color: var(--text);
+
+}
+
+input[type="checkbox"] {
+
+  width: 1.1rem;
+
+  height: 1.1rem;
+
+  accent-color: var(--navy);
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+}
+
+input[type="checkbox"]:focus-visible {
+
+  outline: 3px solid var(--focus);
+
+  outline-offset: 2px;
+
+}
+
+ 
+
+/* ── Print overrides ─────────────────────────────────────────────── */
+
+@media print {
+
+  .policy-notice { font-size: .78rem; margin-bottom: .5rem; padding-bottom: .35rem; }
+
+  .eligibility-note { font-size: .72rem; margin-bottom: .4rem; }
+
+  .section-subhead { display: none; }
+
+  .test-legend { font-size: .68rem; margin-bottom: .35rem; }
+
+  .checkbox-group { gap: .25rem; }
+
+  .checkbox-group label { font-size: .8rem; }
+
+  .test-scores-section { margin-top: .5rem; padding-top: .4rem; }
+
+}
+
+ 
+
+/* ── Mobile ───────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+
+  .checkbox-group { gap: .55rem; }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1>Transcript Evaluation Form</h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions (hidden on print) -->
+
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+
+      Transfer credit is only posted if the course(s) is required for your program of study. Your evaluation
+
+      will be completed based on your program of study in our system. Evaluation of credits will take place
+
+      after the add/drop date of the semester you start class.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Policy notice (visible on print) -->
+
+    <div class="policy-notice" role="note" aria-label="Policy notice">
+
+      <p>Transfer credit is only posted if the course(s) is required for your program of study. Your evaluation
+
+      will be completed based on your program of study in our system.</p>
+
+      <p>Evaluation of Credits will take place after the add/drop date of the semester you start class.</p>
+
+    </div>
+
+ 
+
+    <!-- Eligibility Questions -->
+
+    <fieldset>
+
+      <legend>Eligibility</legend>
+
+      <p class="eligibility-note">
+
+        <em>If you answered No to at least one of these questions, you will have to wait until you can
+
+        answer yes to both questions to have credits evaluated.</em>
+
+      </p>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label id="enrolled-label">Are you currently enrolled? <span class="req" aria-hidden="true">*</span></label>
+
+          <div class="radio-group" role="radiogroup" aria-labelledby="enrolled-label" aria-required="true">
+
+            <label>
+
+              <input type="radio" name="enrolled" value="yes" aria-required="true"> Yes
+
+            </label>
+
+            <label>
+
+              <input type="radio" name="enrolled" value="no"> No
+
+            </label>
+
+          </div>
+
+        </div>
+
+        <div>
+
+          <label id="curricular-label">Are you in a curricular program? <span class="req" aria-hidden="true">*</span></label>
+
+          <div class="radio-group" role="radiogroup" aria-labelledby="curricular-label" aria-required="true">
+
+            <label>
+
+              <input type="radio" name="curricular" value="yes" aria-required="true"> Yes
+
+            </label>
+
+            <label>
+
+              <input type="radio" name="curricular" value="no"> No
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Student Information -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-id">Student I.D. (Empl. I.D.) <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-id" name="student_id" autocomplete="off" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="request-date">Date of Request <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="request-date" name="request_date" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="student-email">Student Email <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-email" name="student_email" autocomplete="email"
+
+                 inputmode="email" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="program">Program of Study <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="program" name="program" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="student-sig">Student Signature <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-sig" name="student_signature" aria-required="true"
+
+                 aria-label="Student signature">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Transcript to Be Evaluated -->
+
+    <fieldset>
+
+      <legend>Transcript to Be Evaluated</legend>
+
+      <p class="section-subhead">Enter the name of the institution or source for each applicable transcript type. Leave blank if not applicable.</p>
+
+ 
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="college">College</label>
+
+          <input type="text" id="college" name="college" autocomplete="off">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="foreign-intl">Foreign or International</label>
+
+          <input type="text" id="foreign-intl" name="foreign_international" autocomplete="off">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="cert-license">Certificate or License</label>
+
+          <input type="text" id="cert-license" name="cert_license" autocomplete="off">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="military">Military Transcript</label>
+
+          <input type="text" id="military" name="military_transcript" autocomplete="off">
+
+        </div>
+
+      </div>
+
+ 
+
+      <!-- Test Scores -->
+
+      <div class="test-scores-section" role="group" aria-labelledby="test-legend">
+
+        <p id="test-legend" class="test-legend">Test Scores — Select all that apply</p>
+
+        <div class="checkbox-group">
+
+          <label>
+
+            <input type="checkbox" name="test_ap" value="ap">
+
+            Advanced Placement
+
+          </label>
+
+          <label>
+
+            <input type="checkbox" name="test_clep" value="clep">
+
+            CLEP Scores
+
+          </label>
+
+          <label>
+
+            <input type="checkbox" name="test_dsst" value="dsst">
+
+            DSST / Dantes Scores
+
+          </label>
+
+          <label>
+
+            <input type="checkbox" name="test_excel" value="excel">
+
+            Excelsior / EXCEL Scores
+
+          </label>
+
+          <label>
+
+            <input type="checkbox" name="test_ib" value="ib">
+
+            International Baccalaureate (IB) Scores
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Save / Print -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()"
+
+            aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div><!-- /.form-wrapper -->
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"]')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+</script>
+
+ 
+
+
+
+ 
+
+</body>
+
+</html>
