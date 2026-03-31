@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Paul D. Camp Community College – Request for Letter of Non-Attendance</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+    <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1><center>Request for Letter of <br> Non-Attendance</center></h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions (hidden on print) -->
+
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+
+      Complete all required fields below. Once finished, click <strong>Print to PDF</strong> at the bottom
+
+      of the form, choose <strong>Save as PDF</strong> as the destination, and email the completed PDF to
+
+      the College Registrar at <a href=mailto:cricks@pdc.edu>cricks@pdc.edu</a>, or mail it to
+
+      100 North College Drive, Franklin VA 23851.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+    <!-- Personal Information -->
+
+    <fieldset>
+
+      <legend>Personal Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="birth-date">Birth Date <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="birth-date" name="birth_date" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="ssn-last4">Last 4 Digits of SSN <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="ssn-last4" name="ssn_last4" maxlength="4" inputmode="numeric"
+
+                 pattern="\d{4}" autocomplete="off" aria-required="true"
+
+                 aria-describedby="ssn-hint">
+
+          <span id="ssn-hint" class="field-hint no-print">Enter the last 4 digits only</span>
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="former-names">Former Name(s)</label>
+
+          <input type="text" id="former-names" name="former_names" autocomplete="off">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Request Body -->
+
+    <fieldset>
+
+      <legend>Request Details</legend>
+
+      <p class="form-statement" aria-label="Form statement">
+
+        By signing this form, I hereby request that the Registrar's Office of CAMP Community College
+
+        provide a Letter of Non-Attendance to the individual or organization identified below.
+
+      </p>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="recipient-org">Individual or Organization <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="recipient-org" name="recipient_org" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="recipient-address">Address <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="recipient-address" name="recipient_address" autocomplete="off" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="recipient-email">Email</label>
+
+          <input type="text" id="recipient-email" name="recipient_email" autocomplete="off"
+
+                 inputmode="email">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Signature / Date -->
+
+    <fieldset>
+
+      <legend>Applicant Signature</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="applicant-sig">Signature <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="applicant-sig" name="applicant_signature"
+
+                 aria-required="true" aria-label="Applicant signature">
+
+        </div>
+
+        <div>
+
+          <label for="applicant-date">Date <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="applicant-date" name="applicant_date" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <p class="submission-note">
+
+        Please email this request to the College Registrar at
+
+        <strong>cricks@pdc.edu</strong> or mail it to the address listed above.
+
+      </p>
+
+    </fieldset>
+
+ 
+
+    <!-- Registrar Office Use Only -->
+
+    <fieldset class="office-section">
+
+      <legend>Registrar Office Use Only</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="processed-by">Processed By</label>
+
+          <input type="text" id="processed-by" name="processed_by" autocomplete="off">
+
+        </div>
+
+        <div>
+
+          <label for="processed-date">Date</label>
+
+          <input type="date" id="processed-date" name="processed_date">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Save / Print -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()"
+
+            aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div><!-- /.form-wrapper -->
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"]')
+
+    .forEach(el => { el.value = ''; });
+
+}
+
+</script>
+
+ 
+
+<style>
+
+/* ── Page-specific overrides ─────────────────────────────────────── */
+
+ 
+
+/* College address line */
+
+.college-address {
+
+  font-family: var(--font-ui);
+
+  font-size: .85rem;
+
+  color: var(--muted);
+
+  margin-bottom: 1.25rem;
+
+  padding-bottom: .75rem;
+
+  border-bottom: 1px solid var(--border);
+
+}
+
+ 
+
+/* Statement paragraph inside fieldset */
+
+.form-statement {
+
+  font-size: .9rem;
+
+  color: var(--text);
+
+  margin: .75rem 0 1rem;
+
+  line-height: 1.55;
+
+}
+
+ 
+
+/* Submission note */
+
+.submission-note {
+
+  font-family: var(--font-ui);
+
+  font-size: .82rem;
+
+  color: var(--muted);
+
+  margin-top: .85rem;
+
+}
+
+ 
+
+/* Small hint below SSN field */
+
+.field-hint {
+
+  display: block;
+
+  font-family: var(--font-ui);
+
+  font-size: .73rem;
+
+  color: var(--muted);
+
+  margin-top: .2rem;
+
+}
+
+ 
+
+/* ── Print overrides ─────────────────────────────────────────────── */
+
+@media print {
+
+  .college-address {
+
+    font-size: .75rem;
+
+    margin-bottom: .5rem;
+
+    padding-bottom: .35rem;
+
+  }
+
+  .form-statement { font-size: .8rem; margin: .4rem 0 .5rem; }
+
+  .submission-note { font-size: .72rem; margin-top: .4rem; }
+
+}
+
+</style>
+
+ 
+
+</body>
+
+</html>
