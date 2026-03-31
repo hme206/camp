@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paul D. Camp Community College – Technical Studies AAS Degree Application</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+  <style>
+    /* ── Page-break sections ── */
+    .print-page {
+      margin-bottom: 2.5rem;
+    }
+    @media print {
+      .print-page { page-break-after: always; margin-bottom: 0; }
+      .print-page:last-of-type { page-break-after: avoid; }
+    }
+
+    /* ── Program description block ── */
+    .program-desc {
+      background: var(--light);
+      border-left: 4px solid var(--navy);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: .9rem;
+      font-family: var(--font-ui);
+      border-radius: 0 4px 4px 0;
+      color: #000;
+    }
+    .program-desc p { margin-bottom: .6rem; }
+    .program-desc p:last-child { margin-bottom: 0; }
+
+    /* ── Section header banner (matches PDF green bands) ── */
+    .section-banner {
+      background: var(--navy);
+      color: #000;
+      font-family: var(--font-ui);
+      font-size: .82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: .5rem 1rem;
+      border-radius: 3px 3px 0 0;
+      margin-bottom: 0;
+    }
+    .section-banner + fieldset {
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+    }
+
+    /* ── G3 eligibility block ── */
+    .g3-block {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      margin-top: .75rem;
+    }
+    .g3-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .g3-row label.radio-label {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: var(--font-ui);
+      font-size: .95rem;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: normal;
+      color: var(--text);
+      cursor: pointer;
+      min-width: 44px;
+    }
+    .g3-row input[type="radio"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: var(--navy);
+      cursor: pointer;
+    }
+    .g3-cred-input {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    /* ── Course table ── */
+    .course-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-ui);
+      font-size: .85rem;
+      margin-bottom: .5rem;
+    }
+    .course-table th {
+      background: var(--mid);
+      color: #000;
+      padding: .45rem .6rem;
+      font-weight: 700;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+    .course-table th.cr-col { text-align: center; width: 48px; }
+    .course-table td {
+      padding: .25rem .4rem;
+      border: 1px solid #c8d4e2;
+      vertical-align: middle;
+    }
+    .course-table tr:nth-child(even) td { background: var(--row-alt); }
+    .course-table td.cr-cell { text-align: center; }
+    .tbl-input {
+      width: 100%;
+      border: 1px solid #b0bed0;
+      border-radius: 2px;
+      padding: .25rem .4rem;
+      font-family: var(--font-body);
+      font-size: .85rem;
+      background: transparent;
+    }
+    .tbl-input:focus {
+      border-color: var(--mid);
+      outline: 3px solid var(--focus);
+      outline-offset: 1px;
+      background: var(--white);
+    }
+    .cr-input { width: 44px; text-align: center; }
+
+    /* ── Two-column course layout ── */
+    .two-col-courses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1rem;
+    }
+    .two-col-courses .course-table { margin-bottom: 0; }
+
+    /* ── Subtotal row ── */
+    .subtotal-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: .75rem;
+      padding: .4rem .5rem;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 3px 3px;
+      font-family: var(--font-ui);
+      font-size: .82rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .subtotal-row input {
+      width: 52px;
+      text-align: center;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      padding: .2rem .3rem;
+      font-size: .85rem;
+      font-weight: 700;
+      background: var(--white);
+    }
+    .subtotal-row input:focus {
+      outline: 3px solid var(--focus);
+      outline-offset: 1px;
+    }
+
+    /* ── Total credits summary ── */
+    .totals-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-ui);
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+    }
+    .totals-table td {
+      padding: .45rem .75rem;
+      border: 1px solid #c8d4e2;
+    }
+    .totals-table tr:nth-child(even) td { background: var(--row-alt); }
+    .totals-table .row-label { font-weight: 700; }
+    .totals-table .row-req { color: var(--muted); font-size: .82rem; }
+    .totals-table .row-input { text-align: center; width: 80px; }
+    .totals-table input {
+      width: 60px;
+      text-align: center;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      padding: .2rem .3rem;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+    .totals-table input:focus { outline: 3px solid var(--focus); outline-offset: 1px; }
+    .totals-table tr.total-row td { background: var(--navy); color: #000; font-weight: 700; font-size: 1rem; }
+    .totals-table tr.total-row input { background: rgba(255,255,255,.85); }
+
+    /* ── Certificate info block ── */
+    .cert-info {
+      background: var(--row-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: .75rem 1rem;
+      margin-bottom: .75rem;
+    }
+
+    /* ── Signature section ── */
+    .sig-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: .5rem;
+    }
+    .sig-table tr { border-bottom: 1px solid #e0e0e0; }
+    .sig-table td {
+      padding: .75rem .5rem;
+      vertical-align: bottom;
+    }
+    .sig-table .sig-role {
+      font-family: var(--font-ui);
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding-bottom: .2rem;
+      white-space: nowrap;
+      width: 220px;
+    }
+    .sig-line-cell { padding-bottom: .1rem; }
+    .sig-line {
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #000;
+      background: transparent;
+      padding: .2rem .25rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .sig-line:focus { outline: 3px solid var(--focus); outline-offset: 1px; }
+    .date-cell { width: 130px; padding-left: 1rem; }
+    .date-label {
+      font-family: var(--font-ui);
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: .2rem;
+      display: block;
+    }
+
+    /* ── Print ── */
+    @media print {
+      .program-desc { font-size: .78rem; padding: .5rem .75rem; margin-bottom: .75rem; }
+      .program-desc p { margin-bottom: .3rem; }
+      .section-banner { font-size: .72rem; padding: .3rem .6rem; }
+      fieldset { padding: .35rem .6rem; margin-bottom: .4rem; }
+      legend { font-size: .68rem; }
+      label { font-size: .68rem; }
+      .field-row { gap: .25rem .5rem; margin-top: .25rem; }
+      input[type="text"], input[type="date"] { padding: .15rem .3rem; font-size: .82rem; }
+      .course-table { font-size: .75rem; }
+      .course-table th { padding: .25rem .35rem; font-size: .68rem; }
+      .course-table td { padding: .12rem .3rem; }
+      .tbl-input { font-size: .75rem; padding: .1rem .25rem; }
+      .cr-input { width: 36px; }
+      .subtotal-row { padding: .25rem .4rem; font-size: .72rem; }
+      .subtotal-row input { font-size: .75rem; }
+      .totals-table td { padding: .3rem .5rem; }
+      .totals-table { font-size: .8rem; }
+      .cert-info { padding: .4rem .6rem; margin-bottom: .4rem; }
+      .two-col-courses { gap: 0 .5rem; }
+      .sig-table td { padding: .5rem .35rem; }
+      .sig-table .sig-role { font-size: .7rem; width: 180px; }
+      .g3-block { gap: .3rem; margin-top: .4rem; }
+       table { width: 100% !important; table-layout: fixed; }
+       .ct-input,
+  .tbl-input {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+  .two-col-courses {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 0 .25rem;
+  }
+
+  /* Remove fixed widths from colgroup cols so they scale proportionally */
+  col.col-dept   { width: 30% !important; }
+  col.col-cno    { width: 50% !important; }
+  col.col-credits { width: 20% !important; }
+
+  /* Prevent long text from overflowing cells */
+  td, th {
+    overflow: hidden;
+    word-break: break-word;
+  }
+
+  /* Ensure the form wrapper doesn't exceed page width */
+  .form-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+    }
+  </style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Shared Header -->
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1><center>AAS Technical Studies  <br> Degree Application</center></h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+  <!-- ══════════════════════════════
+       PAGE 1 — Student Info & G3
+  ══════════════════════════════ -->
+  <div class="print-page">
+  <main class="form-body">
+
+    <p class="req-note no-print"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    <!-- Student / Advisor Info -->
+    <fieldset>
+      <legend>Student &amp; Advisor Information</legend>
+      <div class="field-row cols-1">
+        <div>
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+        </div>
+      </div>
+      <div class="field-row cols-2">
+        <div>
+          <label for="empl-id">EmplID <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="empl-id" name="empl_id" autocomplete="off" aria-required="true">
+        </div>
+        <div>
+          <label for="advisor">Advisor <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="advisor" name="advisor" aria-required="true">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Program Description -->
+    <div class="program-desc" role="note" aria-label="Program description">
+      <p>The Technical Studies Associate in Applied Science Degree is designed to provide a broad foundation of general education and technological knowledge, along with a concentration in a technical field as identified by local industry needs, that will prepare the graduate to enter or advance in technical fields upon graduation.</p>
+      <p>The Technical Studies Degree will incorporate one (1) or two (2) existing certificates or career studies certificates with additional courses to create a coherent plan of study for a total of 60 – 69 credits.</p>
+      <p>Experiential credit, such as credit for prior learning, internship credit, directed study for credit, and/or apprenticeship credit may be used.</p>
+      <p>The Technical Studies Degree will be approved by a Dean, and by the Vice President of Academic and Student Development (or designee) to ensure a coherent plan of study.</p>
+    </div>
+
+    <!-- G3 Eligibility -->
+    <div class="section-banner" aria-hidden="true">G3 Eligibility</div>
+    <fieldset aria-labelledby="g3-desc">
+      <legend class="sr-only">G3 Eligibility</legend>
+      <p id="g3-desc" style="font-family:var(--font-ui);font-size:.88rem;margin:.5rem 0 .25rem;">
+        A Technical Studies degree is a G3-eligible program if the base Certificate or Career Studies Certificate is a G3 Eligible program. Is the base credential an approved G3 program at Camp?
+      </p>
+      <div class="g3-block" role="group" aria-label="G3 eligibility selection">
+        <div class="g3-row">
+          <label class="radio-label" for="g3-yes">
+            <input type="radio" id="g3-yes" name="g3_eligible" value="yes" aria-required="true"> YES
+          </label>
+          <label for="g3-credential" style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;letter-spacing:.04em;color:var(--muted);margin:0;text-transform:uppercase;">G3 Base Credential:</label>
+          <input type="text" id="g3-credential" name="g3_base_credential" class="g3-cred-input" aria-label="G3 Base Credential name">
+        </div>
+        <div class="g3-row">
+          <label class="radio-label" for="g3-no">
+            <input type="radio" id="g3-no" name="g3_eligible" value="no"> NO
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+
+
+
+
+   <!-- General Education -->
+<div class="section-banner" aria-hidden="true">General Education <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(15 credit hours minimum required; at least 3 credit hours from each discipline)</span></div>
+<fieldset>
+  <legend class="sr-only">General Education Courses</legend>
+
+  <!-- Communication -->
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept" width="200">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Communication
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course Number</th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Communication row 1 department" name="comm_dept_1" placeholder="CST-100"></td>
+          <td><input class="ct-input" type="text" aria-label="Communication row 1 course number" name="comm_cno_1" placeholder="Public Speaking"></td>
+          <td><input class="ct-input" type="text" aria-label="Communication row 1 credits" name="comm_credits_1" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Communication row 2 department" name="comm_dept_2" placeholder="CST-151"></td>
+          <td><input class="ct-input" type="text" aria-label="Communication row 2 course number" name="comm_cno_2" placeholder="Film Appreciation"></td>
+          <td><input class="ct-input" type="text" aria-label="Communication row 2 credits" name="comm_credits_2" placeholder="3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Humanities -->
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept" width="200">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Humanities
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course Number</th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Humanities row 1 department" name="hum_dept_1" placeholder="HUM-100"></td>
+          <td><input class="ct-input" type="text" aria-label="Humanities row 1 course number" name="hum_cno_1" placeholder="Introduction to Humanities"></td>
+          <td><input class="ct-input" type="text" aria-label="Humanities row 1 credits" name="hum_credits_1" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Humanities row 2 department" name="hum_dept_2" placeholder="HUM-101"></td>
+          <td><input class="ct-input" type="text" aria-label="Humanities row 2 course number" name="hum_cno_2" placeholder="World History"></td>
+          <td><input class="ct-input" type="text" aria-label="Humanities row 2 credits" name="hum_credits_2" placeholder="3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Social/Behavioral Sciences -->
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept" width="200">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Social/Behavioral Sciences
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course Number </th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Social/Behavioral Sciences row 1 department" name="sbs_dept_1" placeholder="SOC-200"></td>
+          <td><input class="ct-input" type="text" aria-label="Social/Behavioral Sciences row 1 course number" name="sbs_cno_1" placeholder="Introduction to Sociology"></td>
+          <td><input class="ct-input" type="text" aria-label="Social/Behavioral Sciences row 1 credits" name="sbs_credits_1" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Social/Behavioral Sciences row 2 department" name="sbs_dept_2" placeholder="PSY-200"></td>
+          <td><input class="ct-input" type="text" aria-label="Social/Behavioral Sciences row 2 course number" name="sbs_cno_2" placeholder="Introduction to Psychology"></td>
+          <td><input class="ct-input" type="text" aria-label="Social/Behavioral Sciences row 2 credits" name="sbs_credits_2" placeholder="3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mathematics/Natural Science -->
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept" width="200">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Mathematics/Natural Science
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course Number </th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Mathematics/Natural Science row 1 department" name="mns_dept_1" placeholder="MATH-121"></td>
+          <td><input class="ct-input" type="text" aria-label="Mathematics/Natural Science row 1 course number" name="mns_cno_1" placeholder="Basic Technical Mathematics"></td>
+          <td><input class="ct-input" type="text" aria-label="Mathematics/Natural Science row 1 credits" name="mns_credits_1" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Mathematics/Natural Science row 2 department" name="mns_dept_2" placeholder="BIO-101"></td>
+          <td><input class="ct-input" type="text" aria-label="Mathematics/Natural Science row 2 course number" name="mns_cno_2" placeholder="Introduction to Biology"></td>
+          <td><input class="ct-input" type="text" aria-label="Mathematics/Natural Science row 2 credits" name="mns_credits_2" placeholder="4"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subtotal-row">
+    <label for="gen-ed-subtotal" style="font-size:.82rem;">General Education Subtotal:</label>
+    <input type="text" id="gen-ed-subtotal" name="gen_ed_subtotal" aria-label="General Education subtotal credits">
+    <span style="color:var(--muted);font-weight:400;">(15 CR)</span>
+  </div>
+
+</fieldset>
+
+<!-- Student Development -->
+<div class="section-banner" aria-hidden="true">Student Development <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(1 – 2 CR required)</span></div>
+<fieldset>
+  <legend class="sr-only">Student Development Courses</legend>
+
+  <div class="course-table-section">
+    <table class="table-label-drop" style="margin-top:.5rem;">
+      <colgroup>
+        <col class="col-dept" width="200">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Student Development
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course Number </th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Student Development row 1 department" name="std_dev_dept_1" placeholder="SDV-100"></td>
+          <td><input class="ct-input" type="text" aria-label="Student Development row 1 course number" name="std_dev_cno_1" placeholder="Student Development"></td>
+          <td><input class="ct-input" type="text" aria-label="Student Development row 1 credits" name="std_dev_credits_1" placeholder="2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</fieldset>
+
+  
+
+    <div class="section-banner" aria-hidden="true">Content Skills and Knowledge <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(44 – 52 CR; at least one certificate or career studies certificate required)</span></div>
+    <fieldset>
+      <legend class="sr-only">Content Skills and Knowledge</legend>
+
+      <!-- Certificate Info -->
+      <p style="font-family:var(--font-ui);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:.6rem 0 .35rem;">Certificate / Career Studies Certificate</p>
+      <div class="cert-info">
+        <div class="field-row cols-3">
+          <div>
+            <label for="cert-name">Certificate Name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="cert-name" name="cert_name" aria-required="true">
+          </div>
+          <div>
+            <label for="cert-type">Credential Type</label>
+            <input type="text" id="cert-type" name="cert_type">
+          </div>
+          <div>
+            <label for="cert-date">Date Awarded</label>
+            <input type="date" id="cert-date" name="cert_date_awarded">
+          </div>
+        </div>
+        </div>
+
+
+<!-- Certificate courses — 2 columns, 10 rows each = 20 rows -->
+<div class="two-col-courses" role="group" aria-labelledby="cert-courses-heading">
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept"width="100">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption id="cert-courses-heading" style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Certificate Courses
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course # </th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 1 department" name="cert_dept_1" placeholder="ETR-100"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 1 course number" name="cert_cno_1" placeholder="Electricity"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 1 credits" name="cert_credits_1" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 2 department" name="cert_dept_2" placeholder="WEL-100"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 2 course number" name="cert_cno_2" placeholder="General Welding"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 2 credits" name="cert_credits_2" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 3 department" name="cert_dept_3"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 3 course number" name="cert_cno_3"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 3 credits" name="cert_credits_3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 4 department" name="cert_dept_4"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 4 course number" name="cert_cno_4"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 4 credits" name="cert_credits_4"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 5 department" name="cert_dept_5"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 5 course number" name="cert_cno_5"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 5 credits" name="cert_credits_5"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 6 department" name="cert_dept_6"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 6 course number" name="cert_cno_6"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 6 credits" name="cert_credits_6"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 7 department" name="cert_dept_7"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 7 course number" name="cert_cno_7"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 7 credits" name="cert_credits_7"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 8 department" name="cert_dept_8"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 8 course number" name="cert_cno_8"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 8 credits" name="cert_credits_8"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 9 department" name="cert_dept_9"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 9 course number" name="cert_cno_9"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 9 credits" name="cert_credits_9"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 10 department" name="cert_dept_10"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 10 course number" name="cert_cno_10"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 10 credits" name="cert_credits_10"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept" width="100">
+        <col class="col-cno" width="200">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Certificate Courses (continued)
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept- Course #</th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 11 department" name="cert_dept_11" placeholder="ETR-100"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 11 course number" name="cert_cno_11" placeholder="Electricity"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 11 credits" name="cert_credits_11" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 12 department" name="cert_dept_12" placeholder="WEL-135"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 12 course number" name="cert_cno_12" placeholder="Welding II"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 12 credits" name="cert_credits_12" placeholder="3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 13 department" name="cert_dept_13"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 13 course number" name="cert_cno_13"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 13 credits" name="cert_credits_13"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 14 department" name="cert_dept_14"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 14 course number" name="cert_cno_14"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 14 credits" name="cert_credits_14"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 15 department" name="cert_dept_15"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 15 course number" name="cert_cno_15"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 15 credits" name="cert_credits_15"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 16 department" name="cert_dept_16"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 16 course number" name="cert_cno_16"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 16 credits" name="cert_credits_16"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 17 department" name="cert_dept_17"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 17 course number" name="cert_cno_17"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 17 credits" name="cert_credits_17"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 18 department" name="cert_dept_18"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 18 course number" name="cert_cno_18"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 18 credits" name="cert_credits_18"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 19 department" name="cert_dept_19"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 19 course number" name="cert_cno_19"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 19 credits" name="cert_credits_19"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 20 department" name="cert_dept_20"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 20 course number" name="cert_cno_20"></td>
+          <td><input class="ct-input" type="text" aria-label="Certificate course row 20 credits" name="cert_credits_20"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="subtotal-row">
+  <label for="cert-subtotal" style="font-size:.82rem;">Certificate Subtotal:</label>
+  <input type="text" id="cert-subtotal" name="cert_subtotal" aria-label="Certificate courses subtotal credits">
+</div>
+
+<!-- Additional Coursework -->
+
+  <div class="course-table-section">
+    <table class="table-label-drop">
+      <colgroup>
+        <col class="col-dept" width="100">
+        <col class="col-cno" width="150">
+        <col class="col-credits" width="100">
+      </colgroup>
+      <caption id="add-courses-heading" style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+        Additional Coursework
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Dept - Course #</th>
+          <th scope="col">Name</th>
+          <th scope="col">Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 1 department" name="add_dept_1" placeholder="ELE -200"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 1 course number" name="add_cno_1" placeholder="Electrical"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 1 credits" name="add_credits_1"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 2 department" name="add_dept_2" placeholder="AIR -100"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 2 course number" name="add_cno_2" placeholder="HVAC I"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 2 credits" name="add_credits_2"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 3 department" name="add_dept_3"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 3 course number" name="add_cno_3"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 3 credits" name="add_credits_3"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 4 department" name="add_dept_4"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 4 course number" name="add_cno_4"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 4 credits" name="add_credits_4"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 5 department" name="add_dept_5"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 5 course number" name="add_cno_5"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 5 credits" name="add_credits_5"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 6 department" name="add_dept_6"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 6 course number" name="add_cno_6"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 6 credits" name="add_credits_6"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 7 department" name="add_dept_7"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 7 course number" name="add_cno_7"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 7 credits" name="add_credits_7"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 8 department" name="add_dept_8"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 8 course number" name="add_cno_8"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 8 credits" name="add_credits_8"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 9 department" name="add_dept_9"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 9 course number" name="add_cno_9"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 9 credits" name="add_credits_9"></td>
+        </tr>
+        <tr>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 10 department" name="add_dept_10"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 10 course number" name="add_cno_10"></td>
+          <td><input class="ct-input" type="text" aria-label="Additional coursework row 10 credits" name="add_credits_10"></td>
+        </tr>
+      </tbody>
+    </table>
+ 
+
+  
+
+<div class="subtotal-row">
+  <label for="add-subtotal" style="font-size:.82rem;">Additional Coursework Subtotal:</label>
+  <input type="text" id="add-subtotal" name="additional_subtotal" aria-label="Additional coursework subtotal credits">
+</div>
+
+    </fieldset>
+
+
+
+    <!-- Total Credits Summary -->
+    <div class="section-banner" aria-hidden="true">Total Credits Summary</div>
+    <fieldset style="margin-bottom:1.5rem;">
+      <legend class="sr-only">Total Credits Summary</legend>
+      <table class="totals-table" aria-label="Total credits summary">
+        <tbody>
+          <tr>
+            <td class="row-label">General Education Subtotal</td>
+            <td class="row-req">(15 CR)</td>
+            <td class="row-input"><input type="text" aria-label="General Education total credits" name="total_gen_ed"></td>
+          </tr>
+          <tr>
+            <td class="row-label">Student Development Subtotal</td>
+            <td class="row-req">(1–2 CR)</td>
+            <td class="row-input"><input type="text" aria-label="Student Development total credits" name="total_std_dev"></td>
+          </tr>
+          <tr>
+            <td class="row-label">Content Skills and Knowledge Subtotal</td>
+            <td class="row-req">(44–52 CR)</td>
+            <td class="row-input"><input type="text" aria-label="Content Skills and Knowledge total credits" name="total_content"></td>
+          </tr>
+          <tr class="total-row">
+            <td class="row-label">TOTAL Credit Hours</td>
+            <td class="row-req">(60 – 69 CR)</td>
+            <td class="row-input"><input type="text" aria-label="Total credit hours" name="grand_total"></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <!-- Signatures -->
+    <div class="section-banner" aria-hidden="true">Signatures</div>
+    <fieldset>
+      <legend class="sr-only">Signatures</legend>
+      <table class="sig-table" aria-label="Signature lines">
+        <tbody>
+          <tr>
+            <td class="sig-role">Student</td>
+            <td class="sig-line-cell"><input class="sig-line" type="text" id="sig-student" name="sig_student" aria-label="Student signature" autocomplete="off"></td>
+            <td class="date-cell">
+              <span class="date-label">Date</span>
+              <input type="date" name="sig_student_date" aria-label="Student signature date" style="width:100%;padding:.2rem .3rem;font-size:.85rem;border:1.5px solid var(--border);border-radius:3px;">
+            </td>
+          </tr>
+          <tr>
+            <td class="sig-role">Faculty Advisor</td>
+            <td class="sig-line-cell"><input class="sig-line" type="text" id="sig-advisor" name="sig_advisor" aria-label="Faculty Advisor signature" autocomplete="off"></td>
+            <td class="date-cell">
+              <span class="date-label">Date</span>
+              <input type="date" name="sig_advisor_date" aria-label="Faculty Advisor signature date" style="width:100%;padding:.2rem .3rem;font-size:.85rem;border:1.5px solid var(--border);border-radius:3px;">
+            </td>
+          </tr>
+          <tr>
+            <td class="sig-role">Dean</td>
+            <td class="sig-line-cell"><input class="sig-line" type="text" id="sig-dean" name="sig_dean" aria-label="Dean signature" autocomplete="off"></td>
+            <td class="date-cell">
+              <span class="date-label">Date</span>
+              <input type="date" name="sig_dean_date" aria-label="Dean signature date" style="width:100%;padding:.2rem .3rem;font-size:.85rem;border:1.5px solid var(--border);border-radius:3px;">
+            </td>
+          </tr>
+          <tr>
+            <td class="sig-role" style="white-space:normal;">Coordinator of Financial Aid</td>
+            <td class="sig-line-cell"><input class="sig-line" type="text" id="sig-finaid" name="sig_finaid" aria-label="Coordinator Financial Aid signature" autocomplete="off"></td>
+            <td class="date-cell">
+              <span class="date-label">Date</span>
+              <input type="date" name="sig_finaid_date" aria-label="Coordinator Financial Aid signature date" style="width:100%;padding:.2rem .3rem;font-size:.85rem;border:1.5px solid var(--border);border-radius:3px;">
+            </td>
+          </tr>
+          <tr>
+            <td class="sig-role" style="white-space:normal;">Vice President of Academic and Student Development</td>
+            <td class="sig-line-cell"><input class="sig-line" type="text" id="sig-vp" name="sig_vp" aria-label="Vice President of Academic and Student Development signature" autocomplete="off"></td>
+            <td class="date-cell">
+              <span class="date-label">Date</span>
+              <input type="date" name="sig_vp_date" aria-label="Vice President signature date" style="width:100%;padding:.2rem .3rem;font-size:.85rem;border:1.5px solid var(--border);border-radius:3px;">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+  </main>
+  </div><!-- /page 4 -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  // ── Build course table rows dynamically ────────────────────────────────
+  function buildRows(tbodyId, start, count, prefix) {
+    const tbody = document.getElementById(tbodyId);
+    for (let i = 0; i < count; i++) {
+      const n = start + i;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="tbl-input" type="text" aria-label="${prefix} course ${n}" name="${prefix.toLowerCase().replace(/\s+/g,'_')}_course_${n}"></td>
+        <td class="cr-cell"><input class="tbl-input cr-input" type="text" aria-label="${prefix} course ${n} credits" name="${prefix.toLowerCase().replace(/\s+/g,'_')}_cr_${n}"></td>`;
+      tbody.appendChild(tr);
+    }
+  }
+
+  buildRows('cert-courses-left',  1, 10, 'Certificate');
+  buildRows('cert-courses-right', 11, 10, 'Certificate');
+  buildRows('add-courses-left',   1,  8, 'Additional');
+  buildRows('add-courses-right',  9,  8, 'Additional');
+
+  // ── Reset ──────────────────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"]')
+      .forEach(el => el.value = '');
+    document.querySelectorAll('input[type="radio"]')
+      .forEach(el => el.checked = false);
+  }
+</script>
+
+</body>
+</html>
