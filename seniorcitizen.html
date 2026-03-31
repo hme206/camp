@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camp Community College – Senior Citizens Agreement Form</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+  
+  <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1>Senior Citizens Agreement Form</h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <div class="form-body">
+
+ 
+
+    <!-- Instructions -->
+
+    <div class="instructions" role="note" aria-label="Form instructions">
+
+      This form must be filled out and approved before the start of classes. Once approved you will be enrolled
+
+      on a space-available basis after all tuition-paying students have been accommodated. Only exception to
+
+      this procedure is when the senior citizen has completed <strong>75%</strong> of the requirements for the degree.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Semester Selection -->
+
+    <fieldset>
+
+      <legend>Semester</legend>
+
+      <div class="field-row cols-3" style="margin-top:.75rem;">
+
+        <div>
+
+          <label for="fall-year">Fall</label>
+
+          <input type="text" id="fall-year" name="fall_year" placeholder="Year (e.g. 2025)" autocomplete="off">
+
+        </div>
+
+        <div>
+
+          <label for="spring-year">Spring</label>
+
+          <input type="text" id="spring-year" name="spring_year" placeholder="Year (e.g. 2026)" autocomplete="off">
+
+        </div>
+
+        <div>
+
+          <label for="summer-year">Summer</label>
+
+          <input type="text" id="summer-year" name="summer_year" placeholder="Year (e.g. 2026)" autocomplete="off">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Personal Information -->
+
+    <fieldset>
+
+      <legend>Personal Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="date">Date <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="date" name="date" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="ssn">SSN <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="ssn" name="ssn" autocomplete="off" aria-required="true" placeholder="XXX-XX-XXXX" maxlength="11">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="emplid">Emplid ID <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="emplid" name="emplid" autocomplete="off" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="dob">Date of Birth <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="dob" name="date_of_birth" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="address">Address <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="address" name="address" autocomplete="street-address" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="home-phone">Home Phone</label>
+
+          <input type="text" id="home-phone" name="home_phone" autocomplete="tel" placeholder="(___) ___-____">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="address2">Address (line 2)</label>
+
+          <input type="text" id="address2" name="address2" autocomplete="off">
+
+        </div>
+
+        <div>
+
+          <label for="work-phone">Work Phone</label>
+
+          <input type="text" id="work-phone" name="work_phone" autocomplete="tel" placeholder="(___) ___-____">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Eligibility Option 1: Free Tuition for Credit Courses -->
+
+    <fieldset>
+
+      <legend>Option 1 — Free Tuition &amp; Fees for Credit Courses</legend>
+
+      <div style="display:flex;align-items:flex-start;gap:.75rem;margin-top:.75rem;margin-bottom:.75rem;">
+
+       <input type="checkbox" id="certify-credit" name="certify_credit"
+
+               style="width:1.2rem;height:1.2rem;margin-top:.15rem;accent-color:var(--navy);flex-shrink:0;cursor:pointer;"
+
+               aria-describedby="certify-credit-text">
+
+        <label for="certify-credit" id="certify-credit-text"
+
+               style="font-size:.9rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--text);cursor:pointer;">
+
+          I hereby certify that I am eligible for free tuition and fees for credit courses, part-time, or full-time.
+
+          I am a legal resident of Virginia and I have a taxable income not exceeding ($23,850) for Federal income
+
+          tax purpose for the year preceding the year in which enrollment is sought.
+
+        </label>
+
+      </div>
+
+ 
+
+      <!-- Credit Course Table -->
+
+     
+         <div class="course-table-section">
+
+            <table class="course-table-section">
+
+        <colgroup>
+
+          <col class="col-code" width="15%">
+
+          <col class="col-dept" width="10%">
+          <col class="col-cno"  width="10%">
+          <col class="col-sect" width="10%">
+          <col class="col-campus" width="10%">
+          <col class="col-daytime" width="35%">
+          <col class="col-credits" width="20%">
+
+        </colgroup>
+
+        <!-- WCAG fix: caption replaces aria-label as the accessible name for the table -->
+        <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+
+          Courses 
+        </caption>
+
+        <thead>
+
+          <tr>
+
+            <th scope="col">Course Code</th>
+
+            <th scope="col">Dept.</th>
+
+            <th scope="col">Course No.</th>
+
+            <th scope="col">Section</th>
+
+            <th scope="col">Campus</th>
+
+            <th scope="col">Day / Time</th>
+
+            <th scope="col">Credits</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 course code" name="d_code_1" placeholder="35624"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 department" name="d_dept_1" placeholder="ENG"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 course number" name="d_cno_1" placeholder="101"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 section" name="d_sect_1" placeholder="01"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 campus" name="d_campus_1" placeholder="A"></td>
+
+
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 day and time" name="d_daytime_1" placeholder="MWF 10:00-11:00"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 1 credits" name="d_credits_1" placeholder="3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 course code" name="d_code_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 department" name="d_dept_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 course number" name="d_cno_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 section" name="d_sect_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 campus" name="d_campus_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 day and time" name="d_daytime_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 2 credits" name="d_credits_2"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 course code" name="d_code_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 department" name="d_dept_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 course number" name="d_cno_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 section" name="d_sect_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 campus" name="d_campus_3"></td>
+
+     
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 day and time" name="d_daytime_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 3 credits" name="d_credits_3"></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 course code" name="d_code_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 department" name="d_dept_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 course number" name="d_cno_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 section" name="d_sect_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 campus" name="d_campus_4"></td>
+
+        
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 day and time" name="d_daytime_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Add row 4 credits" name="d_credits_4"></td>
+
+          </tr>
+
+          <tr class="total-row">
+
+            <td colspan="6" style="text-align:right;font-weight:700;font-size:.78rem;padding:.3rem .5rem;border:1px solid #c8d4e2;">Total Credits </td>
+
+            <td><input class="ct-input" type="text" id="total-dropped" aria-label="Total credits added" name="total_dropped" style="font-weight:700;"></td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    
+    
+
+    </fieldset>
+
+ 
+
+    <!-- Eligibility Option 2: Free Tuition for Audit -->
+
+    <fieldset>
+
+      <legend>Option 2 — Free Tuition for Audit / Non-Credit Courses</legend>
+
+      <div style="display:flex;align-items:flex-start;gap:.75rem;margin-top:.75rem;margin-bottom:.75rem;">
+
+        <input type="checkbox" id="certify-audit" name="certify_audit"
+
+               style="width:1.2rem;height:1.2rem;margin-top:.15rem;accent-color:var(--navy);flex-shrink:0;cursor:pointer;"
+
+               aria-describedby="certify-audit-text">
+
+        <label for="certify-audit" id="certify-audit-text"
+
+               style="font-size:.9rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--text);cursor:pointer;">
+
+          I hereby certify that I am eligible for free tuition for <strong>Audit</strong> of credit courses or
+
+          for taking non-credit courses (not to exceed three courses per semester). I am 60 years of age or
+
+          older and I am a legal resident of Virginia.
+
+        </label>
+
+      </div>
+
+ 
+
+      <!-- Audit Course Table -->
+  <div class="sub-table-wrap" style="margin-top:.5rem;margin-bottom:.75rem;">
+
+            <table class="sub-table-wrap" aria-label="Audit courses — up to 3 rows">
+
+        <colgroup>
+
+          <col class="col-code" width="15%">
+
+          <col class="col-dept" width="10%">
+          <col class="col-cno"  width="10%">
+          <col class="col-sect" width="10%">
+          <col class="col-campus" width="10%">
+          <col class="col-daytime" width="35%">
+          <col class="col-credits" width="20%">
+
+        </colgroup>
+
+        <!-- WCAG fix: caption replaces aria-label as the accessible name for the table -->
+        <caption style="font-family:var(--font-ui);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#000;text-align:left;padding:.4rem 0 .3rem;">
+
+          Courses 
+        </caption>
+
+        <thead>
+
+          <tr>
+
+            <th scope="col">Course Code</th>
+
+            <th scope="col">Dept.</th>
+
+            <th scope="col">Course No.</th>
+
+            <th scope="col">Section</th>
+
+            <th scope="col">Campus</th>
+
+            <th scope="col">Day / Time</th>
+
+            <th scope="col">Audit</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 1 course code" name="d_code_1" placeholder="35624"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 1 department" name="d_dept_1" placeholder="ENG"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 1 course number" name="d_cno_1" placeholder="101"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 1 section" name="d_sect_1" placeholder="01"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 1 campus" name="d_campus_1" placeholder="A"></td>
+
+
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 1 day and time" name="d_daytime_1" placeholder="MWF 10:00-11:00"></td>
+
+            <td><center> X </center></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 2 course code" name="d_code_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 2 department" name="d_dept_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 2 course number" name="d_cno_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 2 section" name="d_sect_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 2 campus" name="d_campus_2"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 2 day and time" name="d_daytime_2"></td>
+
+            <td><center> X</center></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 3 course code" name="d_code_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 3 department" name="d_dept_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 3 course number" name="d_cno_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 3 section" name="d_sect_3"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 3 campus" name="d_campus_3"></td>
+
+     
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 3 day and time" name="d_daytime_3"></td>
+
+            <td><center> X</center></td>
+
+          </tr>
+
+          <tr>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 4 course code" name="d_code_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 4 department" name="d_dept_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 4 course number" name="d_cno_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 4 section" name="d_sect_4"></td>
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 4 campus" name="d_campus_4"></td>
+
+        
+
+            <td><input class="ct-input" type="text" aria-label="Audit row 4 day and time" name="d_daytime_4"></td>
+
+            <td> <center> X </center></td>
+
+          </tr>
+
+        
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    
+    
+
+
+      <p style="font-family:var(--font-ui);font-size:.8rem;color:var(--muted);margin-top:.25rem;">
+
+        <strong>X = No Grade received</strong>
+
+      </p>
+
+    </fieldset>
+
+ 
+
+    <!-- Totals & Signature -->
+
+    <fieldset>
+
+      <legend>Totals &amp; Signature</legend>
+
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+
+        <div>
+
+          <label for="total-credits">Total Credits</label>
+
+          <input type="text" id="total-credits" name="total_credits" autocomplete="off" placeholder="e.g. 6">
+
+        </div>
+
+        <div>
+
+          <label for="total-tuition">Total Tuition ($)</label>
+
+          <input type="text" id="total-tuition" name="total_tuition" autocomplete="off" placeholder="e.g. 0.00">
+
+        </div>
+
+      </div>
+
+      <div class="sig-date-row" style="margin-top:.75rem;">
+
+        <label for="student-sig">Student Signature <span class="req" aria-hidden="true">*</span>:</label>
+
+        <input type="text" id="student-sig" name="student_signature" aria-required="true"
+
+               placeholder="Type full name as signature" style="flex:1;min-width:0;">
+
+      </div>
+
+    </fieldset>
+
+ 
+
+  </div><!-- /.form-body -->
+
+ 
+
+  <!-- Save / Print -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div><!-- /.form-wrapper -->
+
+ 
+
+<style>
+
+  @media print {
+
+    .form-body   { padding: .35rem .55rem; }
+
+    fieldset     { margin-bottom: .3rem; padding: .3rem .5rem; }
+
+    .field-row   { margin-top: .2rem; gap: .15rem .4rem; }
+
+    textarea     { min-height: 24px !important; }
+
+    .instructions { display: none !important; }
+
+    thead tr th  { padding: .25rem .3rem; font-size: .7rem; }
+
+    tbody td     { padding: .15rem .25rem; }
+
+    .tbl-input   { padding: .15rem .25rem; font-size: .8rem; }
+
+  }
+
+</style>
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+</script>
+
+ 
+
+</body>
+
+</html>
