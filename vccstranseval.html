@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Paul D. Camp Community College – Transcript Evaluation Form (VCCS)</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="forms.css">
+
+</head>
+
+<body>
+
+<div class="form-wrapper" role="main">
+
+ 
+
+  <!-- Header -->
+
+    <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h1><center>Transcript Evaluation Form (VCCS)</center></h1>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+ 
+
+  <main class="form-body" id="main-form">
+
+ 
+
+    <!-- Instructions (hidden on print) -->
+
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+
+      If you attended a VCCS College, fill out the <strong>Transcript Evaluation Form</strong> and
+
+      include the VCCS College you attended. The transcript will be evaluated and processed within
+
+      <strong>5 business days</strong>.
+
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+
+    </div>
+
+ 
+
+    <!-- Directions (visible on print) -->
+
+    <div class="policy-notice" role="note" aria-label="Directions">
+
+      <p><strong>Directions:</strong> If you attended a VCCS College, fill out the Transcript Evaluation Form
+
+      and include the VCCS College you attended. The transcript will be evaluated and processed within
+
+      5 business days.</p>
+
+    </div>
+
+ 
+
+    <!-- Student Information -->
+
+    <fieldset>
+
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="student-id">Student I.D. (Empl. I.D.) <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-id" name="student_id" autocomplete="off"
+
+                 aria-required="true" maxlength="7">
+
+        </div>
+
+        <div>
+
+          <label for="request-date">Date of Request <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="date" id="request-date" name="request_date" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-1">
+
+        <div>
+
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="program">Program of Study <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="program" name="program" aria-required="true">
+
+        </div>
+
+        <div>
+
+          <label for="student-sig">Student Signature <span class="req" aria-hidden="true">*</span></label>
+
+          <input type="text" id="student-sig" name="student_signature" aria-required="true"
+
+                 aria-label="Student signature">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- VCCS College Selection -->
+
+    <fieldset>
+
+      <legend>VCCS College Attended</legend>
+
+      <p class="section-subhead no-print">Select all VCCS colleges whose transcripts are to be evaluated.</p>
+
+      <p class="vccs-print-label" aria-hidden="true"><strong>Check the college you attended:</strong></p>
+
+ 
+
+      <div class="vccs-grid" role="group" aria-label="VCCS College selection">
+
+        <label><input type="checkbox" name="vccs" value="blue_ridge"> Blue Ridge</label>
+
+        <label><input type="checkbox" name="vccs" value="mountain_empire"> Mountain Empire</label>
+
+        <label><input type="checkbox" name="vccs" value="southwest_virginia"> Southwest Virginia</label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="central_virginia"> Central Virginia</label>
+
+        <label><input type="checkbox" name="vccs" value="new_river"> New River</label>
+
+        <label><input type="checkbox" name="vccs" value="virginia_peninsula"> Virginia Peninsula</label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="mountain_gateway"> Mountain Gateway</label>
+
+        <label><input type="checkbox" name="vccs" value="northern_virginia"> Northern Virginia</label>
+
+        <label><input type="checkbox" name="vccs" value="tidewater"> Tidewater</label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="eastern_shore"> Eastern Shore</label>
+
+        <label><input type="checkbox" name="vccs" value="patrick_henry"> Patrick and Henry</label>
+
+        <label><input type="checkbox" name="vccs" value="virginia_highlands"> Virginia Highlands</label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="germanna"> Germanna</label>
+
+        <label><input type="checkbox" name="vccs" value="piedmont_virginia"> Piedmont Virginia</label>
+
+        <label><input type="checkbox" name="vccs" value="virginia_western"> Virginia Western</label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="reynolds_cc"> Reynolds CC</label>
+
+        <label><input type="checkbox" name="vccs" value="rappahannock"> Rappahannock</label>
+
+        <label><input type="checkbox" name="vccs" value="wytheville"> Wytheville</label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="brightpoint_cc"> Brightpoint CC</label>
+
+        <label><input type="checkbox" name="vccs" value="southside_virginia"> Southside Virginia</label>
+
+        <label><!-- spacer --></label>
+
+ 
+
+        <label><input type="checkbox" name="vccs" value="laurel_ridge"> Laurel Ridge</label>
+
+        <label><!-- spacer --></label>
+
+        <label><!-- spacer --></label>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+    <!-- Registrar Office Use Only -->
+
+    <fieldset class="office-section">
+
+      <legend>For Office Use Only — College Registrar Office</legend>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="registrar-sig">Registrar</label>
+
+          <input type="text" id="registrar-sig" name="registrar_signature" autocomplete="off">
+
+        </div>
+
+        <div>
+
+          <label for="registrar-date">Date</label>
+
+          <input type="date" id="registrar-date" name="registrar_date">
+
+        </div>
+
+      </div>
+
+      <div class="field-row cols-2">
+
+        <div>
+
+          <label for="processed-by">Processed By</label>
+
+          <input type="text" id="processed-by" name="processed_by" autocomplete="off">
+
+        </div>
+
+        <div>
+
+          <label for="processed-date">Date</label>
+
+          <input type="date" id="processed-date" name="processed_date">
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+ 
+
+  </main>
+
+ 
+
+  <!-- Save / Print -->
+
+  <div class="save-btn-row no-print">
+
+    <button class="btn-print" type="button" onclick="window.print()"
+
+            aria-label="Save or print this form as a PDF">
+
+      Print to PDF
+
+    </button>
+
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+
+  </div>
+
+ 
+
+</div><!-- /.form-wrapper -->
+
+ 
+
+<script>
+
+function resetForm() {
+
+  if (!confirm('Clear all fields and start over?')) return;
+
+  document.querySelectorAll('input[type="text"], input[type="date"]')
+
+    .forEach(el => { el.value = ''; });
+
+  document.querySelectorAll('input[type="checkbox"]')
+
+    .forEach(el => { el.checked = false; });
+
+}
+
+</script>
+
+ 
+
+<style>
+
+/* ── Page-specific styles ────────────────────────────────────────── */
+
+ 
+
+.policy-notice {
+
+  font-size: .88rem;
+
+  color: var(--text);
+
+  line-height: 1.55;
+
+  margin-bottom: 1.25rem;
+
+  padding-bottom: .75rem;
+
+  border-bottom: 1px solid var(--border);
+
+}
+
+ 
+
+.section-subhead {
+
+  font-family: var(--font-ui);
+
+  font-size: .8rem;
+
+  color: var(--muted);
+
+  margin-bottom: .75rem;
+
+}
+
+ 
+
+.vccs-print-label {
+
+  font-family: var(--font-ui);
+
+  font-size: .85rem;
+
+  margin-bottom: .6rem;
+
+  display: none; /* shown only on print */
+
+}
+
+ 
+
+/* 3-column checkbox grid */
+
+.vccs-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: .45rem .75rem;
+
+}
+
+.vccs-grid label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: .5rem;
+
+  text-transform: none;
+
+  letter-spacing: normal;
+
+  font-size: .92rem;
+
+  font-weight: 400;
+
+  cursor: pointer;
+
+  color: var(--text);
+
+}
+
+input[type="checkbox"] {
+
+  width: 1.05rem;
+
+  height: 1.05rem;
+
+  accent-color: var(--navy);
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+}
+
+input[type="checkbox"]:focus-visible {
+
+  outline: 3px solid var(--focus);
+
+  outline-offset: 2px;
+
+}
+
+ 
+
+/* ── Print overrides ─────────────────────────────────────────────── */
+
+@media print {
+
+  .policy-notice { font-size: .78rem; margin-bottom: .5rem; padding-bottom: .35rem; }
+
+  .vccs-print-label { display: block !important; font-size: .78rem; margin-bottom: .35rem; }
+
+  .vccs-grid { gap: .2rem .5rem; }
+
+  .vccs-grid label { font-size: .78rem; }
+
+  input[type="checkbox"] { width: .85rem; height: .85rem; }
+
+}
+
+ 
+
+/* ── Mobile ───────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+
+  .vccs-grid { grid-template-columns: repeat(2, 1fr); }
+
+}
+
+</style>
+
+ 
+
+</body>
+
+</html>
