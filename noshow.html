@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Show Form | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+
+<div class="form-wrapper">
+
+  <!-- Header -->
+   <header>
+
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+
+    <h2><center>Faculty: Non-Attendance Form    </center></h2>
+
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+
+      ↺ Reset Form
+
+    </button>
+
+  </header>
+
+  <!-- Navigation -->
+  <nav class="no-print" aria-label="Site navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-body">
+
+    <!-- Instructions -->
+    <div class="instructions" role="note" aria-label="Form instructions">
+      <strong>Note:</strong> This form is to be submitted <strong>"immediately after the second-class session for students who never attended class."</strong>
+    </div>
+
+    <!-- ── Instructor Information ── -->
+    <fieldset>
+      <legend>Instructor Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="instructor-name">Instructor's Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="instructor-name" name="instructor-name" autocomplete="name" required aria-required="true">
+        </div>
+        <div>
+          <label for="report-date">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="date" id="report-date" name="report-date" required aria-required="true">
+        </div>
+      </div>
+      <div class="field-row cols-1" style="margin-top:.75rem;">
+        <div>
+          <fieldset class="ns-inline-fieldset">
+            <legend>Semester <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></legend>
+            <div class="radio-group">
+              <label><input type="radio" name="semester" value="fall" required> Fall</label>
+              <label><input type="radio" name="semester" value="spring"> Spring</label>
+              <label><input type="radio" name="semester" value="summer"> Summer</label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Student No-Show Entries ── -->
+    <fieldset>
+      <legend>Student No-Show Entries</legend>
+      <p class="ns-table-note" id="ns-table-desc">List each student who never attended class.</p>
+
+      <div class="sub-table-wrap" role="region" aria-labelledby="ns-table-desc">
+        <table aria-describedby="ns-table-desc">
+          <col class="col-num">
+          <col style="width:120px;">
+          <col style="width:120px;">
+          <col style="width:70px;">
+          <col style="width:100px;">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Student Empl ID</th>
+              <th scope="col">Dept. and Course No.</th>
+              <th scope="col">Section</th>
+              <th scope="col">Class Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><input class="tbl-input" type="text" name="emplid_1"   aria-label="Row 1 Student Empl ID"              inputmode="numeric" placeholder="1234567"></td>
+              <td><input class="tbl-input" type="text" name="course_1"   aria-label="Row 1 Department and Course Number" placeholder="ENG 111"></td>
+              <td><input class="tbl-input" type="text" name="section_1"  aria-label="Row 1 Section" placeholder="74"></td>
+              <td><input class="tbl-input" type="text" name="classnum_1" aria-label="Row 1 Class Number"                 inputmode="numeric" placeholder="12345"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><input class="tbl-input" type="text" name="emplid_2"   aria-label="Row 2 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_2"   aria-label="Row 2 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_2"  aria-label="Row 2 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_2" aria-label="Row 2 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><input class="tbl-input" type="text" name="emplid_3"   aria-label="Row 3 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_3"   aria-label="Row 3 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_3"  aria-label="Row 3 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_3" aria-label="Row 3 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><input class="tbl-input" type="text" name="emplid_4"   aria-label="Row 4 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_4"   aria-label="Row 4 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_4"  aria-label="Row 4 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_4" aria-label="Row 4 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><input class="tbl-input" type="text" name="emplid_5"   aria-label="Row 5 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_5"   aria-label="Row 5 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_5"  aria-label="Row 5 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_5" aria-label="Row 5 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><input class="tbl-input" type="text" name="emplid_6"   aria-label="Row 6 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_6"   aria-label="Row 6 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_6"  aria-label="Row 6 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_6" aria-label="Row 6 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><input class="tbl-input" type="text" name="emplid_7"   aria-label="Row 7 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_7"   aria-label="Row 7 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_7"  aria-label="Row 7 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_7" aria-label="Row 7 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><input class="tbl-input" type="text" name="emplid_8"   aria-label="Row 8 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_8"   aria-label="Row 8 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_8"  aria-label="Row 8 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_8" aria-label="Row 8 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td><input class="tbl-input" type="text" name="emplid_9"   aria-label="Row 9 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_9"   aria-label="Row 9 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_9"  aria-label="Row 9 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_9" aria-label="Row 9 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td><input class="tbl-input" type="text" name="emplid_10"   aria-label="Row 10 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_10"   aria-label="Row 10 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_10"  aria-label="Row 10 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_10" aria-label="Row 10 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td><input class="tbl-input" type="text" name="emplid_11"   aria-label="Row 11 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_11"   aria-label="Row 11 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_11"  aria-label="Row 11 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_11" aria-label="Row 11 Class Number"                 inputmode="numeric"></td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td><input class="tbl-input" type="text" name="emplid_12"   aria-label="Row 12 Student Empl ID"              inputmode="numeric"></td>
+              <td><input class="tbl-input" type="text" name="course_12"   aria-label="Row 12 Department and Course Number"></td>
+              <td><input class="tbl-input" type="text" name="section_12"  aria-label="Row 12 Section"></td>
+              <td><input class="tbl-input" type="text" name="classnum_12" aria-label="Row 12 Class Number"                 inputmode="numeric"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+
+    <!-- ── Courses Where All Students Attended ── -->
+<fieldset>
+  <legend>Courses Where All Students Attended</legend>
+  <div class="field-row cols-1">
+    <div>
+      <label for="all-attended">Courses where all students attended or completed work in the first week</label>
+      <textarea id="all-attended" name="all-attended" rows="1" style="overflow:hidden;resize:none;"></textarea>
+    </div>
+  </div>
+</fieldset>
+
+    <!-- ── Office Use Only ── -->
+    <fieldset class="office-section">
+      <legend>Office of Admissions Use Only</legend>
+      <p class="ns-office-note">The section below is to be filled out by the <strong>Office of Admissions only</strong>.</p>
+      <div class="sig-date-row">
+        <label for="processed-by">Processed By</label>
+        <input type="text" id="processed-by" name="processed-by">
+        <label for="processed-date">Date</label>
+        <input type="date" id="processed-date" name="processed-date">
+      </div>
+    </fieldset>
+
+    <p class="req-note"><span class="req" aria-hidden="true">*</span> Required fields</p>
+
+  </div><!-- /.form-body -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+<script>
+  document.getElementById('all-attended').addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+  });
+</script>
+<style>
+  /* ── No Show Form — page-specific styles only ── */
+
+  /* Nested fieldset for semester radio group — strip default border/padding */
+  .ns-inline-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ns-inline-fieldset legend {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0;
+    margin-bottom: .3rem;
+  }
+
+  /* Helper notes */
+  .ns-table-note,
+  .ns-office-note {
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    color: var(--muted);
+    margin-bottom: .75rem;
+  }
+  .ns-office-note strong { color: var(--text); }
+
+  /* ── Print overrides ── */
+  @media print {
+    .ns-table-note,
+    .ns-office-note  { font-size: .7rem; margin-bottom: .3rem; }
+    .ns-inline-fieldset legend { font-size: .68rem; }
+  }
+</style>
+
+</body>
+</html>
