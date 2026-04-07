@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Dual Enrollment Parental Consent Form</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+
+  /* ── Consent statement blocks ── */
+  .consent-block {
+    background: var(--light);
+    border-left: 4px solid var(--navy);
+    border-radius: 0 4px 4px 0;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0 1.25rem;
+    font-size: .95rem;
+    font-style: italic;
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+  }
+
+  .consent-block strong {
+    font-style: normal;
+  }
+
+  /* ── Alert banner (both must sign) ── */
+  .both-sign-banner {
+    background: var(--navy);
+    color: #000000;
+    text-align: center;
+    padding: .75rem 1.5rem;
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    margin-bottom: 1.5rem;
+    border-radius: 3px;
+  }
+
+  /* ── Signature fieldset overrides ── */
+  .sig-fieldset {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sig-fieldset legend {
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #000000;
+    padding: 0 .5rem;
+  }
+
+  /* ── Signature line row ── */
+  .sig-line-row {
+    display: flex;
+    align-items: flex-end;
+    gap: .75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .sig-line-row label {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .sig-line {
+    flex: 1;
+    min-width: 160px;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    padding: .15rem .3rem;
+    color: var(--text);
+    border-radius: 0;
+  }
+
+  .sig-line:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--white);
+  }
+
+  .sig-date-field {
+    width: 160px;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    padding: .15rem .3rem;
+    color: var(--text);
+    border-radius: 0;
+  }
+
+  .sig-date-field:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--white);
+  }
+
+  /* ── Contact footer block ── */
+  .contact-block {
+    text-align: right;
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+
+  .contact-block a {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+
+  .contact-block a:hover {
+    color: var(--mid);
+  }
+
+  .contact-block a:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── Revised note ── */
+  .revised-note {
+    font-family: var(--font-ui);
+    font-size: .72rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    text-align: right;
+  }
+
+  /* ── Under-18 notice ── */
+  .under18-notice {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    padding: .6rem .85rem;
+    border: 1.5px solid var(--navy);
+    border-radius: 3px;
+    background: var(--light);
+  }
+
+  /* ── Print styles ── */
+  @media print {
+    @page { size: letter portrait; margin: .4in .5in; }
+
+    nav,
+    .no-print {
+      display: none !important;
+      visibility: hidden;
+    }
+
+    body { margin: 0; padding: 0; font-size: 13px; }
+    html, body { height: auto !important; overflow: visible !important; }
+
+    .form-wrapper { box-shadow: none; max-width: 100%; }
+    .save-btn-row { display: none !important; }
+    .instructions { display: none !important; }
+
+    .form-header { padding: .4rem .6rem .35rem; border-bottom-width: 3px; }
+    .form-header h1 { font-size: 1.2rem; }
+
+    .form-body { padding: .4rem .6rem; }
+
+    .both-sign-banner {
+      font-size: .95rem;
+      padding: .5rem .75rem;
+      margin-bottom: .75rem;
+    }
+
+    fieldset, .sig-fieldset { padding: .4rem .6rem; margin-bottom: .45rem; }
+    legend { font-size: .68rem; }
+    label { font-size: .68rem; margin-bottom: .1rem; }
+    .field-row { gap: .3rem .6rem; margin-top: .35rem; }
+
+    input[type="text"], input[type="date"] {
+      font-size: .82rem;
+      padding: .15rem .3rem;
+      border: 1px solid #999 !important;
+      background: transparent !important;
+    }
+    input::placeholder { color: transparent !important; }
+
+    .consent-block {
+      font-size: .82rem;
+      padding: .6rem .85rem;
+      margin: .5rem 0 .75rem;
+    }
+
+    .sig-line, .sig-date-field {
+      font-size: .82rem;
+    }
+
+    .under18-notice { font-size: .78rem; padding: .4rem .6rem; }
+    .contact-block { font-size: .78rem; }
+    .revised-note { font-size: .65rem; }
+    .req-note { font-size: .68rem; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .form-body { padding: 1.25rem 1rem; }
+    .field-row.cols-2, .field-row.cols-3 { grid-template-columns: 1fr; }
+    .save-btn-row { padding: 1rem; }
+    .form-header { flex-direction: column; align-items: flex-start; }
+    .sig-line-row { flex-direction: column; align-items: flex-start; }
+    .sig-line, .sig-date-field { width: 100%; min-width: unset; }
+  }
+
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header class="form-header">
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College – Grow Your Future logo">
+    <div class="form-header-text">
+      <div class="college">Paul D. Camp Community College</div>
+      <h1>Dual Enrollment Parental Consent Form</h1>
+      <div class="revised">July 2019</div>
+    </div>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Nav -->
+  <nav aria-label="Site navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+      Both the student and a parent or guardian must sign this form. Fill in all required fields
+      (<abbr title="required">*</abbr>), then click <strong>Print to PDF</strong> at the bottom and
+      save as a PDF to email or submit to the Dual Enrollment Coordinator.
+    </div>
+
+    <!-- Required field note -->
+    <p class="req-note"><span class="req" aria-hidden="true">*</span> Indicates a required field</p>
+
+    <!-- Both must sign banner -->
+    <div class="both-sign-banner" role="note" aria-label="Important notice">
+      Both the student and a parent or guardian must sign this form!
+    </div>
+
+    <!-- Purpose statement -->
+    <p class="consent-block" id="purpose-statement">
+      Consent to administer placement testing and to allow possible enrollment in college courses at
+      Paul D. Camp Community College for the following student:
+    </p>
+
+    <!-- ── Student Information ── -->
+    <fieldset aria-describedby="purpose-statement">
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-3" style="grid-template-columns: 2fr 2fr .6fr;">
+        <div>
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name" aria-required="true" placeholder="Smith">
+        </div>
+        <div>
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name" aria-required="true" placeholder="Jane">
+        </div>
+        <div>
+          <label for="middle-initial">MI</label>
+          <input type="text" id="middle-initial" name="middle_initial" maxlength="1" autocomplete="additional-name" aria-label="Middle initial" placeholder="A">
+        </div>
+      </div>
+
+      <div class="field-row cols-2">
+        <div>
+          <label for="high-school">High School <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="high-school" name="high_school" autocomplete="organization" aria-required="true" placeholder="Franklin High School">
+        </div>
+        <div>
+          <label for="grad-year">Expected HS Graduation Year <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="grad-year" name="grad_year" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" aria-required="true" placeholder="2026" aria-describedby="grad-year-hint">
+          <span id="grad-year-hint" class="sr-only">Enter a 4-digit year, for example 2026</span>
+        </div>
+      </div>
+
+      <div class="field-row cols-3">
+        <div>
+          <label for="dob">Date of Birth <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="date" id="dob" name="date_of_birth" autocomplete="bday" aria-required="true">
+        </div>
+        <div>
+          <label for="age">Age <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="age" name="age" maxlength="2" inputmode="numeric" pattern="[0-9]{1,2}" aria-required="true" placeholder="16" aria-describedby="age-hint">
+          <span id="age-hint" class="sr-only">Enter your age in years</span>
+        </div>
+        <div>
+          <label for="college-id">College (SIS) ID#</label>
+          <input type="text" id="college-id" name="college_sis_id" maxlength="20" autocomplete="off" placeholder="1234567" aria-describedby="college-id-hint">
+          <span id="college-id-hint" class="sr-only">Enter your College SIS ID number if you have one</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Student Consent & Signature ── -->
+    <fieldset class="sig-fieldset">
+      <legend>Student Consent &amp; Signature</legend>
+
+      <div class="consent-block" id="student-consent-text">
+        As a dual enrollment student, I understand that dual enrollment courses are college courses offered
+        through Paul D. Camp Community College. I am fully aware that the grade(s) I earn in these classes
+        will be part of my permanent college record and could therefore affect my college standing and
+        eligibility for future financial aid or guaranteed admissions agreements.
+      </div>
+
+      <div class="sig-line-row">
+        <label for="student-sig">Signature of Student <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input
+          type="text"
+          id="student-sig"
+          name="student_signature"
+          class="sig-line"
+          aria-required="true"
+          aria-describedby="student-consent-text"
+          autocomplete="off"
+          placeholder="Type full name as signature">
+        <label for="student-sig-date" style="margin-bottom:0;">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input
+          type="date"
+          id="student-sig-date"
+          name="student_sig_date"
+          class="sig-date-field"
+          aria-required="true">
+      </div>
+    </fieldset>
+
+    <!-- ── Parent / Guardian Consent & Signature ── -->
+    <fieldset class="sig-fieldset">
+      <legend>Parent / Guardian Consent &amp; Signature</legend>
+
+      <div class="consent-block" id="parent-consent-text">
+        As a parent/guardian of the above student, I agree to allow placement testing and enrollment into
+        dual enrollment courses with PDCCC. I understand these classes are located at either the high school,
+        online or at a designated campus or site. Additionally, I understand that dual enrollment classes are
+        college level courses and final grades will be part of my child's permanent college record.
+        <strong>I further certify that I and the above student have completed the domicile form included
+        with the application for admission, to determine in-state residency.</strong>
+      </div>
+
+      <div class="under18-notice" role="note">
+        The signature of a parent or guardian is required for all students under the age of 18.
+      </div>
+
+      <div class="sig-line-row">
+        <label for="parent-sig">Signature of Parent or Guardian <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input
+          type="text"
+          id="parent-sig"
+          name="parent_signature"
+          class="sig-line"
+          aria-required="true"
+          aria-describedby="parent-consent-text"
+          autocomplete="off"
+          placeholder="Type full name as signature">
+        <label for="parent-sig-date" style="margin-bottom:0;">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input
+          type="date"
+          id="parent-sig-date"
+          name="parent_sig_date"
+          class="sig-date-field"
+          aria-required="true">
+      </div>
+    </fieldset>
+
+    <!-- Contact info -->
+    <div class="contact-block">
+      <a href="mailto:dualenrollment@pdc.edu">dualenrollment@pdc.edu</a><br>
+      Dual Enrollment Coordinator
+    </div>
+
+    <p class="revised-note">July 2019</p>
+
+  </main><!-- /.form-body -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  // ── Reset form ───────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"]')
+      .forEach(el => { el.value = ''; });
+  }
+</script>
+
+</body>
+</html>
