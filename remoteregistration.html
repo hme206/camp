@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Remote Registration: Class Selection Form for Dual Enrollment Students</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<style>
+
+  /* ── Semester / Yes-No checkbox rows ── */
+  .check-row {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: .6rem;
+  }
+  .check-row label {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .check-row input[type="checkbox"],
+  .check-row input[type="radio"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .check-row input[type="radio"]:focus-visible,
+  .check-row input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* inline label + field pairs (Year, Applied, etc.) */
+  .inline-field-group {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+  .inline-field-group .inline-label {
+    font-family: var(--font-ui);
+    font-size: .85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .inline-field-group input[type="text"] {
+    width: 90px;
+    padding: .35rem .5rem;
+    font-size: .95rem;
+  }
+
+  /* ── Course selection table ── */
+  .course-table-section { margin-bottom: 1rem; }
+  .course-table-section table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: .82rem;
+    table-layout: fixed;
+  }
+  .course-table-section thead th {
+    background: var(--navy);
+    color: #ffffff;
+    padding: .5rem .4rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: .78rem;
+    border: 1px solid var(--navy);
+  }
+  .course-table-section tbody tr:nth-child(odd)  { background: var(--white); }
+  .course-table-section tbody tr:nth-child(even) { background: var(--row-alt); }
+  .course-table-section tbody td {
+    padding: .3rem .35rem;
+    border: 1px solid #c8d4e2;
+    vertical-align: middle;
+  }
+  .course-table-section .total-row td {
+    background: var(--light);
+    font-weight: 700;
+    font-size: .82rem;
+    padding: .35rem .5rem;
+    border: 1px solid #c8d4e2;
+  }
+  .course-table-section .total-row td:last-child {
+    border-left: 2px solid var(--navy);
+  }
+
+  /* col widths */
+  .col-subject  { width: 70px; }
+  .col-cno      { width: 70px; }
+  .col-section  { width: 60px; }
+  .col-location { width: 90px; }
+  .col-lab      { width: 50px; }
+  .col-daytime  { width: 120px; }
+  .col-credits  { width: 60px; }
+
+  .ct-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .82rem;
+    color: var(--text);
+    padding: .1rem .2rem;
+  }
+  .ct-input:focus {
+    background: var(--white);
+    outline: 2px solid var(--focus);
+    border-radius: 2px;
+  }
+  .ct-select {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .82rem;
+    color: var(--text);
+    padding: .1rem .1rem;
+    cursor: pointer;
+  }
+  .ct-select:focus {
+    background: var(--white);
+    outline: 2px solid var(--focus);
+    border-radius: 2px;
+  }
+  .lab-cell { text-align: center; }
+  .lab-cell input[type="checkbox"] {
+    width: 1rem; height: 1rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .lab-cell input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* ── Example block ── */
+  .example-section {
+    margin: 1rem 0 1.25rem;
+    padding: .75rem 1rem;
+    border: 1.5px dashed var(--border);
+    border-radius: 4px;
+    background: var(--row-alt);
+  }
+  .example-title {
+    font-family: var(--font-ui);
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: .5rem;
+  }
+  .example-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: .8rem;
+  }
+  .example-table th {
+    background: var(--mid);
+    color: #000;
+    padding: .3rem .5rem;
+    text-align: left;
+    font-size: .75rem;
+    border: 1px solid var(--border);
+  }
+  .example-table td {
+    padding: .3rem .5rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .example-table tr:nth-child(odd) td  { background: #fff; }
+  .example-table tr:nth-child(even) td { background: var(--light); }
+
+  /* ── Payment notice ── */
+  .payment-notice {
+    border: 1.5px solid var(--navy);
+    border-radius: 3px;
+    padding: .75rem 1rem;
+    margin: 1.25rem 0;
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .payment-notice p { margin-bottom: .5rem; }
+  .payment-notice p:last-child { margin-bottom: 0; }
+  .payment-notice strong { font-weight: 700; }
+  .payment-notice em { font-style: italic; }
+
+  /* ── Tuition row ── */
+  .tuition-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: .75rem;
+  }
+  .tuition-row .inline-label {
+    font-family: var(--font-ui);
+    font-size: .82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .tuition-row input[type="date"] {
+    width: 160px;
+    padding: .3rem .5rem;
+    font-size: .9rem;
+  }
+  .tuition-row label.check-label {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-family: var(--font-ui);
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text);
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .tuition-row input[type="checkbox"] {
+    width: 1.1rem; height: 1.1rem;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .tuition-row input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* ── Signature line rows ── */
+  .sig-line-row {
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+    margin-bottom: .85rem;
+    flex-wrap: wrap;
+  }
+  .sig-line-row label.sig-label {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .sig-line {
+    flex: 1;
+    min-width: 160px;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .95rem;
+    padding: .15rem .3rem;
+    color: var(--text);
+    border-radius: 0;
+  }
+  .sig-line:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--white);
+  }
+
+  /* ── Counselor approval fieldset ── */
+  .approval-section {
+    background: #f5f0e8;
+    border: 1px solid #d4c9a8;
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .approval-section legend {
+    font-family: var(--font-ui);
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #000;
+    padding: 0 .5rem;
+  }
+
+  /* ── DE Coordinator contact ── */
+  .coordinator-block {
+    font-family: var(--font-ui);
+    font-size: .88rem;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 1rem;
+    border-top: 1px solid var(--light);
+    padding-top: .75rem;
+  }
+  .coordinator-block a {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+  .coordinator-block a:hover { color: var(--mid); }
+  .coordinator-block a:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    @page { size: letter portrait; margin: .25in .35in; }
+
+    nav, .no-print { display: none !important; visibility: hidden; }
+    body { margin: 0; padding: 0; font-size: 9px; }
+    html, body { height: auto !important; overflow: visible !important; }
+
+    .form-wrapper   { box-shadow: none; max-width: 100%; }
+    .save-btn-row   { display: none !important; }
+    .instructions   { display: none !important; }
+    .example-section { display: none !important; }
+
+    .form-header    { padding: .2rem .4rem .25rem; border-bottom-width: 0px; }
+    .form-header h1 { font-size: 1.15rem; }
+    .form-body      { padding: .2rem .4rem; }
+
+    fieldset, .approval-section { padding: .3rem .5rem; margin-bottom: .3rem; }
+    legend  { font-size: .68rem; }
+    label   { font-size: .68rem; margin-bottom: .1rem; }
+    .field-row { gap: .3rem .6rem; margin-top: .35rem; }
+
+    input[type="text"], input[type="date"] {
+      font-size: .82rem;
+      padding: .15rem .3rem;
+      border: 1px solid #999 !important;
+      background: transparent !important;
+    }
+    input::placeholder { color: transparent !important; }
+
+    .check-row  { gap: 1rem; margin-top: .3rem; }
+    .check-row label { font-size: .82rem; }
+
+    .course-table-section table { font-size: .72rem; }
+    .course-table-section thead th { padding: .25rem .3rem; font-size: .68rem; }
+    .course-table-section tbody td { padding: .15rem .25rem; }
+
+    .payment-notice { font-size: .78rem; padding: .5rem .75rem; margin: .75rem 0; }
+    .tuition-row    { gap: .75rem; }
+    .sig-line-row   { margin-bottom: .6rem; }
+    .coordinator-block { font-size: .75rem; }
+    .req-note       { font-size: .68rem; }
+
+    .approval-section { background: #f5f0e8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .form-body  { padding: 1.25rem 1rem; }
+    .field-row.cols-2, .field-row.cols-3 { grid-template-columns: 1fr; }
+    .save-btn-row { padding: 1rem; }
+    .form-header  { flex-direction: column; align-items: flex-start; }
+    .sig-line-row { flex-direction: column; align-items: flex-start; }
+    .sig-line     { width: 100%; min-width: unset; }
+    .tuition-row  { flex-direction: column; align-items: flex-start; }
+  }
+
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- ── Header ── -->
+  <header class="form-header">
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College – Grow Your Future logo">
+    <div class="form-header-text">
+      <div class="college">Paul D. Camp Community College</div>
+      <h1>Remote Registration &mdash; Class Selection Form for Dual Enrollment Students</h1>
+    </div>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- ── Navigation ── -->
+  <nav aria-label="Site navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+      Complete all required fields (<abbr title="required">*</abbr>). Enter your course selections in
+      the table, obtain school counselor approval, then click <strong>Print to PDF</strong> and submit
+      the saved PDF to the Dual Enrollment Coordinator.
+    </div>
+
+    <p class="req-note"><span class="req" aria-hidden="true">*</span> Indicates a required field</p>
+
+    <!-- ── Semester & Year ── -->
+    <fieldset>
+      <legend>Semester &amp; Year <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></legend>
+
+      <div style="display:flex; gap:2rem; flex-wrap:wrap; align-items:center; margin-top:.6rem;">
+
+        <!-- Semester checkboxes (multi-select per original form) -->
+        <div role="group" aria-labelledby="semester-label">
+          <span id="semester-label" class="inline-label" style="font-family:var(--font-ui);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:.35rem;">
+            Semester <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span>
+          </span>
+          <div class="check-row" style="margin-top:0;">
+            <label><input type="checkbox" name="semester" value="fall"   id="sem-fall">   Fall</label>
+            <label><input type="checkbox" name="semester" value="spring" id="sem-spring"> Spring</label>
+            <label><input type="checkbox" name="semester" value="summer" id="sem-summer"> Summer</label>
+          </div>
+        </div>
+
+        <!-- Year -->
+        <div class="inline-field-group">
+          <label class="inline-label" for="year">Year <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="year" name="year" maxlength="4" inputmode="numeric"
+                 pattern="[0-9]{4}" aria-required="true" placeholder="2026"
+                 aria-describedby="year-hint">
+          <span id="year-hint" class="sr-only">Enter a 4-digit academic year, for example 2026</span>
+        </div>
+
+      </div>
+    </fieldset>
+
+    <!-- ── Student Information ── -->
+    <fieldset>
+      <legend>Student Information</legend>
+
+      <!-- Applied for admission -->
+      <div style="margin-bottom:.85rem;">
+        <div role="group" aria-labelledby="applied-legend">
+          <span id="applied-legend" style="font-family:var(--font-ui);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:.35rem;">
+            Have you applied for admission? <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span>
+          </span>
+          <div class="check-row" style="margin-top:0;">
+            <label><input type="radio" name="applied" value="yes" id="applied-yes" aria-required="true"> Yes</label>
+            <label><input type="radio" name="applied" value="no"  id="applied-no">  No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name row -->
+      <div class="field-row cols-2">
+        <div>
+          <label for="last-name">Last Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="last-name" name="last_name" autocomplete="family-name"
+                 aria-required="true" placeholder="Smith">
+        </div>
+        <div>
+          <label for="first-name">First Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="first-name" name="first_name" autocomplete="given-name"
+                 aria-required="true" placeholder="Jane">
+        </div>
+      </div>
+
+      <!-- Student ID / Associates row -->
+      <div class="field-row cols-2" style="align-items:end;">
+        <div>
+          <label for="student-id">Student ID# <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="student-id" name="student_id" maxlength="20"
+                 autocomplete="off" aria-required="true" placeholder="1234567">
+        </div>
+        <div>
+          <div role="group" aria-labelledby="associates-legend">
+            <span id="associates-legend" style="font-family:var(--font-ui);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:.35rem;">
+              Earning Associate's while in High School?
+            </span>
+            <div class="check-row" style="margin-top:0;">
+              <label><input type="radio" name="associates" value="yes" id="assoc-yes"> Yes</label>
+              <label><input type="radio" name="associates" value="no"  id="assoc-no">  No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date / High School row -->
+      <div class="field-row cols-2">
+        <div>
+          <label for="form-date">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="date" id="form-date" name="form_date" aria-required="true">
+        </div>
+        <div>
+          <label for="high-school">High School <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="high-school" name="high_school" autocomplete="organization"
+                 aria-required="true" placeholder="Franklin High School">
+        </div>
+      </div>
+
+      <!-- Phone / Email row -->
+      <div class="field-row cols-2">
+        <div>
+          <label for="phone">Phone <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="phone" name="phone" autocomplete="tel" inputmode="tel"
+                 aria-required="true" placeholder="(757) 555-0100">
+        </div>
+        <div>
+          <label for="email">Email <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="email" name="email" autocomplete="email" inputmode="email"
+                 aria-required="true" placeholder="student@school.edu">
+        </div>
+      </div>
+
+    </fieldset>
+
+    <!-- ── Course Selection Table ── -->
+    <div class="course-table-section">
+      <table aria-label="Course selection — 4 rows">
+        <colgroup>
+          <col class="col-subject">
+          <col class="col-cno">
+          <col class="col-section">
+          <col class="col-location">
+          <col class="col-lab">
+          <col class="col-daytime">
+          <col class="col-credits">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Subject</th>
+            <th scope="col">Course Number</th>
+            <th scope="col">Section</th>
+            <th scope="col">Class Location</th>
+            <th scope="col">Lab?</th>
+            <th scope="col">Days and Time</th>
+            <th scope="col">Credit Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><input class="ct-input" type="text" name="subject_1"  aria-label="Row 1 subject"        placeholder="ENG"></td>
+            <td><input class="ct-input" type="text" name="cno_1"      aria-label="Row 1 course number"  placeholder="101"></td>
+            <td><input class="ct-input" type="text" name="section_1"  aria-label="Row 1 section"        placeholder="01A"></td>
+            <td>
+              <select class="ct-select" name="location_1" aria-label="Row 1 class location">
+                <option value="">— Select —</option>
+                <option value="Franklin">Franklin</option>
+                <option value="Suffolk">Suffolk</option>
+                <option value="Smithfield">Smithfield</option>
+                <option value="Online">Online</option>
+              </select>
+            </td>
+            <td class="lab-cell"><input type="checkbox" name="lab_1" aria-label="Row 1 lab section"></td>
+            <td><input class="ct-input" type="text" name="daytime_1" aria-label="Row 1 days and time"   placeholder="MWF 8:00–9:30 am"></td>
+            <td><input class="ct-input" type="text" name="credits_1" aria-label="Row 1 credit hours" inputmode="numeric" placeholder="3"></td>
+          </tr>
+
+          <tr>
+            <td><input class="ct-input" type="text" name="subject_2"  aria-label="Row 2 subject"></td>
+            <td><input class="ct-input" type="text" name="cno_2"      aria-label="Row 2 course number"></td>
+            <td><input class="ct-input" type="text" name="section_2"  aria-label="Row 2 section"></td>
+            <td>
+              <select class="ct-select" name="location_2" aria-label="Row 2 class location">
+                <option value="">— Select —</option>
+                <option value="Franklin">Franklin</option>
+                <option value="Suffolk">Suffolk</option>
+                <option value="Smithfield">Smithfield</option>
+                <option value="Online">Online</option>
+              </select>
+            </td>
+            <td class="lab-cell"><input type="checkbox" name="lab_2" aria-label="Row 2 lab section"></td>
+            <td><input class="ct-input" type="text" name="daytime_2" aria-label="Row 2 days and time"></td>
+            <td><input class="ct-input" type="text" name="credits_2" aria-label="Row 2 credit hours" inputmode="numeric"></td>
+          </tr>
+
+          <tr>
+            <td><input class="ct-input" type="text" name="subject_3"  aria-label="Row 3 subject"></td>
+            <td><input class="ct-input" type="text" name="cno_3"      aria-label="Row 3 course number"></td>
+            <td><input class="ct-input" type="text" name="section_3"  aria-label="Row 3 section"></td>
+            <td>
+              <select class="ct-select" name="location_3" aria-label="Row 3 class location">
+                <option value="">— Select —</option>
+                <option value="Franklin">Franklin</option>
+                <option value="Suffolk">Suffolk</option>
+                <option value="Smithfield">Smithfield</option>
+                <option value="Online">Online</option>
+              </select>
+            </td>
+            <td class="lab-cell"><input type="checkbox" name="lab_3" aria-label="Row 3 lab section"></td>
+            <td><input class="ct-input" type="text" name="daytime_3" aria-label="Row 3 days and time"></td>
+            <td><input class="ct-input" type="text" name="credits_3" aria-label="Row 3 credit hours" inputmode="numeric"></td>
+          </tr>
+
+          <tr>
+            <td><input class="ct-input" type="text" name="subject_4"  aria-label="Row 4 subject"></td>
+            <td><input class="ct-input" type="text" name="cno_4"      aria-label="Row 4 course number"></td>
+            <td><input class="ct-input" type="text" name="section_4"  aria-label="Row 4 section"></td>
+            <td>
+              <select class="ct-select" name="location_4" aria-label="Row 4 class location">
+                <option value="">— Select —</option>
+                <option value="Franklin">Franklin</option>
+                <option value="Suffolk">Suffolk</option>
+                <option value="Smithfield">Smithfield</option>
+                <option value="Online">Online</option>
+              </select>
+            </td>
+            <td class="lab-cell"><input type="checkbox" name="lab_5" aria-label="Row 5 lab section"></td>
+            <td><input class="ct-input" type="text" name="daytime_5" aria-label="Row 5 days and time"></td>
+            <td><input class="ct-input" type="text" name="credits_5" aria-label="Row 5 credit hours" inputmode="numeric"></td>
+          </tr>
+          <tr>
+            <td><input class="ct-input" type="text" name="subject_5"  aria-label="Row 5 subject"></td>
+            <td><input class="ct-input" type="text" name="cno_5"      aria-label="Row 5 course number"></td>
+            <td><input class="ct-input" type="text" name="section_5"  aria-label="Row 5 section"></td>
+            <td>
+              <select class="ct-select" name="location_5" aria-label="Row 5 class location">
+                <option value="">— Select —</option>
+                <option value="Franklin">Franklin</option>
+                <option value="Suffolk">Suffolk</option>
+                <option value="Smithfield">Smithfield</option>
+                <option value="Online">Online</option>
+              </select>
+            </td>
+            <td class="lab-cell"><input type="checkbox" name="lab_5" aria-label="Row 5 lab section"></td>
+            <td><input class="ct-input" type="text" name="daytime_5" aria-label="Row 5 days and time"></td>
+            <td><input class="ct-input" type="text" name="credits_5" aria-label="Row 5 credit hours" inputmode="numeric"></td>
+          </tr>
+
+          <tr class="total-row">
+            <td colspan="6" style="text-align:right;padding:.35rem .6rem;">Total Credit Hours</td>
+            <td>
+              <input class="ct-input" type="text" id="total-credits" name="total_credits"
+                     aria-label="Total credit hours" readonly tabindex="-1"
+                     style="font-weight:700;">
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  
+
+    <!-- ── School Counselor Approval ── -->
+    <fieldset class="approval-section">
+      <legend>School Counselor Approval</legend>
+
+      <div class="sig-line-row" style="margin-top:.75rem;">
+        <label class="sig-label" for="counselor-sig">
+          Counselor Signature <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span>
+        </label>
+        <input type="text" id="counselor-sig" name="counselor_signature" class="sig-line"
+               aria-required="true" autocomplete="off" placeholder="Counselor's full name">
+        <label class="sig-label" for="counselor-date" style="margin-bottom:0;">
+          Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span>
+        </label>
+        <input type="date" id="counselor-date" name="counselor_date"
+               style="width:160px;border:none;border-bottom:1.5px solid #000;background:transparent;font-family:var(--font-body);font-size:.95rem;padding:.15rem .3rem;"
+               aria-required="true">
+      </div>
+    </fieldset>
+
+    <!-- ── Payment Notice ── -->
+    <div class="payment-notice" role="note" aria-label="Payment and enrollment notice">
+      <p><strong>Payment is expected at the time of registration.</strong> Students with unpaid
+      balances will be dropped from registered courses beginning one week after the course start
+      date. Upon review of this registration, an advisor/counselor will contact you via email.</p>
+    </div>
+
+    <!-- ── Tuition ── -->
+    <fieldset>
+      <legend>Tuition</legend>
+
+    <div class="tuition-row" style="margin-top:.75rem;">
+  <span class="inline-label">Tuition to be paid to Camp:</span>
+  
+  <input type="text" id="tuition-amount" name="tuition_amount"
+         placeholder="Amount" 
+         aria-label="Tuition amount" style="margin: 0 8px; width: 120px;">
+
+  <span>by</span>
+
+  <input type="date" id="tuition-due-date" name="tuition_due_date"
+         aria-label="Tuition payment due date" style="margin-left: 8px;">
+
+  <label class="check-label" style="margin-left: 12px;">
+    <input type="checkbox" name="tuition_paid_hs" id="tuition-hs">
+    Tuition Paid to High School
+  </label>
+</div>
+
+      
+    </fieldset>
+
+    <!-- ── Parent / Guardian Signatures ── -->
+    <fieldset>
+      <legend>Parent / Guardian Information</legend>
+        <div class="consent-block" id="tuition-consent-text" style="margin-top:.75rem;">
+        <em>I understand that the above enrollment may not be covered under the dual enrollment
+        tuition waiver and that I will be expected to pay in full for the class if it does not
+        qualify.</em>
+      </div>
+      <div class="sig-line-row" style="margin-top:.75rem;">
+        <label class="sig-label" for="parent-sig">
+          Parental Signature <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span>
+        </label>
+        <input type="text" id="parent-sig" name="parent_signature" class="sig-line"
+               aria-required="true" aria-describedby="tuition-consent-text"
+               autocomplete="off" placeholder="Parent or guardian full name">
+      </div>
+
+      <div class="field-row cols-2">
+        <div>
+          <label for="parent-email">
+            Parent Email Address
+            <span style="font-weight:400;text-transform:none;letter-spacing:normal;font-size:.78rem;"> (Optional)</span>
+          </label>
+          <input type="text" id="parent-email" name="parent_email"
+                 autocomplete="email" inputmode="email" placeholder="parent@email.com">
+        </div>
+        <div>
+          <label for="parent-phone">
+            Parent Phone Number
+            <span style="font-weight:400;text-transform:none;letter-spacing:normal;font-size:.78rem;"> (Optional)</span>
+          </label>
+          <input type="text" id="parent-phone" name="parent_phone"
+                 autocomplete="tel" inputmode="tel" placeholder="(757) 555-0100">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- DE Coordinator contact -->
+    <div class="coordinator-block no-print">
+      <strong>DE Coordinator:</strong> Patina Copeland &nbsp;|&nbsp;
+      <a href="mailto:pcopeland@pdc.edu">pcopeland@pdc.edu</a> &nbsp;|&nbsp;
+      (757) 569-6081
+    </div>
+
+  </main><!-- /.form-body -->
+
+  <!-- Print Button -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()"
+            aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  // ── Auto-calculate total credit hours ────────────────────────────
+  function calcTotal() {
+    let total = 0;
+    for (let i = 1; i <= 4; i++) {
+      const val = parseFloat(document.querySelector(`[name="credits_${i}"]`)?.value) || 0;
+      total += val;
+    }
+    const tf = document.getElementById('total-credits');
+    tf.value = total > 0 ? total : '';
+  }
+  for (let i = 1; i <= 4; i++) {
+    document.querySelector(`[name="credits_${i}"]`)?.addEventListener('input', calcTotal);
+  }
+
+  // ── Reset form ────────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"]')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+      .forEach(el => { el.checked = false; });
+    document.querySelectorAll('select')
+      .forEach(el => { el.selectedIndex = 0; });
+  }
+</script>
+
+</body>
+</html>
