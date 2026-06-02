@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paul D. Camp Community College – Course Equivalency Evaluation</title>
+
+  <!--
+    NOTE: This form references the same styles.css and forms.css as the
+    parent Transcript Evaluation Form. Place this file in the same folder.
+  -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+
+  <style>
+    /* ── Page-specific styles ─────────────────────────────────────────── */
+
+    .policy-notice {
+      font-size: .88rem;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-notice p + p { margin-top: .4rem; }
+
+    .section-subhead {
+      font-family: var(--font-ui);
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: .75rem;
+    }
+
+    /* Course comparison table */
+    .course-table-wrapper {
+      overflow-x: auto;
+      margin-top: .5rem;
+    }
+    .course-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-ui);
+      font-size: .9rem;
+    }
+    .course-table thead tr {
+      background: var(--navy, #1a2e4a);
+      color: #fff;
+    }
+    .course-table thead th {
+      padding: .55rem .75rem;
+      text-align: left;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      white-space: nowrap;
+    }
+    .course-table thead th:first-child {
+      width: 30%;
+    }
+    .course-table tbody tr:nth-child(even) {
+      background: var(--row-alt, #f4f6f9);
+    }
+    .course-table tbody td {
+      padding: .4rem .55rem;
+      vertical-align: top;
+    }
+    .course-table input[type="text"],
+    .course-table input[type="number"] {
+      width: 100%;
+      padding: .3rem .45rem;
+      font-size: .88rem;
+      border: 1px solid var(--border, #ccc);
+      border-radius: 3px;
+      font-family: var(--font-ui);
+      background: #fff;
+      color: var(--text);
+      box-sizing: border-box;
+    }
+    .course-table input[type="text"]:focus,
+    .course-table input[type="number"]:focus {
+      outline: 2px solid var(--focus, #3b82f6);
+      outline-offset: 1px;
+    }
+    .course-table input[type="number"] { width: 5rem; }
+
+    .add-row-btn {
+      margin-top: .65rem;
+      background: none;
+      border: 1px dashed var(--navy, #1a2e4a);
+      color: var(--navy, #1a2e4a);
+      font-family: var(--font-ui);
+      font-size: .82rem;
+      padding: .35rem .75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .add-row-btn:hover {
+      background: var(--navy, #1a2e4a);
+      color: #fff;
+    }
+    .remove-row-btn {
+      background: none;
+      border: none;
+      color: #b00;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0 .25rem;
+      line-height: 1;
+    }
+    .remove-row-btn:hover { color: #e00; }
+
+    /* Justification */
+    .justification-section textarea {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+      padding: .55rem .65rem;
+      font-family: var(--font-body, Georgia, serif);
+      font-size: .95rem;
+      border: 1px solid var(--border, #ccc);
+      border-radius: 4px;
+      color: var(--text);
+      box-sizing: border-box;
+      line-height: 1.55;
+    }
+    .justification-section textarea:focus {
+      outline: 2px solid var(--focus, #3b82f6);
+      outline-offset: 1px;
+    }
+
+    /* Outcome radio row */
+    .outcome-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .9rem 1.5rem;
+      margin-top: .25rem;
+    }
+    .outcome-row label {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-family: var(--font-ui);
+      font-size: .93rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+    input[type="radio"] {
+      accent-color: var(--navy, #1a2e4a);
+      width: 1rem;
+      height: 1rem;
+      cursor: pointer;
+    }
+
+    /* Evaluator block */
+    .evaluator-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem 1.25rem;
+    }
+    @media (max-width: 600px) {
+      .evaluator-grid { grid-template-columns: 1fr; }
+      .course-table thead th,
+      .course-table tbody td { font-size: .78rem; padding: .3rem .35rem; }
+    }
+
+    /* ── Print overrides ────────────────────────────────────────────── */
+ @media print {
+  @page {
+    size: letter portrait;
+    margin: 0.5in;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-size: .72rem;
+    line-height: 1.2;
+  }
+
+  form, .form-wrapper, .container {
+    width: 100%;
+  }
+
+  fieldset {
+    margin-bottom: .35rem;
+    padding: .25rem .4rem;
+  }
+
+  legend {
+    font-size: .78rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select {
+    font-size: .72rem;
+    padding: .1rem .2rem;
+  }
+
+  label {
+    font-size: .72rem;
+    margin-bottom: .1rem;
+  }
+
+  .field-row {
+    gap: .35rem;
+    margin-bottom: .3rem;
+  }
+
+  /* Your existing rules */
+  .policy-notice  { font-size: .78rem; margin-bottom: .5rem; padding-bottom: .35rem; }
+  .section-subhead { display: none; }
+  .add-row-btn    { display: none; }
+  .remove-row-btn { display: none; }
+  .course-table input[type="text"],
+  .course-table input[type="number"] {
+    border: none;
+    border-bottom: 1px solid #999;
+    border-radius: 0;
+    padding: .1rem .2rem;
+    font-size: .8rem;
+  }
+  .justification-section textarea {
+    border: 1px solid #999;
+    min-height: 80px;
+    font-size: .82rem;
+  }
+}
+    }
+  </style>
+</head>
+
+<body>
+<div class="form-wrapper" role="main">
+
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Course Equivalency Evaluation</h1>
+    <button class="btn-reset no-print" type="button" onclick="resetForm()"
+            aria-label="Reset all form fields">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="no-print" aria-label="Site navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <main class="form-body" id="main-form">
+
+    <!-- Instructions -->
+    <div class="instructions no-print" role="note" aria-label="Form instructions">
+      Use this form to request evaluation of a transfer course that is not listed in the standard
+      equivalency guide. Provide complete course details for both the sending institution and the
+      requested Paul D. Camp equivalent. The evaluating faculty or advisor will document their
+      determination and justification below.
+      <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+    </div>
+
+    <!-- Policy notice (print-visible) -->
+    <div class="policy-notice no-print" role="note" aria-label="Policy notice">
+      <p>This form is used when a transfer course does not appear in the existing equivalency
+      tables and requires individual faculty or administrative review.</p>
+      <p>The completed form must be signed by the evaluating faculty member or department chair
+      and submitted to the Registrar's Office for final posting.</p>
+    </div>
+
+    <!-- ── Section 1: Student Information ──────────────────────────── -->
+    <fieldset>
+      <legend>Student Information</legend>
+
+      <div class="field-row cols-2">
+        <div>
+          <label for="student-id">Student I.D. (Empl. I.D.) <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-id" name="student_id" autocomplete="off" aria-required="true">
+        </div>
+        <div>
+          <label for="request-date">Date of Request <span class="req" aria-hidden="true">*</span></label>
+          <input type="date" id="request-date" name="request_date" aria-required="true">
+        </div>
+      </div>
+
+
+
+      <div class="field-row cols-2">
+        <div>
+          <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+        </div>
+        <div>
+          <label for="program">Program of Study <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="program" name="program" aria-required="true">
+        </div>
+    
+      </div>
+    </fieldset>
+
+    <!-- ── Section 2: Transfer Institution ────────────────────────── -->
+    <fieldset>
+      <legend>Transfer Institution</legend>
+      <p class="section-subhead">Enter the details of the college or institution where the course was completed.</p>
+
+      <div class="field-row cols-1">
+        <div>
+          <label for="transfer-college">Name of College / Institution <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="transfer-college" name="transfer_college" autocomplete="off" aria-required="true">
+        </div>
+      </div>
+
+    </fieldset>
+
+    <!-- ── Section 3: Course Comparison ───────────────────────────── -->
+    <fieldset>
+      <legend>Course Comparison</legend>
+      <p class="section-subhead">
+        List the transfer course(s) and the Paul D. Camp course(s) being requested as equivalents.
+        Add rows as needed for multiple courses.
+      </p>
+
+      <div class="course-table-wrapper">
+        <table class="course-table" id="course-table" aria-label="Course comparison table">
+          <thead>
+            <tr>
+              <th scope="col">Field</th>
+              <th scope="col">Transfer Course<br><small style="font-weight:400;text-transform:none;letter-spacing:0">(Sending Institution)</small></th>
+              <th scope="col">PDCCC Equivalent Requested<br><small style="font-weight:400;text-transform:none;letter-spacing:0">(Paul D. Camp)</small></th>
+              <th scope="col" class="no-print" aria-label="Remove row"></th>
+            </tr>
+          </thead>
+          <tbody id="course-rows">
+            <!-- Row 1 (default) -->
+            <tr>
+              <td style="font-weight:600;font-family:var(--font-ui);font-size:.82rem;color:var(--muted);vertical-align:middle;">Course Prefix &amp; Number</td>
+              <td><input type="text" name="xfer_prefix[]" placeholder="e.g. ENG 111" aria-label="Transfer course prefix and number"></td>
+              <td><input type="text" name="pdccc_prefix[]" placeholder="e.g. ENG 111" aria-label="PDCCC course prefix and number"></td>
+              <td class="no-print"></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;font-family:var(--font-ui);font-size:.82rem;color:var(--muted);vertical-align:middle;">Course Title</td>
+              <td><input type="text" name="xfer_title[]" placeholder="English I" aria-label="Transfer course title"></td>
+              <td><input type="text" name="pdccc_title[]" placeholder="College Composition I" aria-label="PDCCC course title"></td>
+              <td class="no-print"></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;font-family:var(--font-ui);font-size:.82rem;color:var(--muted);vertical-align:middle;">Credit Hours</td>
+              <td><input type="text" name="xfer_credits[]" min="0" max="12" step=".5" placeholder="3" aria-label="Transfer credit hours"></td>
+              <td><input type="text" name="pdccc_credits[]" min="0" max="12" step=".5" placeholder="3" aria-label="PDCCC credit hours"></td>
+              <td class="no-print"></td>
+            </tr>
+           
+          </tbody>
+        </table>
+      </div>
+
+      <button type="button" class="add-row-btn no-print" onclick="addCourseRow()"
+              aria-label="Add another course row">
+        + Add Another Course
+      </button>
+    </fieldset>
+
+    <!-- ── Section 4: Justification ───────────────────────────────── -->
+    <fieldset class="justification-section">
+      <legend>Justification &amp; Supporting Documentation</legend>
+      <p class="section-subhead">
+        Explain why this transfer course should be considered equivalent. Reference course syllabi,
+        learning outcomes, or other supporting evidence as needed.
+      </p>
+
+      <div class="field-row cols-1">
+        <div>
+          <label for="justification-text">
+            Justification Statement <span class="req" aria-hidden="true">*</span>
+          </label>
+          <textarea id="justification-text" name="justification"
+                    placeholder="Describe how the content, learning outcomes, and credit hours of the transfer course align with the requested PDCCC equivalent. Attach syllabus or supporting materials if available."
+                    aria-required="true"></textarea>
+        </div>
+      </div>
+
+      <div class="field-row cols-1">
+        <div>
+          <label for="supporting-docs">Supporting Documents Attached</label>
+          <input type="text" id="supporting-docs" name="supporting_docs"
+                 placeholder="e.g. Course syllabus, catalog description, learning outcomes mapping"
+                 autocomplete="off">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Section 5: Evaluator Determination ─────────────────────── -->
+    <fieldset>
+      <legend>Evaluator Determination</legend>
+      <p class="section-subhead">To be completed by the evaluating faculty member, or department chair</p>
+
+    
+
+      <div class="field-row cols-1" style="margin-top:.75rem;">
+        <div>
+          <label for="evaluator-notes">Evaluator Notes</label>
+          <textarea id="evaluator-notes" name="evaluator_notes" style="min-height:80px;resize:vertical;width:100%;padding:.55rem .65rem;font-family:var(--font-body,Georgia,serif);font-size:.95rem;border:1px solid var(--border,#ccc);border-radius:4px;color:var(--text);box-sizing:border-box;line-height:1.55;"
+                    placeholder="Any conditions, limitations, or notes regarding this determination."></textarea>
+        </div>
+      </div>
+
+      <div class="evaluator-grid" style="margin-top:.75rem;">
+        <div>
+          <label for="evaluator-name">Evaluator Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="evaluator-name" name="evaluator_name" autocomplete="name" aria-required="true">
+        </div>
+        <div>
+          <label for="evaluator-title">Title / Department</label>
+          <input type="text" id="evaluator-title" name="evaluator_title" autocomplete="off">
+        </div>
+        <div>
+          <label for="evaluator-sig">Evaluator Signature <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="evaluator-sig" name="evaluator_signature" aria-required="true">
+        </div>
+        <div>
+          <label for="eval-date">Date <span class="req" aria-hidden="true">*</span></label>
+          <input type="date" id="eval-date" name="eval_date" aria-required="true">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Advisor Signature-->
+<fieldset>
+  <legend>Advisor Signature</legend>
+  <div class="field-row cols-2" style="margin-top:.75rem;">
+    <div>
+      <label for="advisor-signature">Advisors Signature <span class="req" aria-hidden="true">*</span></label>
+      <input type="text" id="advisor-signature" name="advisor_signature" autocomplete="name" aria-required="true">
+    </div>
+    <div>
+      <label for="advisor-date">Date <span class="req" aria-hidden="true">*</span></label>
+      <input type="date" id="advisor-date" name="eval_date" aria-required="true">
+    </div>
+  </div>
+</fieldset>
+
+  </main>
+
+  <!-- Save / Print -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()"
+            aria-label="Save or print this form as a PDF">
+      Print to PDF
+    </button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<script>
+  /* ── Reset ─────────────────────────────────────────────────────── */
+  function resetForm() {
+    if (!confirm('Clear all fields and start over?')) return;
+    document.querySelectorAll('input[type="text"], input[type="date"], input[type="number"], textarea')
+      .forEach(el => { el.value = ''; });
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+      .forEach(el => { el.checked = false; });
+    // Reset course table to one default block
+    const tbody = document.getElementById('course-rows');
+    // Remove any extra added rows (rows beyond the original 4)
+    const allRows = tbody.querySelectorAll('tr');
+    allRows.forEach((row, i) => {
+      if (i >= 4) row.remove(); // keep first set of 4 rows
+    });
+  }
+
+  /* ── Add another course block ──────────────────────────────────── */
+  function addCourseRow() {
+    const tbody = document.getElementById('course-rows');
+
+    // Divider row
+    const divider = document.createElement('tr');
+    divider.innerHTML = `<td colspan="4" style="padding:.3rem 0;border-top:2px solid var(--border,#ccc);"></td>`;
+    tbody.appendChild(divider);
+
+    const labels = [
+      { label: 'Course Prefix &amp; Number', xferName: 'xfer_prefix[]', pdcccName: 'pdccc_prefix[]', xferPlaceholder: 'e.g. ENG 111', pdcccPlaceholder: 'e.g. ENG 111', type: 'text' },
+      { label: 'Course Title',               xferName: 'xfer_title[]',  pdcccName: 'pdccc_title[]',  xferPlaceholder: 'Transfer course title', pdcccPlaceholder: 'PDCCC course title', type: 'text' },
+      { label: 'Credit Hours',               xferName: 'xfer_credits[]',pdcccName: 'pdccc_credits[]',xferPlaceholder: '3', pdcccPlaceholder: '3', type: 'text' },
+     
+    ];
+
+    labels.forEach((def, i) => {
+      const tr = document.createElement('tr');
+      const inputAttrs = def.type === 'number'
+        ? `type="number" min="0" max="12" step=".5"`
+        : `type="text"`;
+      tr.innerHTML = `
+        <td style="font-weight:600;font-family:var(--font-ui);font-size:.82rem;color:var(--muted);vertical-align:middle;">${def.label}</td>
+        <td><input ${inputAttrs} name="${def.xferName}" placeholder="${def.xferPlaceholder}"></td>
+        <td><input ${inputAttrs} name="${def.pdcccName}" placeholder="${def.pdcccPlaceholder}"></td>
+        <td class="no-print">${i === 0 ? `<button type="button" class="remove-row-btn" onclick="removeCourseBlock(this)" aria-label="Remove this course">✕</button>` : ''}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  /* ── Remove a course block (4 rows + divider above) ───────────── */
+  function removeCourseBlock(btn) {
+    if (!confirm('Remove this course entry?')) return;
+    const tr = btn.closest('tr');
+    const tbody = document.getElementById('course-rows');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const idx = rows.indexOf(tr);
+    // Remove the 4 data rows + the divider row before them
+    for (let i = idx - 1; i <= idx + 3; i++) {
+      if (rows[i]) rows[i].remove();
+    }
+  }
+</script>
+
+</body>
+</html>
