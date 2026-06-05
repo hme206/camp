@@ -9,26 +9,12 @@
   <link rel="stylesheet" href="forms.css">
 
   <style>
-    /* ── Page-specific ─────────────────────────────────────────────── */
-
-    .policy-notice {
-      font-size: .88rem;
-      color: var(--text);
-      line-height: 1.55;
-      margin-bottom: 1.25rem;
-      padding-bottom: .75rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .policy-notice p + p { margin-top: .4rem; }
-
     .section-subhead {
       font-family: var(--font-ui);
       font-size: .8rem;
       color: var(--muted);
       margin-bottom: .75rem;
     }
-
-    /* Checkbox group */
     .check-group {
       display: flex;
       flex-wrap: wrap;
@@ -58,8 +44,6 @@
       outline: 3px solid var(--focus);
       outline-offset: 2px;
     }
-
-    /* Radio group (status / appointment) */
     .radio-group {
       display: flex;
       flex-wrap: wrap;
@@ -78,8 +62,6 @@
       cursor: pointer;
       color: var(--text);
     }
-
-    /* Evaluation period row */
     .eval-period-row {
       display: flex;
       align-items: center;
@@ -87,25 +69,19 @@
       flex-wrap: wrap;
       margin-top: .25rem;
     }
-    .eval-period-row input[type="date"] {
-      width: auto;
-    }
+    .eval-period-row input[type="date"] { width: auto; }
     .eval-period-sep {
       font-family: var(--font-ui);
       font-size: .85rem;
       color: var(--muted);
       white-space: nowrap;
     }
-
-    /* Domain / Objective sections */
     .domain-section {
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 1rem 1.25rem 1.1rem;
       margin-bottom: 1rem;
     }
-    .domain-section + .domain-section { margin-top: 0; }
-
     .domain-heading {
       font-family: var(--font-ui);
       font-size: .82rem;
@@ -122,28 +98,10 @@
       margin-bottom: .6rem;
     }
 
-    /* Auto-growing textarea */
-    .auto-textarea {
-      display: grid;
-      width: 100%;
-    }
-    .auto-textarea::after {
-      content: attr(data-value) " ";
-      white-space: pre-wrap;
-      word-break: break-word;
-      visibility: hidden;
-      grid-area: 1 / 1 / 2 / 2;
-      padding: .5rem .75rem;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      line-height: 1.5;
-      border: 1.5px solid transparent;
-      min-height: 90px;
-    }
+    /* ── Auto-grow textarea + mirror ── */
+    .auto-textarea { width: 100%; }
     .auto-textarea textarea {
-      resize: none;
-      overflow: hidden;
-      grid-area: 1 / 1 / 2 / 2;
+      display: block;
       width: 100%;
       min-height: 90px;
       padding: .5rem .75rem;
@@ -154,6 +112,9 @@
       line-height: 1.5;
       color: var(--text);
       background: var(--white);
+      resize: none !important;
+      overflow: hidden !important;
+      box-sizing: border-box;
       transition: border-color .15s;
     }
     .auto-textarea textarea:focus {
@@ -161,37 +122,11 @@
       outline: 3px solid var(--focus);
       outline-offset: 1px;
     }
-
-    /* Signature row */
-    .sig-row {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr auto;
-      align-items: end;
-      gap: .5rem 1rem;
-      margin-top: 1.5rem;
-    }
-    .sig-row label {
-      font-family: var(--font-ui);
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: .3rem;
-      display: block;
-    }
-    .sig-line {
-      border-bottom: 1.5px solid #000;
-      height: 2rem;
-      width: 100%;
-    }
-    .sig-sep {
-      padding-bottom: .35rem;
-      font-size: .85rem;
-      color: var(--muted);
+    /* Mirror div — hidden on screen, shown on print */
+    .mirror {
+      display: none;
     }
 
-    /* Supporting docs checkbox */
     .supporting-check {
       display: flex;
       align-items: center;
@@ -202,30 +137,21 @@
       color: var(--text);
     }
 
-    /* ── Print ─────────────────────────────────────────────────────── */
+    /* ── Print ── */
     @media print {
       @page { size: letter portrait; margin: .45in .5in; }
-
       html, body { font-size: 13px; background: white; padding: 0; }
-
       nav, .no-print, .save-btn-row { display: none !important; }
-
       .form-wrapper { box-shadow: none; max-width: 100%; }
-
       .form-header { padding: .4rem .6rem .35rem; border-bottom-width: 3px; }
       .form-header h1 { font-size: 1.1rem; }
-      .form-header .college { font-size: .68rem; }
-
       .form-body { padding: .4rem .6rem; }
-      .instructions, .policy-notice, .section-subhead { display: none !important; }
-
+      .instructions, .section-subhead { display: none !important; }
       fieldset { padding: .35rem .5rem; margin-bottom: .4rem; border-color: #999; }
       legend { font-size: .68rem; }
       label { font-size: .68rem; margin-bottom: .1rem; }
       .field-row { gap: .25rem .6rem; margin-top: .3rem; }
-
-      input[type="text"],
-      input[type="date"] {
+      input[type="text"], input[type="date"] {
         padding: .15rem .3rem;
         font-size: .8rem;
         border: none !important;
@@ -234,7 +160,6 @@
         background: transparent !important;
       }
       input::placeholder { color: transparent !important; }
-
       .domain-section {
         border: none;
         border-bottom: 1px solid #ccc;
@@ -245,35 +170,28 @@
       .domain-heading { font-size: .72rem; color: #000; }
       .domain-policy { display: none; }
 
-      .auto-textarea::after { display: none; }
-      .auto-textarea textarea {
-        border: none !important;
-        border-bottom: 1px solid #999 !important;
-        border-radius: 0;
-        background: transparent !important;
+      /* Hide textarea, show mirror div instead */
+      .auto-textarea textarea { display: none !important; }
+      .mirror {
+        display: block;
+        font-family: var(--font-body);
         font-size: .82rem;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+        border-bottom: 1px solid #999;
         padding: .15rem .2rem;
-        min-height: 48px;
-        overflow: visible;
-        /* Let browser expand for content */
-        height: auto;
+        min-height: 1.5em;
+        color: #000;
+        background: transparent;
       }
 
-      .check-group label,
-      .radio-group label { font-size: .78rem; }
-
-      .sig-row { margin-top: .75rem; }
-      .sig-row label { font-size: .68rem; }
-
+      .check-group label, .radio-group label { font-size: .78rem; }
       .supporting-check { font-size: .78rem; margin-top: .5rem; }
     }
 
-    /* ── Mobile ─────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .field-row.cols-2,
-      .field-row.cols-3 { grid-template-columns: 1fr; }
-      .sig-row { grid-template-columns: 1fr; }
-      .sig-sep { display: none; }
+      .field-row.cols-2, .field-row.cols-3 { grid-template-columns: 1fr; }
       .form-header { flex-direction: column; align-items: flex-start; }
       .save-btn-row { padding: 1rem; }
     }
@@ -283,17 +201,14 @@
 <body>
 <div class="form-wrapper" role="main">
 
-  <!-- Header -->
   <header>
     <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
     <h1>Administrative &amp; Professional Faculty Self-Assessment</h1>
-    <button class="btn-reset no-print" type="button" onclick="resetForm()"
-            aria-label="Reset all form fields">
+    <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
       ↺ Reset Form
     </button>
   </header>
 
-  <!-- Navigation -->
   <nav class="no-print" aria-label="Site navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -304,7 +219,6 @@
 
   <main class="form-body" id="main-form">
 
-    <!-- Instructions -->
     <div class="instructions no-print" role="note" aria-label="Form instructions">
       Evaluation plans must require that evaluative input be provided by the faculty member in the
       form of a self-assessment. The self-assessment must include analysis of activities within each
@@ -313,15 +227,13 @@
       <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
     </div>
 
-    <!-- ── Section 1: Faculty Information ──────────────────────────── -->
+    <!-- Section 1: Faculty Information -->
     <fieldset>
       <legend>Faculty Information</legend>
-
       <div class="field-row cols-3">
         <div>
           <label for="faculty-name">Name of Faculty Member <span class="req" aria-hidden="true">*</span></label>
-          <input type="text" id="faculty-name" name="faculty_name"
-                 autocomplete="name" aria-required="true">
+          <input type="text" id="faculty-name" name="faculty_name" autocomplete="name" aria-required="true">
         </div>
         <div>
           <label for="position-num">Position #</label>
@@ -332,7 +244,6 @@
           <input type="date" id="form-date" name="form_date" aria-required="true">
         </div>
       </div>
-
       <div class="field-row cols-2">
         <div>
           <label for="faculty-title">Title <span class="req" aria-hidden="true">*</span></label>
@@ -343,33 +254,21 @@
           <input type="text" id="faculty-rank" name="faculty_rank" autocomplete="off">
         </div>
       </div>
-
-      <!-- Faculty Designation -->
       <div class="field-row cols-1" style="margin-top:.75rem;">
         <div>
           <fieldset style="border:none;padding:0;margin:0;">
             <legend style="font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:.3rem;">
-              Faculty Designation <span class="req" aria-hidden="true">*</span> <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(select all that apply)</span>
+              Faculty Designation <span class="req" aria-hidden="true">*</span>
+              <span style="font-weight:400;text-transform:none;letter-spacing:normal;">(select all that apply)</span>
             </legend>
-            <div class="check-group" role="group" aria-required="true">
-              <label>
-                <input type="checkbox" name="designation" value="first_year" aria-label="First Year">
-                First Year
-              </label>
-              <label>
-                <input type="checkbox" name="designation" value="administrative" aria-label="Administrative">
-                Administrative
-              </label>
-              <label>
-                <input type="checkbox" name="designation" value="professional" aria-label="Professional">
-                Professional
-              </label>
+            <div class="check-group" role="group">
+              <label><input type="checkbox" name="designation" value="first_year"> First Year</label>
+              <label><input type="checkbox" name="designation" value="administrative"> Administrative</label>
+              <label><input type="checkbox" name="designation" value="professional"> Professional</label>
             </div>
           </fieldset>
         </div>
       </div>
-
-      <!-- Status -->
       <div class="field-row cols-1" style="margin-top:.75rem;">
         <div>
           <fieldset style="border:none;padding:0;margin:0;">
@@ -377,36 +276,24 @@
               Status <span class="req" aria-hidden="true">*</span>
             </legend>
             <div class="radio-group" role="group">
-              <label>
-                <input type="radio" name="status" value="one_year" aria-label="One-year appointment">
-                One-year appointment
-              </label>
-              <label>
-                <input type="radio" name="status" value="multi_year" aria-label="Multi-year appointment">
-                Multi-year appointment
-              </label>
+              <label><input type="radio" name="status" value="one_year"> One-year appointment</label>
+              <label><input type="radio" name="status" value="multi_year"> Multi-year appointment</label>
             </div>
           </fieldset>
         </div>
       </div>
-
-      <!-- Evaluation Period -->
       <div class="field-row cols-1" style="margin-top:.75rem;">
         <div>
           <label id="eval-period-label">Evaluation Period <span class="req" aria-hidden="true">*</span></label>
           <div class="eval-period-row" role="group" aria-labelledby="eval-period-label">
             <div>
               <label for="eval-start" class="sr-only">Date of last evaluation</label>
-              <input type="date" id="eval-start" name="eval_start"
-                     aria-label="Date of last evaluation (start of evaluation period)"
-                     aria-required="true">
+              <input type="date" id="eval-start" name="eval_start" aria-label="Date of last evaluation" aria-required="true">
             </div>
             <span class="eval-period-sep" aria-hidden="true">to</span>
             <div>
               <label for="eval-end" class="sr-only">Date of this evaluation</label>
-              <input type="date" id="eval-end" name="eval_end"
-                     aria-label="Date of this evaluation (end of evaluation period)"
-                     aria-required="true">
+              <input type="date" id="eval-end" name="eval_end" aria-label="Date of this evaluation" aria-required="true">
             </div>
           </div>
           <p style="font-family:var(--font-ui);font-size:.72rem;color:var(--muted);margin-top:.2rem;">
@@ -414,286 +301,171 @@
           </p>
         </div>
       </div>
-
-      <!-- Supervisor -->
       <div class="field-row cols-2" style="margin-top:.5rem;">
         <div>
           <label for="supervisor-name">Name of Faculty Member's Supervisor <span class="req" aria-hidden="true">*</span></label>
-          <input type="text" id="supervisor-name" name="supervisor_name"
-                 autocomplete="off" aria-required="true">
+          <input type="text" id="supervisor-name" name="supervisor_name" autocomplete="off" aria-required="true">
         </div>
         <div>
           <label for="supervisor-title">Supervisor's Title</label>
           <input type="text" id="supervisor-title" name="supervisor_title" autocomplete="off">
         </div>
       </div>
-
     </fieldset>
 
-    <!-- ── Section 2: Performance Domains ──────────────────────────── -->
+    <!-- Section 2: Performance Domains -->
     <fieldset>
       <legend>Performance Domains</legend>
-      <p class="section-subhead no-print">
-        Please provide a self-assessment of your work/job related activities within each of the
-        performance domains and annual objectives. Include supporting information in the narrative
-        sections or attach the agreed upon documentation.
-      </p>
+      <p class="section-subhead no-print">Please provide a self-assessment of your work/job related activities within each performance domain and annual objectives. Include supporting information in the narrative sections or attach the agreed upon documentation.</p>
 
-      <!-- I -->
       <div class="domain-section">
-        <p class="domain-heading" id="domain-1-heading">
-          I. Core Responsibilities
-        </p>
+        <p class="domain-heading">I. Core Responsibilities</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.ii)</p>
-        <label for="domain-1-narrative">
-          Narrative
-          <span class="sr-only"> for Core Responsibilities</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include areas of success, opportunities for improvement/learning and areas of concern, where applicable
-          </span>
-        </label>
+        <label for="domain-1">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include areas of success, opportunities for improvement/learning and areas of concern, where applicable</span></label>
         <div class="auto-textarea">
-          <textarea id="domain-1-narrative" name="domain_core"
-                    aria-labelledby="domain-1-heading"
-                    aria-describedby="domain-1-hint"></textarea>
-        </div>
-        <p id="domain-1-hint" class="sr-only">
-          Include areas of success, opportunities for improvement or learning, and areas of concern where applicable.
-        </p>
-      </div>
-
-      <!-- II -->
-      <div class="domain-section">
-        <p class="domain-heading" id="domain-2-heading">
-          II. Non-Routine &amp; Strategic Responsibilities
-        </p>
-        <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.ii)</p>
-        <label for="domain-2-narrative">
-          Narrative
-          <span class="sr-only"> for Non-Routine &amp; Strategic Responsibilities</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include areas of success, opportunities for improvement/learning and areas of concern, where applicable
-          </span>
-        </label>
-        <div class="auto-textarea">
-          <textarea id="domain-2-narrative" name="domain_nonroutine"
-                    aria-labelledby="domain-2-heading"></textarea>
+          <textarea id="domain-1" name="domain_core" aria-label="Core Responsibilities narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- III -->
       <div class="domain-section">
-        <p class="domain-heading" id="domain-3-heading">
-          III. College and Community Service
-        </p>
+        <p class="domain-heading">II. Non-Routine &amp; Strategic Responsibilities</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.ii)</p>
-        <label for="domain-3-narrative">
-          Narrative
-          <span class="sr-only"> for College and Community Service</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include areas of success, opportunities for improvement/learning and areas of concern, where applicable
-          </span>
-        </label>
+        <label for="domain-2">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include areas of success, opportunities for improvement/learning and areas of concern, where applicable</span></label>
         <div class="auto-textarea">
-          <textarea id="domain-3-narrative" name="domain_service"
-                    aria-labelledby="domain-3-heading"></textarea>
+          <textarea id="domain-2" name="domain_nonroutine" aria-label="Non-Routine and Strategic Responsibilities narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- IV -->
       <div class="domain-section">
-        <p class="domain-heading" id="domain-4-heading">
-          IV. Professional Development &amp; Growth
-        </p>
+        <p class="domain-heading">III. College and Community Service</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.ii)</p>
-        <label for="domain-4-narrative">
-          Narrative
-          <span class="sr-only"> for Professional Development &amp; Growth</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include areas of success, opportunities for improvement/learning and areas of concern, where applicable
-          </span>
-        </label>
+        <label for="domain-3">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include areas of success, opportunities for improvement/learning and areas of concern, where applicable</span></label>
         <div class="auto-textarea">
-          <textarea id="domain-4-narrative" name="domain_prodev"
-                    aria-labelledby="domain-4-heading"></textarea>
+          <textarea id="domain-3" name="domain_service" aria-label="College and Community Service narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- V -->
       <div class="domain-section">
-        <p class="domain-heading" id="domain-5-heading">
-          V. Management Effectiveness <span style="font-weight:400;">(if required)</span>
-        </p>
+        <p class="domain-heading">IV. Professional Development &amp; Growth</p>
+        <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.ii)</p>
+        <label for="domain-4">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include areas of success, opportunities for improvement/learning and areas of concern, where applicable</span></label>
+        <div class="auto-textarea">
+          <textarea id="domain-4" name="domain_prodev" aria-label="Professional Development and Growth narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="domain-section">
+        <p class="domain-heading">V. Management Effectiveness <span style="font-weight:400;">(if required)</span></p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.iii)</p>
-        <label for="domain-5-narrative">
-          Narrative
-          <span class="sr-only"> for Management Effectiveness</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include areas of success, opportunities for improvement/learning and areas of concern, where applicable
-          </span>
-        </label>
+        <label for="domain-5">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include areas of success, opportunities for improvement/learning and areas of concern, where applicable</span></label>
         <div class="auto-textarea">
-          <textarea id="domain-5-narrative" name="domain_mgmt"
-                    aria-labelledby="domain-5-heading"></textarea>
+          <textarea id="domain-5" name="domain_mgmt" aria-label="Management Effectiveness narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- VI -->
       <div class="domain-section">
-        <p class="domain-heading" id="domain-6-heading">
-          VI. Additional Performance Domains <span style="font-weight:400;">(as approved by Supervisor)</span>
-        </p>
+        <p class="domain-heading">VI. Additional Performance Domains <span style="font-weight:400;">(as approved by Supervisor)</span></p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.a.ii)</p>
-        <label for="domain-6-narrative">
-          Narrative
-          <span class="sr-only"> for Additional Performance Domains</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include areas of success, opportunities for improvement/learning and areas of concern, where applicable
-          </span>
-        </label>
+        <label for="domain-6">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include areas of success, opportunities for improvement/learning and areas of concern, where applicable</span></label>
         <div class="auto-textarea">
-          <textarea id="domain-6-narrative" name="domain_additional"
-                    aria-labelledby="domain-6-heading"></textarea>
+          <textarea id="domain-6" name="domain_additional" aria-label="Additional Performance Domains narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
-
     </fieldset>
 
-    <!-- ── Section 3: Annual Objectives ────────────────────────────── -->
+    <!-- Section 3: Annual Objectives -->
     <fieldset>
       <legend>Annual Objectives</legend>
       <p class="section-subhead no-print">(VCCS Policy: 3.6.1.4.b)</p>
 
-      <!-- Obj I -->
       <div class="domain-section">
-        <p class="domain-heading" id="obj-1-heading">I. Objective #1</p>
+        <p class="domain-heading">I. Objective #1</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.b)</p>
-        <label for="obj-1-narrative">
-          Narrative
-          <span class="sr-only"> for Objective 1</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include your assessment of progress towards completion
-          </span>
-        </label>
+        <label for="obj-1">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include your assessment of progress towards completion</span></label>
         <div class="auto-textarea">
-          <textarea id="obj-1-narrative" name="obj_1"
-                    aria-labelledby="obj-1-heading"></textarea>
+          <textarea id="obj-1" name="obj_1" aria-label="Objective 1 narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- Obj II -->
       <div class="domain-section">
-        <p class="domain-heading" id="obj-2-heading">II. Objective #2</p>
+        <p class="domain-heading">II. Objective #2</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.b)</p>
-        <label for="obj-2-narrative">
-          Narrative
-          <span class="sr-only"> for Objective 2</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include your assessment of progress towards completion
-          </span>
-        </label>
+        <label for="obj-2">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include your assessment of progress towards completion</span></label>
         <div class="auto-textarea">
-          <textarea id="obj-2-narrative" name="obj_2"
-                    aria-labelledby="obj-2-heading"></textarea>
+          <textarea id="obj-2" name="obj_2" aria-label="Objective 2 narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- Obj III -->
       <div class="domain-section">
-        <p class="domain-heading" id="obj-3-heading">III. Objective #3</p>
+        <p class="domain-heading">III. Objective #3</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.b)</p>
-        <label for="obj-3-narrative">
-          Narrative
-          <span class="sr-only"> for Objective 3</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include your assessment of progress towards completion
-          </span>
-        </label>
+        <label for="obj-3">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include your assessment of progress towards completion</span></label>
         <div class="auto-textarea">
-          <textarea id="obj-3-narrative" name="obj_3"
-                    aria-labelledby="obj-3-heading"></textarea>
+          <textarea id="obj-3" name="obj_3" aria-label="Objective 3 narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- Obj IV -->
       <div class="domain-section">
-        <p class="domain-heading" id="obj-4-heading">IV. Objective #4</p>
+        <p class="domain-heading">IV. Objective #4</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.b)</p>
-        <label for="obj-4-narrative">
-          Narrative
-          <span class="sr-only"> for Objective 4</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include your assessment of progress towards completion
-          </span>
-        </label>
+        <label for="obj-4">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include your assessment of progress towards completion</span></label>
         <div class="auto-textarea">
-          <textarea id="obj-4-narrative" name="obj_4"
-                    aria-labelledby="obj-4-heading"></textarea>
+          <textarea id="obj-4" name="obj_4" aria-label="Objective 4 narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- Obj V -->
       <div class="domain-section">
-        <p class="domain-heading" id="obj-5-heading">V. Objective #5</p>
+        <p class="domain-heading">V. Objective #5</p>
         <p class="domain-policy">(VCCS Policy: 3.6.1.4.b)</p>
-        <label for="obj-5-narrative">
-          Narrative
-          <span class="sr-only"> for Objective 5</span>
-          <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">
-            — include your assessment of progress towards completion
-          </span>
-        </label>
+        <label for="obj-5">Narrative <span style="font-family:var(--font-ui);font-size:.72rem;font-weight:400;text-transform:none;letter-spacing:normal;color:var(--muted);">— include your assessment of progress towards completion</span></label>
         <div class="auto-textarea">
-          <textarea id="obj-5-narrative" name="obj_5"
-                    aria-labelledby="obj-5-heading"></textarea>
+          <textarea id="obj-5" name="obj_5" aria-label="Objective 5 narrative" oninput="mirror(this)"></textarea>
+          <div class="mirror" aria-hidden="true"></div>
         </div>
       </div>
-
     </fieldset>
 
-    <!-- ── Section 4: Other Comments ────────────────────────────────── -->
+    <!-- Section 4: Other Comments -->
     <fieldset>
       <legend>Other Comments or Notes</legend>
-      <p class="section-subhead no-print">
-        General efforts, outcomes, and professional behaviors, etc.
-      </p>
+      <p class="section-subhead no-print">General efforts, outcomes, and professional behaviors, etc.</p>
       <label for="other-comments">Comments</label>
       <div class="auto-textarea">
-        <textarea id="other-comments" name="other_comments"></textarea>
+        <textarea id="other-comments" name="other_comments" aria-label="Other comments" oninput="mirror(this)"></textarea>
+        <div class="mirror" aria-hidden="true"></div>
       </div>
-
-      <!-- Supporting docs -->
       <div class="supporting-check">
-        <input type="checkbox" id="supporting-docs" name="supporting_docs" value="attached"
-               aria-label="Supporting documentation attached">
+        <input type="checkbox" id="supporting-docs" name="supporting_docs" value="attached">
         <label for="supporting-docs" style="font-weight:400;text-transform:none;letter-spacing:normal;font-size:.93rem;cursor:pointer;">
           Supporting documentation attached
         </label>
       </div>
     </fieldset>
 
-    <!-- ── Section 5: Signatures ─────────────────────────────────────── -->
+    <!-- Section 5: Signatures -->
     <fieldset>
       <legend>Signatures</legend>
-      <p class="section-subhead no-print">
-        Signature indicates all parties have discussed this Self-Assessment.
-      </p>
-
-      <!-- Employee -->
+      <p class="section-subhead no-print">Signature indicates all parties have discussed this Self-Assessment.</p>
       <div class="field-row cols-2" style="margin-top:.75rem;">
         <div>
           <label for="employee-sig">Employee Signature <span class="req" aria-hidden="true">*</span></label>
-          <input type="text" id="employee-sig" name="employee_signature"
-                 aria-required="true"
-                 aria-describedby="sig-note">
+          <input type="text" id="employee-sig" name="employee_signature" aria-required="true">
         </div>
         <div>
           <label for="employee-date">Date <span class="req" aria-hidden="true">*</span></label>
           <input type="date" id="employee-date" name="employee_date" aria-required="true">
         </div>
       </div>
-
-      <!-- Supervisor -->
       <div class="field-row cols-2" style="margin-top:.75rem;">
         <div>
           <label for="supervisor-sig">Supervisor Signature <span class="req" aria-hidden="true">*</span></label>
@@ -704,69 +476,39 @@
           <input type="date" id="supervisor-date" name="supervisor_date" aria-required="true">
         </div>
       </div>
-
-      <p id="sig-note" style="font-family:var(--font-ui);font-size:.75rem;color:var(--muted);margin-top:.75rem;">
-        Revised 11/9/16
-      </p>
+      <p style="font-family:var(--font-ui);font-size:.75rem;color:var(--muted);margin-top:.75rem;">Revised 11/9/16</p>
     </fieldset>
 
   </main>
 
-  <!-- Save / Print -->
   <div class="save-btn-row no-print">
-    <button class="btn-print" type="button" onclick="window.print()"
-            aria-label="Save or print this form as a PDF">
+    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
       Print to PDF
     </button>
     <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
   </div>
 
-</div><!-- /.form-wrapper -->
+</div>
 
 <script>
-      /* ── Password Protection ─────────────────────────────────────────── */
-  (function () {
-    const pwd = prompt("Enter password to access this form:");
-    if (pwd !== "Camp2026!") {
-      document.body.innerHTML = "<p style='font-family:Arial;padding:2rem;'>Access denied.</p>";
-      document.title = "Access Denied";
-    }
-  })();
-  /* ── Auto-growing textareas ──────────────────────────────────────── */
-  document.querySelectorAll('.auto-textarea').forEach(wrap => {
-    const ta = wrap.querySelector('textarea');
-    const sync = () => { wrap.dataset.value = ta.value; };
-    ta.addEventListener('input', sync);
-    sync();
-  });
-/* ── Fix textarea heights before printing ────────────────────────── */
-window.addEventListener('beforeprint', () => {
-  document.querySelectorAll('.auto-textarea textarea').forEach(ta => {
+  function mirror(ta) {
+    /* Auto-grow */
     ta.style.height = 'auto';
     ta.style.height = ta.scrollHeight + 'px';
-    ta.style.overflow = 'visible';
-  });
-});
+    /* Update mirror div for print */
+    ta.nextElementSibling.textContent = ta.value;
+  }
 
-window.addEventListener('afterprint', () => {
-  document.querySelectorAll('.auto-textarea textarea').forEach(ta => {
-    ta.style.height = '';
-    ta.style.overflow = '';
-  });
-});
-  /* ── Reset ───────────────────────────────────────────────────────── */
   function resetForm() {
     if (!confirm('Clear all fields and start over?')) return;
-    document.querySelectorAll(
-      'input[type="text"], input[type="date"], textarea'
-    ).forEach(el => { el.value = ''; });
-    document.querySelectorAll(
-      'input[type="radio"], input[type="checkbox"]'
-    ).forEach(el => { el.checked = false; });
-    // Re-sync all auto-textareas
-    document.querySelectorAll('.auto-textarea').forEach(wrap => {
-      wrap.dataset.value = '';
-    });
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+      .forEach(function (el) { el.value = ''; });
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+      .forEach(function (el) { el.checked = false; });
+    document.querySelectorAll('textarea')
+      .forEach(function (ta) { ta.style.height = ''; });
+    document.querySelectorAll('.mirror')
+      .forEach(function (d) { d.textContent = ''; });
   }
 </script>
 
