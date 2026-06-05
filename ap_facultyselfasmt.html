@@ -739,7 +739,21 @@
     ta.addEventListener('input', sync);
     sync();
   });
+/* ── Fix textarea heights before printing ────────────────────────── */
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.auto-textarea textarea').forEach(ta => {
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+    ta.style.overflow = 'visible';
+  });
+});
 
+window.addEventListener('afterprint', () => {
+  document.querySelectorAll('.auto-textarea textarea').forEach(ta => {
+    ta.style.height = '';
+    ta.style.overflow = '';
+  });
+});
   /* ── Reset ───────────────────────────────────────────────────────── */
   function resetForm() {
     if (!confirm('Clear all fields and start over?')) return;
