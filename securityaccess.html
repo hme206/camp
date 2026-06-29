@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Access Request Form | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+
+<div class="form-wrapper">
+
+  <!-- ── Header ── -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Security Access Request Form</h1>
+    <button class="btn-reset no-print" type="button"
+      aria-label="Reset all form fields"
+      onclick="if(confirm('Reset all fields? This cannot be undone.')){
+        document.querySelectorAll('input[type=text],input[type=date],textarea').forEach(i=>i.value='');
+        document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>i.checked=false);
+        document.querySelectorAll('textarea').forEach(t=>{t.style.height='';});
+      }">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- ── Navigation ── -->
+  <nav aria-label="Site navigation" class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-body">
+
+    <p class="instructions" role="note">
+      After completing, please <strong>print and deliver to HR</strong> for new employees, or to
+      <strong>Computing Services</strong> for changes to current employees.
+    </p>
+
+    <p class="req-note"><span class="req" aria-hidden="true">*</span> Required fields</p>
+
+    <!-- ════════════════════════════════════════════
+         PAGE 1 — User Information
+    ════════════════════════════════════════════ -->
+    <section aria-labelledby="page1-heading">
+      <h2 id="page1-heading" class="page-heading">User Information</h2>
+      <p class="section-note">Supervisors, please ensure <strong>ALL</strong> information is filled out.
+        Failure to do so may result in delays in processing.
+        Some services require <strong>24–48 hours</strong> to go into effect.</p>
+    </section>
+
+    <!-- Requestor Name / Date -->
+    <fieldset>
+      <legend>Requestor</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="requestor-name">Requestor's Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="requestor-name" autocomplete="name" required aria-required="true">
+        </div>
+        <div>
+          <label for="req-date">Date <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="date" id="req-date" required aria-required="true">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Address / Birth Date / Previous Names -->
+    <fieldset>
+      <legend>Personal Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="street-address">Home Street Address</label>
+          <input type="text" id="street-address" autocomplete="street-address">
+        </div>
+        <div>
+          <label for="birth-date">Birth Date</label>
+          <input type="date" id="birth-date" autocomplete="bday">
+        </div>
+      </div>
+      <div class="field-row cols-3" style="margin-top:.75rem;">
+        <div>
+          <label for="city">City</label>
+          <input type="text" id="city" autocomplete="address-level2">
+        </div>
+        <div>
+          <label for="state">State</label>
+          <input type="text" id="state" autocomplete="address-level1" maxlength="2" style="text-transform:uppercase;">
+        </div>
+        <div>
+          <label for="zip">ZIP</label>
+          <input type="text" id="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10">
+        </div>
+      </div>
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+        <div>
+          <label for="previous-names">Previous Name(s)</label>
+          <input type="text" id="previous-names">
+        </div>
+        <div>
+          <label for="home-email">Home Email</label>
+          <input type="text" id="home-email" autocomplete="email" inputmode="email">
+        </div>
+      </div>
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+        <div>
+          <label for="phone-home">Phone — Home</label>
+          <input type="text" id="phone-home" autocomplete="tel-local" inputmode="tel">
+        </div>
+        <div>
+          <label for="phone-business">Phone — Business</label>
+          <input type="text" id="phone-business" inputmode="tel">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Title / Department -->
+    <fieldset>
+      <legend>Position</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="title-position">Title / Position <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="title-position" required aria-required="true">
+        </div>
+        <div>
+          <label for="department">Department <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="department" required aria-required="true">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Position Type / Location -->
+    <fieldset>
+      <legend>Position Type &amp; Location</legend>
+      <div class="two-col-checks">
+
+        <div>
+          <p class="check-group-label" id="postype-label">Position Type</p>
+          <div class="check-group" role="group" aria-labelledby="postype-label">
+            <label class="check-label">
+              <input type="checkbox" name="position-type" value="adjunct"> Adjunct
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="position-type" value="faculty"> Faculty
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="position-type" value="ssdl"> SSDL
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="position-type" value="classified"> Classified
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="position-type" value="wage"> Wage
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="position-type" value="dual-enrollment"> Dual Enrollment
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <p class="check-group-label" id="location-label">Location</p>
+          <div class="check-group" role="group" aria-labelledby="location-label">
+            <label class="check-label">
+              <input type="checkbox" name="location" value="franklin"> Franklin
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="location" value="hobbs"> Hobbs
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="location" value="smithfield"> Smithfield
+            </label>
+            <label class="check-label">
+              <input type="checkbox" name="location" value="workforce"> Workforce
+            </label>
+            <label class="check-label off-site-wrap">
+              <input type="checkbox" name="location" value="off-site" id="loc-offsite"
+                     aria-controls="offsite-detail"> Off-Site:
+              <input type="text" id="offsite-detail" class="inline-text"
+                     aria-label="Off-site location details" placeholder="Specify location">
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
+
+    <!-- IT Security Training -->
+    <fieldset>
+      <legend>IT Security Awareness Training Required</legend>
+      <p class="section-note" style="margin-bottom:.75rem;">
+        The following require IT security awareness training regardless of other access:
+      </p>
+      <div class="check-group horiz" role="group" aria-label="IT training needs">
+        <label class="check-label">
+          <input type="checkbox" name="it-training" value="college-email">
+          Need College Email <span class="email-example">(name@pdc.edu)</span>
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="it-training" value="lan-account">
+          Need LAN Account
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- Description / Notes -->
+    <fieldset>
+      <legend>Description &amp; Notes</legend>
+      <div class="field-row cols-1">
+        <div>
+          <label for="duties-notes">Description of duties, additional notes, and/or special requests</label>
+          <textarea id="duties-notes" rows="4"
+            aria-describedby="duties-hint"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+          <p id="duties-hint" class="field-hint">This box expands as you type.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Policy Agreement -->
+    <fieldset>
+      <legend>Acceptable Use Policy Agreement</legend>
+      <p class="policy-text">
+        I agree to comply with Paul D. Camp Community College's
+        <strong>Acceptable Computer Use Policy for Information Technology Resources</strong>.
+      </p>
+
+      <div class="sig-block">
+        <div class="sig-row">
+          <div class="sig-field">
+            <label for="requestor-sig">Requestor's Signature</label>
+            <input type="text" id="requestor-sig" aria-describedby="sig-hint">
+          </div>
+          <div class="sig-field sig-field--name">
+            <label for="requestor-printed">Requestor's Printed Name</label>
+            <input type="text" id="requestor-printed" autocomplete="name">
+          </div>
+          <div class="sig-field sig-field--date">
+            <label for="requestor-sig-date">Date</label>
+            <input type="date" id="requestor-sig-date">
+          </div>
+        </div>
+        <p id="sig-hint" class="field-hint">Type your name to represent your signature on the printed form.</p>
+
+        <div class="sig-row" style="margin-top:1rem;">
+          <div class="sig-field">
+            <label for="supervisor-sig">Supervisor's Signature</label>
+            <input type="text" id="supervisor-sig">
+          </div>
+          <div class="sig-field sig-field--name">
+            <label for="supervisor-printed">Supervisor's Printed Name</label>
+            <input type="text" id="supervisor-printed">
+          </div>
+          <div class="sig-field sig-field--date">
+            <label for="supervisor-sig-date">Date</label>
+            <input type="text" id="supervisor-sig-date" placeholder="Date">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 2 — Data Owner Authorization
+    ════════════════════════════════════════════ -->
+    <div class="page-divider" role="separator" aria-hidden="true"></div>
+
+    <section aria-labelledby="page2-heading">
+      <h2 id="page2-heading" class="page-heading">Data Owner Authorization</h2>
+      <p class="section-note">Supervisors, please select any/all systems to be used by the employee and have the appropriate Data Owners sign.</p>
+    </section>
+
+    <!-- SIS: Admissions & Records -->
+    <fieldset class="data-owner-block">
+      <legend>SIS: Admissions &amp; Records <span class="legend-note">(Use this for instructors.)</span></legend>
+      <label class="check-label sis-check">
+        <input type="checkbox" name="sys-sis-ar" value="sis-admissions">
+        Request access to SIS: Admissions &amp; Records
+      </label>
+      <div class="sig-row" style="margin-top:1rem;">
+        <div class="sig-field">
+          <label for="vp-asd-sig">Vice President, Academic and Student Development — Data Owner Signature</label>
+          <input type="text" id="vp-asd-sig">
+        </div>
+        <div class="sig-field sig-field--date">
+          <label for="vp-asd-date">Date</label>
+          <input type="text" id="vp-asd-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- SIS: Financial Aid -->
+    <fieldset class="data-owner-block">
+      <legend>SIS: Financial Aid</legend>
+      <label class="check-label sis-check">
+        <input type="checkbox" name="sys-sis-fa" value="sis-financial-aid">
+        Request access to SIS: Financial Aid
+      </label>
+      <div class="sig-row" style="margin-top:1rem;">
+        <div class="sig-field">
+          <label for="fa-coord-sig">Financial Aid Coordinator, Sr. Veterans Certifying Official — Data Owner Signature</label>
+          <input type="text" id="fa-coord-sig">
+        </div>
+        <div class="sig-field sig-field--date">
+          <label for="fa-coord-date">Date</label>
+          <input type="text" id="fa-coord-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- SIS: Workforce Development -->
+    <fieldset class="data-owner-block">
+      <legend>SIS: Workforce Development</legend>
+      <label class="check-label sis-check">
+        <input type="checkbox" name="sys-sis-wd" value="sis-workforce">
+        Request access to SIS: Workforce Development
+      </label>
+      <div class="sig-row" style="margin-top:1rem;">
+        <div class="sig-field">
+          <label for="dir-wd-sig">Director, Workforce Development — Data Owner Signature</label>
+          <input type="text" id="dir-wd-sig">
+        </div>
+        <div class="sig-field sig-field--date">
+          <label for="dir-wd-date">Date</label>
+          <input type="text" id="dir-wd-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- All Other Systems -->
+    <fieldset class="data-owner-block">
+      <legend>Additional Systems — Operations Manager Authorization</legend>
+      <p class="section-note" style="margin-bottom:.75rem;">Select all systems this employee will need access to:</p>
+
+      <div class="sys-check-grid" role="group" aria-label="Additional system access">
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="college-email"> College email (pdc.edu)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="college-lan"> College LAN
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="sis-admin-finance"> SIS: Administration and/or Finance
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="ais"> AIS (Administrative Information System)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="hrms"> HRMS (Human Resource Management System)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="cars"> CARS (Commonwealth Accounting and Reporting System)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="cipps"> CIPPS (Commonwealth Integrated Payroll and Personnel System)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="doa-reportline"> DOA Reportline
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="procurement"> Procurement
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="irms"> IRMS (Debt Setoff)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="oracle"> Oracle (SIS Super Users)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="nelnet"> NELNET (National Education Loan Network Payment System)
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="sas-datamart"> SAS Datamart
+        </label>
+        <label class="check-label">
+          <input type="checkbox" name="systems" value="wes"> WES (Workforce Enterprise System)
+        </label>
+      </div>
+
+      <div class="sig-row" style="margin-top:1.25rem;">
+        <div class="sig-field">
+          <label for="ops-mgr-sig">Operations Manager — Data Owner Signature</label>
+          <input type="text" id="ops-mgr-sig">
+        </div>
+        <div class="sig-field sig-field--date">
+          <label for="ops-mgr-date">Date</label>
+          <input type="text" id="ops-mgr-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 3 — Computing Services Use Only
+    ════════════════════════════════════════════ -->
+    <div class="page-divider" role="separator" aria-hidden="true"></div>
+
+    <section aria-labelledby="page3-heading">
+      <h2 id="page3-heading" class="page-heading">For Computing Services Use Only</h2>
+      <p class="section-note"><strong>Supervisors, please do not write in this area.</strong></p>
+    </section>
+
+    <fieldset class="office-section cs-section">
+      <legend>Account Creation</legend>
+
+      <div class="cs-row">
+        <div class="cs-field cs-field--wide">
+          <label for="lan-account">LAN Account</label>
+          <input type="text" id="lan-account">
+        </div>
+        <div class="cs-field">
+          <label for="lan-created-by">Created by</label>
+          <input type="text" id="lan-created-by">
+        </div>
+        <div class="cs-field cs-field--date">
+          <label for="lan-date">Date</label>
+          <input type="text" id="lan-date" placeholder="Date">
+        </div>
+      </div>
+
+      <div class="cs-row">
+        <div class="cs-field cs-field--wide">
+          <label for="email-account">Email Account</label>
+          <input type="text" id="email-account">
+        </div>
+        <div class="cs-field">
+          <label for="email-created-by">Created by</label>
+          <input type="text" id="email-created-by">
+        </div>
+        <div class="cs-field cs-field--date">
+          <label for="email-date">Date</label>
+          <input type="text" id="email-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="office-section cs-section">
+      <legend>System Setup Checklist</legend>
+
+      <div class="cs-row">
+        <div class="cs-field cs-field--label">Added to emergency alert notification system</div>
+        <div class="cs-field cs-field--date">
+          <label for="alert-date">Date</label>
+          <input type="text" id="alert-date" placeholder="Date">
+        </div>
+      </div>
+      <div class="cs-row">
+        <div class="cs-field cs-field--label">Access to all college calendars</div>
+        <div class="cs-field cs-field--date">
+          <label for="cal-date">Date</label>
+          <input type="text" id="cal-date" placeholder="Date">
+        </div>
+      </div>
+      <div class="cs-row">
+        <div class="cs-field cs-field--label">Notified of self-registration for helpdesk ticket system</div>
+        <div class="cs-field cs-field--date">
+          <label for="helpdesk-date">Date</label>
+          <input type="text" id="helpdesk-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="office-section cs-section">
+      <legend>SIS / HRMS Access</legend>
+
+      <div class="field-row cols-2">
+        <div>
+          <label for="sis-username">User Name</label>
+          <input type="text" id="sis-username">
+        </div>
+        <div>
+          <label for="sis-emplid">EMPLID</label>
+          <input type="text" id="sis-emplid">
+        </div>
+      </div>
+      <div class="field-row cols-2" style="margin-top:.75rem;">
+        <div>
+          <label for="sis-copy-id">SIS / Copy ID</label>
+          <input type="text" id="sis-copy-id">
+        </div>
+        <div>
+          <label for="hrms-copy-id">HRMS / Copy ID</label>
+          <input type="text" id="hrms-copy-id">
+        </div>
+      </div>
+      <div class="cs-row" style="margin-top:.75rem;">
+        <div class="cs-field cs-field--wide">
+          <label for="sis-created-by">SIS/HRMS access created by</label>
+          <input type="text" id="sis-created-by">
+        </div>
+        <div class="cs-field cs-field--date">
+          <label for="sis-access-date">Date</label>
+          <input type="text" id="sis-access-date" placeholder="Date">
+        </div>
+      </div>
+      <div class="field-row cols-1" style="margin-top:.75rem;">
+        <div>
+          <label for="sis-notes">Notes</label>
+          <textarea id="sis-notes" rows="3"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="office-section cs-section">
+      <legend>WES / NELNET Access</legend>
+
+      <div class="field-row cols-2">
+        <div>
+          <label for="wes-username">User Name</label>
+          <input type="text" id="wes-username">
+        </div>
+        <div>
+          <label for="wes-user-role">User Role</label>
+          <input type="text" id="wes-user-role">
+        </div>
+      </div>
+      <div class="cs-row" style="margin-top:.75rem;">
+        <div class="cs-field cs-field--wide">
+          <label for="wes-created-by">WES/NELNET access created by</label>
+          <input type="text" id="wes-created-by">
+        </div>
+        <div class="cs-field cs-field--date">
+          <label for="wes-date">Date</label>
+          <input type="text" id="wes-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="office-section cs-section">
+      <legend>Request Tracking</legend>
+      <div class="cs-row">
+        <div class="cs-field cs-field--label">For use by Computing Services only — Date request received</div>
+        <div class="cs-field cs-field--date">
+          <label for="request-received-date">Date</label>
+          <input type="text" id="request-received-date" placeholder="Date">
+        </div>
+      </div>
+    </fieldset>
+
+  </div><!-- /.form-body -->
+
+  <!-- ── Print Button ── -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<style>
+/* ── Fieldset and date input full-width fix ── */
+fieldset { width: 100%; }
+input[type="date"] { width: 100%; min-width: 0; }
+
+/* ── Page headings ── */
+.page-heading {
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: .4rem;
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.page-tag {
+  font-size: .75rem;
+  font-weight: 400;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.section-note {
+  font-size: .88rem;
+  color: var(--muted);
+  margin-bottom: .5rem;
+  line-height: 1.5;
+}
+section {
+  margin-bottom: 1rem;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ── Page divider ── */
+.page-divider {
+  border: none;
+  border-top: 3px solid var(--navy);
+  margin: 2rem 0 1.5rem;
+}
+
+/* ── Check groups ── */
+.check-label {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  font-family: var(--font-ui);
+  font-size: .93rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1.45;
+}
+.check-label input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin-top: .18rem;
+  flex-shrink: 0;
+  accent-color: var(--navy);
+  cursor: pointer;
+}
+.check-label input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.check-group-label {
+  font-family: var(--font-ui);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.check-group.horiz {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: .5rem 2rem;
+}
+
+/* ── Two-column position/location layout ── */
+.two-col-checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: .75rem;
+}
+
+/* ── Off-site inline text ── */
+.off-site-wrap { align-items: center; }
+.inline-text {
+  width: 140px;
+  padding: .2rem .4rem;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: .88rem;
+  margin-left: .25rem;
+}
+.inline-text:focus {
+  border-color: var(--mid);
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+/* ── Email example ── */
+.email-example {
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+/* ── Field hints ── */
+.field-hint {
+  font-family: var(--font-ui);
+  font-size: .73rem;
+  color: var(--muted);
+  margin-top: .2rem;
+}
+
+/* ── Policy text ── */
+.policy-text {
+  font-size: .93rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* ── Signature blocks ── */
+.sig-block { margin-top: .25rem; }
+.sig-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: .75rem 1.25rem;
+  align-items: end;
+}
+.sig-field { display: flex; flex-direction: column; gap: .3rem; }
+.sig-field label {
+  font-family: var(--font-ui);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sig-field input[type="text"],
+.sig-field input[type="date"] {
+  width: 100%;
+  padding: .4rem .6rem;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--text);
+}
+.sig-field input:focus {
+  border-color: var(--mid);
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+/* ── Data owner blocks ── */
+.data-owner-block {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.data-owner-block legend {
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #000;
+  padding: 0 .5rem;
+}
+.legend-note {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: .75rem;
+  color: var(--muted);
+}
+.sis-check { margin-bottom: .25rem; }
+
+/* ── Systems grid ── */
+.sys-check-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .45rem 1.5rem;
+}
+
+/* ── Computing services ── */
+.cs-section { margin-bottom: 1.25rem; }
+.cs-row {
+  display: flex;
+  gap: .75rem 1.25rem;
+  align-items: end;
+  margin-bottom: .6rem;
+  flex-wrap: wrap;
+}
+.cs-field { display: flex; flex-direction: column; gap: .3rem; }
+.cs-field--wide { flex: 2; min-width: 160px; }
+.cs-field--date { flex: 0 0 150px; }
+.cs-field--label {
+  flex: 2;
+  font-family: var(--font-ui);
+  font-size: .88rem;
+  color: var(--text);
+  padding-bottom: .35rem;
+  align-self: flex-end;
+}
+.cs-field label {
+  font-family: var(--font-ui);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cs-field input[type="text"],
+.cs-field input[type="date"] {
+  width: 100%;
+  padding: .4rem .6rem;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: .92rem;
+  color: var(--text);
+}
+.cs-field input:focus {
+  border-color: var(--mid);
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+/* ── Print overrides ── */
+@media print {
+  html, body { font-size: 10px !important; }
+  .page-divider { margin: 1rem 0; border-top-width: 2px; page-break-before: always; }
+  .page-heading { font-size: .95rem; }
+  .section-note { font-size: .72rem; }
+  .check-label { font-size: .75rem; }
+  .field-hint, #sig-hint { display: none; }
+  .inline-text { border: none; background: transparent; }
+  .sig-field input, .cs-field input { font-size: .8rem; padding: .15rem .3rem; border-width: 1px; border: 1px solid #999 !important; background: transparent !important; }
+  textarea { min-height: 30px !important; }
+  .sys-check-grid { gap: .25rem 1rem; }
+  .two-col-checks { gap: .75rem; }
+  .data-owner-block { padding: .5rem .75rem; margin-bottom: .6rem; }
+  .cs-section { margin-bottom: .6rem; }
+  .cs-row { gap: .3rem .75rem; margin-bottom: .25rem; }
+  .sig-row { gap: .3rem .75rem; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .two-col-checks { grid-template-columns: 1fr; }
+  .sys-check-grid { grid-template-columns: 1fr; }
+  .sig-row { grid-template-columns: 1fr; }
+  .cs-row { flex-direction: column; }
+  .cs-field--date { flex: 1 1 auto; }
+}
+</style>
+
+</body>
+</html>
