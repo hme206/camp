@@ -8,6 +8,7 @@
 
 :root {
   --navy:      #33ab2b;
+  --navy-dark: #2a8a23; /* darker shade for diagonal accent / hover */
   --gold:      #b8922a;
   --mid:       #5dc956;
   --light:     #eaf7ea;
@@ -43,9 +44,17 @@ body {
   padding-bottom: 2rem;
 }
 
-/* ── Header ── */
+/* ══════════════════════════════════════════════════════════
+   Header — Two-Tone Design (uses your existing <header> + <nav>
+   tags only — no new HTML elements required)
+   Tier 1 (header): green, with diagonal accent, logo + title + reset btn
+   Tier 2 (nav): white, nav links
+   ══════════════════════════════════════════════════════════ */
+
 header {
+  position: relative;
   background: var(--navy);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,10 +62,34 @@ header {
   padding: 1rem 2rem;
   border-bottom: 5px solid var(--gold);
 }
+
+/* Diagonal accent stripe */
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 35%;
+  width: 45%;
+  height: 100%;
+  background: var(--navy-dark);
+  clip-path: polygon(15% 0, 100% 0, 85% 100%, 0% 100%);
+  z-index: 0;
+}
+
+header img,
+header h1,
+header h2,
+header .btn-reset {
+  position: relative;
+  z-index: 1;
+}
+
 header img {
   max-height: 80px;
   border-radius: 4px;
   flex-shrink: 0;
+  background: var(--white);
+  padding: 4px;
 }
 header h1,
 header h2 {
@@ -70,31 +103,36 @@ header h2 {
 
 /* ── Reset Button (lives in header) ── */
 .btn-reset {
-  background: rgba(0,0,0,0.18);
-  color: #000;
+  background: var(--white);
+  color: var(--navy);
   font-family: var(--font-ui);
   font-size: .8rem;
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
   padding: .55rem 1.2rem;
-  border: 2px solid rgba(0,0,0,0.35);
+  border: 2px solid var(--navy-dark);
   border-radius: 3px;
   cursor: pointer;
-  transition: background .15s, border-color .15s;
+  transition: background .15s, color .15s, border-color .15s;
   white-space: nowrap;
   flex-shrink: 0;
 }
-.btn-reset:hover { background: rgba(0,0,0,0.30); border-color: rgba(0,0,0,0.5); }
+.btn-reset:hover { background: var(--navy-dark); color: var(--white); border-color: var(--navy-dark); }
 .btn-reset:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
 
-/* ── Navigation ── */
+/* ── Navigation (white tier, sits directly under header) ── */
+nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
 nav ul {
   list-style: none;
   display: flex;
   gap: 1.5rem;
-  margin: 1rem 0 2rem 0;
-  padding-left: 2rem;
+  margin: 0;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
 }
 nav a {
   text-decoration: none;
