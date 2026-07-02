@@ -15,14 +15,7 @@
       <h1>Paul D. Camp Community College</h1>
     </header>
   <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-      <li><a href="catalog.html">College Catalog</a></li>
-    </ul>
-  </nav>
+<div id="toptoc"></div>
   <main>
     <section class="forms-list">
       <h2>Faculty Forms</h2>
@@ -97,6 +90,13 @@
   <footer>
     <p>&copy; 2026 Your Organization</p>
   </footer>
-   </div>  
+   </div> 
+  <script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 </html>
