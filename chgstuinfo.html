@@ -172,16 +172,6 @@
     flex: 1;
     min-width: 160px;
   }
-  .sig-field label {
-    display: block;
-    font-family: var(--font-ui);
-    font-size: .78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: var(--muted);
-    margin-bottom: .3rem;
-  }
   .sig-field input[type="text"] {
     width: 100%;
     border: none;
@@ -252,21 +242,42 @@
     .change-item { margin-bottom: .45rem; }
     .change-item-body label.item-label { font-size: .85rem; }
     .change-item-body .item-note { font-size: .72rem; }
-    .inline-input { font-size: .85rem; min-width: 140px; border-bottom-width: 1px; }
+
+    /* forms.css applies a !important boxed border to all text inputs on
+       print; re-assert the underline style with !important so these
+       fields don't flip back to boxes when printed */
+    .inline-input {
+      font-size: .85rem;
+      min-width: 140px;
+      border: none !important;
+      border-bottom: 1px solid #999 !important;
+      background: transparent !important;
+    }
     .inline-input.wide { min-width: 200px; }
-    .phone-part { font-size: .85rem; }
+
+    .phone-part {
+      font-size: .85rem;
+      border: none !important;
+      border-bottom: 1px solid #999 !important;
+      background: transparent !important;
+    }
     .phone-part.area { width: 34px; }
     .phone-part.pre  { width: 34px; }
     .phone-part.line { width: 44px; }
+
     .emplid-box { width: 1.5rem; height: 1.5rem; font-size: .85rem; }
     .emplid-label { font-size: .85rem; }
     .sig-section { margin-top: .75rem; padding-top: .5rem; }
     .office-use-box { padding: .5rem .75rem; margin-top: .75rem; }
     .office-use-box .office-title { font-size: .68rem; margin-bottom: .4rem; }
-    .address-lines input[type="text"] { font-size: .85rem; }
     .hs-sub-row label.hs-label { font-size: .85rem; }
-    .sig-field label { font-size: .68rem; }
-    .sig-field input[type="text"] { font-size: .85rem; }
+
+    .sig-field input[type="text"] {
+      font-size: .85rem;
+      border: none !important;
+      border-bottom: 1px solid #999 !important;
+      background: transparent !important;
+    }
     .sig-row { gap: 1rem; }
   }
 </style>
@@ -288,15 +299,8 @@
   </header>
 
   <!-- Nav -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-        <li><a href="catalog.html">College Catalog</a></li>
-    </ul>
-  </nav>
 
+<div id="toptoc"></div>
   <main class="form-body" id="main-form">
 
     <!-- Instructions -->
@@ -510,6 +514,12 @@
       .forEach(el => { el.checked = false; });
   }
 </script>
-
+<script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 </html>
