@@ -998,6 +998,12 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
       .forEach(el => { el.checked = false; });
   }
 </script>
-
+<script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 </html>
