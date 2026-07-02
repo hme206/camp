@@ -17,14 +17,8 @@
       ↺ Reset Form
     </button>
   </header>
-  <nav class="no-print">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-        <li><a href="catalog.html">College Catalog</a></li>
-    </ul>
-  </nav>
+<div id="toptoc"></div>
+  
   <div class="form-body">
     <div class="instructions" role="note" aria-label="Policy notice">
       <p>In accordance with VCCS and PDCCC Policy, enrollment in a VCCS course is normally limited to two completion enrollments.</p>
@@ -189,6 +183,13 @@
     .prev-grade-row { flex-direction: column; gap: .4rem; }
     .short-input, .med-input { width: 100%; }
   }
+  <script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </style>
 </body>
 </html>
