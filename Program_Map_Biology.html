@@ -18,14 +18,10 @@
   </header>
 
   <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-    </ul>
-  </nav>
 
+<!-- Nav -->
+<div id="toptoc"></div>
+  
   <main class="map-main">
 
     <!-- Page title -->
@@ -433,6 +429,13 @@
 
   </main>
 </div>
+  <script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 
 </body>
 </html>
