@@ -22,14 +22,7 @@
   </header>
 
   <!-- Navigation -->
-  <nav class="no-print">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-        <li><a href="catalog.html">College Catalog</a></li>
-    </ul>
-  </nav>
+<div id="toptoc"></div>
 
   <div class="form-body">
 
@@ -324,6 +317,12 @@
 }
   
 </style>
-
+<script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 </html>
