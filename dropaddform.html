@@ -627,21 +627,8 @@
 
   <!-- Navigation -->
   <!-- WCAG fix: added aria-label to distinguish this nav from any others on the page -->
-  <nav aria-label="Site navigation">
 
-    <ul>
-
-      <li><a href="index.html">Home</a></li>
-
-      <li><a href="forms.html">Forms</a></li>
-
-      <li><a href="maps.html">Program Maps</a></li>
-        <li><a href="catalog.html">College Catalog</a></li>
-
-    </ul>
-
-  </nav>
-
+<div id="toptoc"></div>
  
 
   <main class="form-body" id="main-form">
@@ -1215,7 +1202,13 @@ function resetForm() {
 }
 
 </script>
-
+<script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 
 </html>
