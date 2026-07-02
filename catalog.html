@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – College Catalog</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── Header (green two-tone header from styles.css) ── -->
+<header>
+  <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+  <h1>College Catalog</h1>
+</header>
+
+<!-- ── Top navigation (loaded from toptoc.html) ── -->
+<div id="toptoc"></div>
+
+<!-- ── Side navigation (loaded from sidetoc.html, starts collapsed) ── -->
+<div id="sidetoc"></div>
+
+<!-- ── Page content ── -->
+<div class="page-wrapper">
+  <main>
+
+    <section>
+      <h2>Welcome to the College Catalog</h2>
+      <p>
+        This catalog is in the process of being created - Stay tuned for future details.
+      </p>
+    </section>
+
+    <section>
+      <h2>Getting Started</h2>
+      <p>
+        Use the <strong>Contents</strong> tab on the left edge of the page to
+        browse catalog sections, or use the search box inside it to jump to a
+        specific page.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Paul D. Camp Community College
+  </footer>
+</div>
+
+<!-- ── Include loaders ── -->
+<script>
+  // Load top nav
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+
+  // Load side TOC, then wire up its collapse/expand toggle
+  fetch('sidetoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('sidetoc').innerHTML = html;
+      initSidetocToggle();
+    });
+
+  function initSidetocToggle() {
+    const btn = document.getElementById('sidetoc-toggle');
+    const backdrop = document.getElementById('sidetoc-backdrop');
+    if (!btn) return;
+
+    function closePanel() {
+      document.body.classList.remove('sidetoc-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    function togglePanel() {
+      const isOpen = document.body.classList.toggle('sidetoc-open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    btn.addEventListener('click', togglePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePanel();
+    });
+  }
+</script>
+
+</body>
+</html>
