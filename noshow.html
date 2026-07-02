@@ -27,14 +27,7 @@
   </header>
 
   <!-- Navigation -->
-  <nav class="no-print" aria-label="Site navigation">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-        <li><a href="catalog.html">College Catalog</a></li>
-    </ul>
-  </nav>
+ <div id="toptoc"></div>
 
   <div class="form-body">
 
@@ -258,6 +251,12 @@
     .ns-inline-fieldset legend { font-size: .68rem; }
   }
 </style>
-
+<script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 </html>
