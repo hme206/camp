@@ -17,7 +17,7 @@
 <!-- ── Top navigation (loaded from toptoc.html) ── -->
 <div id="toptoc"></div>
 
-<!-- ── Side navigation (loaded from sidetoc.html, starts collapsed) ── -->
+<!-- ── Side navigation (loaded from sidetoc.html) ── -->
 <div id="sidetoc"></div>
 
 <!-- ── Page content ── -->
@@ -55,35 +55,6 @@
     .then(html => {
       document.getElementById('toptoc').innerHTML = html;
     });
-
-  // Load side TOC, then wire up its collapse/expand toggle
-  fetch('sidetoc.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('sidetoc').innerHTML = html;
-      initSidetocToggle();
-    });
-
-  function initSidetocToggle() {
-    const btn = document.getElementById('sidetoc-toggle');
-    const backdrop = document.getElementById('sidetoc-backdrop');
-    if (!btn) return;
-
-    function closePanel() {
-      document.body.classList.remove('sidetoc-open');
-      btn.setAttribute('aria-expanded', 'false');
-    }
-    function togglePanel() {
-      const isOpen = document.body.classList.toggle('sidetoc-open');
-      btn.setAttribute('aria-expanded', String(isOpen));
-    }
-
-    btn.addEventListener('click', togglePanel);
-    backdrop.addEventListener('click', closePanel);
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closePanel();
-    });
-  }
 </script>
 
 </body>
