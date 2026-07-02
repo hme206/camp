@@ -1,54 +1,10 @@
 <!-- ══════════════════════════════════════════════
-     sidetoc.html — Collapsible Side Table of Contents
-     Starts collapsed. Toggle button reveals/hides the panel.
+     sidetoc.html — Permanent Side Table of Contents
+     Always visible as a fixed left panel.
      Load with fetch() into a placeholder div, same pattern as toptoc.html.
-     NOTE: the toggle JS lives in each page's own <script> tag
-     (see instructions below) — scripts injected via innerHTML
-     do not execute, so it can't live in this file.
      ══════════════════════════════════════════════ -->
 
 <style>
-  /* ── Toggle tab (always visible, fixed to the edge) ── */
-  .sidetoc-toggle {
-    position: fixed;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 40;
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    padding: .7rem .6rem;
-    font-family: var(--font-ui);
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 2px 0 8px rgba(0,0,0,.15);
-    writing-mode: vertical-rl;
-    transition: background .15s, left .2s;
-  }
-  .sidetoc-toggle:hover { background: var(--navy-dark); }
-  .sidetoc-toggle:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-  .sidetoc-toggle .arrow {
-    writing-mode: horizontal-tb;
-    display: inline-block;
-    transition: transform .2s;
-  }
-  /* When panel is open, push the tab to the right edge of the panel
-     and flip the arrow */
-  body.sidetoc-open .sidetoc-toggle {
-    left: 280px;
-  }
-  body.sidetoc-open .sidetoc-toggle .arrow {
-    transform: rotate(180deg);
-  }
-
   /* ── Panel ── */
   .side-toc {
     position: fixed;
@@ -62,11 +18,6 @@
     z-index: 39;
     overflow-y: auto;
     padding: 1.25rem 1.1rem 2rem;
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-  }
-  body.sidetoc-open .side-toc {
-    transform: translateX(0);
   }
 
   .toc-title {
@@ -163,30 +114,10 @@
     outline-offset: -2px;
   }
 
-  /* ── Backdrop (click outside to close, mobile-friendly) ── */
-  .sidetoc-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.25);
-    z-index: 38;
-    display: none;
-  }
-  body.sidetoc-open .sidetoc-backdrop {
-    display: block;
-  }
-
   @media (max-width: 600px) {
     .side-toc { width: 85%; max-width: 300px; }
-    body.sidetoc-open .sidetoc-toggle { left: 85%; }
   }
 </style>
-
-<button id="sidetoc-toggle" class="sidetoc-toggle" aria-expanded="false" aria-controls="sidetoc-panel">
-  <span class="arrow">▶</span>
-  <span>Contents</span>
-</button>
-
-<div class="sidetoc-backdrop" id="sidetoc-backdrop"></div>
 
 <nav class="side-toc" id="sidetoc-panel" aria-label="Catalog Navigation">
   <h2 class="toc-title">Catalog Search</h2>
@@ -215,16 +146,11 @@
     <li><a href="#">Academic Calendar 2026-2027</a></li>
     <li><a href="#">Glossary</a></li>
     <li><a href="#">General Information</a></li>
-    <li><a href="#">Step 1: Apply for Admission</a></li>
-    <li><a href="#">Step 2: Apply for Financial Aid</a></li>
-    <li><a href="#">Step 3: Determine Course Placement and Meet with an Advisor</a></li>
-    <li><a href="#">Step 4: Register for Classes</a></li>
-    <li><a href="#">Step 5: Pay for College</a></li>
-    <li><a href="#">Important Information You Need to Know</a></li>
+
     <li><a href="#">Graduation</a></li>
     <li><a href="#">Workforce Solutions</a></li>
     <li><a href="#">Academic Programs &amp; Requirements</a></li>
-    <li><a href="#">Understanding Program Options and Curriculum Requirements</a></li>
+
     <li><a href="#">Gen Ed Core Competencies</a></li>
     <li><a href="#">College Transfer Electives</a></li>
     <li><a href="#">Pathways</a></li>
