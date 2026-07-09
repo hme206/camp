@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dual Enrollment Faculty Qualification Summary Sheet | Paul D. Camp Community College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+
+<div class="form-wrapper">
+
+  <!-- ── Header ── -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1>Dual Enrollment Faculty Qualification Summary Sheet</h1>
+    <button class="btn-reset no-print" type="button"
+      aria-label="Reset all form fields"
+      onclick="if(confirm('Reset all fields? This cannot be undone.')){
+        document.querySelectorAll('input[type=text],input[type=number]').forEach(i=>i.value='');
+        document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>i.checked=false);
+        document.querySelectorAll('textarea').forEach(t=>{t.value='';t.style.height='';});
+      }">
+      ↺ Reset Form
+    </button>
+  </header>
+
+  <!-- ── Navigation ── -->
+  <nav aria-label="Site navigation" class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-body">
+
+    <p class="instructions" role="note">
+      <strong>Original Appointment or Promotion.</strong>
+      Complete all sections. Salary computations apply to original appointments only.
+    </p>
+
+    <!-- ── Basic Info ── -->
+    <fieldset>
+      <legend>Applicant Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="app-name">Name <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="app-name" autocomplete="name" required aria-required="true">
+        </div>
+        <div>
+          <label for="rank-requested">Rank Requested <span class="req" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+          <input type="text" id="rank-requested" required aria-required="true">
+        </div>
+      </div>
+      <div class="field-row aq-cols-3" style="margin-top:.75rem;">
+        <div>
+          <label for="semester">Semester</label>
+          <input type="text" id="semester" placeholder="e.g. Fall">
+        </div>
+        <div>
+          <label for="year">Year</label>
+          <input type="text" id="year" placeholder="e.g. 2025" maxlength="4">
+        </div>
+        <div>
+          <label for="teaching-field">Teaching Field or Admin. Title</label>
+          <input type="text" id="teaching-field">
+        </div>
+      </div>
+
+      <!-- Curriculum checkboxes -->
+      <div style="margin-top:.85rem;">
+        <p class="check-group-label" id="curriculum-label">If Teaching, Check the Applicable Curriculum</p>
+        <div class="aq-check-row" role="group" aria-labelledby="curriculum-label">
+          <label class="check-label">
+            <input type="checkbox" name="curriculum" value="aa-as"> A.A./A.S.
+          </label>
+          <label class="check-label">
+            <input type="checkbox" name="curriculum" value="aas"> A.A.S.
+          </label>
+          <label class="check-label">
+            <input type="checkbox" name="curriculum" value="cert-diploma"> Certificate/Diploma
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Two-column criteria section ── -->
+    <div class="aq-two-col">
+
+      <!-- LEFT — Minimum Criteria -->
+      <fieldset class="aq-panel">
+        <legend><a href="https://www.vccs.edu/wp-content/uploads/2021/09/VCCS-29.pdf"
+          target="_blank" rel="noopener" class="aq-legend-link"
+          aria-label="Minimum Criteria per VCCS-29 (opens in new tab)">Minimum Criteria per VCCS-29</a></legend>
+
+        <p class="check-group-label" id="column-label" style="margin-top:.5rem;">Column</p>
+        <div class="aq-check-row" role="group" aria-labelledby="column-label">
+          <label class="check-label"><input type="checkbox" name="column" value="1"> 1</label>
+          <label class="check-label"><input type="checkbox" name="column" value="3"> 3</label>
+          <label class="check-label"><input type="checkbox" name="column" value="5"> 5</label>
+        </div>
+
+        <div style="margin-top:.85rem;">
+          <label for="min-education">Education</label>
+          <textarea id="min-education" rows="3" aria-label="Minimum criteria — Education"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+        </div>
+
+        <div style="margin-top:.85rem;">
+          <p class="aq-sub-heading">Experience</p>
+          <div class="aq-years-grid">
+            <label for="min-rel-occup">Related Occup.</label>
+            <input type="text" id="min-rel-occup" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+
+            <label for="min-total-teaching">Total Teaching</label>
+            <input type="text" id="min-total-teaching" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+
+            <label for="min-in-vccs">In VCCS</label>
+            <input type="text" id="min-in-vccs" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+
+            <label for="min-in-rank">In Rank</label>
+            <input type="text" id="min-in-rank" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- RIGHT — Criteria Analysis -->
+      <fieldset class="aq-panel">
+        <legend>Criteria Analysis for Rank Request</legend>
+
+        <!-- Degrees table -->
+        <div class="sub-table-wrap" style="margin-bottom:.85rem;">
+          <table aria-label="Degrees and qualifications" style="table-layout:fixed;">
+            <colgroup>
+              <col style="width:76px;">
+              <col style="width:76px;">
+              <col>
+              <col style="width:76px;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Year(s)</th>
+                <th scope="col">Degree</th>
+                <th scope="col">Major</th>
+                <th scope="col">Qualified hr / other</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" class="tbl-input" aria-label="Year(s) row 1"></td>
+                <td><input type="text" class="tbl-input" aria-label="Degree row 1"></td>
+                <td><textarea class="tbl-input tbl-textarea" aria-label="Major row 1" rows="1" oninput="autoGrow(this)"></textarea></td>
+                <td><input type="text" class="tbl-input" aria-label="Qualified hr/other row 1"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="tbl-input" aria-label="Year(s) row 2"></td>
+                <td><input type="text" class="tbl-input" aria-label="Degree row 2"></td>
+                <td><textarea class="tbl-input tbl-textarea" aria-label="Major row 2" rows="1" oninput="autoGrow(this)"></textarea></td>
+                <td><input type="text" class="tbl-input" aria-label="Qualified hr/other row 2"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="tbl-input" aria-label="Year(s) row 3"></td>
+                <td><input type="text" class="tbl-input" aria-label="Degree row 3"></td>
+                <td><textarea class="tbl-input tbl-textarea" aria-label="Major row 3" rows="1" oninput="autoGrow(this)"></textarea></td>
+                <td><input type="text" class="tbl-input" aria-label="Qualified hr/other row 3"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <p class="aq-sub-heading">Experience</p>
+          <div class="aq-years-grid">
+            <label for="ca-rel-occup">Related Occup.</label>
+            <input type="text" id="ca-rel-occup" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+
+            <label for="ca-total-teaching">Total Teaching</label>
+            <input type="text" id="ca-total-teaching" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+
+            <label for="ca-in-vccs">In VCCS</label>
+            <input type="text" id="ca-in-vccs" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+
+            <label for="ca-in-rank">In Rank</label>
+            <input type="text" id="ca-in-rank" class="aq-years" placeholder="0"> <span class="aq-unit">years</span>
+          </div>
+        </div>
+      </fieldset>
+
+    </div><!-- /.aq-two-col -->
+
+    <!-- ── Justification ── -->
+    <fieldset>
+      <legend>Justification for Deviation from Minimum Criteria</legend>
+      <label for="justification" class="sr-only">Justification text</label>
+      <textarea id="justification" rows="3"
+        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+    </fieldset>
+
+    <!-- ── High School Information ── -->
+    <fieldset>
+      <legend>High School Information</legend>
+      <div class="field-row cols-2">
+        <div>
+          <label for="hs-name">High School Name</label>
+          <input type="text" id="hs-name">
+        </div>
+        <div>
+          <label for="hs-principal">Principal</label>
+          <input type="text" id="hs-principal">
+        </div>
+      </div>
+      <div class="field-row cols-1" style="margin-top:.75rem;">
+        <div>
+          <label for="hs-classes">Classes</label>
+          <textarea id="hs-classes" rows="3"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Signatures ── -->
+    <fieldset class="office-section">
+      <legend>Signatures</legend>
+      <div class="sig-row">
+        <div class="sig-field">
+          <label for="academic-dean-sig">Academic Dean</label>
+          <input type="text" id="academic-dean-sig">
+        </div>
+        <div class="sig-field sig-field--date">
+          <label for="academic-dean-date">Date</label>
+          <input type="text" id="academic-dean-date" placeholder="&nbsp;">
+        </div>
+        <div class="sig-field">
+          <label for="vp-sig">Vice President of Academic &amp; Student Development</label>
+          <input type="text" id="vp-sig">
+        </div>
+        <div class="sig-field sig-field--date">
+          <label for="vp-date">Date</label>
+          <input type="text" id="vp-date" placeholder="&nbsp;">
+        </div>
+      </div>
+    </fieldset>
+
+    <p class="req-note"><span class="req" aria-hidden="true">*</span> Required fields</p>
+
+  </div><!-- /.form-body -->
+
+  <!-- ── Print Button ── -->
+  <div class="save-btn-row no-print">
+    <button class="btn-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+  </div>
+
+</div><!-- /.form-wrapper -->
+
+<style>
+/* ── Form-specific layout ── */
+.aq-cols-3 { grid-template-columns: 1fr 1fr 2fr; }
+
+.aq-two-col {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.aq-panel { margin-bottom: 0; }
+
+.aq-check-row {
+  display: flex;
+  gap: .5rem 1.5rem;
+  flex-wrap: wrap;
+  margin-top: .35rem;
+}
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-ui);
+  font-size: .93rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+  cursor: pointer;
+}
+.check-label input[type="checkbox"] {
+  width: 1rem; height: 1rem;
+  flex-shrink: 0;
+  accent-color: var(--navy);
+  cursor: pointer;
+}
+.check-label input[type="checkbox"]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.check-group-label {
+  font-family: var(--font-ui);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.aq-legend-link {
+  color: var(--navy);
+  text-decoration: underline;
+  font-size: inherit;
+}
+.aq-legend-link:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.aq-sub-heading {
+  font-family: var(--font-ui);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .4rem;
+}
+
+/* ── Years grid (label / input / unit) ── */
+.aq-years-grid {
+  display: grid;
+  grid-template-columns: max-content 3.5rem auto;
+  align-items: center;
+  gap: .3rem .5rem;
+}
+.aq-years-grid label {
+  font-size: .83rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+  margin-bottom: 0;
+}
+.aq-years {
+  width: 5rem;
+  padding: .25rem .4rem;
+  font-size: .88rem;
+  text-align: center;
+}
+.aq-unit { font-size: .83rem; color: var(--muted); }
+
+/* ── Salary section ── */
+.aq-legend-sub {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: .75rem;
+  color: var(--muted);
+}
+
+.aq-salary-grid { display: flex; flex-direction: column; gap: .5rem; }
+
+.aq-sal-section-head {
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin: .25rem 0 .1rem;
+}
+
+.aq-sal-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.aq-sal-label {
+  flex: 1;
+  min-width: 180px;
+  font-family: var(--font-ui);
+  font-size: .88rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+  margin-bottom: 0;
+}
+.aq-sal-label--long { font-size: .83rem; }
+.aq-sal-label--long em { font-style: italic; color: var(--muted); }
+
+.aq-sal-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  margin-left: auto;
+}
+.aq-dollar { font-weight: 700; font-size: .95rem; }
+
+.aq-sal-input {
+  width: 110px;
+  padding: .35rem .5rem;
+  text-align: right;
+  font-size: .95rem;
+}
+output.aq-sal-input {
+  background: var(--row-alt);
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  display: inline-block;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+.aq-inc-wrap {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.aq-inc-input { width: 60px; text-align: center; padding: .35rem .4rem; font-size: .9rem; }
+.aq-inc-rate { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+
+.aq-sal-subtotal .aq-sal-label,
+.aq-sal-total .aq-sal-label   { font-weight: 700; }
+.aq-sal-total { border-top: 2px solid var(--border); padding-top: .4rem; margin-top: .1rem; }
+
+.aq-salary-notes {
+  margin-top: .85rem;
+  padding-left: 1.25rem;
+  font-size: .8rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  line-height: 1.6;
+}
+
+/* ── Signature row (4-col for this form) ── */
+.sig-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr;
+  gap: .75rem 1rem;
+  align-items: end;
+}
+.sig-field { display: flex; flex-direction: column; gap: .3rem; }
+.sig-field label {
+  font-family: var(--font-ui);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sig-field input[type="text"] { width: 100%; }
+
+/* ── Major column textarea ── */
+.tbl-textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 1.8rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* ── Print ── */
+@media print {
+  html, body { font-size: 9px !important; }
+  .aq-two-col { gap: .5rem; margin-bottom: .5rem; }
+  .aq-years { width: 2.5rem; padding: .1rem .2rem; }
+  .aq-salary-grid { gap: .25rem; }
+  .aq-sal-input { width: 85px; padding: .15rem .3rem; }
+  .aq-inc-input { width: 44px; }
+  .aq-inc-rate { font-size: .65rem; }
+  .aq-salary-notes { margin-top: .4rem; font-size: .68rem; }
+  .sig-row { gap: .3rem .6rem; }
+  output.aq-sal-input { background: transparent !important; border: 1px solid #999 !important; }
+  .aq-legend-link { color: #000 !important; text-decoration: none; }
+  textarea { min-height: 24px !important; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .aq-two-col { grid-template-columns: 1fr; }
+  .aq-cols-3 { grid-template-columns: 1fr; }
+  .sig-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<script>
+function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+</script>
+
+</body>
+</html>
