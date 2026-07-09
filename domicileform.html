@@ -266,8 +266,6 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
 }
 
 /* ── Domicile category selection ── */
-/* Fixed: grid-template-columns changed from 1fr 1fr to 1fr auto 1fr
-   so the vertical divider sits as a proper middle column */
 .domicile-categories {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -463,6 +461,67 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
 }
 .sig-item label { font-size: .75rem; color: var(--muted); margin-bottom: .25rem; }
 
+/* ── Signature pad (NEW) ── */
+.sig-pad-wrap {
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  position: relative;
+  background: var(--white);
+  touch-action: none;
+}
+canvas.sig-canvas {
+  display: block;
+  width: 100%;
+  height: 130px;
+  cursor: crosshair;
+  border-radius: 3px;
+}
+.sig-placeholder {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #b7b7b7;
+  font-size: .85rem;
+  font-family: var(--font-ui);
+  pointer-events: none;
+}
+.sig-controls {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-top: .35rem;
+}
+.sig-controls button {
+  font-family: var(--font-ui);
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: .3rem .6rem;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--white);
+  color: var(--muted);
+  cursor: pointer;
+}
+.sig-controls button:hover { background: var(--light); }
+.sig-required-note {
+  color: #c0392b;
+  font-family: var(--font-ui);
+  font-size: .72rem;
+  margin-left: auto;
+  display: none;
+}
+.sig-required-note.show { display: inline; }
+
+/* Image that replaces the canvas at print time */
+img.sig-image {
+  display: block;
+  width: 100%;
+  max-height: 130px;
+  border-bottom: 1.5px solid #000;
+}
+
 /* ── Print ── */
 @media print {
   @page { size: letter portrait; margin: .45in .5in .45in .5in; }
@@ -493,6 +552,8 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
   .section-col-header { background: #ccc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .note-box, .cert-box, .routing-note { background: #f9f9f9 !important; }
   .domicile-divider { background-color: #aaa !important; }
+  .sig-controls, .sig-required-note { display: none !important; }
+  .sig-pad-wrap { border: none; }
 }
 
 /* ── Mobile ── */
@@ -502,7 +563,6 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
   .save-btn-row { padding: 1rem; }
   .form-header { flex-direction: column; align-items: flex-start; }
 
-  /* Stack domicile categories and hide divider on small screens */
   .domicile-categories {
     grid-template-columns: 1fr;
   }
@@ -544,7 +604,7 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
 
   <!-- Navigation -->
 <div id="toptoc"></div>
-   
+
   <main class="form-body" id="main-form">
 
     <!-- Instructions -->
@@ -564,9 +624,6 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
           Mark the domicile category that applies to you below from choices 1–6. <strong>Choose only one category.</strong>
         </p>
 
-        <!-- FIXED: grid-template-columns is now 1fr auto 1fr to accommodate
-             the divider as a proper middle column instead of 1fr 1fr which
-             caused the right column to wrap onto a new row. -->
         <div class="domicile-categories" role="radiogroup" aria-label="Domicile category selection — choose one">
 
           <!-- Left column: 1, 2 -->
@@ -956,24 +1013,42 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
         I agree to supply the college with supporting documentation related to my application if I am requested to do so.
       </div>
 
-      <!-- Signatures -->
+      <!-- Signatures (UPDATED: canvas signature pads instead of typed text) -->
       <fieldset>
         <legend>Signatures</legend>
         <div class="sig-row">
+
           <div>
-            <label for="sig-applicant">Signature of Applicant</label>
-            <input type="text" id="sig-applicant" name="sig_applicant" placeholder="Sign here" autocomplete="off">
-            <label for="sig-applicant-date" style="margin-top:.4rem;">Date</label>
+            <label for="sig-applicant-canvas">Signature of Applicant</label>
+            <div class="sig-pad-wrap">
+              <canvas class="sig-canvas" id="sig-applicant-canvas" data-sig-id="applicant"></canvas>
+              <span class="sig-placeholder">Sign here</span>
+            </div>
+            <div class="sig-controls">
+              <button type="button" data-action="clear" data-target="applicant">Clear</button>
+              <span class="sig-required-note" data-required-for="applicant">Signature required</span>
+            </div>
+            <label for="sig-applicant-date" style="margin-top:.6rem;">Date</label>
             <input type="date" id="sig-applicant-date" name="sig_applicant_date">
           </div>
+
           <div>
-            <label for="sig-guardian">Signature of Parent, Legal Guardian, or Spouse</label>
-            <input type="text" id="sig-guardian" name="sig_guardian" placeholder="Sign here" autocomplete="off">
-            <label for="sig-guardian-date" style="margin-top:.4rem;">Date</label>
+            <label for="sig-guardian-canvas">Signature of Parent, Legal Guardian, or Spouse</label>
+            <div class="sig-pad-wrap">
+              <canvas class="sig-canvas" id="sig-guardian-canvas" data-sig-id="guardian"></canvas>
+              <span class="sig-placeholder">Sign here</span>
+            </div>
+            <div class="sig-controls">
+              <button type="button" data-action="clear" data-target="guardian">Clear</button>
+              <span class="sig-required-note" data-required-for="guardian">Signature required</span>
+            </div>
+            <label for="sig-guardian-date" style="margin-top:.6rem;">Date</label>
             <input type="date" id="sig-guardian-date" name="sig_guardian_date">
           </div>
+
         </div>
-        <p style="margin-top:.6rem; font-family:var(--font-ui); font-size:.75rem; color:var(--muted); font-style:italic;">Revised 5/20/21</p>
+        
+        <p style="margin-top:.6rem; font-family:var(--font-ui); font-size:.75rem; color:var(--muted); font-style:italic;">Revised 7/9/2026</p>
       </fieldset>
 
     </form>
@@ -981,7 +1056,7 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
 
   <!-- Save / Print -->
   <div class="save-btn-row no-print">
-    <button class="btn-print" type="button" onclick="window.print()" aria-label="Save or print this form as a PDF">
+    <button class="btn-print" type="button" onclick="handlePrint()" aria-label="Save or print this form as a PDF">
       Print to PDF
     </button>
     <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
@@ -996,7 +1071,161 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
       .forEach(el => { el.value = ''; });
     document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
       .forEach(el => { el.checked = false; });
+    // Also clear both signature pads
+    Object.values(window.sigPads || {}).forEach(pad => pad.clear());
   }
+
+  /* ══════════════════════════════════════════════════════════
+     Signature pad (NEW)
+     ══════════════════════════════════════════════════════════ */
+  class SignaturePad {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+      this.wrap = canvas.closest('.sig-pad-wrap');
+      this.placeholder = this.wrap.querySelector('.sig-placeholder');
+      this.strokes = [];
+      this.currentStroke = [];
+      this.drawing = false;
+
+      this.resize = this.resize.bind(this);
+      this.start = this.start.bind(this);
+      this.move = this.move.bind(this);
+      this.end = this.end.bind(this);
+
+      window.addEventListener('resize', this.resize);
+      canvas.addEventListener('mousedown', this.start);
+      canvas.addEventListener('mousemove', this.move);
+      window.addEventListener('mouseup', this.end);
+      canvas.addEventListener('touchstart', this.start, { passive: false });
+      canvas.addEventListener('touchmove', this.move, { passive: false });
+      canvas.addEventListener('touchend', this.end);
+
+      this.resize();
+    }
+
+    resize() {
+      const ratio = window.devicePixelRatio || 1;
+      const rect = this.canvas.getBoundingClientRect();
+      if (rect.width === 0) return; // canvas hidden/not laid out yet
+      this.canvas.width = rect.width * ratio;
+      this.canvas.height = rect.height * ratio;
+      this.ctx.scale(ratio, ratio);
+      this.ctx.lineWidth = 2.2;
+      this.ctx.lineCap = 'round';
+      this.ctx.lineJoin = 'round';
+      this.ctx.strokeStyle = '#111';
+      this.redraw();
+    }
+
+    getPos(e) {
+      const rect = this.canvas.getBoundingClientRect();
+      const p = e.touches ? e.touches[0] : e;
+      return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+    }
+
+    start(e) {
+      e.preventDefault();
+      this.drawing = true;
+      this.placeholder.style.display = 'none';
+      this.currentStroke = [this.getPos(e)];
+    }
+
+    move(e) {
+      if (!this.drawing) return;
+      e.preventDefault();
+      this.currentStroke.push(this.getPos(e));
+      this.redraw();
+    }
+
+    end() {
+      if (!this.drawing) return;
+      this.drawing = false;
+      if (this.currentStroke.length > 1) this.strokes.push(this.currentStroke);
+      this.currentStroke = [];
+    }
+
+    redraw() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.ctx.clearRect(0, 0, rect.width, rect.height);
+      const all = this.currentStroke.length ? [...this.strokes, this.currentStroke] : this.strokes;
+      for (const stroke of all) {
+        if (stroke.length < 2) continue;
+        this.ctx.beginPath();
+        this.ctx.moveTo(stroke[0].x, stroke[0].y);
+        for (let i = 1; i < stroke.length; i++) this.ctx.lineTo(stroke[i].x, stroke[i].y);
+        this.ctx.stroke();
+      }
+    }
+
+    clear() {
+      this.strokes = [];
+      this.currentStroke = [];
+      this.placeholder.style.display = 'block';
+      this.redraw();
+    }
+
+    isEmpty() {
+      return this.strokes.length === 0;
+    }
+
+    toDataURL() {
+      return this.canvas.toDataURL('image/png');
+    }
+  }
+
+  // Wire up both signature canvases
+  window.sigPads = {};
+  document.querySelectorAll('.sig-canvas').forEach(canvas => {
+    window.sigPads[canvas.dataset.sigId] = new SignaturePad(canvas);
+  });
+
+  document.querySelectorAll('[data-action="clear"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.sigPads[btn.dataset.target].clear();
+      const note = document.querySelector(`[data-required-for="${btn.dataset.target}"]`);
+      if (note) note.classList.remove('show');
+    });
+  });
+
+  /* ══════════════════════════════════════════════════════════
+     Print to PDF (UPDATED: validates + bakes signatures to images)
+     ══════════════════════════════════════════════════════════ */
+ function handlePrint() {
+    const swaps = [];
+    const loadPromises = [];
+
+    document.querySelectorAll('.sig-canvas').forEach(canvas => {
+      const id = canvas.dataset.sigId;
+      const img = document.createElement('img');
+      img.className = 'sig-image';
+
+      const loaded = new Promise(resolve => {
+        img.onload = resolve;
+      });
+      loadPromises.push(loaded);
+
+      img.src = window.sigPads[id].toDataURL();
+      canvas.style.display = 'none';
+      canvas.insertAdjacentElement('afterend', img);
+      swaps.push({ canvas, img });
+    });
+
+    // Wait for every signature image to finish loading before printing
+    Promise.all(loadPromises).then(() => {
+      // One extra frame so the browser has definitely painted before printing
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.print();
+
+          swaps.forEach(({ canvas, img }) => {
+            img.remove();
+            canvas.style.display = '';
+          });
+        });
+      });
+    });
+}
 </script>
 <script>
   fetch('toptoc.html')
@@ -1005,5 +1234,6 @@ input[type="radio"]:focus-visible { outline: 3px solid var(--focus); outline-off
       document.getElementById('toptoc').innerHTML = html;
     });
 </script>
+
 </body>
 </html>
