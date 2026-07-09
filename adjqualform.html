@@ -29,13 +29,7 @@
   </header>
 
   <!-- ── Navigation ── -->
-  <nav aria-label="Site navigation" class="no-print">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="forms.html">Forms</a></li>
-      <li><a href="maps.html">Program Maps</a></li>
-    </ul>
-  </nav>
+  <div id="toptoc"></div>
 
   <div class="form-body">
 
@@ -137,8 +131,8 @@
         <div class="sub-table-wrap" style="margin-bottom:.85rem;">
           <table aria-label="Degrees and qualifications" style="table-layout:fixed;">
             <colgroup>
-              <col style="width:56px;">
-              <col style="width:54px;">
+            <col style="width:76px;">
+              <col style="width:76px;">
               <col>
               <col style="width:76px;">
             </colgroup>
@@ -569,6 +563,12 @@ function recalc() {
   document.getElementById('out-total').textContent     = fmt(tot);
 }
 </script>
-
+<script>
+  fetch('toptoc.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('toptoc').innerHTML = html;
+    });
+</script>
 </body>
 </html>
