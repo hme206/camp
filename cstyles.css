@@ -152,6 +152,17 @@
   color: #000;
 }
 
+/* Entries with no page of their own (e.g. Academic Calendar, which
+   only has subsection pages) are a <span>, not an <a> — same look,
+   but no hover highlight or pointer cursor implying it's clickable */
+span.toc-link {
+  cursor: default;
+}
+
+span.toc-link:hover {
+  background: none;
+}
+
 /* ── Dropdown Toggle Button ── */
 .toc-toggle {
   flex: 0 0 auto;
@@ -274,6 +285,81 @@
   margin-bottom: .3rem;
 }
 
+.table-scroll {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.catalog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+
+.catalog-content caption {
+  text-align: left;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: .5rem;
+  font-size: 1.1rem;
+}
+
+.catalog-content th,
+.catalog-content td {
+  border: 1px solid var(--border);
+  padding: .5rem .6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.catalog-content thead th {
+  background: var(--mid);
+  color: #000;
+}
+
+.catalog-content tbody tr:nth-child(even) {
+  background: var(--row-alt);
+}
+
+@media print {
+  .catalog-content tr {
+    break-inside: avoid;
+  }
+
+  /* Header background may or may not survive printing depending on
+     the browser's "print backgrounds" setting — force black text so
+     the headers stay legible either way, rather than depending on it. */
+  .catalog-content thead th {
+    color: #000 !important;
+  }
+
+  /* Compact spacing so multi-row calendar tables fit in fewer pages */
+  body {
+    padding: 0.25rem !important;
+    font-size: 11px;
+  }
+  .catalog-content h1 {
+    font-size: 1.1rem;
+    margin-bottom: .4rem;
+  }
+  .catalog-content table {
+    font-size: 8.5px;
+  }
+  .catalog-content caption {
+    font-size: .85rem;
+    margin-bottom: .2rem;
+  }
+  .catalog-content th,
+  .catalog-content td {
+    padding: .15rem .25rem;
+    line-height: 1.15;
+  }
+  .table-scroll {
+    margin-bottom: .5rem;
+    overflow-x: visible;
+  }
+}
+
 .catalog-hero-image {
   margin-bottom: 1.5rem;
 }
@@ -284,6 +370,34 @@
   max-width: 100%;
   height: auto;
   border-radius: 4px;
+}
+
+.accred-seal-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.accred-seal {
+  flex: 0 0 140px;
+  width: 140px;
+  height: auto;
+}
+
+.accred-seal-block p {
+  flex: 1 1 auto;
+  margin-bottom: 0;
+}
+
+@media (max-width: 500px) {
+  .accred-seal-block {
+    flex-direction: column;
+  }
+  .accred-seal {
+    width: 100px;
+    flex-basis: auto;
+  }
 }
 
 /* ── Responsive ── */
@@ -298,10 +412,35 @@
   }
 }
 
+/* ── Print / Save as PDF Button ──
+   Add this markup at the bottom of a chapter page's content:
+   <div class="print-button-wrapper no-print">
+     <button type="button" class="btn" onclick="window.print()">Print or save as PDF</button>
+   </div>
+   Uses the site's existing .btn class from styles.css for visual
+   consistency. .no-print hides the wrapper itself when printing —
+   see the expanded @media print block below. */
+.print-button-wrapper {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--light);
+  text-align: center;
+}
+
 /* ── Print ── */
 @media print {
-  .catalog-toc {
+  header,
+  #toptoc,
+  .catalog-toc,
+  .no-print {
     display: none !important;
+  }
+  .catalog-wrapper {
+    max-width: none;
+    background: none;
+  }
+  .catalog-layout {
+    display: block;
   }
   .catalog-content {
     padding: 0;
