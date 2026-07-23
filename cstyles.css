@@ -273,6 +273,14 @@ span.toc-link:hover {
   border-bottom: 2px solid var(--gold);
 }
 
+.catalog-content h3 {
+  font-family: var(--font-ui);
+  color: var(--navy-dark);
+  font-size: 1.05rem;
+  margin-top: 1.25rem;
+  margin-bottom: .5rem;
+}
+
 .catalog-content p {
   margin-bottom: 1rem;
 }
