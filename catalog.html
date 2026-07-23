@@ -5,57 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paul D. Camp Community College – College Catalog</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="cstyles.css">
 </head>
 <body>
- 
-<!-- ── Header (green two-tone header from styles.css) ── -->
-<header>
-  <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
-  <h1>College Catalog</h1>
-</header>
+<div class="catalog-wrapper">
 
-<!-- ── Top navigation (loaded from toptoc.html) ── -->
-<div id="toptoc"></div>
+  <!-- Header -->
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1><center>College Catalog</center></h1>
+  </header>
 
-<!-- ── Side navigation (loaded from sidetoc.html) ── -->
-<div id="sidetoc"></div>
+  <!-- Top Navigation -->
+  <div id="toptoc"></div>
 
-<!-- ── Page content ── -->
-<div class="page-wrapper">
-  <main>
+  <!-- Side TOC + Main Content -->
+  <div class="catalog-layout">
 
-    <section>
-      <h2>Welcome to the College Catalog</h2>
-      <p>
-        This catalog is in the process of being created - Stay tuned for future details.
-      </p>
-    </section>
+    <div id="sidetoc"></div>
 
-    <section>
-      <h2>Getting Started</h2>
-      <p>
-        Use the <strong>Contents</strong> tab on the left edge of the page to
-        browse catalog sections, or use the search box inside it to jump to a
-        specific page.
-      </p>
-    </section>
+    <main class="catalog-content">
+  <div class="catalog-hero-image">
+    <img src="images/catalogfrontpage.png" alt="">
+  </div>
+</main>
 
-  </main>
+  </div>
 
-  <footer>
-    &copy; 2026 Paul D. Camp Community College
-  </footer>
 </div>
 
-<!-- ── Include loaders ── -->
-<script>
-  // Load top nav
-  fetch('toptoc.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('toptoc').innerHTML = html;
-    });
-</script>
-
+<script src="include.js"></script>
 </body>
 </html>

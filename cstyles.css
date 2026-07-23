@@ -1,0 +1,312 @@
+/* ══════════════════════════════════════════════════════════
+   cstyles.css — Catalog-Specific Styles
+   Paul D. Camp Community College
+   Left sidebar "chapters" TOC — banner header, search box,
+   and expandable subsections. Load AFTER styles.css.
+   Meets WCAG 2.1 AA (contrast, focus visibility, keyboard
+   and screen-reader operability).
+   ══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Dark gradient stop for the sidebar banner — chosen to keep
+     black text at ~5.7:1+ contrast across the whole gradient
+     (site's --navy-dark is too dark for black text: ~2.6:1) */
+  --banner-dark: #218c1c;
+}
+
+/* ── Page Wrapper (catalog pages only — intentionally NOT
+   .form-wrapper, which belongs to forms.css and is sized for
+   narrow single-column forms) ── */
+.catalog-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--white);
+}
+
+/* ── Catalog Page Layout ── */
+.catalog-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Sidebar Container ── */
+.catalog-toc {
+  flex: 0 0 280px;
+  width: 280px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: none;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+/* ── Banner Header (gradient stays within a luminance range
+   that passes AA contrast with BLACK text — navy-dark alone
+   was too dark for that; this range tests ~5.7:1 to ~7:1) ── */
+.toc-banner {
+  background: linear-gradient(115deg, var(--banner-dark) 0%, var(--navy) 100%);
+  border-bottom: 4px solid var(--gold);
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.toc-banner h2 {
+  margin: 0 0 .75rem;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* ── Search Box ── */
+.toc-search {
+  position: relative;
+}
+
+.toc-search input[type="search"] {
+  width: 100%;
+  padding: .55rem .6rem .55rem 2rem;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  font-family: var(--font-ui);
+  font-size: .9rem;
+  box-sizing: border-box;
+}
+
+.toc-search .toc-search-icon {
+  position: absolute;
+  left: .55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 1rem;
+}
+
+.toc-search input[type="search"]:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 1px;
+  box-shadow: 0 0 0 5px var(--navy-dark);
+}
+
+/* Screen-reader-only status message announcing result count */
+#toc-search-status {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Chapter List ── */
+.toc-list {
+  list-style: none;
+  counter-reset: chapter;
+  margin: 0;
+  padding: .5rem 0;
+}
+
+.toc-item {
+  counter-increment: chapter;
+  border-bottom: 1px solid var(--light);
+}
+
+.toc-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.toc-link {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: baseline;
+  gap: .4rem;
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: .6rem .5rem .6rem .75rem;
+  line-height: 1.3;
+}
+
+.toc-link::before {
+  content: counter(chapter) ".";
+  color: var(--navy-dark);
+  flex-shrink: 0;
+}
+
+.toc-link:hover {
+  background: var(--light);
+}
+
+.toc-link[aria-current="page"] {
+  background: var(--mid);
+  color: #000;
+}
+
+/* ── Dropdown Toggle Button ── */
+.toc-toggle {
+  flex: 0 0 auto;
+  width: 2.4rem;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy-dark);
+  font-size: 1rem;
+  transition: transform .15s;
+}
+
+.toc-toggle:hover {
+  background: var(--light);
+}
+
+.toc-toggle[aria-expanded="true"] .toc-caret {
+  transform: rotate(180deg);
+}
+
+.toc-caret {
+  display: inline-block;
+  transition: transform .15s;
+}
+
+/* Shared focus style for links and buttons in the sidebar —
+   uses a white ring + dark shadow so it stays visible against
+   both white rows and the dark banner (site's default --focus
+   orange tests under the WCAG 3:1 minimum for UI components) */
+.toc-link:focus-visible,
+.toc-toggle:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 2px var(--navy-dark);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Subsections (revealed by the dropdown toggle) ── */
+.toc-sub {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--row-alt);
+}
+
+.toc-sub li {
+  border-top: 1px solid var(--light);
+}
+
+.toc-sub a {
+  display: block;
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: .82rem;
+  color: var(--text);
+  padding: .5rem .75rem .5rem 2.1rem;
+}
+
+.toc-sub a:hover {
+  background: var(--light);
+}
+
+.toc-sub a[aria-current="page"] {
+  background: var(--mid);
+  color: #000;
+  font-weight: 700;
+}
+
+/* ── No-results message shown by search ── */
+.toc-no-results {
+  padding: 1rem .75rem;
+  font-family: var(--font-ui);
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .toc-toggle,
+  .toc-caret {
+    transition: none;
+  }
+}
+
+/* ── Main Catalog Content ── */
+.catalog-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 1.5rem 2rem;
+}
+
+.catalog-content h1 {
+  font-family: var(--font-ui);
+  color: var(--navy-dark);
+  margin-bottom: 1rem;
+}
+
+.catalog-content h2 {
+  font-family: var(--font-ui);
+  color: var(--navy-dark);
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: .75rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--gold);
+}
+
+.catalog-content p {
+  margin-bottom: 1rem;
+}
+
+.catalog-content ul {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.catalog-content li {
+  margin-bottom: .3rem;
+}
+
+.catalog-hero-image {
+  margin-bottom: 1.5rem;
+}
+
+.catalog-hero-image img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 800px) {
+  .catalog-layout {
+    flex-direction: column;
+  }
+  .catalog-toc {
+    position: static;
+    width: 100%;
+    max-height: none;
+  }
+}
+
+/* ── Print ── */
+@media print {
+  .catalog-toc {
+    display: none !important;
+  }
+  .catalog-content {
+    padding: 0;
+  }
+}
