@@ -86,7 +86,6 @@
   transform: translateY(-50%);
   color: var(--muted);
   pointer-events: none;
-  font-size: 1rem;
 }
 
 .toc-search input[type="search"]:focus-visible {
@@ -165,8 +164,6 @@
   align-items: center;
   justify-content: center;
   color: var(--navy-dark);
-  font-size: 1rem;
-  transition: transform .15s;
 }
 
 .toc-toggle:hover {
