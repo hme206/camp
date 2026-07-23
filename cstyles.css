@@ -281,6 +281,14 @@ span.toc-link:hover {
   margin: 0 0 1rem 1.5rem;
 }
 
+.catalog-content ol {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.catalog-content ol ol {
+  margin-top: .3rem;
+}
+
 .catalog-content li {
   margin-bottom: .3rem;
 }
