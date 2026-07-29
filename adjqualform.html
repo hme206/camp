@@ -186,7 +186,7 @@
                 <th scope="col">Qualified hr / other</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="degrees-tbody">
               <tr>
                 <td><input type="text" class="tbl-input" aria-label="Year(s) row 1"></td>
                 <td><input type="text" class="tbl-input" aria-label="Degree row 1"></td>
@@ -208,6 +208,10 @@
             </tbody>
           </table>
         </div>
+        <button type="button" class="add-row-btn no-print" onclick="addDegreeRow()"
+          aria-label="Add another degree row">
+          + Add Another Row
+        </button>
 
         <div>
           <p class="aq-sub-heading">Experience</p>
@@ -637,6 +641,9 @@ output.aq-sal-input {
   white-space: pre-wrap;
 }
 
+/* ── Print mirrors for auto-growing textareas ── */
+.print-mirror { display: none; }
+
 /* ── Print ── */
 @media print {
   html, body { font-size: 9px !important; }
@@ -651,7 +658,25 @@ output.aq-sal-input {
   .sig-row { gap: .3rem .6rem; }
   output.aq-sal-input { background: transparent !important; border: 1px solid #999 !important; }
   .aq-legend-link { color: #000 !important; text-decoration: none; }
-  textarea { min-height: 24px !important; }
+  textarea { display: none !important; }
+  .print-mirror {
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: var(--font-body);
+    border: 1px solid #999;
+    background: transparent;
+    border-radius: 3px;
+    padding: .2rem .35rem;
+    font-size: .85rem;
+    line-height: 1.4;
+    min-height: 24px;
+  }
+  .tbl-textarea + .print-mirror {
+    min-height: 1.8rem;
+    border: none;
+    padding: .15rem .25rem;
+  }
 }
 
 /* ── Mobile ── */
@@ -666,17 +691,30 @@ output.aq-sal-input {
 <script>
 function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
 
-// Textarea heights are calculated in px against the on-screen font/padding.
-// The print stylesheet shrinks font size and padding, so re-measure once
-// print styles are actually applied, and again once we're back on screen.
-function resizeAllTextareas() {
+// Textareas need a fixed pixel height on screen (for the grow-as-you-type
+// effect), but that pixel value is measured against the screen font/padding.
+// Rather than trying to re-measure it against the print stylesheet's smaller
+// font (timing for that is inconsistent across browsers), we swap each
+// textarea out for a plain wrapped-text block just for the print output.
+// A plain block has no fixed height at all — it always sizes itself exactly
+// to its content, so there's nothing to get out of sync.
+function createPrintMirrors() {
   document.querySelectorAll('textarea').forEach(t => {
-    t.style.height = 'auto';
-    t.style.height = t.scrollHeight + 'px';
+    if (t._printMirror) return;
+    const mirror = document.createElement('div');
+    mirror.className = 'print-mirror';
+    mirror.setAttribute('aria-hidden', 'true');
+    t.insertAdjacentElement('afterend', mirror);
+    t._printMirror = mirror;
   });
 }
-window.addEventListener('beforeprint', resizeAllTextareas);
-window.addEventListener('afterprint', resizeAllTextareas);
+function syncPrintMirrors() {
+  document.querySelectorAll('textarea').forEach(t => {
+    if (t._printMirror) t._printMirror.textContent = t.value;
+  });
+}
+createPrintMirrors();
+window.addEventListener('beforeprint', () => { createPrintMirrors(); syncPrintMirrors(); });
 
 function toggleFacultyType() {
   const isDE = document.querySelector('input[name="faculty-type"]:checked').value === 'de';
@@ -692,6 +730,20 @@ function addCourseRow() {
   row.innerHTML =
     '<td><input type="text" class="tbl-input" aria-label="Courses row ' + courseRowCount + '"></td>' +
     '<td><input type="text" class="tbl-input" aria-label="Program row ' + courseRowCount + '"></td>';
+  tbody.appendChild(row);
+  row.querySelector('input').focus();
+}
+
+let degreeRowCount = document.querySelectorAll('#degrees-tbody tr').length;
+function addDegreeRow() {
+  degreeRowCount++;
+  const tbody = document.getElementById('degrees-tbody');
+  const row = document.createElement('tr');
+  row.innerHTML =
+    '<td><input type="text" class="tbl-input" aria-label="Year(s) row ' + degreeRowCount + '"></td>' +
+    '<td><input type="text" class="tbl-input" aria-label="Degree row ' + degreeRowCount + '"></td>' +
+    '<td><textarea class="tbl-input tbl-textarea" aria-label="Major row ' + degreeRowCount + '" rows="1" oninput="autoGrow(this)"></textarea></td>' +
+    '<td><input type="text" class="tbl-input" aria-label="Qualified hr/other row ' + degreeRowCount + '"></td>';
   tbody.appendChild(row);
   row.querySelector('input').focus();
 }
