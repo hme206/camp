@@ -666,6 +666,18 @@ output.aq-sal-input {
 <script>
 function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
 
+// Textarea heights are calculated in px against the on-screen font/padding.
+// The print stylesheet shrinks font size and padding, so re-measure once
+// print styles are actually applied, and again once we're back on screen.
+function resizeAllTextareas() {
+  document.querySelectorAll('textarea').forEach(t => {
+    t.style.height = 'auto';
+    t.style.height = t.scrollHeight + 'px';
+  });
+}
+window.addEventListener('beforeprint', resizeAllTextareas);
+window.addEventListener('afterprint', resizeAllTextareas);
+
 function toggleFacultyType() {
   const isDE = document.querySelector('input[name="faculty-type"]:checked').value === 'de';
   document.getElementById('salary-section').style.display = isDE ? 'none' : '';
