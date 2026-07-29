@@ -22,6 +22,8 @@
         document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>i.checked=false);
         document.querySelectorAll('textarea').forEach(t=>{t.value='';t.style.height='';});
         document.querySelectorAll('.calc-output').forEach(el=>el.textContent='0.00');
+        document.querySelector('input[name=\'faculty-type\'][value=\'non-de\']').checked = true;
+        toggleFacultyType();
         recalc();
       }">
       ↺ Reset Form
@@ -79,6 +81,46 @@
           <label class="check-label">
             <input type="checkbox" name="curriculum" value="cert-diploma"> Certificate/Diploma
           </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── Reason for Request + Effective Dates (NEW) ── -->
+    <fieldset>
+      <legend>Reason for Request</legend>
+
+      <p class="check-group-label" id="reason-label">Select One</p>
+      <div class="radio-group" role="radiogroup" aria-labelledby="reason-label">
+        <label>
+          <input type="radio" name="reason" value="original-appointment"> Original Appointment
+        </label>
+        <label>
+          <input type="radio" name="reason" value="promotion"> Promotion
+        </label>
+        <label>
+          <input type="radio" name="reason" value="transfer"> Transfer
+        </label>
+        <label>
+          <input type="radio" name="reason" value="reemployment"> Reemployment
+        </label>
+      </div>
+
+      <div class="aq-effective-grid">
+        <div>
+          <label for="eff-date-orig">Effective Date of Original Appointment</label>
+          <input type="text" id="eff-date-orig" placeholder="MM/DD/YYYY">
+        </div>
+        <div>
+          <label for="eff-rank-orig">Effective Rank of Original Appointment</label>
+          <input type="text" id="eff-rank-orig">
+        </div>
+        <div>
+          <label for="eff-date-promo">Effective Date of Promotion</label>
+          <input type="text" id="eff-date-promo" placeholder="MM/DD/YYYY">
+        </div>
+        <div>
+          <label for="eff-rank-promo">Effective Rank of Promotion</label>
+          <input type="text" id="eff-rank-promo">
         </div>
       </div>
     </fieldset>
@@ -195,8 +237,51 @@
         oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
     </fieldset>
 
-    <!-- ── Salary Computations ── -->
+    <!-- ── Credentialed to Instruct (NEW) ── -->
     <fieldset>
+      <legend>Credentialed to Instruct in the Following</legend>
+      <div class="sub-table-wrap">
+        <table aria-label="Courses and programs the applicant is credentialed to instruct">
+          <colgroup>
+            <col>
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Courses</th>
+              <th scope="col">Program</th>
+            </tr>
+          </thead>
+          <tbody id="courses-tbody">
+            <tr><td><input type="text" class="tbl-input" aria-label="Courses row 1"></td><td><input type="text" class="tbl-input" aria-label="Program row 1"></td></tr>
+            <tr><td><input type="text" class="tbl-input" aria-label="Courses row 2"></td><td><input type="text" class="tbl-input" aria-label="Program row 2"></td></tr>
+            <tr><td><input type="text" class="tbl-input" aria-label="Courses row 3"></td><td><input type="text" class="tbl-input" aria-label="Program row 3"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn no-print" onclick="addCourseRow()"
+        aria-label="Add another course row">
+        + Add Another Course
+      </button>
+    </fieldset>
+
+    <!-- ── Faculty Type Toggle (NEW) ── -->
+    <fieldset class="no-print">
+      <legend>Faculty Type</legend>
+      <p class="check-group-label" id="faculty-type-label">Select One</p>
+      <div class="radio-group" role="radiogroup" aria-labelledby="faculty-type-label">
+        <label>
+          <input type="radio" name="faculty-type" value="non-de" checked onchange="toggleFacultyType()"> Non-DE
+        </label>
+        <label>
+          <input type="radio" name="faculty-type" value="de" onchange="toggleFacultyType()"> Dual Enrollment (DE)
+        </label>
+      </div>
+      <p class="btn-hint" style="margin-top:.6rem;">DE faculty skip salary computations — High School Location appears in its place.</p>
+    </fieldset>
+
+    <!-- ── Salary Computations ── -->
+    <fieldset id="salary-section">
       <legend>Entry-Level Salary Computations <span class="aq-legend-sub">(Original Appointments Only)</span></legend>
 
       <div class="aq-salary-grid">
@@ -280,6 +365,13 @@
         <li>Current adjunct salary scale should be used.</li>
         <li>Maximum salary should not exceed the midpoint of the adjunct salary scale.</li>
       </ul>
+    </fieldset>
+
+    <!-- ── High School Location (DE only, NEW) ── -->
+    <fieldset id="de-section" style="display:none;">
+      <legend>High School Location</legend>
+      <label for="hs-location">High School Location</label>
+      <input type="text" id="hs-location" placeholder="e.g. Franklin High School">
     </fieldset>
 
     <!-- ── Signatures ── -->
@@ -403,6 +495,14 @@
 }
 .aq-unit { font-size: .83rem; color: var(--muted); }
 
+/* ── Reason / Effective Dates grid (NEW) ── */
+.aq-effective-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem 1.5rem;
+  margin-top: 1rem;
+}
+
 /* ── Salary section ── */
 .aq-legend-sub {
   font-weight: 400;
@@ -509,6 +609,25 @@ output.aq-sal-input {
 }
 .sig-field input[type="text"] { width: 100%; }
 
+/* ── Add Row Button (courses table) ── */
+.add-row-btn {
+  display: inline-block;
+  margin-top: .6rem;
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  padding: .45rem 1rem;
+  border: 1.5px solid var(--navy);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.add-row-btn:hover { background: var(--navy); color: var(--white); }
+.add-row-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
 /* ── Major column textarea ── */
 .tbl-textarea {
   resize: none;
@@ -523,6 +642,7 @@ output.aq-sal-input {
   html, body { font-size: 9px !important; }
   .aq-two-col { gap: .5rem; margin-bottom: .5rem; }
   .aq-years { width: 2.5rem; padding: .1rem .2rem; }
+  .aq-effective-grid { gap: .3rem .6rem; margin-top: .35rem; }
   .aq-salary-grid { gap: .25rem; }
   .aq-sal-input { width: 85px; padding: .15rem .3rem; }
   .aq-inc-input { width: 44px; }
@@ -538,12 +658,31 @@ output.aq-sal-input {
 @media (max-width: 640px) {
   .aq-two-col { grid-template-columns: 1fr; }
   .aq-cols-3 { grid-template-columns: 1fr; }
+  .aq-effective-grid { grid-template-columns: 1fr; }
   .sig-row { grid-template-columns: 1fr 1fr; }
 }
 </style>
 
 <script>
 function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+
+function toggleFacultyType() {
+  const isDE = document.querySelector('input[name="faculty-type"]:checked').value === 'de';
+  document.getElementById('salary-section').style.display = isDE ? 'none' : '';
+  document.getElementById('de-section').style.display = isDE ? '' : 'none';
+}
+
+let courseRowCount = document.querySelectorAll('#courses-tbody tr').length;
+function addCourseRow() {
+  courseRowCount++;
+  const tbody = document.getElementById('courses-tbody');
+  const row = document.createElement('tr');
+  row.innerHTML =
+    '<td><input type="text" class="tbl-input" aria-label="Courses row ' + courseRowCount + '"></td>' +
+    '<td><input type="text" class="tbl-input" aria-label="Program row ' + courseRowCount + '"></td>';
+  tbody.appendChild(row);
+  row.querySelector('input').focus();
+}
 
 function val(id) { return parseFloat(document.getElementById(id).value) || 0; }
 function fmt(n)  { return n.toFixed(2); }
