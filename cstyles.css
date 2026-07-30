@@ -245,7 +245,9 @@ span.toc-link:hover {
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   .toc-toggle,
-  .toc-caret {
+  .toc-caret,
+  .subject-toggle,
+  .subject-caret {
     transition: none;
   }
 }
@@ -461,4 +463,200 @@ span.toc-link:hover {
   .catalog-content {
     padding: 0;
   }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Course Listing — subject-toggle accordion + search
+   Added for acadcourselistings.html. Reuses the same visual
+   language as the sidebar TOC (gold-accented banners, white-
+   outline/dark-shadow double-ring focus, rotating caret) so
+   the page reads as part of the same system rather than a
+   one-off widget. All colors come from variables already
+   defined in styles.css / above in this file.
+   ══════════════════════════════════════════════════════════ */
+
+.course-search-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.course-search-wrap input[type="search"] {
+  width: 100%;
+  padding: .7rem .8rem .7rem 2.4rem;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.course-search-wrap input[type="search"]:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 1px;
+  box-shadow: 0 0 0 5px var(--navy-dark);
+}
+
+.course-search-icon {
+  position: absolute;
+  left: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+#course-search-status {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.course-listing-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+}
+
+.course-listing-controls .btn-text {
+  background: none;
+  border: none;
+  color: var(--navy-dark);
+  font-family: var(--font-ui);
+  font-size: .85rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: .3rem .1rem;
+  flex-shrink: 0;
+}
+
+.course-listing-controls .btn-text:focus-visible {
+  outline: 3px solid var(--navy-dark);
+  outline-offset: 2px;
+}
+
+.subject-group {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: .6rem;
+  overflow: hidden;
+}
+
+.subject-heading {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.subject-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  background: var(--mid);
+  border: none;
+  border-bottom: 3px solid var(--gold);
+  padding: .8rem 1rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-ui);
+}
+
+.subject-toggle:hover {
+  background: var(--light);
+}
+
+.subject-name {
+  flex: 1 1 auto;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #000;
+}
+
+.subject-count {
+  flex: 0 0 auto;
+  font-size: .8rem;
+  color: var(--navy-dark);
+  font-weight: 400;
+}
+
+.subject-caret {
+  flex: 0 0 auto;
+  color: var(--navy-dark);
+  transition: transform .15s;
+}
+
+.subject-toggle[aria-expanded="true"] .subject-caret {
+  transform: rotate(180deg);
+}
+
+.subject-toggle:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 2px var(--navy-dark);
+  position: relative;
+  z-index: 1;
+}
+
+.subject-panel {
+  background: var(--white);
+  padding: 0 1rem;
+}
+
+.course-entry {
+  padding: 1rem 0;
+  border-top: 1px solid var(--light);
+}
+
+.subject-panel .course-entry:first-child {
+  border-top: none;
+}
+
+.course-title {
+  font-family: var(--font-ui);
+  color: var(--navy-dark);
+  font-size: 1rem;
+  margin: 0 0 .4rem;
+}
+
+.course-desc {
+  margin: 0 0 .5rem;
+}
+
+.course-meta {
+  font-size: .85rem;
+  color: var(--muted);
+  margin: 0 0 .3rem;
+  line-height: 1.5;
+}
+
+.course-outline {
+  margin: 0;
+  font-size: .85rem;
+}
+
+/* Search-match highlighting within course titles */
+.course-entry.search-match .course-title {
+  background: linear-gradient(transparent 60%, #fff3b0 60%);
+}
+
+/* Hidden state applied by JS filtering, distinct from the
+   [hidden] attribute used for the collapsed/expanded toggle
+   state so the two mechanisms don't fight each other */
+.subject-group.search-hidden,
+.course-entry.search-hidden {
+  display: none;
+}
+
+.course-listing-noresults {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-ui);
 }
