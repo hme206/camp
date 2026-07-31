@@ -42,8 +42,6 @@
   position: sticky;
   top: 0;
   align-self: flex-start;
-  max-height: 100vh;
-  overflow-y: auto;
 }
 
 /* ── Banner Header (gradient stays within a luminance range
@@ -554,7 +552,6 @@ span.toc-link:hover {
   .catalog-toc {
     position: static;
     width: 100%;
-    max-height: none;
   }
 }
 
@@ -574,28 +571,47 @@ span.toc-link:hover {
 }
 
 /* ── Print "Program Map Only" mode ──
-   Used on individual program pages (progXXX.html). The print
-   button adds a temporary class to <body> before calling
+   Used on individual program pages (progXXX.html) AND on
+   combined certs/CSC pages that hold several programs under
+   one <section class="program-section" id="PLANCODE">. The
+   print button adds a temporary class to <body> before calling
    window.print(), removed again on the browser's afterprint
    event. Only elements marked .map-keep survive printing —
-   normally the page <h1> and the quick-facts block, plus the
-   .program-map wrapper around the curriculum table and its
-   footnotes. Everything else in .catalog-content (Purpose,
-   Student Learning Outcomes, Admission Requirements, etc.) is
-   hidden so the printout is just the course map itself.
+   normally the page/section heading and quick-facts block, plus
+   the .program-map wrapper around the curriculum table and its
+   footnotes.
+
+   On a combined page, clicking a specific section's print
+   button also temporarily adds .map-keep + .print-target to
+   THAT section only (removed on afterprint), so the first rule
+   below hides every other section entirely, and the second rule
+   strips that one section down to just its own .map-keep parts.
    Markup pattern:
      <script>
-     function printProgramMap() {
+     function printProgramMap(sectionId) {
+       document.querySelectorAll('.program-section').forEach(function (el) {
+         el.classList.remove('print-target', 'map-keep');
+       });
+       if (sectionId) {
+         var target = document.getElementById(sectionId);
+         if (target) target.classList.add('print-target', 'map-keep');
+       }
        document.body.classList.add('print-map-only');
        window.print();
      }
      window.addEventListener('afterprint', function () {
        document.body.classList.remove('print-map-only');
+       document.querySelectorAll('.program-section').forEach(function (el) {
+         el.classList.remove('print-target', 'map-keep');
+       });
      });
      </script>
 */
 @media print {
   body.print-map-only .catalog-content > :not(.map-keep) {
+    display: none !important;
+  }
+  body.print-map-only .program-section.print-target > :not(.map-keep) {
     display: none !important;
   }
 }
