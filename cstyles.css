@@ -367,6 +367,58 @@ span.toc-link:hover {
   color: var(--muted);
 }
 
+/* ── Full-site search results ──
+   Shown in place of .toc-list while a search query is active;
+   each result links straight to a matching page, with a text
+   snippet (built from that page's real content) showing where
+   the match occurred. */
+.toc-search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-search-result {
+  border-bottom: 1px solid var(--light);
+}
+
+.toc-search-result a {
+  display: block;
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: .6rem .75rem .2rem;
+}
+
+.toc-search-result a:hover {
+  background: var(--light);
+}
+
+.toc-search-result a:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 2px var(--navy-dark);
+  position: relative;
+  z-index: 1;
+}
+
+.toc-search-snippet {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.4;
+  padding: 0 .75rem .6rem;
+}
+
+.toc-search-snippet mark {
+  background: #fff3b0;
+  color: inherit;
+  padding: 0 .1em;
+}
+
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   .toc-toggle,

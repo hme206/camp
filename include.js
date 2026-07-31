@@ -137,100 +137,200 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Filter-style search: matches typed text against each chapter's
-  // title and its subsection titles (this naturally includes program
-  // names nested inside the Program Requirements pathway tree too,
-  // since querySelectorAll("a") reaches every link at any depth under
-  // .toc-sub). Chapters with no match are hidden; chapters whose only
-  // match is a subsection get their dropdown auto-expanded so the
-  // match is visible — and if that match is itself nested inside the
-  // collapsed pathway tree, that inner toggle gets auto-expanded too.
+  // ──────────────────────────────────────────────────────────
+  // Full-site search
   //
-  // NOTE for later: this searches only the TOC's own text (chapter
-  // and subsection titles), not full page content. To upgrade to
-  // full-text search across all catalog pages, replace the data
-  // this function reads (currently pulled live from the DOM) with
-  // a generated content index, and keep the same filtering/display
-  // logic below.
+  // Every page on the site shares the same template, and every
+  // page's URL already appears somewhere in sidetoc.html's own
+  // links. So instead of only matching against chapter/subsection
+  // link text, this collects every unique URL out of the sidebar,
+  // fetches each page in the background, extracts the visible text
+  // from its .catalog-content region, and searches THAT — real
+  // page content, not just menu labels.
+  //
+  // The index is built once per browser tab (cached in
+  // sessionStorage) so navigating between pages doesn't re-fetch
+  // everything each time; it only rebuilds if the cached version
+  // looks stale (see INDEX_MAX_AGE_MS) or is missing.
+  //
+  // While a search is active, results replace the normal chapter
+  // tree with a flat list of matching pages + a text snippet.
+  // Clearing the search restores the normal collapsed/expanded
+  // chapter view exactly as it was.
+  // ──────────────────────────────────────────────────────────
+  const SEARCH_INDEX_KEY = "campSiteSearchIndex";
+  const INDEX_MAX_AGE_MS = 1000 * 60 * 30; // rebuild if older than 30 minutes
+
+  function collectSiteUrls(container) {
+    const urls = new Set();
+    container.querySelectorAll("a[href]").forEach(a => {
+      const href = a.getAttribute("href");
+      if (!href || href.startsWith("http") || href.startsWith("mailto:")) return;
+      urls.add(href.split("#")[0]);
+    });
+    return Array.from(urls);
+  }
+
+  function loadCachedIndex() {
+    try {
+      const raw = sessionStorage.getItem(SEARCH_INDEX_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (Date.now() - parsed.builtAt > INDEX_MAX_AGE_MS) return null;
+      return parsed.pages;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveCachedIndex(pages) {
+    try {
+      sessionStorage.setItem(SEARCH_INDEX_KEY, JSON.stringify({
+        builtAt: Date.now(),
+        pages: pages
+      }));
+    } catch (e) {
+      // sessionStorage unavailable — index just won't persist across
+      // page loads in this tab; search still works for the current page
+    }
+  }
+
+  function extractPageText(html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const titleEl = doc.querySelector(".catalog-content h1") || doc.querySelector("title");
+    const title = titleEl ? titleEl.textContent.trim() : "Untitled page";
+    const contentEl = doc.querySelector(".catalog-content");
+    const text = contentEl ? contentEl.textContent.replace(/\s+/g, " ").trim() : "";
+    return { title, text };
+  }
+
+  // Builds the full-site index once, fetching every page in
+  // parallel. Returns a Promise resolving to the page array.
+  function buildSiteIndex(urls) {
+    const fetches = urls.map(url =>
+      fetch(url)
+        .then(res => (res.ok ? res.text() : null))
+        .then(html => {
+          if (!html) return null;
+          const { title, text } = extractPageText(html);
+          return { url, title, text };
+        })
+        .catch(() => null)
+    );
+
+    return Promise.all(fetches).then(results => {
+      const pages = results.filter(Boolean);
+      saveCachedIndex(pages);
+      return pages;
+    });
+  }
+
+  // Returns a short snippet of `text` centered on the first
+  // occurrence of `query`, with the match itself wrapped in <mark>.
+  function buildSnippet(text, query) {
+    const lower = text.toLowerCase();
+    const idx = lower.indexOf(query);
+    if (idx === -1) return text.slice(0, 140) + (text.length > 140 ? "…" : "");
+
+    const start = Math.max(0, idx - 60);
+    const end = Math.min(text.length, idx + query.length + 60);
+    const prefix = start > 0 ? "…" : "";
+    const suffix = end < text.length ? "…" : "";
+    const before = escapeHtml(text.slice(start, idx));
+    const match = escapeHtml(text.slice(idx, idx + query.length));
+    const after = escapeHtml(text.slice(idx + query.length, end));
+
+    return `${prefix}${before}<mark>${match}</mark>${after}${suffix}`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
   function initSearch(container) {
     const input = container.querySelector("#toc-search-input");
     const status = container.querySelector("#toc-search-status");
     const noResults = container.querySelector("#toc-no-results");
-    const items = container.querySelectorAll(".toc-item");
+    const tocList = container.querySelector(".toc-list");
     if (!input) return;
 
-    input.addEventListener("input", () => {
-      const query = input.value.trim().toLowerCase();
-      let visibleCount = 0;
+    // Results list, inserted right after the search box's parent
+    // banner, hidden until a search is active
+    const resultsList = document.createElement("ul");
+    resultsList.className = "toc-search-results";
+    resultsList.hidden = true;
+    tocList.parentNode.insertBefore(resultsList, tocList);
 
-      items.forEach(item => {
-        const chapterLink = item.querySelector(".toc-link");
-        const chapterText = chapterLink.textContent.toLowerCase();
-        const submenu = item.querySelector(".toc-sub");
-        const toggle = item.querySelector(".toc-toggle");
-        const subLinks = submenu ? Array.from(submenu.querySelectorAll("a")) : [];
+    let siteIndex = loadCachedIndex();
+    let indexBuilding = null;
 
-        const chapterMatches = query === "" || chapterText.includes(query);
-        const matchingSubLinks = query === ""
-          ? []
-          : subLinks.filter(a => a.textContent.toLowerCase().includes(query));
+    function ensureIndex() {
+      if (siteIndex) return Promise.resolve(siteIndex);
+      if (indexBuilding) return indexBuilding;
 
-        const itemMatches = chapterMatches || matchingSubLinks.length > 0;
-        item.hidden = !itemMatches;
+      const urls = collectSiteUrls(container);
+      if (status) status.textContent = "Searching all pages…";
 
-        if (itemMatches) visibleCount++;
+      indexBuilding = buildSiteIndex(urls).then(pages => {
+        siteIndex = pages;
+        indexBuilding = null;
+        return pages;
+      });
+      return indexBuilding;
+    }
 
-        if (submenu && toggle) {
-          if (query !== "" && matchingSubLinks.length > 0 && !chapterMatches) {
-            // Only subsections matched — expand so the match is visible
-            submenu.hidden = false;
-            toggle.setAttribute("aria-expanded", "true");
-          } else if (query === "") {
-            // Search cleared — restore whatever the user had open before
-            // searching, rather than force-collapsing everything
-            const expandedIds = getExpandedIds();
-            const wasExpanded = expandedIds.has(toggle.getAttribute("aria-controls"));
-            submenu.hidden = !wasExpanded;
-            toggle.setAttribute("aria-expanded", String(wasExpanded));
-          }
-        }
+    function renderResults(query, pages) {
+      const matches = pages.filter(page =>
+        page.title.toLowerCase().includes(query) || page.text.toLowerCase().includes(query)
+      );
 
-        // Nested pathway tree (Program Requirements): if any matching
-        // link lives inside a .toc-subtoggle's target, expand that
-        // inner toggle too so the match is actually visible, not just
-        // present-but-hidden inside a collapsed .toc-tree.
-        if (submenu) {
-          submenu.querySelectorAll(".toc-subtoggle").forEach(subToggle => {
-            const subTargetId = subToggle.getAttribute("aria-controls");
-            const subTarget = document.getElementById(subTargetId);
-            if (!subTarget) return;
-
-            if (query === "") {
-              const expandedIds = getExpandedIds();
-              const wasExpanded = expandedIds.has(subTargetId);
-              subTarget.hidden = !wasExpanded;
-              subToggle.setAttribute("aria-expanded", String(wasExpanded));
-              return;
-            }
-
-            const nestedMatch = Array.from(subTarget.querySelectorAll("a"))
-              .some(a => a.textContent.toLowerCase().includes(query));
-
-            if (nestedMatch) {
-              subTarget.hidden = false;
-              subToggle.setAttribute("aria-expanded", "true");
-            }
-          });
-        }
+      resultsList.innerHTML = "";
+      matches.forEach(page => {
+        const li = document.createElement("li");
+        li.className = "toc-search-result";
+        const snippet = page.text.toLowerCase().includes(query)
+          ? buildSnippet(page.text, query)
+          : "";
+        li.innerHTML = `
+          <a href="${page.url}">${escapeHtml(page.title)}</a>
+          ${snippet ? `<span class="toc-search-snippet">${snippet}</span>` : ""}
+        `;
+        resultsList.appendChild(li);
       });
 
-      if (noResults) noResults.hidden = visibleCount !== 0;
+      resultsList.hidden = matches.length === 0;
+      tocList.hidden = true;
+      if (noResults) noResults.hidden = matches.length !== 0;
 
       if (status) {
-        status.textContent = query === ""
-          ? ""
-          : `${visibleCount} chapter${visibleCount === 1 ? "" : "s"} found`;
+        status.textContent = `${matches.length} page${matches.length === 1 ? "" : "s"} found`;
       }
+    }
+
+    function clearSearch() {
+      resultsList.hidden = true;
+      resultsList.innerHTML = "";
+      tocList.hidden = false;
+      if (noResults) noResults.hidden = true;
+      if (status) status.textContent = "";
+    }
+
+    let debounceTimer = null;
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase();
+
+      clearTimeout(debounceTimer);
+
+      if (query === "") {
+        clearSearch();
+        return;
+      }
+
+      debounceTimer = setTimeout(() => {
+        ensureIndex().then(pages => renderResults(query, pages));
+      }, 200);
     });
   }
 
