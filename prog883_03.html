@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS Industrial Technology — Electronic Controls (883-03) — Paul D. Camp Community College Catalog</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="cstyles.css">
+</head>
+<body>
+<div class="catalog-wrapper">
+
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1><center>College Catalog</center></h1>
+  </header>
+
+  <div id="toptoc"></div>
+
+  <div class="catalog-layout">
+
+    <div id="sidetoc"></div>
+
+    <main class="catalog-content">
+
+      <h1 class="map-keep">Industrial Technology &ndash; Electronic Controls Specialization</h1>
+
+      <p class="course-meta map-keep">
+        Program: Industrial Technology<br>
+        Award: Associate of Applied Science<br>
+        Specialization: Electronic Controls<br>
+        Plan Code: 883-03<br>
+        Length: 65 credit hours<br>
+        Lead Faculty: Keisha Nichols
+      </p>
+
+      <p>See <a href="prog883.html">Industrial Technology &ndash; General (883)</a> for the program-level Purpose, Student Learning Outcomes, and Admission Requirements shared across all Industrial Technology specializations.</p>
+
+      <div class="program-map map-keep">
+        <div class="table-scroll">
+          <table>
+            <caption>Industrial Technology &ndash; Electronic Controls (883-03): Required Courses and Credits, Sample Schedule</caption>
+            <thead>
+              <tr><th>Course</th><th>Description</th><th>Credits</th></tr>
+            </thead>
+            <tbody>
+              <tr><th colspan="3" scope="rowgroup">First Year &ndash; Fall Term</th></tr>
+              <tr><td>DRF 175</td><td>Schematics and Mechanical Diagrams</td><td>2</td></tr>
+              <tr><td>ENG 111</td><td>College Composition I</td><td>3</td></tr>
+              <tr><td>ETR 113</td><td>DC and AC Fundamentals I</td><td>4</td></tr>
+              <tr><td>IND 165</td><td>Principles of Industrial Technology I</td><td>4</td></tr>
+              <tr><td>MTH 111</td><td>Technical Math</td><td>3</td></tr>
+              <tr><td>SDV 100</td><td>College Success Skills</td><td>1</td></tr>
+              <tr><td colspan="2"><strong>Total Semester Credits</strong></td><td><strong>17</strong></td></tr>
+
+              <tr><th colspan="3" scope="rowgroup">First Year &ndash; Spring Term</th></tr>
+              <tr><td>ETR 114</td><td>DC and AC Fundamentals II</td><td>4</td></tr>
+              <tr><td>ELE 239</td><td>Programmable Logic Controllers</td><td>3</td></tr>
+              <tr><td>IND 166</td><td>Principles of Industrial Technology II</td><td>4</td></tr>
+              <tr><td>ITE 152</td><td>Introduction to Digital and Information Literacy and Computer Applications</td><td>3</td></tr>
+              <tr><td>Social Science</td><td>Any Social Science Elective</td><td>3</td></tr>
+              <tr><td colspan="2"><strong>Total Semester Credits</strong></td><td><strong>17</strong></td></tr>
+
+              <tr><th colspan="3" scope="rowgroup">Second Year &ndash; Fall Term</th></tr>
+              <tr><td>CST 100</td><td>Principles of Public Speaking</td><td>3</td></tr>
+              <tr><td>ETR 203</td><td>Electronic Devices I</td><td>4</td></tr>
+              <tr><td>ETR 221</td><td>Electronic Controls I</td><td>4</td></tr>
+              <tr><td>HLT or PED</td><td>Health or Physical Education elective</td><td>2</td></tr>
+              <tr><td>Social Science</td><td>Any Social Science Elective</td><td>3</td></tr>
+              <tr><td colspan="2"><strong>Total Semester Credits</strong></td><td><strong>16</strong></td></tr>
+
+              <tr><th colspan="3" scope="rowgroup">Second Year &ndash; Spring Term</th></tr>
+              <tr><td>ETR 204</td><td>Electronic Devices II</td><td>4</td></tr>
+              <tr><td>IND 160</td><td>Introduction to Robotics</td><td>2</td></tr>
+              <tr><td>ETR 286</td><td>Principles and Applications of Robotics</td><td>3</td></tr>
+              <tr><td>Humanities</td><td>Humanities elective</td><td>3</td></tr>
+              <tr><td>INS 110</td><td>Instrumentation</td><td>3</td></tr>
+              <tr><td colspan="2"><strong>Total Semester Credits</strong></td><td><strong>15</strong></td></tr>
+              <tr><td colspan="2"><strong>Total Program Credits</strong></td><td><strong>65</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="print-button-wrapper no-print">
+        <button type="button" class="btn" onclick="printProgramMap()">Print Program Map</button>
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<script src="include.js"></script>
+<script>
+function printProgramMap() {
+  document.body.classList.add('print-map-only');
+  window.print();
+}
+window.addEventListener('afterprint', function () {
+  document.body.classList.remove('print-map-only');
+});
+</script>
+</body>
+</html>
