@@ -64,25 +64,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Wires up each chapter's dropdown button: toggles aria-expanded
-  // and the `hidden` attribute on its subsection list. Using `hidden`
-  // (rather than height/animation tricks) means collapsed subsections
-  // are fully removed from the accessibility tree and tab order.
+  // ──────────────────────────────────────────────────────────
+  // Expanded-section persistence
+  //
+  // sidetoc.html is fetched fresh on every page load, so without
+  // this, expanding a chapter (or the Program Requirements pathway
+  // tree), clicking a link inside it, and landing on a new page
+  // would always show every toggle back in its collapsed default
+  // state. This remembers which toggles the user has opened, keyed
+  // by each toggle's aria-controls id, and restores that state the
+  // next time sidetoc.html loads — on any page.
+  //
+  // Toggles remain fully collapsible by clicking them again; this
+  // only affects what state they start in on a fresh page load.
+  // ──────────────────────────────────────────────────────────
+  const TOC_STORAGE_KEY = "campTocExpandedIds";
+
+  function getExpandedIds() {
+    try {
+      const raw = localStorage.getItem(TOC_STORAGE_KEY);
+      return raw ? new Set(JSON.parse(raw)) : new Set();
+    } catch (e) {
+      return new Set();
+    }
+  }
+
+  function saveExpandedIds(idSet) {
+    try {
+      localStorage.setItem(TOC_STORAGE_KEY, JSON.stringify(Array.from(idSet)));
+    } catch (e) {
+      // localStorage unavailable (private browsing, storage full, etc.) —
+      // toggles still work for the current page, they just won't persist
+    }
+  }
+
+  function rememberExpanded(id, expanded) {
+    const ids = getExpandedIds();
+    if (expanded) {
+      ids.add(id);
+    } else {
+      ids.delete(id);
+    }
+    saveExpandedIds(ids);
+  }
+
+  // Wires up both toggle levels: .toc-toggle (chapter dropdowns) and
+  // .toc-subtoggle (the Program Requirements pathway tree). Both share
+  // the same aria-expanded / aria-controls / hidden contract, so one
+  // function handles both. Restores each toggle's remembered state on
+  // load, then keeps it in sync with localStorage on every click.
   function initToggles(container) {
-    container.querySelectorAll(".toc-toggle").forEach(button => {
+    const expandedIds = getExpandedIds();
+
+    container.querySelectorAll(".toc-toggle, .toc-subtoggle").forEach(button => {
+      const targetId = button.getAttribute("aria-controls");
+      const submenu = document.getElementById(targetId);
+      if (!submenu) return;
+
+      // Restore remembered state from a previous page
+      if (expandedIds.has(targetId)) {
+        button.setAttribute("aria-expanded", "true");
+        submenu.hidden = false;
+      }
+
       button.addEventListener("click", () => {
-        const submenu = document.getElementById(button.getAttribute("aria-controls"));
         const expanded = button.getAttribute("aria-expanded") === "true";
-        button.setAttribute("aria-expanded", String(!expanded));
-        if (submenu) submenu.hidden = expanded;
+        const nowExpanded = !expanded;
+        button.setAttribute("aria-expanded", String(nowExpanded));
+        submenu.hidden = expanded; // expanded was true -> now hide; was false -> now show
+        rememberExpanded(targetId, nowExpanded);
       });
     });
   }
 
   // Filter-style search: matches typed text against each chapter's
-  // title and its subsection titles. Chapters with no match are
-  // hidden; chapters whose only match is a subsection get their
-  // dropdown auto-expanded so the match is visible.
+  // title and its subsection titles (this naturally includes program
+  // names nested inside the Program Requirements pathway tree too,
+  // since querySelectorAll("a") reaches every link at any depth under
+  // .toc-sub). Chapters with no match are hidden; chapters whose only
+  // match is a subsection get their dropdown auto-expanded so the
+  // match is visible — and if that match is itself nested inside the
+  // collapsed pathway tree, that inner toggle gets auto-expanded too.
   //
   // NOTE for later: this searches only the TOC's own text (chapter
   // and subsection titles), not full page content. To upgrade to
@@ -124,10 +186,41 @@ document.addEventListener("DOMContentLoaded", () => {
             submenu.hidden = false;
             toggle.setAttribute("aria-expanded", "true");
           } else if (query === "") {
-            // Search cleared — collapse back to the default state
-            submenu.hidden = true;
-            toggle.setAttribute("aria-expanded", "false");
+            // Search cleared — restore whatever the user had open before
+            // searching, rather than force-collapsing everything
+            const expandedIds = getExpandedIds();
+            const wasExpanded = expandedIds.has(toggle.getAttribute("aria-controls"));
+            submenu.hidden = !wasExpanded;
+            toggle.setAttribute("aria-expanded", String(wasExpanded));
           }
+        }
+
+        // Nested pathway tree (Program Requirements): if any matching
+        // link lives inside a .toc-subtoggle's target, expand that
+        // inner toggle too so the match is actually visible, not just
+        // present-but-hidden inside a collapsed .toc-tree.
+        if (submenu) {
+          submenu.querySelectorAll(".toc-subtoggle").forEach(subToggle => {
+            const subTargetId = subToggle.getAttribute("aria-controls");
+            const subTarget = document.getElementById(subTargetId);
+            if (!subTarget) return;
+
+            if (query === "") {
+              const expandedIds = getExpandedIds();
+              const wasExpanded = expandedIds.has(subTargetId);
+              subTarget.hidden = !wasExpanded;
+              subToggle.setAttribute("aria-expanded", String(wasExpanded));
+              return;
+            }
+
+            const nestedMatch = Array.from(subTarget.querySelectorAll("a"))
+              .some(a => a.textContent.toLowerCase().includes(query));
+
+            if (nestedMatch) {
+              subTarget.hidden = false;
+              subToggle.setAttribute("aria-expanded", "true");
+            }
+          });
         }
       });
 
