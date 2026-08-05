@@ -322,25 +322,22 @@
     size: letter;
     margin: 0.3in; /* shrink this if needed (0.4in or 0.3in) */
   }
-
   /* Hide ONLY navigation (not header) */
   nav,
   .no-print {
     display: none !important;
     visibility: hidden;
   }
-
   /* Remove default browser margins */
   body {
     margin: 0;
     padding: 0;
   }
-
   /* Prevent layout gaps from hidden/sticky elements */
   html, body {
     height: auto !important;
     overflow: visible !important;
-
+    font-size: 13px; /* shrink everything that uses rem units */
   }
 
   /* Typography scaling */
