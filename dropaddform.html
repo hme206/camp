@@ -316,7 +316,7 @@
     border-bottom: 1.5px solid #000;
   }
 
-  /* ── Print ── */
+   /* ── Print ── */
   @media print {
     @page {
     size: letter;
@@ -337,7 +337,7 @@
   html, body {
     height: auto !important;
     overflow: visible !important;
-    font-size: 11px; /* shrink everything that uses rem units */
+    font-size: 12px; /* shrink everything that uses rem units */
   }
 
   /* Typography scaling */
@@ -487,7 +487,7 @@
     <!-- Notice -->
     <div class="notice-box" role="note" aria-label="Important notice">
       <span class="notice-title">The Drop/Add period dates are posted in the College Catalog.</span>
-      <p>Consult a counselor or your academic advisor before adding or dropping to prevent possible problems
+      <p>Consult an enrollment navigator or your academic advisor before adding or dropping to prevent possible problems
       with your permanent college records, your financial aid status, or your veteran's benefits.</p>
       <p style="margin-top:.6rem;"><input type="checkbox" aria-label="checkbox1" name="cb1"> By checking this box, I acknowledge that if I add this course after the last day to drop a class for a refund, I am responsible for any tuition, fees, or other financial obligations associated with this enrollment.</p>
     </div>
@@ -686,16 +686,16 @@
         <fieldset style="border:none;padding:0;margin:.5rem 0 0;">
           <legend class="approved-label" style="float:left;padding:0;font-size:.82rem;">Approved by:</legend>
           <div class="approved-row" style="margin-top:.5rem;">
-            <label><input type="checkbox" name="appr_dean"> Campus Dean</label>
-            <label><input type="checkbox" name="appr_counselor"> Counselor</label>
+            <label><input type="checkbox" name="appr_dean"> Dean of Academics</label>
+          
             <label><input type="checkbox" name="appr_finaid"> Financial Aid</label>
-            <label><input type="checkbox" name="appr_instructor"> Instructor</label>
+            <label><input type="checkbox" name="appr_instructor"> Dean of Student Services</label>
           </div>
         </fieldset>
 
         <div class="approved-sigs">
           <input type="text" aria-label="Campus Dean signature" name="sig_dean" placeholder="Dean of Academics">
-          <input type="text" aria-label="Financial Aid signature" name="sig_finaid" placeholder="Director of Financial Aid">
+          <input type="text" aria-label="Financial Aid signature" name="sig_finaid" placeholder="Coordinator of Financial Aid">
           <input type="text" aria-label="Instructor signature" name="sig_instructor" placeholder="Dean of Student Services">
         </div>
       </div>
