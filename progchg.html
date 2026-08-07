@@ -22,13 +22,20 @@
   </header>
 
   <!-- Navigation -->
-<div id="toptoc"></div>
+  <nav class="no-print">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="forms.html">Forms</a></li>
+      <li><a href="maps.html">Program Maps</a></li>
+    </ul>
+  </nav>
 
   <div class="form-body">
 
     <!-- Legend -->
     <div class="ppc-legend instructions" role="note" aria-label="Form legend">
       <p><strong>++</strong> Indicated plans are not eligible for Financial Aid</p>
+      <p><strong>**</strong> Indicates the Program starts Spring 2020</p>
       <p><strong>##</strong> Indicates you have to apply &amp; be accepted into the Program before adding it</p>
     </div>
 
@@ -106,8 +113,8 @@
           <span><abbr title="Must apply and be accepted into program">##</abbr> AAS Nursing (156) <span class="ppc-accepted">Have you been accepted?</span></span>
         </label>
         <label class="ppc-row check-label">
-          <input type="checkbox" name="program" value="146" aria-label="AAS EMS Paramedic (146) - must apply and be accepted">
-          <span><abbr title="Must apply and be accepted into program">##</abbr> AAS EMS – Paramedic (146) <span class="ppc-accepted">Have you been accepted?</span></span>
+          <input type="checkbox" name="program" value="146" aria-label="AAS Emergency Medical Services - Paramedic (221-146) - must apply and be accepted">
+          <span><abbr title="Must apply and be accepted into program">##</abbr> AAS Emergency Medical Services - Paramedic (221-146) <span class="ppc-accepted">Have you been accepted?</span></span>
         </label>
         <label class="ppc-row check-label">
           <input type="checkbox" name="program" value="157" aria-label="CERT Practical Nursing Program (157) - must apply and be accepted">
@@ -199,14 +206,8 @@
           <input type="checkbox" name="program" value="221-212-10" aria-label="CSC Entrepreneurship in Small Business Management (221-212-10)">
           <span>CSC Entrepreneurship in Small Business Management (221-212-10)</span>
         </label>
-        <label class="ppc-row check-label">
-          <input type="checkbox" name="program" value="221-212-12" aria-label="CSC Entrepreneurship in Small Business Management Advanced (221-212-12)">
-          <span>CSC Entrepreneurship in Small Business Management – Advanced (221-212-12)</span>
-        </label>
-        <label class="ppc-row check-label">
-          <input type="checkbox" name="program" value="221-208-14" aria-label="CSC General Business (221-208-14)">
-          <span>CSC General Business (221-208-14)</span>
-        </label>
+    
+    
         <label class="ppc-row check-label">
           <input type="checkbox" name="program" value="221-212-45" aria-label="CSC Sports Management (221-212-45)">
           <span>CSC Sports Management (221-212-45)</span>
@@ -394,7 +395,7 @@
       </div>
     </fieldset>
 
-    <p class="req-note"><span class="req">*</span> Required fields </p>
+    <p class="req-note"><span class="req">*</span> Required fields &nbsp;|&nbsp; Revised 12/19/2025 Dinae Jones | EEOC</p>
 
   </div><!-- /.form-body -->
 
@@ -524,12 +525,6 @@
     }
   }
 </style>
-<script>
-  fetch('toptoc.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('toptoc').innerHTML = html;
-    });
-</script>
+
 </body>
 </html>
