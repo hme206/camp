@@ -126,11 +126,6 @@
       <div class="credit-basis-list">
 
         <label class="check-label">
-          <input type="checkbox" name="credit-basis" value="ap">
-          Advance Placement (AP)
-        </label>
-
-        <label class="check-label">
           <input type="checkbox" name="credit-basis" value="clep">
           CLEP
         </label>
@@ -149,13 +144,20 @@
         </label>
 
         <label class="check-label">
-          <input type="checkbox" name="credit-basis" value="local-exam">
-          Locally Developed Examination
+          <input type="checkbox" name="credit-basis" value="WFD">
+          Credit for Industry Certification
         </label>
         <p class="credit-basis-note">
-          Student must score "B" or better on exam in order to receive credit. Only date, course and credit hours awarded will be recorded on permanent record.
+          <input type="text" id="WFD-Cred" placeholder="i.e. NCCER - Electrical">
         </p>
-
+  <label class="check-label">
+          <input type="checkbox" name="credit-basis" value="Work-life">
+          Credit Work/Life Experience
+        </label>
+        <p class="credit-basis-note">
+          <input type="text" id="Worklife-Cred" placeholder="i.e. EMS Work">
+        </p>
+        
         <label class="check-label">
           <input type="checkbox" name="credit-basis" value="military">
           Military Learning Experiences (indicate which one)
@@ -180,10 +182,7 @@
           Non-College Learning (Portfolio)
         </label>
 
-        <label class="check-label">
-          <input type="checkbox" name="credit-basis" value="police">
-          Police Academy
-        </label>
+    
 
         <label class="check-label">
           <input type="checkbox" name="credit-basis" value="transfer">
