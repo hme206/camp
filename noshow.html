@@ -33,7 +33,15 @@
 
     <!-- Instructions -->
     <div class="instructions" role="note" aria-label="Form instructions">
-      <strong>Note:</strong> This form is to be submitted <strong>"immediately after the second-class session for students who never attended class."</strong>
+      <p><strong>Purpose:</strong> Use this form to report any student who never attended your class, so Admissions can process the required no-show roll.</p>
+      <ul class="instructions-list">
+        <li><strong>Use your official SIS roster.</strong> Pull the Student Empl ID, Section, and Class Number directly from your official SIS class roster — not from memory, a sign-in sheet, or an LMS gradebook.</li>
+        <li><strong>Submit right after your second class meeting.</strong> The exact no-show reporting deadline is set each term and varies by semester. Check the current term's <a href="#" class="tbd-link">Academic Calendar</a> for this term's deadline before you submit — don't rely on the "second class session" rule alone.</li>
+        <li><strong>Submit through <span class="tbd-link">CTE & Transfer Canvas page </span>.</strong> This form should be uploaded/submitted through the portal — do not email or mail a printed copy.</li>
+        <li><strong>List fully-attended courses too.</strong> If every student in one of your sections attended or completed work in the first week, enter that course in the "Courses Where All Students Attended" section below rather than leaving your report incomplete.</li>
+        <li>Leave the "Office of Admissions Use Only" section blank — that part is completed by Admissions staff after you submit. Each Instructor should submit only one sheet with multiple classes listed.</li>
+      </ul>
+      <p class="req-note"><span class="req" aria-hidden="true">*</span> Indicates a required field.</p>
     </div>
 
     <!-- ── Instructor Information ── -->
@@ -66,7 +74,7 @@
     <!-- ── Student No-Show Entries ── -->
     <fieldset>
       <legend>Student No-Show Entries</legend>
-      <p class="ns-table-note" id="ns-table-desc">List each student who never attended class.</p>
+      <p class="ns-table-note" id="ns-table-desc">List each student who never attended class, using your official SIS roster.</p>
 
       <div class="sub-table-wrap" role="region" aria-labelledby="ns-table-desc">
         <table aria-describedby="ns-table-desc">
@@ -244,11 +252,26 @@
   }
   .ns-office-note strong { color: var(--text); }
 
+  /* Instructions list */
+  .instructions-list {
+    margin: .5rem 0 .75rem 1.1rem;
+    padding: 0;
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+  .instructions-list li { margin-bottom: .5rem; }
+  .tbd-link {
+    background: #fff3cd;
+    padding: 0 .2rem;
+    border-radius: 3px;
+  }
+
   /* ── Print overrides ── */
   @media print {
     .ns-table-note,
     .ns-office-note  { font-size: .7rem; margin-bottom: .3rem; }
     .ns-inline-fieldset legend { font-size: .68rem; }
+    .instructions-list { font-size: .78rem; }
   }
 </style>
 <script>
