@@ -308,24 +308,33 @@
 
   /* ── Print Styles ── */
 
-@page { size: letter portrait; margin: .35in .45in; }
+  @media print {
 
-@media print {
-  html, body {
-    background: white !important;
-    padding: 0 !important;
-    font-size: 11px;
+    html, body { background: white !important; padding: 0 !important; }
+
+    .no-print { display: none !important; }
+
+    .instructions { display: none !important; }
+
+    .save-btn-row { display: none !important; }
+
+    nav { display: none !important; }
+
+ 
+
+    .policy-box { background: white !important; }
+
+    .student-id-row input { border: 1px solid #999 !important; }
+
+    .eligibility-check-row label { font-size: .85rem; }
+
+ 
+
+    fieldset { page-break-inside: avoid; }
+
+    .policy-box { page-break-inside: avoid; }
+
   }
-  .no-print { display: none !important; }
-  .instructions { display: none !important; }
-  .save-btn-row { display: none !important; }
-  nav { display: none !important; }
-  .policy-box { background: white !important; }
-  .student-id-row input { border: 1px solid #999 !important; }
-  .eligibility-check-row label { font-size: .85rem; }
-  fieldset { page-break-inside: avoid; }
-  .policy-box { page-break-inside: avoid; }
-}
 
 </style>
 
@@ -356,7 +365,8 @@
  
 
   <!-- Navigation -->
-<div id="toptoc"></div>
+
+ <div id="toptoc"></div>
 
  
 
@@ -792,13 +802,7 @@
 
 </script>
 
- <script>
-  fetch('toptoc.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('toptoc').innerHTML = html;
-    });
-</script>
+ <script src="include.js"></script>
 
 </body>
 
