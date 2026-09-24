@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advising Appointment Summary — Paul D. Camp Community College</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+</head>
+<body>
+<div class="form-wrapper">
+
+  <div class="form-header">
+    <div class="form-header-text">
+      <div class="college">Paul D. Camp Community College</div>
+      <h1>Advising Appointment Summary</h1>
+      <div class="revised">Creates a copy for the student and a tracked record for the advising office</div>
+    </div>
+    <button type="button" class="btn-reset" id="resetBtn">Clear form</button>
+  </div>
+
+  <div class="form-body">
+    <div class="instructions no-print">
+      <p>Complete this during or right after an advising appointment. Use <strong>Print / Save as PDF</strong> to give the student a copy, and <strong>Submit for tracking</strong> to save the record so it can be looked up later (for example, by target institution or program). Fields marked <span class="req" aria-hidden="true">*</span> are required.</p>
+    </div>
+
+    <form id="advisingForm" novalidate>
+
+      <fieldset>
+        <legend>Student &amp; appointment information</legend>
+        <div class="field-row cols-2">
+          <div>
+            <label for="studentName">Student name <span class="req" aria-hidden="true">*</span><span class="sr-only"> required</span></label>
+            <input type="text" id="studentName" name="studentName" required>
+          </div>
+          <div>
+            <label for="studentId">Student ID <span class="req" aria-hidden="true">*</span><span class="sr-only"> required</span></label>
+            <input type="text" id="studentId" name="studentId" required>
+          </div>
+        </div>
+        <div class="field-row cols-2">
+          <div>
+            <label for="apptDate">Appointment date <span class="req" aria-hidden="true">*</span><span class="sr-only"> required</span></label>
+            <input type="date" id="apptDate" name="apptDate" required>
+          </div>
+          <div>
+            <label for="advisorName">Advisor name <span class="req" aria-hidden="true">*</span><span class="sr-only"> required</span></label>
+            <input type="text" id="advisorName" name="advisorName" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Current academic standing</legend>
+        <div class="field-row cols-3">
+          <div>
+            <label for="currentProgram">Current program / major</label>
+            <input type="text" id="currentProgram" name="currentProgram">
+          </div>
+          <div>
+            <label for="creditsCompleted">Credits completed</label>
+            <input type="text" id="creditsCompleted" name="creditsCompleted" inputmode="numeric">
+          </div>
+          <div>
+            <label for="gradTerm">Anticipated graduation term</label>
+            <input type="text" id="gradTerm" name="gradTerm" placeholder="e.g. Spring 2027">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Transfer &amp; program goal</legend>
+        <p class="req-note">This section drives the tracking summary — please complete it even if the plan is tentative.</p>
+        <div class="field-row cols-2">
+          <div>
+            <label for="targetInstitution">Target institution</label>
+            <input type="text" id="targetInstitution" name="targetInstitution" placeholder="e.g. Old Dominion University">
+          </div>
+          <div>
+            <label for="targetProgram">Target program / major</label>
+            <input type="text" id="targetProgram" name="targetProgram" placeholder="e.g. Computer Science">
+          </div>
+        </div>
+        <div class="field-row cols-2">
+          <div>
+            <label for="targetTerm">Target transfer term</label>
+            <input type="text" id="targetTerm" name="targetTerm" placeholder="e.g. Fall 2027">
+          </div>
+          <div>
+            <fieldset class="ns-inline-fieldset">
+              <legend>Application status</legend>
+              <div class="radio-group">
+                <label><input type="radio" name="appStatus" value="Exploring" checked> Exploring</label>
+                <label><input type="radio" name="appStatus" value="Applying"> Applying</label>
+                <label><input type="radio" name="appStatus" value="Applied"> Applied</label>
+                <label><input type="radio" name="appStatus" value="Accepted"> Accepted</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Advising notes</legend>
+
+        <div class="field-row cols-1">
+          <div>
+            <label for="term1">Term</label>
+            <input type="text" id="term1" name="term1" placeholder="e.g. Fall 2026">
+          </div>
+        </div>
+        <div class="sub-table-wrap">
+          <table>
+            <caption class="sr-only">Term 1 course equivalencies</caption>
+            <thead>
+              <tr>
+                <th scope="col">VCCS class</th>
+                <th scope="col">Other institution class</th>
+              </tr>
+            </thead>
+            <tbody id="term1Rows">
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 1, VCCS class, row 1"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 1, other institution class, row 1"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 1, VCCS class, row 2"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 1, other institution class, row 2"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 1, VCCS class, row 3"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 1, other institution class, row 3"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 1, VCCS class, row 4"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 1, other institution class, row 4"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 1, VCCS class, row 5"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 1, other institution class, row 5"></td></tr>
+            </tbody>
+          </table>
+          <div class="table-row-controls no-print">
+            <button type="button" class="btn-row-add" data-target="term1Rows" data-term="Term 1">Add row</button>
+            <button type="button" class="btn-row-remove" data-target="term1Rows" data-term="Term 1">Remove row</button>
+            <p class="sr-only" role="status" aria-live="polite" id="term1RowStatus"></p>
+          </div>
+        </div>
+
+        <div class="field-row cols-1">
+          <div>
+            <label for="term2">Term</label>
+            <input type="text" id="term2" name="term2" placeholder="e.g. Spring 2027">
+          </div>
+        </div>
+        <div class="sub-table-wrap">
+          <table>
+            <caption class="sr-only">Term 2 course equivalencies</caption>
+            <thead>
+              <tr>
+                <th scope="col">VCCS class</th>
+                <th scope="col">Other institution class</th>
+              </tr>
+            </thead>
+            <tbody id="term2Rows">
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 2, VCCS class, row 1"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 2, other institution class, row 1"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 2, VCCS class, row 2"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 2, other institution class, row 2"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 2, VCCS class, row 3"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 2, other institution class, row 3"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 2, VCCS class, row 4"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 2, other institution class, row 4"></td></tr>
+              <tr><td><input type="text" class="tbl-input" data-field="vccs" aria-label="Term 2, VCCS class, row 5"></td><td><input type="text" class="tbl-input" data-field="other" aria-label="Term 2, other institution class, row 5"></td></tr>
+            </tbody>
+          </table>
+          <div class="table-row-controls no-print">
+            <button type="button" class="btn-row-add" data-target="term2Rows" data-term="Term 2">Add row</button>
+            <button type="button" class="btn-row-remove" data-target="term2Rows" data-term="Term 2">Remove row</button>
+            <p class="sr-only" role="status" aria-live="polite" id="term2RowStatus"></p>
+          </div>
+        </div>
+
+        <div class="field-row cols-2">
+          <div>
+            <label for="actionItems">Action items / next steps</label>
+            <textarea id="actionItems" name="actionItems"></textarea>
+          </div>
+          <div>
+            <label for="followUpDate">Follow-up date</label>
+            <input type="date" id="followUpDate" name="followUpDate">
+          </div>
+        </div>
+        <div class="field-row cols-1">
+          <div>
+            <label for="generalNotes">General notes</label>
+            <textarea id="generalNotes" name="generalNotes"></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      
+
+      <p class="req-note"><span class="req" aria-hidden="true">*</span> Required field</p>
+
+      <div class="save-btn-row no-print">
+        <p id="submitStatus" role="status" aria-live="polite" class="btn-hint">&nbsp;</p>
+        <button type="button" class="btn-print" id="printBtn">Print / Save as PDF</button>
+        <button type="button" class="btn-print btn-submit" id="submitBtn">Submit for tracking</button>
+        <p class="btn-hint">Print gives the student a copy. Submit saves the record for advising-office tracking.</p>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<style>
+  .btn-submit { margin-left: .75rem; background: var(--gold); }
+  .btn-submit:hover { background: #a17f22; }
+  .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+  #submitStatus.status-ok { color: var(--navy); font-weight: 700; }
+  #submitStatus.status-err { color: #c0392b; font-weight: 700; }
+
+  .table-row-controls {
+    display: flex;
+    gap: .6rem;
+    margin-top: .5rem;
+  }
+  .btn-row-add, .btn-row-remove {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: .35rem .85rem;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
+  }
+  .btn-row-add:hover { background: var(--light); }
+  .btn-row-remove:hover { background: #fbe9e7; border-color: #c0392b; color: #c0392b; }
+  .btn-row-add:focus-visible, .btn-row-remove:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .btn-row-remove:disabled { opacity: .5; cursor: not-allowed; }
+</style>
+
+<script>
+  document.getElementById('printBtn').addEventListener('click', function () {
+    window.print();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    if (confirm('Clear all fields on this form?')) {
+      document.getElementById('advisingForm').reset();
+      var s = document.getElementById('submitStatus');
+      s.textContent = '\u00A0';
+      s.className = 'btn-hint';
+    }
+  });
+
+  /* ══════════════════════════════════════════════════════════
+     Submit for tracking — writes a new item into a SharePoint
+     list using the browser's existing Microsoft 365 login.
+
+     This ONLY works if this HTML file is hosted on a page or in
+     a document library inside the SAME SharePoint site as the
+     list below (same-origin requirement for the request digest).
+     If this file is opened from GitHub, a local drive, or any
+     other origin, this call will fail — see the write-up on
+     hosting location.
+
+     Update SITE_URL and LIST_NAME for your site, and make sure
+     the internal column names below (Title, StudentID, etc.)
+     match the columns you create on the SharePoint list.
+     ══════════════════════════════════════════════════════════ */
+  var SITE_URL  = '/sites/YOUR-SITE';          // e.g. '/sites/AdvisingOffice'
+  var LIST_NAME = 'Advising Appointment Summaries';
+
+  // Collects a term's VCCS / other-institution row pairs (up to 5 rows),
+  // skipping rows where both sides are blank.
+  function rowsForTerm(fd, prefix) {
+    var rows = [];
+    for (var i = 1; i <= 5; i++) {
+      var vccs = fd.get(prefix + '_vccs_' + i) || '';
+      var other = fd.get(prefix + '_other_' + i) || '';
+      if (vccs.trim() || other.trim()) {
+        rows.push({ vccs: vccs, other: other });
+      }
+    }
+    return rows;
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', function () {
+    var form = document.getElementById('advisingForm');
+    var statusEl = document.getElementById('submitStatus');
+    var btn = this;
+
+    if (!form.reportValidity()) {
+      statusEl.textContent = 'Please fill in the required fields highlighted above.';
+      statusEl.className = 'btn-hint status-err';
+      return;
+    }
+
+    btn.disabled = true;
+    statusEl.textContent = 'Submitting…';
+    statusEl.className = 'btn-hint';
+
+    var fd = new FormData(form);
+    var listTypeName = 'SP.Data.' + LIST_NAME.replace(/\s+/g, '_x0020_') + 'ListItem';
+
+    var item = {
+      __metadata: { type: listTypeName },
+      Title: fd.get('studentName') || '',
+      StudentID: fd.get('studentId') || '',
+      AppointmentDate: fd.get('apptDate') || '',
+      AdvisorName: fd.get('advisorName') || '',
+      CurrentProgram: fd.get('currentProgram') || '',
+      CreditsCompleted: fd.get('creditsCompleted') || '',
+      GradTerm: fd.get('gradTerm') || '',
+      TargetInstitution: fd.get('targetInstitution') || '',
+      TargetProgram: fd.get('targetProgram') || '',
+      TargetTerm: fd.get('targetTerm') || '',
+      ApplicationStatus: fd.get('appStatus') || '',
+      Term1: fd.get('term1') || '',
+      Term1Equivalencies: JSON.stringify(rowsForTerm(fd, 'term1')),
+      Term2: fd.get('term2') || '',
+      Term2Equivalencies: JSON.stringify(rowsForTerm(fd, 'term2')),
+      ActionItems: fd.get('actionItems') || '',
+      FollowUpDate: fd.get('followUpDate') || '',
+      GeneralNotes: fd.get('generalNotes') || ''
+    };
+
+    fetch(SITE_URL + "/_api/contextinfo", {
+      method: 'POST',
+      headers: { Accept: 'application/json;odata=verbose' }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (digestData) {
+        var digest = digestData.d.GetContextWebInformation.FormDigestValue;
+        return fetch(SITE_URL + "/_api/web/lists/getbytitle('" + LIST_NAME + "')/items", {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json;odata=verbose',
+            'Content-Type': 'application/json;odata=verbose',
+            'X-RequestDigest': digest
+          },
+          body: JSON.stringify(item)
+        });
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Save failed (' + res.status + ')');
+        statusEl.textContent = 'Saved for tracking.';
+        statusEl.className = 'btn-hint status-ok';
+      })
+      .catch(function () {
+        statusEl.textContent = 'Could not save the record. Please try again or notify IT.';
+        statusEl.className = 'btn-hint status-err';
+      })
+      .finally(function () {
+        btn.disabled = false;
+      });
+  });
+</script>
+</body>
+</html>
