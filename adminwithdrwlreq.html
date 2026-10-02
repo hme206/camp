@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul D. Camp Community College – Administrative Withdrawal Request</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="forms.css">
+<!-- Page-specific additions for checkboxes / inline groups.
+     These can be moved into forms.css if you want to reuse them on other forms. -->
+<style>
+  input[type="checkbox"] { width: 1.1rem; height: 1.1rem; accent-color: var(--navy); cursor: pointer; flex-shrink: 0; }
+  input[type="checkbox"]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  .check-group { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; margin-top: .6rem; align-items: center; }
+  .check-group label,
+  .check-grid label {
+    display: flex; align-items: center; gap: .5rem;
+    text-transform: none; letter-spacing: normal;
+    font-size: .92rem; font-weight: 400; color: var(--text);
+    margin: 0; cursor: pointer;
+  }
+  .check-group .inline-input { width: 70px; padding: .2rem .4rem; font-size: .9rem; }
+  .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem 1.5rem; margin-top: .6rem; }
+  .check-grid .other-row input[type="text"] { flex: 1; padding: .2rem .4rem; font-size: .9rem; }
+  .sub-label { font-family: var(--font-ui); font-size: .78rem; font-weight: 700; text-transform: uppercase;
+               letter-spacing: .05em; color: var(--muted); margin-top: .75rem; }
+  .ack-text { font-family: var(--font-ui); font-size: .85rem; line-height: 1.45; }
+  .purpose { font-family: var(--font-ui); font-size: .85rem; margin-bottom: 1rem; }
+
+  @media (max-width: 600px) { .check-grid { grid-template-columns: 1fr; } }
+
+  /* ── Signature pad ── */
+  .sig-pad-wrap {
+    border: 1.5px solid var(--border, #8fce8b);
+    border-radius: 3px;
+    position: relative;
+    background: var(--white, #fff);
+    touch-action: none;
+  }
+  canvas.sig-canvas {
+    display: block;
+    width: 100%;
+    height: 90px;
+    cursor: crosshair;
+    border-radius: 3px;
+  }
+  .sig-placeholder {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: #b7b7b7;
+    font-size: .85rem;
+    font-family: var(--font-ui);
+    pointer-events: none;
+  }
+  .sig-controls {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-top: .35rem;
+  }
+  .sig-controls button {
+    font-family: var(--font-ui);
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: .3rem .6rem;
+    border: 1.5px solid var(--border, #8fce8b);
+    border-radius: 3px;
+    background: var(--white, #fff);
+    color: var(--muted, #555);
+    cursor: pointer;
+  }
+  .sig-controls button:hover { background: var(--light, #eaf7ea); }
+  .sig-required-note {
+    color: #c0392b;
+    font-family: var(--font-ui);
+    font-size: .72rem;
+    margin-left: auto;
+    display: none;
+  }
+  .sig-required-note.show { display: inline; }
+  /* Image that replaces the canvas at print time */
+  img.sig-image {
+    display: block;
+    width: 100%;
+    max-height: 90px;
+    border-bottom: 1.5px solid #000;
+  }
+
+  /* ── Compact print so the form fits on ONE letter page ── */
+  @media print {
+    html, body { font-size: 12px; }
+    nav { display: none !important; }
+    header { padding: .3rem .6rem; border-bottom-width: 3px; }
+    header img { max-height: 42px; }
+    header h2 { font-size: 1.1rem; }
+    .form-body { padding: .3rem .6rem; }
+    .purpose { font-size: .72rem; margin-bottom: .35rem; }
+    .check-group, .check-grid { margin-top: .25rem; gap: .2rem 1rem; }
+    .check-group label, .check-grid label { font-size: .74rem; }
+    .sub-label { font-size: .65rem; margin-top: .3rem; }
+    .ack-text { font-size: .7rem; line-height: 1.3; }
+    .check-group .inline-input { width: 55px; }
+    input[type="checkbox"], input[type="radio"] { width: .9rem; height: .9rem; }
+    .sig-date-row input[type="text"], .sig-date-row input[type="date"] { width: 120px; }
+    .sig-date-row label { font-size: .68rem; }
+    .sig-date-row { margin-top: .35rem; }
+    textarea { min-height: 48px; }
+    .office-section { margin-bottom: .3rem; }
+
+    /* Signature: hide the controls and border, keep a compact image */
+    .sig-controls, .sig-required-note { display: none !important; }
+    .sig-pad-wrap { border: none; }
+    canvas.sig-canvas { height: 50px; }
+    img.sig-image { max-height: 50px; }
+  }
+</style>
+</head>
+<body>
+<div class="form-wrapper" role="main">
+
+<!-- Header with camp logo -->
+<header>
+  <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+  <h2>Administrative Withdrawal Request – Extenuating Circumstances</h2>
+  <button class="btn-reset no-print" type="button" onclick="resetForm()" aria-label="Reset all form fields">
+    ↺ Reset Form
+  </button>
+</header>
+
+<!-- Navigation (hidden on print) -->
+<nav class="no-print">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="forms.html">Forms</a></li>
+    <li><a href="maps.html">Program Maps</a></li>
+  </ul>
+</nav>
+
+<main class="form-body" id="main-form">
+
+  <!-- Instructions (hidden on print) -->
+  <div class="instructions" role="note" aria-label="Form instructions">
+    Complete the form below. Select one reason for your request and attach or note any supporting documentation.
+    Once you've completed the form, click the Print to PDF button at the bottom of the form. Save it as a PDF to your
+    computer and submit it to the appropriate college office.
+    <p class="req-note"><abbr title="Required">*</abbr> Indicates a required field.</p>
+  </div>
+
+  <p class="purpose"><strong>Purpose:</strong> For students requesting withdrawal due to significant extenuating circumstances. Approval is subject to applicable college/VCCS policies and review.</p>
+
+  <!-- Student Information -->
+  <fieldset>
+    <legend>Student Information</legend>
+    <div class="field-row cols-2">
+      <div>
+        <label for="student-name">Student Name <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="student-name" name="student_name" autocomplete="name" aria-required="true">
+      </div>
+      <div>
+        <label for="student-id">Student ID <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="student-id" name="student_id" autocomplete="off" aria-required="true">
+      </div>
+    </div>
+    <div class="field-row cols-2">
+      <div>
+        <label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="phone" name="phone" autocomplete="tel" aria-required="true">
+      </div>
+      <div>
+        <label for="email">College Email <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="email" name="email" autocomplete="email" aria-required="true">
+      </div>
+    </div>
+    <div class="field-row cols-2">
+      <div>
+        <span class="sub-label" style="margin-top:0;">Term</span>
+        <div class="check-group" role="group" aria-label="Term">
+          <label><input type="checkbox" name="term_fall"> Fall <input class="inline-input" type="text" name="term_fall_year" aria-label="Fall year"></label>
+          <label><input type="checkbox" name="term_spring"> Spring <input class="inline-input" type="text" name="term_spring_year" aria-label="Spring year"></label>
+          <label><input type="checkbox" name="term_summer"> Summer <input class="inline-input" type="text" name="term_summer_year" aria-label="Summer year"></label>
+        </div>
+      </div>
+      <div>
+        <label for="program">Program of Study <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="program" name="program" aria-required="true">
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Withdrawal Request -->
+  <fieldset>
+    <legend>Withdrawal Request</legend>
+    <div class="check-group" role="radiogroup" aria-label="Withdrawal scope">
+      <label><input type="radio" name="scope" value="all"> Withdraw from all courses</label>
+      <label><input type="radio" name="scope" value="specific"> Withdraw from specific course(s)</label>
+    </div>
+    <div class="field-row cols-2">
+      <div>
+        <label for="courses">Course(s) / Section(s)</label>
+        <input type="text" id="courses" name="courses">
+      </div>
+      <div>
+        <label for="effective-date">Requested Effective Date <span class="req" aria-hidden="true">*</span></label>
+        <input type="date" id="effective-date" name="effective_date" aria-required="true">
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Reason -->
+  <fieldset>
+    <legend>Reason for Request (check one) <span class="req" aria-hidden="true">*</span></legend>
+    <div class="check-grid" role="radiogroup" aria-label="Reason for request" aria-required="true">
+      <label><input type="radio" name="reason" value="transfer"> Transfer to another college/school</label>
+      <label><input type="radio" name="reason" value="relocation"> Relocation to another city/state</label>
+      <label><input type="radio" name="reason" value="medical"> Illness, injury, hospitalization, or medical circumstance</label>
+      <label><input type="radio" name="reason" value="family-death"> Death or serious illness in the family</label>
+      <label><input type="radio" name="reason" value="accident"> Motor vehicle accident</label>
+      <label><input type="radio" name="reason" value="military"> Military service/deployment</label>
+      <label><input type="radio" name="reason" value="emergency"> Significant family/personal emergency</label>
+      <label class="other-row"><input type="radio" name="reason" value="other"> Other:
+        <input type="text" name="reason_other" aria-label="Other reason"></label>
+    </div>
+    <div class="field-row cols-1">
+      <div>
+        <label for="explanation">Brief Explanation <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="explanation" name="explanation" rows="2" aria-required="true"></textarea>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Supporting Documentation -->
+  <fieldset>
+    <legend>Supporting Documentation</legend>
+    <div class="check-group" role="radiogroup" aria-label="Documentation status">
+      <label><input type="radio" name="doc_status" value="attached"> Attached</label>
+      <label><input type="radio" name="doc_status" value="pending"> Pending</label>
+      <label><input type="radio" name="doc_status" value="none"> Not Required</label>
+    </div>
+    <div class="check-group" role="group" aria-label="Documentation type">
+      <span class="sub-label" style="margin-top:0;">Type:</span>
+      <label><input type="checkbox" name="doc_transfer"> Transfer/Relocation</label>
+      <label><input type="checkbox" name="doc_medical"> Medical</label>
+      <label><input type="checkbox" name="doc_accident"> Accident/Police</label>
+      <label><input type="checkbox" name="doc_other"> Other:
+        <input class="inline-input" style="width:110px;" type="text" name="doc_other_text" aria-label="Other documentation type"></label>
+    </div>
+  </fieldset>
+
+  <!-- Student Acknowledgment -->
+  <fieldset>
+    <legend>Student Acknowledgment</legend>
+    <p class="ack-text">I certify that the information provided is accurate. I understand submission does not guarantee approval and that withdrawal may affect my academic record, financial aid, tuition balance, satisfactory academic progress, or other benefits.</p>
+
+    <!-- Drawn signature (replaces the old typed-signature text box) -->
+    <div style="margin-top:.75rem;">
+      <label for="sig-student-canvas">Student Signature:</label>
+      <div class="sig-pad-wrap">
+        <canvas class="sig-canvas" id="sig-student-canvas" data-sig-id="student"
+                role="img" aria-label="Student signature drawing area. Draw your signature with a mouse, finger, or stylus."></canvas>
+        <span class="sig-placeholder">Sign here</span>
+      </div>
+      <div class="sig-controls">
+        <button type="button" data-action="clear" data-target="student">Clear</button>
+        <span class="sig-required-note" data-required-for="student" role="alert">Signature required</span>
+      </div>
+    </div>
+
+    <div class="sig-date-row" style="margin-top:.6rem; display:flex; align-items:center; gap:.5rem;">
+      <label for="student-date">Date:</label>
+      <input type="text" id="student-date" name="student_date">
+    </div>
+  </fieldset>
+
+  <!-- For College Use Only -->
+  <fieldset class="office-section">
+    <legend>For College Use Only</legend>
+    <div class="field-row cols-3">
+      <div>
+        <label for="date-received">Date Received</label>
+        <input type="text" id="date-received" name="date_received">
+      </div>
+      <div>
+        <label for="eff-withdrawal">Effective Withdrawal Date</label>
+        <input type="text" id="eff-withdrawal" name="effective_withdrawal_date">
+      </div>
+      <div>
+        <label for="lda">Last Date of Attendance</label>
+        <input type="text" id="lda" name="last_date_attendance">
+      </div>
+    </div>
+
+    <div class="check-group" role="radiogroup" aria-label="Decision">
+      <label><input type="radio" name="decision" value="approved"> Approved</label>
+      <label><input type="radio" name="decision" value="denied"> Denied</label>
+      <label><input type="radio" name="decision" value="docs"> Additional Documentation Required</label>
+      <label><input type="radio" name="decision" value="referred"> Referred for Review</label>
+    </div>
+
+    <div class="field-row cols-1">
+      <div>
+        <label for="comments">Comments</label>
+        <input type="text" id="comments" name="comments">
+      </div>
+    </div>
+
+    <div class="field-row cols-3">
+      <div>
+        <label for="reviewed-by">Reviewed By</label>
+        <input type="text" id="reviewed-by" name="reviewed_by">
+      </div>
+      <div>
+        <label for="reviewer-title">Title</label>
+        <input type="text" id="reviewer-title" name="reviewer_title">
+      </div>
+      <div>
+        <label for="review-date">Date</label>
+        <input type="text" id="review-date" name="review_date">
+      </div>
+    </div>
+
+    <div class="check-group" role="group" aria-label="Office checklist">
+      <label><input type="checkbox" name="sis_updated"> SIS Updated</label>
+      <label><input type="checkbox" name="fin_aid_review"> Financial Aid Review</label>
+      <label><input type="checkbox" name="business_review"> Business Office Review</label>
+    </div>
+  </fieldset>
+
+</main>
+
+<!-- Save / Print -->
+<div class="save-btn-row no-print">
+  <button class="btn-print" type="button" onclick="handlePrint()" aria-label="Save or print this form as a PDF">
+    Print to PDF
+  </button>
+  <p class="btn-hint">When the print dialog opens, choose <strong>Save as PDF</strong> as the destination.</p>
+</div>
+
+</div>
+
+<script>
+// ── Reset form ──────────────────────────────────────────────────────────
+function resetForm() {
+  if (!confirm('Clear all fields and start over?')) return;
+  document.querySelectorAll('input[type="text"], input[type="date"], textarea')
+    .forEach(el => { el.value = ''; });
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+    .forEach(el => { el.checked = false; });
+  // Also clear the signature pad(s)
+  Object.values(window.sigPads || {}).forEach(pad => pad.clear());
+  document.querySelectorAll('.sig-required-note').forEach(n => n.classList.remove('show'));
+}
+
+/* ══════════════════════════════════════════════════════════
+   Signature pad
+   ══════════════════════════════════════════════════════════ */
+class SignaturePad {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.wrap = canvas.closest('.sig-pad-wrap');
+    this.placeholder = this.wrap.querySelector('.sig-placeholder');
+    this.strokes = [];
+    this.currentStroke = [];
+    this.drawing = false;
+
+    this.resize = this.resize.bind(this);
+    this.start = this.start.bind(this);
+    this.move = this.move.bind(this);
+    this.end = this.end.bind(this);
+
+    window.addEventListener('resize', this.resize);
+    canvas.addEventListener('mousedown', this.start);
+    canvas.addEventListener('mousemove', this.move);
+    window.addEventListener('mouseup', this.end);
+    canvas.addEventListener('touchstart', this.start, { passive: false });
+    canvas.addEventListener('touchmove', this.move, { passive: false });
+    canvas.addEventListener('touchend', this.end);
+
+    this.resize();
+  }
+
+  resize() {
+    const ratio = window.devicePixelRatio || 1;
+    const rect = this.canvas.getBoundingClientRect();
+    if (rect.width === 0) return; // canvas hidden/not laid out yet
+    this.canvas.width = rect.width * ratio;
+    this.canvas.height = rect.height * ratio;
+    this.ctx.scale(ratio, ratio);
+    this.ctx.lineWidth = 2.2;
+    this.ctx.lineCap = 'round';
+    this.ctx.lineJoin = 'round';
+    this.ctx.strokeStyle = '#111';
+    this.redraw();
+  }
+
+  getPos(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+  }
+
+  start(e) {
+    e.preventDefault();
+    this.drawing = true;
+    this.placeholder.style.display = 'none';
+    this.currentStroke = [this.getPos(e)];
+    // Hide the "Signature required" note as soon as they start signing
+    const note = document.querySelector(`[data-required-for="${this.canvas.dataset.sigId}"]`);
+    if (note) note.classList.remove('show');
+  }
+
+  move(e) {
+    if (!this.drawing) return;
+    e.preventDefault();
+    this.currentStroke.push(this.getPos(e));
+    this.redraw();
+  }
+
+  end() {
+    if (!this.drawing) return;
+    this.drawing = false;
+    if (this.currentStroke.length > 1) this.strokes.push(this.currentStroke);
+    this.currentStroke = [];
+  }
+
+  redraw() {
+    const rect = this.canvas.getBoundingClientRect();
+    this.ctx.clearRect(0, 0, rect.width, rect.height);
+    const all = this.currentStroke.length ? [...this.strokes, this.currentStroke] : this.strokes;
+    for (const stroke of all) {
+      if (stroke.length < 2) continue;
+      this.ctx.beginPath();
+      this.ctx.moveTo(stroke[0].x, stroke[0].y);
+      for (let i = 1; i < stroke.length; i++) this.ctx.lineTo(stroke[i].x, stroke[i].y);
+      this.ctx.stroke();
+    }
+  }
+
+  clear() {
+    this.strokes = [];
+    this.currentStroke = [];
+    this.placeholder.style.display = 'block';
+    this.redraw();
+  }
+
+  isEmpty() {
+    return this.strokes.length === 0;
+  }
+
+  toDataURL() {
+    return this.canvas.toDataURL('image/png');
+  }
+}
+
+// Create a pad for every signature canvas on the page
+window.sigPads = {};
+document.querySelectorAll('.sig-canvas').forEach(canvas => {
+  window.sigPads[canvas.dataset.sigId] = new SignaturePad(canvas);
+});
+
+document.querySelectorAll('[data-action="clear"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    window.sigPads[btn.dataset.target].clear();
+    const note = document.querySelector(`[data-required-for="${btn.dataset.target}"]`);
+    if (note) note.classList.remove('show');
+  });
+});
+
+/* ══════════════════════════════════════════════════════════
+   Print to PDF: checks signatures, then bakes them into images
+   ══════════════════════════════════════════════════════════ */
+// Set to false if you'd rather allow printing without a signature.
+const REQUIRE_SIGNATURES = true;
+
+function handlePrint() {
+  if (REQUIRE_SIGNATURES) {
+    let firstMissing = null;
+    Object.entries(window.sigPads).forEach(([id, pad]) => {
+      const note = document.querySelector(`[data-required-for="${id}"]`);
+      if (pad.isEmpty()) {
+        if (note) note.classList.add('show');
+        if (!firstMissing) firstMissing = pad.canvas;
+      } else if (note) {
+        note.classList.remove('show');
+      }
+    });
+    if (firstMissing) {
+      firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+  }
+
+  const swaps = [];
+  const loadPromises = [];
+
+  document.querySelectorAll('.sig-canvas').forEach(canvas => {
+    const id = canvas.dataset.sigId;
+    const img = document.createElement('img');
+    img.className = 'sig-image';
+    img.alt = 'Signature';
+
+    loadPromises.push(new Promise(resolve => { img.onload = resolve; }));
+
+    img.src = window.sigPads[id].toDataURL();
+    canvas.style.display = 'none';
+    canvas.insertAdjacentElement('afterend', img);
+    swaps.push({ canvas, img });
+  });
+
+  // Wait for every signature image to load, then give the browser two frames to paint
+  Promise.all(loadPromises).then(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.print();
+        swaps.forEach(({ canvas, img }) => {
+          img.remove();
+          canvas.style.display = '';
+        });
+      });
+    });
+  });
+}
+</script>
+
+</body>
+</html>
