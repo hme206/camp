@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Advising Appointment Summary — Paul D. Camp Community College</title>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="forms.css">
-
 </head>
 <body>
 <div class="form-wrapper">
- <header>
-    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
-    <h1><center>Advising Appointment Summary</center></h1>
+
+  <header class="form-header">
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo" class="form-logo">
+    <h1>Advising Appointment Summary</h1>
   </header>
+  <div class="form-header-actions no-print">
+    <button type="button" class="btn-reset" id="resetBtn">Clear form</button>
+  </div>
 
   <div class="form-body">
     <div class="instructions no-print">
@@ -177,7 +180,21 @@
         </div>
       </fieldset>
 
-      
+      <fieldset>
+        <legend>Sign-off</legend>
+        <div class="sig-date-row">
+          <label for="studentSig">Student signature</label>
+          <input type="text" id="studentSig" name="studentSig">
+          <label for="studentSigDate">Date</label>
+          <input type="date" id="studentSigDate" name="studentSigDate">
+        </div>
+        <div class="sig-date-row" style="margin-top:.75rem;">
+          <label for="advisorSig">Advisor signature</label>
+          <input type="text" id="advisorSig" name="advisorSig">
+          <label for="advisorSigDate">Date</label>
+          <input type="date" id="advisorSigDate" name="advisorSigDate">
+        </div>
+      </fieldset>
 
       <p class="req-note"><span class="req" aria-hidden="true">*</span> Required field</p>
 
@@ -220,6 +237,26 @@
   .btn-row-remove:hover { background: #fbe9e7; border-color: #c0392b; color: #c0392b; }
   .btn-row-add:focus-visible, .btn-row-remove:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
   .btn-row-remove:disabled { opacity: .5; cursor: not-allowed; }
+
+  .form-header {
+    text-align: center;
+    display: block;
+  }
+  .form-logo {
+    max-height: 70px;
+    background: var(--white);
+    padding: 4px;
+    border-radius: 4px;
+  }
+  .form-header h1 {
+    margin-top: .6rem;
+    text-align: center;
+  }
+  .form-header-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5rem 2.5rem 0;
+  }
 </style>
 
 <script>
@@ -237,36 +274,65 @@
   });
 
   /* ══════════════════════════════════════════════════════════
-     Submit for tracking — writes a new item into a SharePoint
-     list using the browser's existing Microsoft 365 login.
+     Submit for tracking — sends the record to a Google Apps
+     Script web app, which appends it as a row in a Google Sheet.
 
-     This ONLY works if this HTML file is hosted on a page or in
-     a document library inside the SAME SharePoint site as the
-     list below (same-origin requirement for the request digest).
-     If this file is opened from GitHub, a local drive, or any
-     other origin, this call will fail — see the write-up on
-     hosting location.
-
-     Update SITE_URL and LIST_NAME for your site, and make sure
-     the internal column names below (Title, StudentID, etc.)
-     match the columns you create on the SharePoint list.
+     GOOGLE_SCRIPT_URL must end in /exec (the live deployment),
+     not /dev (the test-only version). SUBMIT_SECRET must match
+     the SECRET value set in the Apps Script code exactly.
      ══════════════════════════════════════════════════════════ */
-  var SITE_URL  = '/sites/YOUR-SITE';          // e.g. '/sites/AdvisingOffice'
-  var LIST_NAME = 'Advising Appointment Summaries';
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAqWUySZe-ud-A8qInKU5K76EleIFFAf3Mk690WmTg-Qg0vrY-vPChSt6nL-gJ2SKs/exec';
+  var SUBMIT_SECRET = 'S4nsLNqZcWktD0a30QguRJsKKTvpIR10';
 
-  // Collects a term's VCCS / other-institution row pairs (up to 5 rows),
-  // skipping rows where both sides are blank.
-  function rowsForTerm(fd, prefix) {
-    var rows = [];
-    for (var i = 1; i <= 5; i++) {
-      var vccs = fd.get(prefix + '_vccs_' + i) || '';
-      var other = fd.get(prefix + '_other_' + i) || '';
-      if (vccs.trim() || other.trim()) {
-        rows.push({ vccs: vccs, other: other });
-      }
-    }
-    return rows;
+  /* ══════════════════════════════════════════════════════════
+     Add / remove rows on the term equivalency tables
+     ══════════════════════════════════════════════════════════ */
+  function addRow(tbodyId, termLabel) {
+    var tbody = document.getElementById(tbodyId);
+    var rowNum = tbody.rows.length + 1;
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><input type="text" class="tbl-input" data-field="vccs" aria-label="' + termLabel + ', VCCS class, row ' + rowNum + '"></td>' +
+      '<td><input type="text" class="tbl-input" data-field="other" aria-label="' + termLabel + ', other institution class, row ' + rowNum + '"></td>';
+    tbody.appendChild(tr);
+    tr.querySelector('input').focus();
+    updateRemoveState(tbodyId);
+    announceRowChange(tbodyId, termLabel, 'Row added');
   }
+
+  function removeRow(tbodyId, termLabel) {
+    var tbody = document.getElementById(tbodyId);
+    if (tbody.rows.length <= 1) return;
+    tbody.removeChild(tbody.lastElementChild);
+    updateRemoveState(tbodyId);
+    announceRowChange(tbodyId, termLabel, 'Row removed');
+  }
+
+  function updateRemoveState(tbodyId) {
+    var tbody = document.getElementById(tbodyId);
+    var removeBtn = document.querySelector('.btn-row-remove[data-target="' + tbodyId + '"]');
+    if (removeBtn) removeBtn.disabled = (tbody.rows.length <= 1);
+  }
+
+  function announceRowChange(tbodyId, termLabel, action) {
+    var statusId = tbodyId + 'Status';
+    var statusEl = document.getElementById(statusId);
+    if (statusEl) {
+      var count = document.getElementById(tbodyId).rows.length;
+      statusEl.textContent = action + ' for ' + termLabel + '. Now ' + count + ' rows.';
+    }
+  }
+
+  document.querySelectorAll('.btn-row-add').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      addRow(this.dataset.target, this.dataset.term);
+    });
+  });
+  document.querySelectorAll('.btn-row-remove').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      removeRow(this.dataset.target, this.dataset.term);
+    });
+  });
 
   document.getElementById('submitBtn').addEventListener('click', function () {
     var form = document.getElementById('advisingForm');
@@ -284,54 +350,35 @@
     statusEl.className = 'btn-hint';
 
     var fd = new FormData(form);
-    var listTypeName = 'SP.Data.' + LIST_NAME.replace(/\s+/g, '_x0020_') + 'ListItem';
 
-    var item = {
-      __metadata: { type: listTypeName },
-      Title: fd.get('studentName') || '',
-      StudentID: fd.get('studentId') || '',
-      AppointmentDate: fd.get('apptDate') || '',
-      AdvisorName: fd.get('advisorName') || '',
-      CurrentProgram: fd.get('currentProgram') || '',
-      CreditsCompleted: fd.get('creditsCompleted') || '',
-      GradTerm: fd.get('gradTerm') || '',
-      TargetInstitution: fd.get('targetInstitution') || '',
-      TargetProgram: fd.get('targetProgram') || '',
-      TargetTerm: fd.get('targetTerm') || '',
-      ApplicationStatus: fd.get('appStatus') || '',
-      Term1: fd.get('term1') || '',
-      Term1Equivalencies: JSON.stringify(rowsForTerm(fd, 'term1')),
-      Term2: fd.get('term2') || '',
-      Term2Equivalencies: JSON.stringify(rowsForTerm(fd, 'term2')),
-      ActionItems: fd.get('actionItems') || '',
-      FollowUpDate: fd.get('followUpDate') || '',
-      GeneralNotes: fd.get('generalNotes') || ''
+    var payload = {
+      secret: SUBMIT_SECRET,
+      studentName: fd.get('studentName') || '',
+      studentId: fd.get('studentId') || '',
+      appointmentDate: fd.get('apptDate') || '',
+      advisorsName: fd.get('advisorName') || '',
+      currentProgram: fd.get('currentProgram') || '',
+      targetInstitution: fd.get('targetInstitution') || '',
+      targetProgram: fd.get('targetProgram') || '',
+      targetTerm: fd.get('targetTerm') || '',
+      term1: fd.get('term1') || '',
+      term2: fd.get('term2') || '',
+      notes: fd.get('actionItems') || ''
     };
 
-    fetch(SITE_URL + "/_api/contextinfo", {
+    fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
-      headers: { Accept: 'application/json;odata=verbose' }
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
     })
-      .then(function (r) { return r.json(); })
-      .then(function (digestData) {
-        var digest = digestData.d.GetContextWebInformation.FormDigestValue;
-        return fetch(SITE_URL + "/_api/web/lists/getbytitle('" + LIST_NAME + "')/items", {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json;odata=verbose',
-            'Content-Type': 'application/json;odata=verbose',
-            'X-RequestDigest': digest
-          },
-          body: JSON.stringify(item)
-        });
-      })
-      .then(function (res) {
-        if (!res.ok) throw new Error('Save failed (' + res.status + ')');
+      .then(function (res) { return res.json(); })
+      .then(function (result) {
+        if (result.status !== 'ok') throw new Error(result.message || 'Save failed');
         statusEl.textContent = 'Saved for tracking.';
         statusEl.className = 'btn-hint status-ok';
       })
       .catch(function () {
-        statusEl.textContent = 'Could not save the record. Please try again or notify IT.';
+        statusEl.textContent = 'Could not save the record. Please try again.';
         statusEl.className = 'btn-hint status-err';
       })
       .finally(function () {
