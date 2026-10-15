@@ -85,45 +85,7 @@
       </div>
     </fieldset>
 
-    <!-- ── Reason for Request + Effective Dates (NEW) ── -->
-    <fieldset>
-      <legend>Reason for Request</legend>
 
-      <p class="check-group-label" id="reason-label">Select One</p>
-      <div class="radio-group" role="radiogroup" aria-labelledby="reason-label">
-        <label>
-          <input type="radio" name="reason" value="original-appointment"> Original Appointment
-        </label>
-        <label>
-          <input type="radio" name="reason" value="promotion"> Promotion
-        </label>
-        <label>
-          <input type="radio" name="reason" value="transfer"> Transfer
-        </label>
-        <label>
-          <input type="radio" name="reason" value="reemployment"> Reemployment
-        </label>
-      </div>
-
-      <div class="aq-effective-grid">
-        <div>
-          <label for="eff-date-orig">Effective Date of Original Appointment</label>
-          <input type="text" id="eff-date-orig" placeholder="MM/DD/YYYY">
-        </div>
-        <div>
-          <label for="eff-rank-orig">Effective Rank of Original Appointment</label>
-          <input type="text" id="eff-rank-orig">
-        </div>
-        <div>
-          <label for="eff-date-promo">Effective Date of Promotion</label>
-          <input type="text" id="eff-date-promo" placeholder="MM/DD/YYYY">
-        </div>
-        <div>
-          <label for="eff-rank-promo">Effective Rank of Promotion</label>
-          <input type="text" id="eff-rank-promo">
-        </div>
-      </div>
-    </fieldset>
 
     <!-- ── Two-column criteria section ── -->
     <div class="aq-two-col">
@@ -646,7 +608,7 @@ output.aq-sal-input {
 
 /* ── Print ── */
 @media print {
-  html, body { font-size: 9px !important; }
+  html, body { font-size: 10px !important; }
   .aq-two-col { gap: .5rem; margin-bottom: .5rem; }
   .aq-years { width: 2.5rem; padding: .1rem .2rem; }
   .aq-effective-grid { gap: .3rem .6rem; margin-top: .35rem; }
