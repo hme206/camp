@@ -655,6 +655,26 @@ output.aq-sal-input {
     border: none;
     padding: .15rem .25rem;
   }
+  /* Compact signature block */
+.office-section {
+  padding: .4rem .6rem !important;
+  margin-bottom: .4rem !important;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sig-row {
+  gap: .2rem .5rem;
+}
+.sig-field { gap: .1rem; }
+.sig-field label {
+  font-size: .6rem;
+  line-height: 1.1;
+}
+.sig-field input[type="text"] {
+  padding: .1rem .25rem !important;
+  min-height: 0 !important;
+  height: 1.6rem;   /* enough room to sign */
+}
 }
 
 /* ── Mobile ── */
