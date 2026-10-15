@@ -90,6 +90,19 @@
     border-bottom: 1.5px solid #000;
   }
 
+  /* ── Blank signature line for signing later in a PDF viewer ── */
+  .pdf-sign-line { margin-top: .9rem; }
+  .pdf-sign-line .sign-space {
+    height: 44px;
+    border-bottom: 1.5px solid #000;
+  }
+  .pdf-sign-line .sign-caption {
+    font-family: var(--font-ui);
+    font-size: .78rem;
+    color: var(--muted);
+    margin-top: .25rem;
+  }
+
   /* ── Compact print so the form fits on ONE letter page ── */
   @media print {
     html, body { font-size: 12px; }
@@ -110,6 +123,9 @@
     .sig-date-row { margin-top: .35rem; }
     textarea { min-height: 48px; }
     .office-section { margin-bottom: .3rem; }
+    .pdf-sign-line { margin-top: .4rem; }
+    .pdf-sign-line .sign-space { height: 32px; }
+    .pdf-sign-line .sign-caption { font-size: .68rem; }
 
     /* Signature: hide the controls and border, keep a compact image */
     .sig-controls, .sig-required-note { display: none !important; }
@@ -272,6 +288,15 @@
     <div class="sig-date-row" style="margin-top:.6rem; display:flex; align-items:center; gap:.5rem;">
       <label for="student-date">Date:</label>
       <input type="text" id="student-date" name="student_date">
+    </div>
+  </fieldset>
+
+  <!-- Dean of Student Services signature (blank line, signed later in a PDF viewer) -->
+  <fieldset>
+    <legend>Dean of Student Services or Designee</legend>
+    <div class="pdf-sign-line">
+      <div class="sign-space" aria-hidden="true"></div>
+      <p class="sign-caption">Signature of Dean of Student Services or Designee</p>
     </div>
   </fieldset>
 
