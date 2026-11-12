@@ -1,0 +1,64 @@
+/* "Download the Catalog" panel (catalog.html)
+   Uses the site's colour variables from styles.css, with fallbacks.
+   Contrast: white on button 8.1:1, muted text on panel 6.7:1. Button is at least 44 px tall. */
+.catalog-download {
+  margin: 0 0 1.75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--light, #eaf7ea);
+  border-left: 6px solid var(--gold, #b8922a);
+  border-radius: 4px;
+  font-family: var(--font-ui, Arial, sans-serif);
+}
+.catalog-download h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+  color: var(--navy-dark, #1a5c14);
+}
+.catalog-download p {
+  margin: 0.25rem 0 1rem;
+  line-height: 1.5;
+  color: var(--text, #000);
+}
+.catalog-download a.download-btn,
+.catalog-download a.download-btn:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0.8rem 1.4rem;
+  background: var(--navy-dark, #1a5c14);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  border: 2px solid var(--navy-dark, #1a5c14);
+  border-radius: 4px;
+}
+.catalog-download a.download-btn:hover {
+  background: #124010;
+  border-color: #124010;
+  color: #ffffff;
+}
+/* two-tone focus ring: visible on both the panel and the page (3:1 or better) */
+.catalog-download a.download-btn:focus-visible {
+  outline: 3px solid #1a1a1a;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+.catalog-download .download-btn svg {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+}
+.catalog-download .download-meta {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  color: var(--muted, #555555);
+}
+@media (forced-colors: active) {
+  .catalog-download a.download-btn { border: 2px solid ButtonText; }
+}
+@media print {
+  .catalog-download { display: none; }
+}

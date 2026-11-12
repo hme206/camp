@@ -6,6 +6,7 @@
 <title>Paul D. Camp Community College – College Catalog</title>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="cstyles.css">
+<link rel="stylesheet" href="catalog-download.css">
 </head>
 <body>
 <div class="catalog-wrapper">
@@ -25,8 +26,17 @@
     <div id="sidetoc"></div>
 
     <main class="catalog-content">
+  <section class="catalog-download" aria-labelledby="catalog-download-heading">
+    <h2 id="catalog-download-heading">Download the Catalog</h2>
+    <p>Get the complete 2026&ndash;2027 Catalog &amp; Student Handbook as an accessible Word document. It is rebuilt automatically, so it always matches this website.</p>
+    <a class="download-btn" href="downloads/Camp_College_Catalog.docx" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12"></path><polyline points="7 11 12 16 17 11"></polyline><path d="M5 20h14"></path></svg>
+      <span>Download the Catalog (Word document)</span>
+    </a>
+    <p class="download-meta" id="catalog-download-meta">Word document (.docx), about 2 MB.</p>
+  </section>
   <div class="catalog-hero-image">
-    <img src="images/catalogfrontpage.png" alt="">
+    <img src="images/catalogfrontpage.png" alt="Cover of the 2026&ndash;2027 Catalog &amp; Student Handbook: graduates in green caps and gowns holding diplomas, with the Camp Community College logo and the slogan Where Small is BIG.">
   </div>
 </main>
 
@@ -35,5 +45,6 @@
 </div>
 
 <script src="include.js"></script>
+<script src="catalog-download.js" defer></script>
 </body>
 </html>
