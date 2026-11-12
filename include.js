@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function highlightCurrentPage(container, selector) {
     const currentPage = window.location.pathname.split("/").pop();
     container.querySelectorAll(selector).forEach(link => {
-      const linkPage = link.getAttribute("href").split("#")[0];
+     const href = link.getAttribute("href");
+     if (!href) return; // plain-text labels have no href
+     const linkPage = href.split("#")[0];
       if (linkPage === currentPage) {
         link.setAttribute("aria-current", "page");
       }
