@@ -19,8 +19,8 @@ def clean_label(s):
 toc = soup_of(f'{SRC}/{TOC_FILE}')
 chapters = []
 for li in toc.select('ul.toc-list > li.toc-item'):
-    a = li.select_one('.toc-row a.toc-link')
-    href = a.get('href', '').strip()
+    a = li.select_one('.toc-row .toc-link')          # an <a>, or a plain <span> for a label with no page of its own
+    href = (a.get('href') or '').strip()
     ch = dict(label=txt(a), file=href, subs=[], tree=None)
     sub_ul = li.select_one('ul.toc-sub')
     if sub_ul:
@@ -53,8 +53,8 @@ for li in toc.select('ul.toc-list > li.toc-item'):
 # Navigation headers that are not catalog chapters (e.g. "Catalog Updates") are left out of the Word document.
 # Override with the CATALOG_SKIP_CHAPTERS environment variable (names separated by |).
 SKIP = {s.strip().lower() for s in os.environ.get('CATALOG_SKIP_CHAPTERS', 'Catalog Updates').split('|') if s.strip()}
-skipped_chapters = [c['label'] for c in chapters if not c['file'] or c['label'].strip().lower() in SKIP]
-chapters = [c for c in chapters if c['file'] and c['label'].strip().lower() not in SKIP]
+skipped_chapters = [c['label'] for c in chapters if not (c['file'] or c['subs']) or c['label'].strip().lower() in SKIP]
+chapters = [c for c in chapters if (c['file'] or c['subs']) and c['label'].strip().lower() not in SKIP]
 
 # Every remaining page must exist; otherwise stop with a plain message naming the file(s).
 _needed = []
@@ -443,7 +443,7 @@ for ch in chapters:
 for ci, ch in enumerate(chapters, 1):
     files = []
     for f in [ch['file']] + [s['file'] for s in ch['subs']]:
-        if f not in files: files.append(f)
+        if f and f not in files: files.append(f)
     ch_id = f'ch_{ci:02d}'
     body.append(heading(1, ch['label'], ch_id, 1))
     if len(files) == 1:
@@ -453,7 +453,7 @@ for ci, ch in enumerate(chapters, 1):
         if not ok:
             body.append(placeholder(f))
         continue
-    if ch['file'] not in [x['file'] for x in ch['subs']]:
+    if ch['file'] and ch['file'] not in [x['file'] for x in ch['subs']]:
         # landing page with its own intro text: placed directly under the chapter heading
         anchors[(ch['file'], '')] = ch_id
         if not add_page(ch['file'], SINGLE_M):
