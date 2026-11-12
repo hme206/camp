@@ -1,0 +1,72 @@
+name: Build catalog Word document
+
+# Rebuilds downloads/Camp_College_Catalog.docx whenever the catalog pages change.
+# The "Download the Catalog" button on catalog.html always points at that file.
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - 'downloads/**'      # the workflow's own output must not trigger another build
+      - '**.md'
+  workflow_dispatch:         # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write            # needed to save the built file back into the repo
+  pages: write               # needed to ask GitHub Pages to refresh
+
+concurrency:
+  group: build-catalog-docx
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CATALOG_YEARS: '2026–2027'          # change each year
+      CATALOG_SITE: 'https://hme206.github.io/camp/'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-writer poppler-utils fonts-liberation
+          curl -fsSL -o /tmp/pandoc.deb https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+          sudo dpkg -i /tmp/pandoc.deb
+          pip install -r tools/catalog_docx/requirements.txt
+
+      - name: Build the Word document
+        run: bash tools/catalog_docx/build.sh
+
+      - name: Accessibility check (fails the build if it regresses)
+        run: python tools/catalog_docx/audit.py downloads/Camp_College_Catalog.docx --strict
+
+      - name: Keep a copy as a build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Camp_College_Catalog
+          path: downloads/Camp_College_Catalog.docx
+          retention-days: 30
+
+      - name: Save to the site
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Rebuild catalog Word document"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          fi
+
+      - name: Ask GitHub Pages to refresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" || echo "Pages refresh request not needed or not permitted; the site updates on its own shortly."
