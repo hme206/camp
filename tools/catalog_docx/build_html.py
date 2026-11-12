@@ -50,8 +50,24 @@ for li in toc.select('ul.toc-list > li.toc-item'):
             ch['subs'].append(sub)
     chapters.append(ch)
 
-skipped_chapters = [c['label'] for c in chapters if not c['file']]
-chapters = [c for c in chapters if c['file']]
+# Navigation headers that are not catalog chapters (e.g. "Catalog Updates") are left out of the Word document.
+# Override with the CATALOG_SKIP_CHAPTERS environment variable (names separated by |).
+SKIP = {s.strip().lower() for s in os.environ.get('CATALOG_SKIP_CHAPTERS', 'Catalog Updates').split('|') if s.strip()}
+skipped_chapters = [c['label'] for c in chapters if not c['file'] or c['label'].strip().lower() in SKIP]
+chapters = [c for c in chapters if c['file'] and c['label'].strip().lower() not in SKIP]
+
+# Every remaining page must exist; otherwise stop with a plain message naming the file(s).
+_needed = []
+for _c in chapters:
+    _needed.append(_c['file'])
+    for _s in _c['subs']:
+        _needed.append(_s['file'])
+        for _pw in (_s['pathways'] or []):
+            _needed.extend(e['file'] for e in _pw['entries'])
+_missing = sorted({f for f in _needed if f and not os.path.exists(os.path.join(SRC, f))})
+if _missing:
+    raise SystemExit('The table of contents (' + TOC_FILE + ') links to page(s) that are not in the repository: '
+                     + ', '.join(_missing) + '\nUpload the missing page(s), or remove the link from the table of contents.')
 
 # ------------------------------------------------------------------ helpers
 def san(s):
