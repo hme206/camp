@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Nursing Career Studies Certificate (221-156-02) — Paul D. Camp Community College Catalog</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="cstyles.css">
+</head>
+<body>
+<div class="catalog-wrapper">
+
+  <header>
+    <img src="images/CampLogo.jpg" alt="Paul D. Camp Community College Logo">
+    <h1><center>College Catalog</center></h1>
+  </header>
+
+  <div id="toptoc"></div>
+
+  <div class="catalog-layout">
+
+    <div id="sidetoc"></div>
+
+    <main class="catalog-content">
+
+      <section class="program-section" id="221_156_02">
+        <h2 class="map-keep">Pre-Nursing</h2>
+        <p class="course-meta map-keep">
+          Program: Pre-Nursing<br>
+          Award: Career Studies Certificate<br>
+          Plan Code: 221-156-02<br>
+          CIP Code: 51.3801<br>
+          Length: Twenty-seven (27) credit hours<br>
+          Location: Franklin, Suffolk<br>
+          G3: Approved for G3<br>
+          Lead Faculty: [name omitted]
+        </p>
+<em style="color:red;">Effective Spring 2027, HLT 143 (Medical Terminology I) replaces PHI 220 (Ethics) in the Pre-Nursing Career Studies Certificate.</em>
+        <h3>Purpose</h3>
+        <p>The Pre-Nursing Career Studies Certificate offers foundational courses from the AAA in nursing curriculum and the nurse aide courses to prepare students for entry into the Nursing Program. Although completion of the certificate does not guarantee admission to the Nursing Program, the career studies certificate provides a curriculum that accurately reflects the intentions and goals of the students enrolled. This option includes most of the courses within the Nursing Curriculum that can be completed prior to Nursing Program admission. At the completion of this certificate program the student is eligible to sit for the Virginia Board of Nursing Nurse Aide Certification Exam.</p>
+
+        <p><strong>Occupational Objectives:</strong> Nursing Profession</p>
+
+        <p><strong>Admission Requirements:</strong> Students must meet the general admission requirements established by the College.</p>
+        <p>Students who apply to Phlebotomy, Nurse Aide, Practical Nursing, or Registered Nursing, must take any developmental courses recommended in the evaluation of direct enrollment. All new students will complete the advising questionnaire to determine which English and Math class would be appropriate to both assist and guide the prospective student. Direct Enrollment English placement is based on high school GPA, GED, or SAT scoring. Direct Enrollment Math placement is based on GPA, GED, or SAT scoring, along with highest level math taken in high school.</p>
+        <p>Pre-nursing and nurse aide students must be ENG 111 ready with a 2.5 GPA. Practical Nursing students must be ENG 111 ready, MTH 154 + MDE 54 ready with a 2.5 GPA. Registered Nursing and Advanced Placement, students must have completed ENG 111 and MTH 154 or equivalent.</p>
+
+        <p><strong>High School Prerequisites:</strong> Prerequisites needed prior to nursing program admission include one year each of algebra, chemistry, and general biology, or the equivalent of the high school course in an accredited college or university. These courses must be completed with a minimum grade of &ldquo;C&rdquo; or &ldquo;S&rdquo; as appropriate. If a student has not completed high school courses, Camp offers CHEM 1, MTH 154, and BIO 101. Students would need to obtain a grade of a &ldquo;C&rdquo; or higher in these courses.</p>
+
+        <div class="program-map map-keep">
+          <div class="table-scroll">
+            <table>
+              <caption>Pre-Nursing (221-156-02): Required Courses and Credits, Sample Schedule</caption>
+              <thead>
+                <tr><th>Course</th><th>Description</th><th>Credits</th></tr>
+              </thead>
+              <tbody>
+                <tr><th colspan="3" scope="rowgroup">First Semester</th></tr>
+                <tr><td>HLT 143</td><td>Medical Terminology</td><td>3</td></tr>
+                <tr><td>SDV 100 or equivalent</td><td>Student Development</td><td>1</td></tr>
+                <tr><td>ENG 111</td><td>College Composition I</td><td>3</td></tr>
+                <tr><td>BIO 141</td><td>Human Anatomy and Physiology</td><td>4</td></tr>
+                <tr><td>EMT 109/HLT 105</td><td>AHA Healthcare Provider CPR</td><td>1</td></tr>
+                <tr><td colspan="2"><strong>Total Semester Credits</strong></td><td><strong>12</strong></td></tr>
+
+                <tr><th colspan="3" scope="rowgroup">Second Semester</th></tr>
+                <tr><td>ENG 112</td><td>College Composition II</td><td>3</td></tr>
+                <tr><td>HCT 101*</td><td>Health Care Technician I (first 8 wks)</td><td>4</td></tr>
+                <tr><td>HCT 102*</td><td>Health Care Technician II (second 8 wks)</td><td>4</td></tr>
+                <tr><td>BIO 142</td><td>Human A &amp; P II</td><td>4</td></tr>
+                <tr><td colspan="2"><strong>Total Semester Credits</strong></td><td><strong>15</strong></td></tr>
+                <tr><td colspan="2"><strong>Total Required Credits</strong></td><td><strong>27</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="course-outline">*Apply to Nurse Aide classes. All fees affiliated with the Nurse Aide courses (HCT 101 and HCT 102) apply.</p>
+        </div>
+
+        <div class="print-button-wrapper no-print">
+          <button type="button" class="btn" onclick="printProgramMap('221_156_02')">Print Program Map</button>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+<script src="include.js"></script>
+<script>
+function printProgramMap(sectionId) {
+  document.querySelectorAll('.program-section').forEach(function (el) {
+    el.classList.remove('print-target', 'map-keep');
+  });
+  if (sectionId) {
+    var target = document.getElementById(sectionId);
+    if (target) target.classList.add('print-target', 'map-keep');
+  }
+  document.body.classList.add('print-map-only');
+  window.print();
+}
+window.addEventListener('afterprint', function () {
+  document.body.classList.remove('print-map-only');
+  document.querySelectorAll('.program-section').forEach(function (el) {
+    el.classList.remove('print-target', 'map-keep');
+  });
+});
+</script>
+</body>
+</html>
